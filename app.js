@@ -17,13 +17,13 @@ var connection = mysql.createConnection({
     port     : 3306,
     database : 'coconut'
 });
-*/
+
 
 var connection = mysql.createConnection(config);
 
 connection.connect();
 
-/*
+
 connection.query("INSERT INTO `user` (`name`, `id`, `password`, `tell`, `addr`, `email`, `indi`) VALUES ('마민기3', 'ma03', 'j789249', '01074859012', '경기도', 'ma03@gmail.com', '0')", function(err, rows, fields) {
     if (!err)
         console.log('The solution is: ', rows);
@@ -59,4 +59,4 @@ app.listen(port, function(){
     console.log("server started on port "+port);
 });
 
-connection.end();
+//connection.end();
