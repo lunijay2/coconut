@@ -1,7 +1,6 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
-    <h1>{{name}}</h1>
+    <h1>{{ msg }} aaaaaa</h1>
     <p>
       For a guide and recipes on how to configure / customize this project,<br>
       check out the
@@ -33,7 +32,7 @@
 
 <script>
 export default {
-  name: 'HelloWorld1',
+  name: 'HelloWorld',
   props: {
     msg: String
   }

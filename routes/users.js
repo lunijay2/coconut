@@ -41,20 +41,20 @@ router.post('/register', (req, res, next) => {
         connection.release(); //쿼리가 성공하던 실패하던 커넥션을 반환해야 함
     });
 
-    //우리가 하던 DB연결 - 쿼리 수행
-    /*
-    getConnection().query(statement, function(err, rows, fields) {
-        if (!err) {
-            res.json({success: true, msg: 'User registed'});
-            console.log('The solution is: ', rows);
-        } else {
-            connection.rollback(function () {
-                console.error('rollback error1');
-            })
-            res.json({success: false, msg: 'Failed to register user'});
-            console.log('Error while performing Query.', err);
-        }
-    }); */
+//우리가 하던 DB연결 - 쿼리 수행
+/*
+getConnection().query(statement, function(err, rows, fields) {
+    if (!err) {
+        res.json({success: true, msg: 'User registed'});
+        console.log('The solution is: ', rows);
+    } else {
+        connection.rollback(function () {
+            console.error('rollback error1');
+        })
+        res.json({success: false, msg: 'Failed to register user'});
+        console.log('Error while performing Query.', err);
+    }
+}); */
 });
 
 // Authenticate
