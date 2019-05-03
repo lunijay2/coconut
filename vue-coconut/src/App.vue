@@ -2,19 +2,28 @@
   <div id="app">
     <Navbar></Navbar>
     <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="1111Welcome to Your Vue.js App"/>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
 import Navbar from "./components/Navbar";
+import Login from "./components/Login";
+import VueRouter from 'vue-router';
+
+const router = new VueRouter({
+  mode: 'history',
+  routes : [
+    {path:'/login', component : Login}
+  ]
+})
 
 export default {
   name: 'app',
+  router,
   components: {
     Navbar,
-    HelloWorld
+    Login,
   }
 }
 

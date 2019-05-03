@@ -1,11 +1,10 @@
 <template>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="/">SM PAY</a>
+            <router-link to="/" class="navbar-brand">COCONUT</router-link>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-
             <div class="collapse navbar-collapse" id="navbarsExampleDefault">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
@@ -21,10 +20,9 @@
                         <a class="nav-link">상품 등록 </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link">로그인 </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link">회원가입</a>
+                        <router-link to="/Login" class="nav-link">
+                            회원가입
+                        </router-link>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">로그아웃</a>
@@ -38,9 +36,10 @@
     </nav>
 </template>
 
+
 <script>
     export default {
-        name: "Navbar"
+        name: 'Navbar'
     }
 </script>
 
