@@ -8,13 +8,13 @@ const config = require('../config/database');
 // Register
 router.post('/register', (req, res, next) => {
     let newUser = {
-        //name: req.body.name,
+        name: req.body.name,
         id: req.body.id,
         password: req.body.password,
-        //tell: req.body.tell,
-        //addr: req.body.addr,
+        tell: req.body.tell,
+        addr: req.body.addr,
         email: req.body.email,
-        //indi: req.body.indi
+        indi: req.body.indi
     }
 
     //var connection = mysql.createConnection(config); //기존 DB 연결시 필요한 코드
