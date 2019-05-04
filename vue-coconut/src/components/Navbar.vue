@@ -7,28 +7,22 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarsExampleDefault">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link">모바일 결제 </a>
-                    </li>
+
                     <li class="nav-item">
                         <a class="nav-link">마이 페이지 </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link">상점 </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link">상품 등록 </a>
-                    </li>
-                    <li class="nav-item">
-                        <router-link to="/Login" class="nav-link">
+                        <router-link to="/ChoiceMemberType" class="nav-link">
                             회원가입
                         </router-link>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">로그아웃</a>
+                        <router-link to="/Login" class="nav-link">
+                            로그인
+                        </router-link>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link">인증서 발급 </a>
+                        <a class="nav-link" href="#">로그아웃</a>
                     </li>
                 </ul>
             </div>

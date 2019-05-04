@@ -9,12 +9,21 @@
 <script>
 import Navbar from "./components/Navbar";
 import Login from "./components/Login";
+import ChoiceMemberType from "./components/ChoiceMemberType";
 import VueRouter from 'vue-router';
+import RegisterIndivisual from "./components/RegisterIndivisual";
+import RegisterEnterpriseBuyer from "./components/RegisterEnterpriseBuyer";
+import RegisterEnterpriseSeller from "./components/RegisterEnterpriseSeller";
+
 
 const router = new VueRouter({
   mode: 'history',
   routes : [
-    {path:'/login', component : Login}
+    {path:'/Login', component : Login},
+    {path:'/ChoiceMemberType', component : ChoiceMemberType},
+    {path:'/RegisterIndivisual', component : RegisterIndivisual},
+    {path:'/RegisterEnterpriseBuyer', component : RegisterEnterpriseBuyer},
+    {path:'/RegisterEnterpriseSeller', component : RegisterEnterpriseSeller}
   ]
 })
 
@@ -24,6 +33,10 @@ export default {
   components: {
     Navbar,
     Login,
+    ChoiceMemberType,
+    RegisterIndivisual,
+    RegisterEnterpriseBuyer,
+    RegisterEnterpriseSeller
   }
 }
 
