@@ -2,6 +2,7 @@
   <div id="app">
     <Navbar></Navbar>
     <img alt="Vue logo" src="./assets/logo.png">
+    <flash-message></flash-message>
     <router-view></router-view>
   </div>
 </template>

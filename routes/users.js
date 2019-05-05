@@ -58,8 +58,43 @@ getConnection().query(statement, function(err, rows, fields) {
 });
 
 // Authenticate
-router.get('/authenticate', (req, res, next) => {
-    res.send('인증');
+router.post('/authenticate', (req, res, next) => {
+    const id = req.body.id;
+    const password = req.body.password;
+
+    console.log(id);
+    console.log(password);
+    //let statement = "SELECT * FROM user";
+    let statement = "SELECT * FROM user WHERE id='" + id + "';";
+
+    //해당 유저가 존재하는지 DB에 쿼리로 확인
+    pool.getConnection(function (err, connection) {
+        if(!err){
+            connection.query(statement, function(err, rows, fields) {
+                if(err) {
+                    console.log(err);
+                    throw err;
+                }
+                if (!rows) {
+                    console.log("User not found");
+                    res.json({success: false, msg: 'User not found'});
+                }
+                console.log("User found");
+                if (rows[0].password == password) {
+                    console.log("비밀번호 일치");
+                    console.log("로그인 성공");
+                    //console.log(rows);
+                    res.json({success: true, user:rows[0]});
+                }
+            });
+        }
+        else {
+            console.log("errr");
+            res.json({success: false, msg: 'failed'});
+        }
+        connection.release();
+    });
+
 });
 
 // Profile

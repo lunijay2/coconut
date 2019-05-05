@@ -11,6 +11,7 @@
     "axios": "^0.18.0",
     "core-js": "^2.6.5",
     "vue": "^2.6.10",
+    "vue-flash-message": "^0.7.2",
     "vue-router": "^3.0.6"
   },
   "devDependencies": {
