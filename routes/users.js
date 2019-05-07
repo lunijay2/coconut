@@ -11,7 +11,7 @@ router.post('/register', (req, res, next) => {
         name: req.body.name,
         id: req.body.id,
         password: req.body.password,
-        tell: req.body.tell,
+        tel: req.body.tel,
         addr: req.body.addr,
         email: req.body.email,
         indi: req.body.indi
@@ -20,7 +20,7 @@ router.post('/register', (req, res, next) => {
     //var connection = mysql.createConnection(config); //기존 DB 연결시 필요한 코드
     //connection.connect();
 
-    let statement = "INSERT INTO user (name, id, password, tell, addr, email, indi) VALUES ('" + newUser.name + "', '" + newUser.id + "', '" + newUser.password + "', '" + newUser.tell + "', '" + newUser.addr + "', '" + newUser.email + "', " + newUser.indi + ");";
+    let statement = "INSERT INTO user (name, id, password, tel, addr, email, indi) VALUES ('" + newUser.name + "', '" + newUser.id + "', '" + newUser.password + "', '" + newUser.tel + "', '" + newUser.addr + "', '" + newUser.email + "', " + newUser.indi + ");";
 
     //정석적인 DB연결 - 쿼리 수행
     pool.getConnection(function (err, connection) {
