@@ -57,6 +57,56 @@ getConnection().query(statement, function(err, rows, fields) {
 }); */
 });
 
+// RegisterEnt
+router.post('/registerEnt', (req, res, next) => {
+    let newUser = {
+        name: req.body.name,
+        id: req.body.id,
+        password: req.body.password,
+        tel: req.body.tel,
+        addr: req.body.addr,
+        email: req.body.email,
+        indi: req.body.indi,
+        crn: req.body.crn,
+        company: req.body.company,
+        seller: req.body.seller
+    }
+
+    console.log(newUser);
+
+    let statement = "INSERT INTO user (name, id, password, tel, addr, email, indi) VALUES ('" + newUser.name + "', '" + newUser.id + "', '" + newUser.password + "', '" + newUser.tel + "', '" + newUser.addr + "', '" + newUser.email + "', " + newUser.indi + ");";
+
+    pool.getConnection(function(err, connection) {
+        if (!err) {
+            connection.query(statement, function(err, rows, fields) {
+                if (!err) {
+                    let statementBuyer = "INSERT INTO ent (crn, company, seller) VALUES ('" + newUser.crn + "', '" + newUser.company + "', " + newUser.seller + ");";
+                    connection.query(statementBuyer, function(err, rows, fields) {
+                        if (!err) {
+                            console.log('EntUser registed');
+                            res.json({ success: true, msg: 'EntUser registed' });
+                        } else {
+                            connection.rollback(function() { //쿼리가 에러로 실패하면 롤백해야 함
+                                console.error('rollback error2');
+                            });
+                            res.json({ success: false, msg: 'Failed to register EntUser' });
+                            console.log('Error while performing Query.', err);
+                        }
+                    });
+                    console.log('The solution is: ', rows);
+                } else {
+                    connection.rollback(function() { //쿼리가 에러로 실패하면 롤백해야 함
+                        console.error('rollback error1');
+                    });
+                    res.json({ success: false, msg: 'Failed to register user' });
+                    console.log('Error while performing Query.', err);
+                }
+            });
+        }
+        connection.release(); //쿼리가 성공하던 실패하던 커넥션을 반환해야 함
+    });
+});
+
 // Authenticate
 router.post('/authenticate', (req, res, next) => {
     const id = req.body.id;

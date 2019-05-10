@@ -48,9 +48,16 @@
             newUserSubmit : function () {
                 this.$axios.post('http://localhost:3000/users/register', this.newUser )
                     .then((response) => {
-                        console.log(response);
-                    }). catch((ex)=>{
-                    console.log("Error! : ", response);
+                        if(response.data.success == true) {
+                            alert('개인회원 가입 성공');
+                            console.log('개인회원 가입 성공');
+                        } else {
+                            alert('개인회원 가입 실패(에러없음)');
+                            console.log('개인회원 가입 실패(에러없음)')
+                        }
+                    }). catch((err) => {
+                        console.log("Error! : ", err);
+                        console.log('개인회원 가입 실패');
                 })
             }
         }
