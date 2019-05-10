@@ -28,7 +28,7 @@ router.post('/register', (req, res, next) => {
             connection.query(statement, function(err, rows, fields) {
                 if (!err) {
                     res.json({success: true, msg: 'User registed'});
-                    console.log('The solution is: ', rows);
+                    //console.log('The solution is: ', rows);
                 } else {
                     connection.rollback(function (){ //쿼리가 에러로 실패하면 롤백해야 함
                         console.error('rollback error1');
@@ -38,6 +38,7 @@ router.post('/register', (req, res, next) => {
                 }
             });
         }
+        console.log(connection);
         connection.release(); //쿼리가 성공하던 실패하던 커넥션을 반환해야 함
     });
 
@@ -66,6 +67,7 @@ router.post('/authenticate', (req, res, next) => {
     console.log(password);
     //let statement = "SELECT * FROM user";
     let statement = "SELECT * FROM user WHERE id='" + id + "';";
+    console.log(statement);
 
     //해당 유저가 존재하는지 DB에 쿼리로 확인
     pool.getConnection(function (err, connection) {
@@ -83,7 +85,8 @@ router.post('/authenticate', (req, res, next) => {
                 if (rows[0].password == password) {
                     console.log("비밀번호 일치");
                     console.log("로그인 성공");
-                    //console.log(rows);
+                    console.log(rows[0].password);
+                    console.log(password);
                     res.json({success: true, user:rows[0]});
                 }
             });
