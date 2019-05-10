@@ -1,7 +1,8 @@
 <template>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
         <div class="container">
-            <router-link to="/" class="navbar-brand">COCONUT</router-link>
+            <router-link to="/" class="navbar-brand"><img src="./coconut.png" style="width:35px"></router-link>
+
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -9,7 +10,10 @@
                 <ul class="navbar-nav ml-auto">
 
                     <li class="nav-item">
-                        <a class="nav-link">마이 페이지 </a>
+                        <router-link to="/MyPage" class="nav-link">
+                            마이페이지
+                        </router-link>
+
                     </li>
                     <li class="nav-item">
                         <router-link to="/ChoiceMemberType" class="nav-link">
