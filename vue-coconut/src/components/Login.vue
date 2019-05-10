@@ -50,8 +50,7 @@
                             alert('로그인 성공');
                             console.log('로그인 성공');
                         }
-                    }). catch( err => {
-                        console.log("응답 : " + response);
+                    }). catch((err) => {
                         console.log("Error! : ", err);
                         console.log('로그인 실패');
                     })
