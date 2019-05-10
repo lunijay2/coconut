@@ -13,7 +13,7 @@
                 <br><br>
                 <input type="text" v-model="newUser.name" class="form-control" placeholder="이름">
                 <br>
-                <input type="text" v-model="newUser.tell" class="form-control" placeholder="전화번호">
+                <input type="text" v-model="newUser.tel" class="form-control" placeholder="전화번호">
                 <br>
                 <input type="text" v-model="newUser.addr" class="form-control" placeholder="주소">
                 <br>
@@ -27,7 +27,7 @@
 </template>
 
 <script>
-    var indi = 0;
+    var indi = 1;
 
     export default {
         name: "RegisterIndivisual",
@@ -37,7 +37,7 @@
                     id: '',
                     password: '',
                     name: '',
-                    tell: '',
+                    tel: '',
                     addr: '',
                     email: '',
                     indi: indi

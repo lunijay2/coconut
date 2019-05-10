@@ -9,6 +9,7 @@ const config = require('./config/database');
 
 const app = express();
 
+
 /*
 var connection = mysql.createConnection({
     host     : 'localhost',

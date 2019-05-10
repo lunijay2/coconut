@@ -50,9 +50,9 @@
                             console.log('로그인 성공');
                         }
                     }). catch( err => {
-                        console.log("Error! : ", err);
-                        console.log('로그인 실패');
-                    })
+                    console.log("Error! : ", err);
+                    console.log('로그인 실패');
+                })
             }
         }
     }

@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Navbar></Navbar>
-    <img alt="Vue logo" src="./assets/logo.png">
+    <img alt="Vue logo" src="./assets/coconut.svg">
     <!--<flash-message></flash-message>-->
     <router-view></router-view>
   </div>
@@ -18,6 +18,7 @@
   import RegisterIndivisual from "./components/RegisterIndivisual";
   import RegisterEnterpriseBuyer from "./components/RegisterEnterpriseBuyer";
   import RegisterEnterpriseSeller from "./components/RegisterEnterpriseSeller";
+  import MyPage from "./components/MyPage";
 
 
   const router = new VueRouter({
@@ -27,7 +28,8 @@
       {path:'/ChoiceMemberType', component : ChoiceMemberType},
       {path:'/RegisterIndivisual', component : RegisterIndivisual},
       {path:'/RegisterEnterpriseBuyer', component : RegisterEnterpriseBuyer},
-      {path:'/RegisterEnterpriseSeller', component : RegisterEnterpriseSeller}
+      {path:'/RegisterEnterpriseSeller', component : RegisterEnterpriseSeller},
+      {path:'/MyPage', component : MyPage}
     ]
   })
 
@@ -51,4 +53,5 @@
     color: #2c3e50;
     margin-top: 60px;
   }
+
 </style>
