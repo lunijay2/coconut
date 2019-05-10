@@ -5,7 +5,7 @@ import axios from 'axios'
 //import VueFlashMessage from 'vue-flash-message';
 
 Vue.prototype.$axios = axios;
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
 Vue.use(VueRouter);
 //Vue.use(VueFlashMessage);
