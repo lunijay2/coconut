@@ -46,13 +46,18 @@
 
                 this.$axios.post('http://localhost:3000/users/authenticate', User )
                     .then((response) => {
-                        if(response.success == true) {
+                        console.log(response);
+                        if(response.data.success == true) {
+                            alert('로그인 성공');
                             console.log('로그인 성공');
+                        } else {
+                            alert('로그인 실패(에러없음)');
+                            console.log('로그인 실패(에러없음)')
                         }
-                    }). catch( err => {
-                    console.log("Error! : ", err);
-                    console.log('로그인 실패');
-                })
+                    }). catch((err) => {
+                        console.log("Error! : ", err);
+                        console.log('로그인 실패');
+                    })
             }
         }
     }

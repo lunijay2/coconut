@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-md-3"></div>
         <div class="col-md-6">
-            <h2>기업 판매 회원가입</h2>
+            <h2>사업자 판매 회원가입입니다</h2>
             <br><br>
             <form @submit="newSellerSubmit">
 
@@ -19,14 +19,11 @@
                 <input type="text" v-model="newSeller.addr" class="form-control" placeholder="주소">
                 <br>
                 <input type="text" v-model="newSeller.email" class="form-control" placeholder="이메일 abc@example.com">
-                <br><br>
-
-                <input type="text" v-model="newSeller.crn" class="form-control" placeholder="사업자 등록 번호">
-                <small id="crnHelp" class="form-text text-muted float-left">10글자</small>
                 <br>
+                <input type="text" v-model="newSeller.crn" class="form-control" placeholder="사업자 등록 번호">
+                <small id="crnHelp" class="form-text text-muted float-left">사업자 번호 10자리를 입력해주세요</small>
+                <br><br>
                 <input type="text" v-model="newSeller.company" class="form-control" placeholder="회사이름">
-
-
                 <br><br>
                 <button type="submit" class="btn btn-primary">회원가입</button>
             </form>
@@ -58,11 +55,18 @@
         },
         methods : {
             newSellerSubmit : function () {
-                this.$axios.post('http://localhost:3000/users/registerSeller', this.newSeller )
+                this.$axios.post('http://localhost:3000/users/registerEnt', this.newSeller )
                     .then((response) => {
-                        console.log(response);
-                    }). catch((ex)=>{
-                    console.log("Error! : ", response);
+                        if(response.data.success == true) {
+                            alert('사업자 판매회원 가입 성공');
+                            console.log('사업자 판매회원 가입 성공');
+                        } else {
+                            alert('사업자 판매회원 가입 실패(에러없음)');
+                            console.log('사업자 판매회원 가입 실패(에러없음)')
+                        }
+                    }). catch((err) => {
+                    console.log("Error! : ", err);
+                    console.log('사업자 판매회원 가입 실패');
                 })
             }
         }

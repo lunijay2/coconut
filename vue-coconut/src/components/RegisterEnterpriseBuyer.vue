@@ -1,22 +1,3 @@
-<!--
-<template>
-    <div>
-        <h2>사업자 구매 회원 가입입니다</h2>
-    </div>
-</template>
-
-<script>
-    export default {
-        name: "RegisterEnterpriseBuyer"
-    }
-</script>
-
-<style scoped>
-
-</style>
-
- -->
-
 <template>
     <div class="row">
         <div class="col-md-3"></div>
@@ -38,7 +19,7 @@
                 <br>
                 <input type="text" v-model="newUser.email" class="form-control" placeholder="이메일 abc@example.com">
                 <br>
-                
+
                 <input type="number" v-model="newUser.crn" class="form-control" placeholder="사업자 등록번호">
                 <small id="crnHelp" class="form-text text-muted float-left">사업자 번호 10자리를 입력해주세요.</small>
                 <br><br>
@@ -76,9 +57,16 @@
             newUserSubmit : function () {
                 this.$axios.post('http://localhost:3000/users/registerEnt', this.newUser )
                     .then((response) => {
-                        console.log(response);
-                    }). catch((ex)=>{
-                    console.log("Error! : ", response);
+                        if(response.data.success == true) {
+                            alert('사업자 구매회원 가입 성공');
+                            console.log('사업자 구매회원 가입 성공');
+                        } else {
+                            alert('사업자 구매회원 가입 실패(에러없음)');
+                            console.log('사업자 구매회원 가입 실패(에러없음)')
+                        }
+                    }). catch((err) => {
+                    console.log("Error! : ", err);
+                    console.log('사업자 구매회원 가입 실패');
                 })
             }
         }

@@ -11,13 +11,16 @@ router.post('/register', (req, res, next) => {
         name: req.body.name,
         id: req.body.id,
         password: req.body.password,
-        tel: req.body.tel,
+        tell: req.body.tell,
         addr: req.body.addr,
         email: req.body.email,
         indi: req.body.indi
     }
 
-    let statement = "INSERT INTO user (name, id, password, tel, addr, email, indi) VALUES ('" + newUser.name + "', '" + newUser.id + "', '" + newUser.password + "', '" + newUser.tel + "', '" + newUser.addr + "', '" + newUser.email + "', " + newUser.indi + ");";
+    //var connection = mysql.createConnection(config); //기존 DB 연결시 필요한 코드
+    //connection.connect();
+
+    let statement = "INSERT INTO user (name, id, password, tell, addr, email, indi) VALUES ('" + newUser.name + "', '" + newUser.id + "', '" + newUser.password + "', '" + newUser.tell + "', '" + newUser.addr + "', '" + newUser.email + "', " + newUser.indi + ");";
 
     //정석적인 DB연결 - 쿼리 수행
     pool.getConnection(function (err, connection) {
@@ -37,50 +40,65 @@ router.post('/register', (req, res, next) => {
         }
         connection.release(); //쿼리가 성공하던 실패하던 커넥션을 반환해야 함
     });
+
+//우리가 하던 DB연결 - 쿼리 수행
+/*
+getConnection().query(statement, function(err, rows, fields) {
+    if (!err) {
+        res.json({success: true, msg: 'User registed'});
+        console.log('The solution is: ', rows);
+    } else {
+        connection.rollback(function () {
+            console.error('rollback error1');
+        })
+        res.json({success: false, msg: 'Failed to register user'});
+        console.log('Error while performing Query.', err);
+    }
+}); */
 });
 
-
-router.post('/registerSeller', (req, res, next) => {
-    let newSeller = {
+// RegisterEnt
+router.post('/registerEnt', (req, res, next) => {
+    let newUser = {
         name: req.body.name,
         id: req.body.id,
         password: req.body.password,
         tel: req.body.tel,
         addr: req.body.addr,
         email: req.body.email,
+        indi: req.body.indi,
         crn: req.body.crn,
         company: req.body.company,
-        indi: req.body.indi,
         seller: req.body.seller
     }
 
-    let statement = "INSERT INTO user (name, id, password, tel, addr, email, indi) VALUES ('" + newSeller.name + "', '" + newSeller.id + "', '" + newSeller.password + "', '" + newSeller.tel + "', '" + newSeller.addr + "', '" + newSeller.email + "', " + newSeller.indi + ");";
-    let statementSeller = "INSERT INTO ent (crn, company, seller) VALUES ('" + newSeller.crn + "', '" + newSeller.company + "', " + newSeller.seller + ");";
+    console.log(newUser);
 
-    //정석적인 DB연결 - 쿼리 수행
-    pool.getConnection(function (err, connection) {
-        if(!err){
+    let statement = "INSERT INTO user (name, id, password, tel, addr, email, indi) VALUES ('" + newUser.name + "', '" + newUser.id + "', '" + newUser.password + "', '" + newUser.tel + "', '" + newUser.addr + "', '" + newUser.email + "', " + newUser.indi + ");";
+
+    pool.getConnection(function(err, connection) {
+        if (!err) {
             connection.query(statement, function(err, rows, fields) {
                 if (!err) {
-                    connection.query(statementSeller, function(err, rows, fields) {
+                    let statementBuyer = "INSERT INTO ent (crn, company, seller) VALUES ('" + newUser.crn + "', '" + newUser.company + "', " + newUser.seller + ");";
+                    connection.query(statementBuyer, function(err, rows, fields) {
                         if (!err) {
-                            res.json({success: true, msg: 'seller User registed'});
-                            console.log('The solution is: ', rows);
-                        }
-                        else {
-                            connection.rollback(function () { //쿼리가 에러로 실패하면 롤백해야 함
+                            console.log('EntUser registed');
+                            res.json({ success: true, msg: 'EntUser registed' });
+                        } else {
+                            connection.rollback(function() { //쿼리가 에러로 실패하면 롤백해야 함
                                 console.error('rollback error2');
                             });
-                            res.json({success: false, msg: 'Failed to register seller user'});
+                            res.json({ success: false, msg: 'Failed to register EntUser' });
                             console.log('Error while performing Query.', err);
                         }
                     });
-                }
-                else {
-                    connection.rollback(function (){ //쿼리가 에러로 실패하면 롤백해야 함
+                    console.log('The solution is: ', rows);
+                } else {
+                    connection.rollback(function() { //쿼리가 에러로 실패하면 롤백해야 함
                         console.error('rollback error1');
                     });
-                    res.json({success: false, msg: 'Failed to register user'});
+                    res.json({ success: false, msg: 'Failed to register user' });
                     console.log('Error while performing Query.', err);
                 }
             });
@@ -88,8 +106,6 @@ router.post('/registerSeller', (req, res, next) => {
         connection.release(); //쿼리가 성공하던 실패하던 커넥션을 반환해야 함
     });
 });
-
-
 
 // Authenticate
 router.post('/authenticate', (req, res, next) => {
@@ -143,6 +159,9 @@ router.get('/validate', (req, res, next) => {
 
 var pool = mysql.createPool(config); //연결에 대한 풀을 만든다. 기본값은 10개
 
-
+//디비 연결 함수
+//function getConnection(){
+//    return pool
+//}
 
 module.exports = router;
