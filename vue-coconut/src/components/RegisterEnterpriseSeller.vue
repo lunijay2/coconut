@@ -55,7 +55,8 @@
         },
         methods : {
             newSellerSubmit : function () {
-                this.$axios.post('http://localhost:3000/users/registerEnt', this.newSeller )
+                //this.$axios.post('http://localhost:3000/users/registerEnt', this.newSeller )
+                this.$axios.post('/users/registerEnt', this.newSeller )
                     .then((response) => {
                         if(response.data.success == true) {
                             alert('사업자 판매회원 가입 성공');
