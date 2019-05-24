@@ -52,9 +52,7 @@ app.use(bodyparser.json());
 
 app.use('/users', users);
 
-app.get('/', (req, res)=>{
-    res.send('<h1>서비스 준비중...</h1>');
-});
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Start server
 app.listen(port, function(){
