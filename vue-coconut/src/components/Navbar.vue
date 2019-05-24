@@ -8,12 +8,10 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarsExampleDefault">
                 <ul class="navbar-nav ml-auto">
-
                     <li class="nav-item">
                         <router-link to="/MyPage" class="nav-link">
                             마이페이지
                         </router-link>
-
                     </li>
                     <li class="nav-item">
                         <router-link to="/ChoiceMemberType" class="nav-link">
@@ -26,7 +24,7 @@
                         </router-link>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">로그아웃</a>
+                        <a class="nav-link" href="#" @click.prevent="onLogoutClick">로그아웃</a>
                     </li>
                 </ul>
             </div>
@@ -36,8 +34,19 @@
 
 
 <script>
+    import router from 'vue-router';
+    import store from '../store'
+
     export default {
-        name: 'Navbar'
+        name: 'Navbar',
+        methods : {
+            onLogoutClick : function () {
+                store.dispatch('LOGOUT')
+                    .then( function () {
+                        router.push('/Home');
+                    })
+            }
+        }
     }
 </script>
 

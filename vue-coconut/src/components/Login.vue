@@ -25,6 +25,8 @@
 </template>
 
 <script>
+    import MyPage from "./MyPage";
+
     export default {
         name: 'Login',
 
@@ -44,20 +46,35 @@
                     return false;
                 }
 
-                this.$axios.post('http://localhost:3000/users/authenticate', User )
-                    .then((response) => {
-                        console.log(response);
-                        if(response.data.success == true) {
-                            alert('로그인 성공');
-                            console.log('로그인 성공');
-                        } else {
-                            alert('로그인 실패(에러없음)');
-                            console.log('로그인 실패(에러없음)')
-                        }
-                    }). catch((err) => {
+                /*
+                this.$store.dispatch('LOGIN', User)
+                    .then(function (response) {
+                        return this.$store.commit('LOGIN', response.data)
+                    })
+                    .then(function () {
+                        alert('로그인 성공');
+                        console.log('로그인 성공');
+                    })
+                    .catch( function (err) {
                         console.log("Error! : ", err);
                         console.log('로그인 실패');
+                    });
+                */
+
+                this.$axios.post('http://localhost:3000/users/authenticate', User )
+                    .then( response => {
+                        this.$store.commit('LOGIN', response.data)
                     })
+                    .then(function (data) {
+                        alert('로그인 성공');
+                    })
+                    .then(function () {
+                        return router.push({component : MyPage});
+                    })
+                    .catch( function(err) {
+                        console.log("Error! : ", err);
+                        console.log('로그인 실패');
+                    });
             }
         }
     }
