@@ -45,7 +45,7 @@ connection.query("SELECT * from user", function(err, rows, fields) {
 const port = process.env.PORT || 6000;
 
 // CORS Middleware
-app.use(cors());
+app.use(cors()); 
 
 // Body Parser Middleware
 app.use(bodyparser.json());
