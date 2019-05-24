@@ -1,6 +1,6 @@
 module.exports = {
-    host     : 'localhost',
-    user     : 'dba',
+    host     : 'db4free.net',
+    user     : 'coconut',
     password : 'jbis2019',
     port     : 3306,
     database : 'coconut',
