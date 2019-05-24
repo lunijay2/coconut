@@ -46,8 +46,8 @@
         },
         methods : {
             newUserSubmit : function () {
-                //this.$axios.post('http://localhost:3000/users/register', this.newUser )
-                this.$axios.post('/users/register', this.newUser )
+                this.$axios.post('http://localhost:3000/users/register', this.newUser )
+                //this.$axios.post('/users/register', this.newUser )
                     .then((response) => {
                         if(response.data.success == true) {
                             alert('개인회원 가입 성공');

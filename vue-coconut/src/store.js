@@ -4,7 +4,7 @@ import axios from 'axios'
 
 Vue.use(Vuex);
 
-//const resourceHost = 'http://localhost:3000'
+const resourceHost = 'http://localhost:3000'
 
 export default new Vuex.Store({
     state: {
@@ -33,8 +33,8 @@ export default new Vuex.Store({
     },
     actions: {
         LOGIN : function (context, payload) {
-            //return axios.post( resourceHost+'/users/authenticate', payload)
-            return axios.post( '/users/authenticate', payload)
+            return axios.post( resourceHost+'/users/authenticate', payload)
+            //return axios.post( '/users/authenticate', payload)
                 .then(function (data) {
                     return data;
                 });
