@@ -27,7 +27,7 @@ router.post('/register', (req, res, next) => {
                 newUser: newUser,
                 hash : resulthash
             };
-            return CreateQuery(newUserHash);    // CreateQuery함수에 newUserHash를 보내며 호출
+            return CreateRegisterQuery(newUserHash);    // CreateQuery함수에 newUserHash를 보내며 호출
         })
         .then( function(query) {    // CreateQuery함수에서 쿼리문을 반환
             return PoolGetConnection(query);    // PoolGetConnection에 쿼리문을 보냄
@@ -48,7 +48,7 @@ router.post('/register', (req, res, next) => {
             res.json({success: false, msg: 'Failed to register user'}); // 에러 캐치시 false반환
         })
         .then( function () {
-            return ReleaseConnection(connection);   // 결과값이 어떻든 커넥션은 반환되어야 한다
+            return ReleaseConnection( connectionQuery.connection );   // 결과값이 어떻든 커넥션은 반환되어야 한다
         })
         .catch(function (err) { //마지막으로 에러를 캐치
             console.log(err);
@@ -167,11 +167,41 @@ router.post('/registerEnt', (req, res, next) => {
 router.post('/authenticate', (req, res, next) => {
     const id = req.body.id;
     const password = req.body.password;
+    console.log("입력받은 id : " + id);
+    console.log("입력받은 password : " + password);
 
-    console.log(id);
-    console.log(password);
+    let ConnectionQuery;
+
+    CreateUserFoundQuery(id)
+        .then( function(query) {
+            return PoolGetConnection(query);
+})
+        .then(function ( connectionQuery ) {
+            ConnectionQuery = connectionQuery;
+            return ExecuteQuery(ConnectionQuery);
+        })
+        .then(function(rows) {
+            console.log("User Found Solutions is : " + rows[0]);
+            return BcryptCompare(password, rows[0] );
+        }, function(err) {
+            console.log("User Found err : " + err);
+        })
+        .then( function (isMatch) {
+            return CreateAuthToken(isMatch.user);
+        })
+        .then( function ( AuthToken ) {
+            return LoginComplete( res, AuthToken );
+        })
+        .catch(function (err) {
+            console.log(err);
+            res.json({success: false, msg: 'Failed to Login User'});
+        })
+        .finally( function () {
+            return ReleaseConnection( ConnectionQuery.connection );
+        });
+
+    /*
     //let statement = "SELECT * FROM user";
-    let statement = "SELECT * FROM user WHERE id='" + id + "';";
 
     //해당 유저가 존재하는지 DB에 쿼리로 확인
     pool.getConnection(function (err, connection) {
@@ -185,22 +215,58 @@ router.post('/authenticate', (req, res, next) => {
                     console.log("User not found");
                     res.json({success: false, msg: 'User not found'});
                 }
-                console.log("User found");
-                if (rows[0].password == password) {
-                    console.log("비밀번호 일치");
-                    console.log("로그인 성공");
-                    //console.log(rows);
-                    res.json({success: true, user:rows[0]});
+                else {
+                    console.log("User found");
+                    console.log(rows);
+
+                    bcrypt.compare(password, rows[0].password, function(err, isMatch) {
+                        if (err) throw err;
+                        if (isMatch) {
+                            console.log("비밀번호 일치");
+                            const ptoken = 'JWT '+jwt.sign(
+                                { data : rows[0] },     //데이터에 사용자 객체 넣음
+                                config.secret,      //database.js의 secret을 비밀키로 사용
+                                { expiresIn : 259200 }  //유효기간 3일
+                            );
+                            console.log("공개토큰값 : ", ptoken);
+
+                            const stoken = 'JWT '+jwt.sign(
+                                {data:ptoken},//내용에 공개토큰 넣음
+                                config.secret,//database.js의 secret을 비밀키로 사용
+                                {noTimestamp: true}//유효기간 무제한
+                            );
+                            console.log("비밀토큰값 : ", stoken);
+
+                            console.log("로그인 성공");
+                            res.json({
+                                success : true,
+                                user : {
+                                    name: rows[0].name,
+                                    id: rows[0].id,
+                                    tel: rows[0].tel,
+                                    addr: rows[0].addr,
+                                    email: rows[0].email,
+                                    indi: rows[0].indi
+                                },
+                                ptoken : ptoken,
+                                stoken : stoken
+                            });
+                        }
+                        else {
+                            console.log("로그인 실패");
+                            res.json({success: false, msg: 'Password not Match'});
+                        }
+                    });
                 }
             });
         }
         else {
-            console.log("errr");
+            console.log("err");
             res.json({success: false, msg: 'failed'});
         }
         connection.release();
     });
-
+    */
 });
 
 // Profile
@@ -214,11 +280,6 @@ router.get('/validate', (req, res, next) => {
 });
 
 var pool = mysql.createPool(config); //연결에 대한 풀을 만든다. 기본값은 10개
-
-//디비 연결 함수
-//function getConnection(){
-//    return pool
-//}
 
 function CreateSalt() {     //salt값을 생성하는 Promise 함수
     return new Promise( function (resolve, reject) {
@@ -248,13 +309,26 @@ function PasswordHash(salt, pass) {     //비밀번호를 해쉬화하는 Promis
     });
 }
 
-function CreateQuery(newUserHash) {     //유저 정보, 해쉬화된 비밀번호를 받아서 쿼리문을 작성하는 Promise 함수
+function CreateRegisterQuery(newUserHash) {     //유저 정보, 해쉬화된 비밀번호를 받아서 쿼리문을 작성하는 Promise 함수
     return new Promise( function (resolve, reject) {
         if(newUserHash) {
             let statement = "INSERT INTO user (name, id, password, tel, addr, email, indi) VALUES ('" + newUserHash.newUser.name + "', '" + newUserHash.newUser.id + "', '" + newUserHash.hash + "', '" + newUserHash.newUser.tel + "', '" + newUserHash.newUser.addr + "', '" + newUserHash.newUser.email + "', " + newUserHash.newUser.indi + ");";
             resolve(statement);
         } else {
-            console.log("CreateQuery err : "+err);
+            console.log("CreateRegisterQuery err : "+err);
+            reject(err);
+        }
+    });
+}
+
+function CreateUserFoundQuery(Userid) {     //유저 정보, 해쉬화된 비밀번호를 받아서 쿼리문을 작성하는 Promise 함수
+    return new Promise( function (resolve, reject) {
+        if(Userid) {
+            let statement = "SELECT * FROM user WHERE id='" + Userid + "';";
+            console.log("CreateUserFoundQuery : "+statement);
+            resolve(statement);
+        } else {
+            console.log("CreateUserFoundQuery err : "+err);
             reject(err);
         }
     });
@@ -267,7 +341,8 @@ function PoolGetConnection(query) {     //Pool에서 Connection을 가져오는 
                 var connectionQuery = {
                     connection : connection,
                     query : query
-                }
+                };
+                console.log("PoolGetConnection");
                 resolve(connectionQuery);
             } else {
                 console.log("PoolGetConnection err : "+err);
@@ -289,6 +364,74 @@ function ExecuteQuery(ConQue) {     // Connection과 쿼리문을 받아와서 �
             }
         });
     });
+}
+
+function BcryptCompare ( password, User ) {
+    return new Promise( function (resolve, reject) {
+
+        console.log("BcryptCompare가 받은 User : "+ User);
+
+        bcrypt.compare(password, User.password, function(err, isMatch) {
+           if (isMatch) {
+               console.log("BcryptCompare : "+ isMatch);
+               let isMatchUser = {
+                   result : isMatch,
+                   user : User
+               };
+               resolve(isMatchUser);
+           } else {
+               console.log("BcryptCompare err : "+ err);
+               reject(err);
+           }
+        });
+    });
+}
+
+function CreateAuthToken(User) {
+    return new Promise( function ( resolve ) {
+        const ptoken = 'JWT '+jwt.sign(
+            { data : User },
+            config.secret,
+            { expiresIn : 259200 }  //유효기간 3일
+        );
+        console.log("공개 토큰값 : ", ptoken);
+
+        const stoken = 'JWT '+jwt.sign(
+            { data : ptoken },
+            config.secret,
+            { noTimestamp : true } //유효기간 무제한
+        );
+        console.log("비밀 토큰값 : ", stoken);
+
+        let AuthToken = {
+            ptoken : ptoken,
+            stoken : stoken,
+            user : User
+        };
+
+        resolve(AuthToken);
+
+    })
+}
+
+function LoginComplete( res, AuthToken ) {
+    return new Promise( function () {
+        res.json({
+            success : true,
+            user : {
+                name: AuthToken.user.name,
+                id: AuthToken.user.id,
+                tel: AuthToken.user.tel,
+                addr: AuthToken.user.addr,
+                email: AuthToken.user.email,
+                indi: AuthToken.user.indi
+            },
+            ptoken : AuthToken.ptoken,
+            stoken : AuthToken.stoken
+        });
+        console.log('AuthToken name : '+ AuthToken.user.name);
+        console.log("User Login Complete");
+    })
 }
 
 function RegComplete(res) {     // 프론트 엔드에 Success : true값을 반환하는 Promise 함수
