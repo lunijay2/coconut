@@ -9,8 +9,33 @@ Vue.config.productionTip = false;
 
 Vue.use(VueRouter);
 
+import Home from "./components/Home";
+import Navbar from "./components/Navbar";
+import Login from "./components/Login";
+import ChoiceMemberType from "./components/ChoiceMemberType";
+import RegisterIndivisual from "./components/RegisterIndivisual";
+import RegisterEnterpriseBuyer from "./components/RegisterEnterpriseBuyer";
+import RegisterEnterpriseSeller from "./components/RegisterEnterpriseSeller";
+import MyPage from "./components/MyPage";
+import NotFound from "./components/NotFound";
+
+const router = new VueRouter({
+  mode: 'history',
+  routes : [
+    {path:'/', component : Home},
+    {path:'/Login', component : Login },
+    {path:'/Navbar', component : Navbar},
+    {path:'/ChoiceMemberType', component : ChoiceMemberType},
+    {path:'/RegisterIndivisual', component : RegisterIndivisual },
+    {path:'/RegisterEnterpriseBuyer', component : RegisterEnterpriseBuyer },
+    {path:'/RegisterEnterpriseSeller', component : RegisterEnterpriseSeller },
+    {path:'/MyPage', component : MyPage },
+    {path:'*', component: NotFound }
+  ]
+});
+
 new Vue({
   store,
-  VueRouter,
+  router,
   render: h => h(App),
 }).$mount('#app')

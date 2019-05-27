@@ -8,22 +8,22 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarsExampleDefault">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
+                    <li class="nav-item" v-if="this.$store.state.pToken">
                         <router-link to="/MyPage" class="nav-link">
                             마이페이지
                         </router-link>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" v-if="!this.$store.state.pToken">
                         <router-link to="/ChoiceMemberType" class="nav-link">
                             회원가입
                         </router-link>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" v-if="!this.$store.state.pToken">
                         <router-link to="/Login" class="nav-link">
                             로그인
                         </router-link>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" v-if="this.$store.state.pToken">
                         <a class="nav-link" href="#" @click.prevent="onLogoutClick">로그아웃</a>
                     </li>
                 </ul>
@@ -34,17 +34,16 @@
 
 
 <script>
-    import router from 'vue-router';
-    import store from '../store'
-
+    import vrouter from 'vue-router'
     export default {
         name: 'Navbar',
         methods : {
             onLogoutClick : function () {
-                store.dispatch('LOGOUT')
+                this.$store.dispatch('LOGOUT')
                     .then( function () {
-                        router.push('/Home');
-                    })
+                        location.reload();
+                        //this.$router.go({ path : '/Login' });
+                    });
             }
         }
     }

@@ -4,7 +4,6 @@
         <div class="col-md-6">
             <h2>개인 구매 회원가입</h2>
             <br><br>
-            <form @submit="newUserSubmit">
                 <input type="text" v-model="newUser.id" class="form-control" placeholder="아이디">
                 <small id="idHelp" class="form-text text-muted float-left">아이디는 6글자 이상이어야 합니다.</small>
                 <br><br>
@@ -19,8 +18,7 @@
                 <br>
                 <input type="text" v-model="newUser.email" class="form-control" placeholder="이메일 abc@example.com">
                 <br><br>
-                <button type="submit" class="btn btn-primary">회원가입</button>
-            </form>
+                <button @click="newUserSubmit" type="button" class="btn btn-primary">회원가입</button>
         </div>
         <div class="col-md-3"></div>
     </div>
@@ -52,6 +50,7 @@
                         if(response.data.success == true) {
                             alert('개인회원 가입 성공');
                             console.log('개인회원 가입 성공');
+                            this.$router.replace({ path : '/Login' });
                         } else {
                             alert('개인회원 가입 실패(에러없음)');
                             console.log('개인회원 가입 실패(에러없음)')

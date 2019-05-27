@@ -3,7 +3,6 @@
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6">
-                <form @submit="onLoginSubmit">
                     <div class="form-group row">
                         <label for="id" class="col-sm-2 col-form-label">아이디</label>
                         <div class="col-sm-10">
@@ -16,20 +15,15 @@
                         </div>
                     </div>
                     <br>
-                    <button type="submit" class="btn btn-primary">로그인</button>
-                </form>
+                    <button @click="onLoginSubmit" type="button" class="btn btn-primary">로그인</button>
             </div>
             <div class="col-md-3"></div>
         </div>
     </div>
 </template>
-
 <script>
-    import MyPage from "./MyPage";
-
     export default {
         name: 'Login',
-
         data(){
             return {
                 User : {
@@ -45,35 +39,18 @@
                 if ( !User.id || !User.password ) {
                     return false;
                 }
-
-                /*
                 this.$store.dispatch('LOGIN', User)
-                    .then(function (response) {
-                        return this.$store.commit('LOGIN', response.data)
-                    })
-                    .then(function () {
-                        alert('로그인 성공');
-                        console.log('로그인 성공');
-                    })
-                    .catch( function (err) {
-                        console.log("Error! : ", err);
-                        console.log('로그인 실패');
-                    });
-                */
-
-                this.$axios.post('http://localhost:3000/users/authenticate', User )
                     .then( response => {
-                        this.$store.commit('LOGIN', response.data)
+                        this.$store.commit('LOGIN', response);
                     })
-                    .then(function (data) {
+                    .then( res => {
+                        console.log('로그인 성공');
                         alert('로그인 성공');
+                        this.$router.replace({ path : '/' });
                     })
-                    .then(function () {
-                        return router.push({component : MyPage});
-                    })
-                    .catch( function(err) {
-                        console.log("Error! : ", err);
-                        console.log('로그인 실패');
+                    .catch( err => {
+                        console.log("Login Error! : ", err);
+                        return alert('로그인 실패' + err);
                     });
             }
         }

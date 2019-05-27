@@ -6,6 +6,9 @@ const mysql = require('mysql');
 const config = require('../config/database');
 const bcrypt = require('bcryptjs');
 
+const forge = require('node-forge');
+const fs = require('fs');
+
 // Register
 router.post('/register', (req, res, next) => {
     let newUser = {
@@ -16,7 +19,7 @@ router.post('/register', (req, res, next) => {
         addr: req.body.addr,
         email: req.body.email,
         indi: req.body.indi
-    }
+    };
 
     CreateSalt()        // Salt값 생성 함수 호출
         .then( function (resSalt) {   // CreateSalt 함수가 resSalt를 반환한 것을 받음
@@ -122,7 +125,7 @@ router.post('/registerEnt', (req, res, next) => {
         crn: req.body.crn,
         company: req.body.company,
         seller: req.body.seller
-    }
+    };
 
     console.log(newUser);
 
@@ -170,35 +173,27 @@ router.post('/authenticate', (req, res, next) => {
     console.log("입력받은 id : " + id);
     console.log("입력받은 password : " + password);
 
-    let ConnectionQuery;
-
     CreateUserFoundQuery(id)
-        .then( function(query) {
+        .then( query => {
             return PoolGetConnection(query);
-})
-        .then(function ( connectionQuery ) {
-            ConnectionQuery = connectionQuery;
-            return ExecuteQuery(ConnectionQuery);
         })
-        .then(function(rows) {
-            console.log("User Found Solutions is : " + rows[0]);
-            return BcryptCompare(password, rows[0] );
-        }, function(err) {
-            console.log("User Found err : " + err);
+        .then(connectionQuery => {
+            return ExecuteQuery(connectionQuery);
         })
-        .then( function (isMatch) {
+        .then(rows => {
+            console.log("User Found Solutions is : " + rows);
+            return BcryptCompare(password, rows);
+        })
+        .then( isMatch => {
             return CreateAuthToken(isMatch.user);
         })
-        .then( function ( AuthToken ) {
+        .then( AuthToken => {
             return LoginComplete( res, AuthToken );
         })
-        .catch(function (err) {
+        .catch(err => {
             console.log(err);
             res.json({success: false, msg: 'Failed to Login User'});
         })
-        .finally( function () {
-            return ReleaseConnection( ConnectionQuery.connection );
-        });
 
     /*
     //let statement = "SELECT * FROM user";
@@ -270,13 +265,34 @@ router.post('/authenticate', (req, res, next) => {
 });
 
 // Profile
-router.get('/profile', (req, res, next) => {
-    res.send('프로필');
+router.get('/profile', passport.authenticate("jwt", {session: false}), function(req, res) {
+
+    const ptoken = req.headers.authorization;
+    const currT = req.headers.ctime;
+    const auth = req.headers.auth;
+    delete req.user.password;
+    //console.log('delete pass : '+ JSON.stringify(req.user));
+
+    const stoken = 'JWT '+jwt.sign({data: ptoken}, config.secret, {
+        noTimestamp: true
+    });
+
+    var md = forge.md.sha256.create();
+    md.update(currT+stoken);
+    const auth2 = md.digest().toHex();
+    const serverTime = new Date().getTime();
+    const diff = serverTime - currT;
+    console.log('수신한 일회용 인증 : '+auth);
+    console.log('계산한 일회용 인증 : '+auth2);
+    console.log('시간 차이 : '+diff);
+    if(auth == auth2 && diff<100000){
+        res.json({user: req.user});
+    }
 });
 
 // Validate
 router.get('/validate', (req, res, next) => {
-    res.send('검증');
+    res.json('검증');
 });
 
 var pool = mysql.createPool(config); //연결에 대한 풀을 만든다. 기본값은 10개
@@ -336,13 +352,14 @@ function CreateUserFoundQuery(Userid) {     //유저 정보, 해쉬화된 비밀
 
 function PoolGetConnection(query) {     //Pool에서 Connection을 가져오는 Promise 함수
     return new Promise( function (resolve, reject) {
+        console.log("PoolGetConnection 1");
         pool.getConnection(function (err, connection) {
             if(connection){
                 var connectionQuery = {
                     connection : connection,
                     query : query
                 };
-                console.log("PoolGetConnection");
+                console.log("PoolGetConnection 2");
                 resolve(connectionQuery);
             } else {
                 console.log("PoolGetConnection err : "+err);
@@ -357,11 +374,12 @@ function ExecuteQuery(ConQue) {     // Connection과 쿼리문을 받아와서 �
         ConQue.connection.query(ConQue.query, function(err, rows, fields) {
             if (!err) {
                 console.log("ExecuteQuery : "+ rows[0] + rows[1]);
-                resolve(rows);
+                resolve(rows[0]);
             } else {
                 console.log("ExecuteQuery err : "+err);
                 reject(err);
             }
+            ConQue.connection.release();
         });
     });
 }
@@ -369,7 +387,7 @@ function ExecuteQuery(ConQue) {     // Connection과 쿼리문을 받아와서 �
 function BcryptCompare ( password, User ) {
     return new Promise( function (resolve, reject) {
 
-        console.log("BcryptCompare가 받은 User : "+ User);
+        console.log("BcryptCompare가 받은 User : "+ User.id);
 
         bcrypt.compare(password, User.password, function(err, isMatch) {
            if (isMatch) {
@@ -392,7 +410,7 @@ function CreateAuthToken(User) {
         const ptoken = 'JWT '+jwt.sign(
             { data : User },
             config.secret,
-            { expiresIn : 259200 }  //유효기간 3일
+            { expiresIn : 86400 * 7 }   //유효기간 7일
         );
         console.log("공개 토큰값 : ", ptoken);
 
@@ -408,9 +426,7 @@ function CreateAuthToken(User) {
             stoken : stoken,
             user : User
         };
-
         resolve(AuthToken);
-
     })
 }
 

@@ -4,8 +4,6 @@
         <div class="col-md-6">
             <h2>사업자 판매 회원가입입니다</h2>
             <br><br>
-            <form @submit="newSellerSubmit">
-
                 <input type="text" v-model="newSeller.id" class="form-control" placeholder="아이디">
                 <small id="idHelp" class="form-text text-muted float-left">아이디는 6글자 이상이어야 합니다.</small>
                 <br><br>
@@ -25,8 +23,7 @@
                 <br><br>
                 <input type="text" v-model="newSeller.company" class="form-control" placeholder="회사이름">
                 <br><br>
-                <button type="submit" class="btn btn-primary">회원가입</button>
-            </form>
+                <button @click="newSellerSubmit" type="button" class="btn btn-primary">회원가입</button>
         </div>
         <div class="col-md-3"></div>
     </div>
@@ -61,6 +58,7 @@
                         if(response.data.success == true) {
                             alert('사업자 판매회원 가입 성공');
                             console.log('사업자 판매회원 가입 성공');
+                            this.$router.replace({ path : '/Login' });
                         } else {
                             alert('사업자 판매회원 가입 실패(에러없음)');
                             console.log('사업자 판매회원 가입 실패(에러없음)')
