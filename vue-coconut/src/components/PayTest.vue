@@ -1,11 +1,8 @@
 <template>
-    <div>
-        <p>결제 테스트 페이지</p>
-    </div>
+    <h1>테스트 페이지</h1>
 </template>
 
 <script>
-
     export default {
         name: "PayTest"
     }
