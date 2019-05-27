@@ -17,6 +17,7 @@ import RegisterIndivisual from "./components/RegisterIndivisual";
 import RegisterEnterpriseBuyer from "./components/RegisterEnterpriseBuyer";
 import RegisterEnterpriseSeller from "./components/RegisterEnterpriseSeller";
 import MyPage from "./components/MyPage";
+import Pay from "./components/Pay";
 import NotFound from "./components/NotFound";
 
 const router = new VueRouter({
@@ -30,6 +31,7 @@ const router = new VueRouter({
     {path:'/RegisterEnterpriseBuyer', component : RegisterEnterpriseBuyer },
     {path:'/RegisterEnterpriseSeller', component : RegisterEnterpriseSeller },
     {path:'/MyPage', component : MyPage },
+    {path:'/Pay', component : Pay},
     {path:'*', component: NotFound }
   ]
 });

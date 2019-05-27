@@ -4,6 +4,7 @@ const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const mysql = require('mysql');
 const config = require('../config/database');
+const passport_policy = require('../config/passport');
 const bcrypt = require('bcryptjs');
 
 
