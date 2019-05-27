@@ -28,6 +28,11 @@
                             로그인
                         </router-link>
                     </li>
+                    <li class="nav-item">
+                        <router-link to="/PayTest" class="nav-link">
+                            결제 테스트
+                        </router-link>
+                    </li>
                     <li class="nav-item" v-if="this.$store.state.pToken">
                         <a class="nav-link" href="#" @click.prevent="onLogoutClick">로그아웃</a>
                     </li>
