@@ -140,7 +140,7 @@ router.post('/authenticate', (req, res, next) => {
         })
         .then(rows => {
             console.log("User Found Solutions is : " + rows);
-            return BcryptCompare(password, rows);
+            return BcryptCompare(password, rows[0]);
         })
         .then( isMatch => {
             return CreateAuthToken(isMatch.user);
