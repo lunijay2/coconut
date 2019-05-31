@@ -10,9 +10,12 @@
   "dependencies": {
     "axios": "^0.18.0",
     "core-js": "^2.6.5",
+    "qrcode.vue": "^1.6.2",
     "vue": "^2.6.10",
     "vue-flash-message": "^0.7.2",
-    "vue-router": "^3.0.6"
+    "vue-qrcode-reader": "^2.0.1",
+    "vue-router": "^3.0.6",
+    "vuex": "^3.1.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.7.0",

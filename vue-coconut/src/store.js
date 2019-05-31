@@ -7,7 +7,7 @@ import main from './main';
 
 Vue.use(Vuex);
 
-const resourceHost = 'http://localhost:3000'
+const resourceHost = 'http://localhost:3000';
 
 export default new Vuex.Store({
     state: {
@@ -40,15 +40,16 @@ export default new Vuex.Store({
     },
     actions: {
         LOGIN : function (context, payload) {
-            return axios.post( resourceHost+'/users/authenticate', payload);
-            //return axios.post( '/users/authenticate', payload);
+            //return axios.post( resourceHost+'/users/authenticate', payload);
+            return axios.post( '/users/authenticate', payload);
         },
         LOGOUT : function (context) {
             context.commit('LOGOUT');
         },
         GetProfile : function (context, payload) {
             return axios.get(
-                resourceHost+'/users/profile',
+                //resourceHost+'/users/profile',
+                '/users/profile',
                 { headers: {
                     "Authorization" : payload.ptoken,
                         "Ctime" : payload.currT,
@@ -67,7 +68,8 @@ export default new Vuex.Store({
             let auth = md.digest().toHex();
 
             return axios.get(
-                resourceHost+'/users/profile',
+                //resourceHost+'/users/profile',
+                '/users/profile',
                 { headers: {
                         "Authorization" : pt,
                         "Ctime" : currTime,
