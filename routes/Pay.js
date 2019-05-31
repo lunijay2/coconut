@@ -15,13 +15,14 @@ router.post('/pay',(req, res, next) => {
     let Statement;
 
 
-    ProcPay(number, jwt)
+    procpay(number, jwt)
 
 
 });
 
-function ProcPay(number, jwt) {
-    //jwt.
+function procpay(number, jwt) {
+    let temp = passport_policy(jwt);
+    console.log(temp);
 }
 
 module.exports = router;
