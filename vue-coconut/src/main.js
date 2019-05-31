@@ -5,7 +5,7 @@ import axios from 'axios'
 import store  from './store'
 import VueQrcodeReader from 'vue-qrcode-reader'
 
-Vue.use(VueQrcodeReader)
+Vue.use(VueQrcodeReader);
 
 Vue.prototype.$axios = axios;
 Vue.config.productionTip = false;
