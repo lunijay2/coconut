@@ -9,7 +9,7 @@ const bcrypt = require('bcryptjs');
 
 
 
-router.post('/pay',(req, res, next) => {
+router.post('/procpay',(req, res, next) => {
     let number = req.body.Payinfo.order_no;
     let jwt = req.body.token;
     let Statement;
