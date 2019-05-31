@@ -68,7 +68,6 @@
                 this.$store.dispatch('PAY', Payinfo)
                     .then(response => {
                         console.log(response);
-                        this.$store.commit('PAY', response)
                     })
             }
         }

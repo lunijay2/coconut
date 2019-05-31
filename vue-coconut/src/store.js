@@ -78,8 +78,8 @@ export default new Vuex.Store({
                     }
                 });
         },
-        PAY : function (context, PayInfo) {
-            return axios.post( '/Pay/procpay', PayInfo);
+        PAY : function (context, payload) {
+            return axios.post( '/Pay/procpay', payload.PayInfo);
         }
     }
 })
