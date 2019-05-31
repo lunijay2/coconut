@@ -13,6 +13,11 @@
                             마이페이지
                         </router-link>
                     </li>
+                    <li class="nav-item" v-if="this.$store.state.pToken">
+                        <router-link to="/Pay" class="nav-link">
+                            결제
+                        </router-link>
+                    </li>
                     <li class="nav-item" v-if="!this.$store.state.pToken">
                         <router-link to="/ChoiceMemberType" class="nav-link">
                             회원가입
@@ -21,6 +26,11 @@
                     <li class="nav-item" v-if="!this.$store.state.pToken">
                         <router-link to="/Login" class="nav-link">
                             로그인
+                        </router-link>
+                    </li>
+                    <li class="nav-item">
+                        <router-link to="/PayTest" class="nav-link">
+                            결제 테스트
                         </router-link>
                     </li>
                     <li class="nav-item" v-if="this.$store.state.pToken">

@@ -3,6 +3,9 @@ import App from './App.vue'
 import VueRouter from 'vue-router'
 import axios from 'axios'
 import store  from './store'
+import VueQrcodeReader from 'vue-qrcode-reader'
+
+Vue.use(VueQrcodeReader)
 
 Vue.prototype.$axios = axios;
 Vue.config.productionTip = false;
@@ -17,6 +20,7 @@ import RegisterIndivisual from "./components/RegisterIndivisual";
 import RegisterEnterpriseBuyer from "./components/RegisterEnterpriseBuyer";
 import RegisterEnterpriseSeller from "./components/RegisterEnterpriseSeller";
 import MyPage from "./components/MyPage";
+import Pay from "./components/Pay";
 import NotFound from "./components/NotFound";
 
 const router = new VueRouter({
@@ -30,6 +34,7 @@ const router = new VueRouter({
     {path:'/RegisterEnterpriseBuyer', component : RegisterEnterpriseBuyer },
     {path:'/RegisterEnterpriseSeller', component : RegisterEnterpriseSeller },
     {path:'/MyPage', component : MyPage },
+    {path:'/Pay', component : Pay},
     {path:'*', component: NotFound }
   ]
 });
