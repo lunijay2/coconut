@@ -21,8 +21,10 @@ router.post('/procpay',(req, res, next) => {
 });
 
 function procpay(number, jwt) {
-    let temp = passport_policy(jwt);
-    console.log(temp);
+    return new Promise( function (resolve, reject) {
+        let temp = passport_policy(jwt);
+        console.log(temp);  
+    })
 }
 
 module.exports = router;
