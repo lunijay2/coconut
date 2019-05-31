@@ -20,6 +20,7 @@ import RegisterIndivisual from "./components/RegisterIndivisual";
 import RegisterEnterpriseBuyer from "./components/RegisterEnterpriseBuyer";
 import RegisterEnterpriseSeller from "./components/RegisterEnterpriseSeller";
 import MyPage from "./components/MyPage";
+import Pay from './components/Pay';
 import NotFound from "./components/NotFound";
 
 const router = new VueRouter({
