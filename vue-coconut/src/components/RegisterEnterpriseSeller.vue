@@ -52,21 +52,23 @@
         },
         methods : {
             newSellerSubmit : function () {
-                this.$axios.post('http://localhost:3000/users/registerEnt', this.newSeller )
-                //this.$axios.post('/users/registerEnt', this.newSeller )
-                    .then((response) => {
+                let pathuser = {
+                    path : '/users/registerEnt',
+                    user : this.newSeller
+                };
+                this.$store.dispatch('REGISTER', pathuser)
+                    .then( response => {
                         if(response.data.success == true) {
-                            alert('사업자 판매회원 가입 성공');
-                            console.log('사업자 판매회원 가입 성공');
+                            alert('Enterprise Seller user register Success');
+                            console.log('Enterprise Seller user register Success');
                             this.$router.replace({ path : '/Login' });
                         } else {
-                            alert('사업자 판매회원 가입 실패(에러없음)');
-                            console.log('사업자 판매회원 가입 실패(에러없음)')
+                            alert('Enterprise Seller user register Failure');
+                            console.log('Enterprise Seller user register Failure')
                         }
-                    }). catch((err) => {
-                    console.log("Error! : ", err);
-                    console.log('사업자 판매회원 가입 실패');
-                })
+                    }).catch( err => {
+                    console.log('Enterprise Seller user register Err : '+ err);
+                });
             }
         }
     }

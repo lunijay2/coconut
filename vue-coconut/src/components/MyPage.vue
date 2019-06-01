@@ -16,22 +16,21 @@
         },
         methods:{
             onSubmit() {
-                this.$store.dispatch('GetProfile2')
+                this.$store.dispatch('GetProfile')
                     .then( response => {
                         alert('토큰검증 성공 : '+JSON.stringify(response.data.user));
                         console.log('토큰검증 성공');
                         this.user = response.data.user;
-                        //console.log('this.name : '+JSON.stringify(this.user));
                     })
                     .catch( err => {
                         console.log('검증 실패' + err);
-                        alert(err);
+                        //alert(err);
                         this.$router.replace({path : '/Login'});
                     })
             }
         },
         created() {
-            this.$store.dispatch('GetProfile2')
+            this.$store.dispatch('GetProfile')
                 .then( response => {
                     alert('토큰검증 성공 : '+JSON.stringify(response.data.user));
                     console.log('토큰검증 성공');

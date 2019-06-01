@@ -14,10 +14,6 @@ export default new Vuex.Store({
         sToken: null,
         pToken: null,
     },
-    getters: {
-        LoggedIn : function (state) {
-        }
-    },
     mutations: {
         GET_TOKENS : function(state, payload) {
             state.sToken = localStorage.getItem('sToken');
@@ -40,25 +36,17 @@ export default new Vuex.Store({
     },
     actions: {
         LOGIN : function (context, payload) {
-            //return axios.post( resourceHost+'/users/authenticate', payload);
-            return axios.post( '/users/authenticate', payload);
+            return axios.post( resourceHost+'/users/authenticate', payload);
+            //return axios.post( '/users/authenticate', payload);
         },
         LOGOUT : function (context) {
             context.commit('LOGOUT');
         },
-        GetProfile : function (context, payload) {
-            return axios.get(
-                //resourceHost+'/users/profile',
-                '/users/profile',
-                { headers: {
-                    "Authorization" : payload.ptoken,
-                        "Ctime" : payload.currT,
-                        "Auth" : payload.auth,
-                        "Content-Type" : 'application/json'
-                    }
-                });
+        REGISTER : function (context, payload) {
+            return axios.post( resourceHost+payload.path, payload.user);
+            //return axios.post( payload.path, payload.user);
         },
-        GetProfile2 : function (context) {
+        GetProfile : function (context) {
             let currTime = new Date().getTime();
             let pt = localStorage.getItem('pToken');
             let st = localStorage.getItem('sToken');
@@ -68,8 +56,8 @@ export default new Vuex.Store({
             let auth = md.digest().toHex();
 
             return axios.get(
-                //resourceHost+'/users/profile',
-                '/users/profile',
+                resourceHost+'/users/profile',
+                //'/users/profile',
                 { headers: {
                         "Authorization" : pt,
                         "Ctime" : currTime,

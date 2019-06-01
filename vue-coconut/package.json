@@ -10,8 +10,12 @@
   "dependencies": {
     "axios": "^0.18.0",
     "core-js": "^2.6.5",
+    "filepond": "^4.4.8",
+    "filepond-plugin-file-validate-type": "^1.2.4",
+    "filepond-plugin-image-preview": "^4.2.1",
     "qrcode.vue": "^1.6.2",
     "vue": "^2.6.10",
+    "vue-filepond": "^5.1.1",
     "vue-flash-message": "^0.7.2",
     "vue-qrcode-reader": "^2.0.1",
     "vue-router": "^3.0.6",

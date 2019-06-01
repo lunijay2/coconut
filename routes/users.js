@@ -5,9 +5,16 @@ const jwt = require('jsonwebtoken');
 const mysql = require('mysql');
 const config = require('../config/database');
 const bcrypt = require('bcryptjs');
+const multer = require('multer');
+const upload = multer({dest : './public/images'});
 
 const forge = require('node-forge');
 const fs = require('fs');
+
+router.post('/imgupload', multer({dest: './public/images'}).single('bin'), (req, res, next) => {
+    console.log(req.body);
+    console.log(req.file);
+});
 
 // Register
 router.post('/register', (req, res, next) => {
@@ -42,12 +49,12 @@ router.post('/register', (req, res, next) => {
         .then(function(rows) {  // ExecuteQuery가 쿼리문을 사용한 결과값을 받음
             console.log("This Solutions is : " + rows[0]);
             return RegComplete(res);    // RegComplete에 res를 보냄. res.json을 실행하기 위해서는 res값이 필요하기 때문에 res를 인자값으로 보냄
-            }, function(err) {  // ExecuteQuery가 쿼리문을 실행한 결과로 에러가 온 경우
-            console.log("나누기 1 err : "+err);
-            return RegRollback(connection); // 쿼리문 실행 중 에러가 나면 롤백을 실행해야 함
+        }, function(err) {  // ExecuteQuery가 쿼리문을 실행한 결과로 에러가 온 경우
+            console.log("Excute Query err : "+err);
+            return Rollback(connection); // 쿼리문 실행 중 에러가 나면 롤백을 실행해야 함
         })
         .catch( function (err) {    // 전체적으로 에러를 캐치한다
-            console.log("Catch 1 err : "+err);
+            console.log("Catch err : "+err);
             res.json({success: false, msg: 'Failed to register user'}); // 에러 캐치시 false반환
         })
         .then( function () {
@@ -93,7 +100,6 @@ router.post('/registerEnt', (req, res, next) => {
             return ExecuteQuery(connectionQuery)
         })
         .then(function(rows) {
-            console.log('CreateQueryEnt 직전 rows : '+JSON.stringify(rows));
             var entuser = {
                 ent_num: rows,
                 newUser: newUser
@@ -111,8 +117,8 @@ router.post('/registerEnt', (req, res, next) => {
             console.log("This Solutions is : " + JSON.stringify(rows));
             return RegComplete(res); // RegComplete에 res를 보냄. res.json을 실행하기 위해서는 res값이 필요하기 때문에 res를 인자값으로 보냄
         }, function(err) { // ExecuteQuery가 쿼리문을 실행한 결과로 에러가 온 경우
-            console.log("나누기 1 err : " + err);
-            return RegRollback(connection1); // 쿼리문 실행 중 에러가 나면 롤백을 실행해야 함
+            console.log("Excute Query err : " + err);
+            return Rollback(connection1); // 쿼리문 실행 중 에러가 나면 롤백을 실행해야 함
         })
         .then(function() {
             return ReleaseConnection(connection1); // 결과값이 어떻든 커넥션은 반환되어야 한다
@@ -161,7 +167,6 @@ router.get('/profile', passport.authenticate("jwt", {session: false}), function(
     const currT = req.headers.ctime;
     const auth = req.headers.auth;
     delete req.user.password;
-    //console.log('delete pass : '+ JSON.stringify(req.user));
 
     const stoken = 'JWT '+jwt.sign({data: ptoken}, config.secret, {
         noTimestamp: true
@@ -178,11 +183,6 @@ router.get('/profile', passport.authenticate("jwt", {session: false}), function(
     if(auth == auth2 && diff<100000){
         res.json({user: req.user});
     }
-});
-
-// Validate
-router.get('/validate', (req, res, next) => {
-    res.json('검증');
 });
 
 var pool = mysql.createPool(config); //연결에 대한 풀을 만든다. 기본값은 10개
@@ -360,10 +360,10 @@ function RegComplete(res) {     // 프론트 엔드에 Success : true값을 반�
     });
 }
 
-function RegRollback(connection) {      // 쿼리문 에러시 롤백을 실행하는 Promise 함수
+function Rollback(connection) {      // 쿼리문 에러시 롤백을 실행하는 Promise 함수
     return new Promise( function () {
-        connection.rollback(function (){ //쿼리가 에러로 실패하면 롤백해야 함
-            console.error('rollback error1');
+        connection.rollback(function () {
+            console.error('rollback error');
         });
     });
 }

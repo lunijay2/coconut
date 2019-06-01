@@ -33,6 +33,11 @@
                             결제 테스트
                         </router-link>
                     </li>
+                    <li class="nav-item">
+                        <router-link to="/ImageUpload" class="nav-link">
+                            이미지 업로드
+                        </router-link>
+                    </li>
                     <li class="nav-item" v-if="this.$store.state.pToken">
                         <a class="nav-link" href="#" @click.prevent="onLogoutClick">로그아웃</a>
                     </li>
@@ -42,18 +47,13 @@
     </nav>
 </template>
 
-
 <script>
-    import vrouter from 'vue-router'
     export default {
         name: 'Navbar',
         methods : {
             onLogoutClick : function () {
-                this.$store.dispatch('LOGOUT')
-                    .then( function () {
-                        location.reload();
-                        //this.$router.go({ path : '/Login' });
-                    });
+                this.$store.dispatch('LOGOUT');
+                this.$router.replace({ path : '/Login' });
             }
         }
     }

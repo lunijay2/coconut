@@ -1,17 +1,17 @@
 import Vue from 'vue'
-import App from './App.vue'
 import VueRouter from 'vue-router'
 import axios from 'axios'
 import store  from './store'
 import VueQrcodeReader from 'vue-qrcode-reader'
 
-Vue.use(VueQrcodeReader)
+Vue.use(VueQrcodeReader);
 
 Vue.prototype.$axios = axios;
 Vue.config.productionTip = false;
 
 Vue.use(VueRouter);
 
+import App from './App.vue'
 import Home from "./components/Home";
 import Navbar from "./components/Navbar";
 import Login from "./components/Login";
@@ -23,24 +23,25 @@ import MyPage from "./components/MyPage";
 import Pay from './components/Pay';
 import Test from './components/Test';
 import NotFound from "./components/NotFound";
+import ImageUpload from './components/ImageUpload';
 
 const router = new VueRouter({
   mode: 'history',
   routes : [
-    {path:'/', component : Home},
+    {path:'/', component : Home  },
     {path:'/Login', component : Login },
-    {path:'/Navbar', component : Navbar},
+    {path:'/Navbar', component : Navbar },
     {path:'/ChoiceMemberType', component : ChoiceMemberType},
     {path:'/RegisterIndivisual', component : RegisterIndivisual },
     {path:'/RegisterEnterpriseBuyer', component : RegisterEnterpriseBuyer },
     {path:'/RegisterEnterpriseSeller', component : RegisterEnterpriseSeller },
     {path:'/MyPage', component : MyPage },
-    {path:'/Pay', component : Pay},
-    {path: '/Test', component : Test},
+    {path:'/Pay', component : Pay },
+    {path: '/Test', component : Test },
+    {path: '/ImageUpload', component : ImageUpload },
     {path:'*', component: NotFound }
   ]
 });
-
 new Vue({
   store,
   router,

@@ -44,21 +44,23 @@
         },
         methods : {
             newUserSubmit : function () {
-                this.$axios.post('http://localhost:3000/users/register', this.newUser )
-                //this.$axios.post('/users/register', this.newUser )
-                    .then((response) => {
+                let pathuser = {
+                    path : '/users/register',
+                    user : this.newUser
+                };
+                this.$store.dispatch('REGISTER', pathuser)
+                    .then( response => {
                         if(response.data.success == true) {
-                            alert('개인회원 가입 성공');
-                            console.log('개인회원 가입 성공');
+                            alert('Indivisual user register Success');
+                            console.log('Indivisual user register Success');
                             this.$router.replace({ path : '/Login' });
                         } else {
-                            alert('개인회원 가입 실패(에러없음)');
-                            console.log('개인회원 가입 실패(에러없음)')
+                            alert('Indivisual user register Failure');
+                            console.log('Indivisual user register Failure')
                         }
-                    }). catch((err) => {
-                        console.log("Error! : ", err);
-                        console.log('개인회원 가입 실패');
-                })
+                    }).catch( err => {
+                    console.log('Indivisual user register Err : '+ err);
+                });
             }
         }
     }
