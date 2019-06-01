@@ -9,6 +9,7 @@ const users = require('./routes/users');
 const forge = require('node-forge');
 const fs = require('fs');
 const jwt = require('jsonwebtoken');
+const pay = require('./routes/Pay');
 
 const app = express();
 
@@ -29,6 +30,7 @@ require('./config/passport')(passport);
 
 //app.use('/user', passport.authenticate('jwt', {session: false}), users);
 app.use('/users', users);
+app.use('/Pay', pay);
 
 app.use(express.static(path.join(__dirname, 'public')));
 

@@ -23,7 +23,6 @@
             onDecode (result) {
                 this.result = result
             },
-
             async onInit (promise) {
                 try {
                     await promise
@@ -49,7 +48,6 @@
                 let exit = false;
                 let i = 0;//문자열에 한글자씩 접근하는 인덱스
                 let j = 0;//0이면 주문번호, 1이면 jwt
-
                 while(exit) {
                     if(this.result.charAt(i)) {
                         if(j==0) {
@@ -63,9 +61,13 @@
                 const Payinfo = {
                     order_no : number,
                     token : jwt
-                };
+                };/*
                 this.$axios.post('http://localhost:3000/users/authenticate', Payinfo)
                     .then(response => {
+                    })*/
+                this.$store.dispatch('PAY', Payinfo)
+                    .then(response => {
+                        console.log(response);
                     })
             }
         }
@@ -73,5 +75,4 @@
 </script>
 
 <style scoped>
-
 </style>

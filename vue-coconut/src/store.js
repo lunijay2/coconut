@@ -66,5 +66,8 @@ export default new Vuex.Store({
                     }
                 });
         },
+        PAY : function (context, payload) {
+            return axios.post( '/Pay/procpay', payload.PayInfo);
+        }
     }
 })

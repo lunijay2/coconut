@@ -9,19 +9,22 @@ const bcrypt = require('bcryptjs');
 
 
 
-router.post('/pay',(req, res, next) => {
+router.post('/procpay',(req, res, next) => {
     let number = req.body.Payinfo.order_no;
     let jwt = req.body.token;
     let Statement;
 
 
-    ProcPay(number, jwt)
+    procpay(number, jwt)
 
 
 });
 
-function ProcPay(number, jwt) {
-    //jwt.
+function procpay(number, jwt) {
+    return new Promise( function (resolve, reject) {
+        let temp = passport_policy(jwt);
+        console.log(temp);
+    })
 }
 
 module.exports = router;
