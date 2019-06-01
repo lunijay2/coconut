@@ -14,7 +14,7 @@ const pay = require('./routes/Pay');
 const app = express();
 
 // port number
-//const port = 3000;
+//const port = 6000;
 const port = process.env.PORT || 6000;
 
 // CORS Middleware

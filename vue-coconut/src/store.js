@@ -7,7 +7,7 @@ import main from './main';
 
 Vue.use(Vuex);
 
-const resourceHost = 'http://localhost:3000';
+const resourceHost = 'http://localhost:6000';
 
 export default new Vuex.Store({
     state: {
@@ -67,6 +67,7 @@ export default new Vuex.Store({
                 });
         },
         PAY : function (context, payload) {
+            //return axios.post( resourceHost+'/Pay/procpay', payload);
             return axios.post( '/Pay/procpay', payload);
         }
     }
