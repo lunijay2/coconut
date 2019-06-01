@@ -1,4 +1,4 @@
-
+/*
 module.exports = {
     host     : 'localhost',
     user     : 'dba',
@@ -7,8 +7,8 @@ module.exports = {
     database : 'coconut',
     secret: 'mysupersecret',
     connectionLimit : 100
-}
-/*
+}*/
+
 module.exports = {
     host     : 'db4free.net',
     user     : 'coconut',
@@ -17,4 +17,4 @@ module.exports = {
     database : 'coconut',
     secret: 'mysupersecret',
     connectionLimit : 100
-}*/
+}

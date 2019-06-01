@@ -61,10 +61,7 @@
                 const Payinfo = {
                     order_no : number,
                     token : jwt
-                };/*
-                this.$axios.post('http://localhost:3000/users/authenticate', Payinfo)
-                    .then(response => {
-                    })*/
+                };
                 this.$store.dispatch('PAY', Payinfo)
                     .then(response => {
                         console.log(response);
