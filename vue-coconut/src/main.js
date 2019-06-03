@@ -8,6 +8,7 @@ Vue.use(VueQrcodeReader);
 
 Vue.prototype.$axios = axios;
 Vue.config.productionTip = false;
+Vue.prototype.$EventBus = new Vue();
 
 Vue.use(VueRouter);
 
@@ -24,6 +25,9 @@ import Pay from './components/Pay';
 import Test from './components/Test';
 import NotFound from "./components/NotFound";
 import ImageUpload from './components/ImageUpload';
+import CreateStore from "./components/CreateStore";
+import AllProduct from "./components/AllProduct";
+import AllStore from "./components/AllStore";
 
 const router = new VueRouter({
   mode: 'history',
@@ -39,6 +43,9 @@ const router = new VueRouter({
     {path:'/Pay', component : Pay },
     {path: '/Test', component : Test },
     {path: '/ImageUpload', component : ImageUpload },
+    {path:'/CreateStore', component : CreateStore },
+    {path:'/AllProduct', component : AllProduct },
+    {path:'/AllStore', component : AllStore },
     {path:'*', component: NotFound }
   ]
 });

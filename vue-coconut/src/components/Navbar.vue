@@ -13,6 +13,16 @@
                             마이페이지
                         </router-link>
                     </li>
+                    <li class="nav-item">
+                        <router-link to="/AllProduct" class="nav-link">
+                            상품보기
+                        </router-link>
+                    </li>
+                    <li class="nav-item">
+                        <router-link to="/AllStore" class="nav-link">
+                            상점보기
+                        </router-link>
+                    </li>
                     <li class="nav-item"> <!--v-if="this.$store.state.pToken">-->
                         <router-link to="/Pay" class="nav-link">
                             결제

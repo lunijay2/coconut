@@ -69,6 +69,18 @@ export default new Vuex.Store({
         PAY : function (context, payload) {
             return axios.post( resourceHost+'/Pay/procpay', payload);
             //return axios.post( '/Pay/procpay', payload);
+        },
+        GetProduct : function (context) {
+            return axios.post(resourceHost+'/stores/Product');
+        },
+        GetStore : function (context) {
+            return axios.post(resourceHost+'/stores/Store');
+        },
+        FoundEnt : function (context, payload) {
+            return axios.post(resourceHost+'/stores/FoundEnt', payload);
+        },
+        FindProduct : function (context, payload) {
+            return axios.post(resourceHost+'/stores/FindProduct', payload);
         }
     }
 })
