@@ -1,5 +1,17 @@
 <template>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+        <!--카테고리-->
+       <div class="dropdown">
+  <button class="dropbtn" >카테고리</button>
+  <div class="dropdown-content">
+    <a href="#">패션의류/잡화</a>
+    <a href="#">뷰티</a>
+    <a href="#">출산/유아동</a>
+    <a href="#">식품</a>
+    <a href="#">주방용품</a>
+  </div>
+</div>
+        <!--홈 이미지-->
         <div class="container">
             <router-link to="/" class="navbar-brand"><img src="./coconut.png" style="width:35px"></router-link>
 
@@ -8,6 +20,9 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarsExampleDefault">
                 <ul class="navbar-nav ml-auto">
+                      <li class="nav-item">
+                    <input type="text" name="FirstName" placeholder="검색어를 입력해주세요.     ">
+                    </li>
                     <li class="nav-item" v-if="this.$store.state.pToken">
                         <router-link to="/MyPage" class="nav-link">
                             마이페이지
@@ -70,5 +85,4 @@
 </script>
 
 <style scoped>
-
 </style>
