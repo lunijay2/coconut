@@ -41,11 +41,11 @@
                 }
                 this.$store.dispatch('LOGIN', User)
                     .then( response => {
-                        console.log(response);
+                        //console.log(response);
                         this.$store.commit('LOGIN', response);
                     })
                     .then( res => {
-                        console.log(res);
+                        //console.log(res);
                         console.log('로그인 성공');
                         alert('로그인 성공');
                         this.$router.replace({ path : '/' });

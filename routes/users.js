@@ -11,9 +11,15 @@ const upload = multer({dest : './public/images'});
 const forge = require('node-forge');
 const fs = require('fs');
 
-router.post('/imgupload', multer({dest: './public/images'}).single('bin'), (req, res, next) => {
+router.post('/imgupload', upload.single('bin'), (req, res, next) => {
     console.log(req.body);
     console.log(req.file);
+    res.json({ success : true, filename : req.file.originalname });
+});
+
+router.delete('/imgupload', (req, res, next) => {
+    console.log('IMAGE DELETE');
+    res.status(204).send()
 });
 
 // Register

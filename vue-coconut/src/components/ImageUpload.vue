@@ -40,7 +40,7 @@
         name: "ImageUpload",
         data: function() {
             return {
-                myFiles: []
+                myFiles: ['my-file.jpg']
             };
         },
         methods: {

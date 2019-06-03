@@ -11,11 +11,14 @@ const fs = require('fs');
 const jwt = require('jsonwebtoken');
 const pay = require('./routes/Pay');
 
+const https = require('https');
+const http = require('http');
+
 const app = express();
 
 // port number
-//const port = 6000;
-const port = process.env.PORT || 6000;
+const port = 3000;
+//const port = process.env.PORT || 6000;
 
 // CORS Middleware
 app.use(cors());
@@ -40,3 +43,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.listen(port, function(){
     console.log("server started on port "+port);
 });
+
+/*
+https.createServer(app).listen(port, function(){
+    console.log('Https server started on port '+port);
+});*/
