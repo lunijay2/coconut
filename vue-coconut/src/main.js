@@ -28,6 +28,7 @@ import ImageUpload from './components/ImageUpload';
 import CreateStore from "./components/CreateStore";
 import AllProduct from "./components/AllProduct";
 import AllStore from "./components/AllStore";
+import Category from "./components/Category";
 
 const router = new VueRouter({
   mode: 'history',
@@ -46,6 +47,7 @@ const router = new VueRouter({
     {path:'/CreateStore', component : CreateStore },
     {path:'/AllProduct', component : AllProduct },
     {path:'/AllStore', component : AllStore },
+    {path:'/Category', component : Category },
     {path:'*', component: NotFound }
   ]
 });

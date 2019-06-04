@@ -79,8 +79,8 @@ export default new Vuex.Store({
         FoundEnt : function (context, payload) {
             return axios.post(resourceHost+'/stores/FoundEnt', payload);
         },
-        FindProduct : function (context, payload) {
-            return axios.post(resourceHost+'/stores/FindProduct', payload);
+        FindCategory : function (context, payload) {
+            return axios.post(resourceHost+'/stores/FindCategory', payload);
         }
     }
 })

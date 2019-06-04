@@ -91,7 +91,7 @@
         },
 
         created() {
-            this.$store.dispatch('GetProfile2')
+            this.$store.dispatch('GetProfile')
                 .then( response => {
                     //alert('토큰검증 성공 : '+JSON.stringify(response.data.user));
                     console.log('토큰검증 성공');

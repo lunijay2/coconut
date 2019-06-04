@@ -1,86 +1,83 @@
 <template>
+    <div class="AllProduct">
     <div class="row">
-        <div class="col-md-3" v-for="Product in Products">
-
-            <div v-if="Product.user_number" >
-
-                <br><br>
-                <div class="card border-primary mb-3" style="max-width: 20rem;">
-                    <div class="card-header">{{ Product.name }}</div>
-                    <div class="card-body">
-                        <h4 class="card-title">{{ Product.seller }}</h4>
-                        <p class="card-text">{{ Product.description }}</p>
-                        <p class="card-text">{{ Product.category }}</p>
-                    </div>
-                </div>
-
-            </div>
+        <div class="col-md-1"></div>
+        <div class="col-md-2">
+            <table class="table table-hover">
+                <tbody>
+                <tr class="table-success">
+                    <th scope="row" v-on:click="onCategory('all')">
+                        모든 상품
+                    </th>
+                </tr>
+                <tr class="table-success">
+                    <th scope="row" v-on:click="onCategory('의류')">의류</th>
+                </tr>
+                <tr class="table-success">
+                    <th scope="row" v-on:click="onCategory('식품')">식품</th>
+                </tr>
+                <tr class="table-success">
+                    <th scope="row" v-on:click="onCategory('생활용품')">생활용품</th>
+                </tr>
+                <tr class="table-success">
+                    <th scope="row" v-on:click="onCategory('가전디지털')">가전/디지털</th>
+                </tr>
+                <tr class="table-success">
+                    <th scope="row" v-on:click="onCategory('스포츠/레저')">스포츠/레저</th>
+                </tr>
+                <tr class="table-success">
+                    <th scope="row" v-on:click="onCategory('자동차용품')">자동차 용품</th>
+                </tr>
+                <tr class="table-success">
+                    <th scope="row" v-on:click="onCategory('도서/음반/DVD')">도서/음반/DVD</th>
+                </tr>
+                <tr class="table-success">
+                    <th scope="row" v-on:click="onCategory('완구/취미')">완구/취미</th>
+                </tr>
+                <tr class="table-success">
+                    <th scope="row" v-on:click="onCategory('문구/오피스')">문구/오피스</th>
+                </tr>
+                <tr class="table-success">
+                    <th scope="row" v-on:click="onCategory('반려동물용품')">반려동물용품</th>
+                </tr>
+                <tr class="table-success">
+                    <th scope="row" v-on:click="onCategory('뷰티')">뷰티</th>
+                </tr>
+                <tr class="table-success">
+                    <th scope="row" v-on:click="onCategory('출산/유아동')">출산/유아동</th>
+                </tr>
+                <tr class="table-success">
+                    <th scope="row" v-on:click="onCategory('주방용품')">주방용품</th>
+                </tr>
+                </tbody>
+            </table>
         </div>
+        <div class="col-md-1"></div>
+        <div class="col-md-6">
+            <Category v-bind:choice="choiceCategory"></Category>
+        </div>
+    </div>
     </div>
 </template>
 
 <script>
+    import Category from "./Category";
+
     export default {
         name: "AllProduct",
+        components : {
+            Category
+        },
         data () {
             return {
-                Products : {}
+                choiceCategory : ''
             }
         },
-        created() {
-            this.$EventBus.$on('select')
-                .then( text => {
-                    console.log('선택 상품목록 시작');
-                    let selectStore = {
-                        store: text
-                    };
-                    return this.$store.dispatch('FindProduct', selectStore)
-                })
-                .then( response => {
-                    //alert('상품목록 성공 : '+JSON.stringify(response));
-                    console.log('선택 상품목록 성공 : '+JSON.stringify(response));
-                    this.Products = response.data.Product;
-                })
-                .catch( err => {
-                    console.log('선택 상품목록 실패' + err);
-                    //alert(err);
-                    //this.$router.replace({path : '/Login'});
-                })
-            /*
-            this.$EventBus.$on('select', text => {
-                if(text == '') {
-                    console.log('전체 상품목록 시작');
-                    this.$store.dispatch('GetProduct')
-                        .then( response => {
-                            //alert('상품목록 성공 : '+JSON.stringify(response.data.Product));
-                            console.log('전체 상품목록 성공');
-                            this.Products = response.data.Product;
-                        })
-                        .catch( err => {
-                            console.log('전체 상품목록 실패' + err);
-                            //alert(err);
-                            //this.$router.replace({path : '/Login'});
-                        })
-                } else {
-                    console.log('선택 상품목록 시작');
-                    let selectStore = {
-                        store : text
-                    };
-                    this.$store.dispatch('FindProduct', selectStore)
-                        .then( response => {
-                            //alert('상품목록 성공 : '+JSON.stringify(response));
-                            console.log('선택 상품목록 성공');
-                            this.Products = response.data.Product;
-                        })
-                        .catch( err => {
-                            console.log('선택 상품목록 실패' + err);
-                            //alert(err);
-                            //this.$router.replace({path : '/Login'});
-                        })
-                }
-            });
-             */
-
+        methods : {
+            onCategory : function ( select ) {
+                this.choiceCategory = select;
+                console.log(this.choiceCategory);
+            }
         }
     }
 </script>
