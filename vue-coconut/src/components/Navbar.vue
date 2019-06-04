@@ -20,9 +20,6 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarsExampleDefault">
                 <ul class="navbar-nav ml-auto">
-                      <li class="nav-item">
-                    <input type="text" name="FirstName" placeholder="검색어를 입력해주세요.     ">
-                    </li>
                     <li class="nav-item" v-if="this.$store.state.pToken">
                         <router-link to="/MyPage" class="nav-link">
                             마이페이지
@@ -69,6 +66,8 @@
                 </ul>
             </div>
         </div>
+            <input type="text" name="FirstName" placeholder="검색어를 입력해주세요.     ">
+                
     </nav>
 </template>
 
