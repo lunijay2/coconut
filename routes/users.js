@@ -151,7 +151,6 @@ router.post('/authenticate', (req, res, next) => {
             return ExecuteQuery(connectionQuery);
         })
         .then(rows => {
-            console.log("User Found Solutions is : " + rows);
             return BcryptCompare(password, rows[0]);
         })
         .then( isMatch => {
@@ -262,14 +261,12 @@ function CreateUserFoundQuery(Userid) {     //유저 정보, 해쉬화된 비밀
 
 function PoolGetConnection(query) {     //Pool에서 Connection을 가져오는 Promise 함수
     return new Promise( function (resolve, reject) {
-        console.log("PoolGetConnection 1");
         pool.getConnection(function (err, connection) {
             if(connection){
                 var connectionQuery = {
                     connection : connection,
                     query : query
                 };
-                console.log("PoolGetConnection 2");
                 resolve(connectionQuery);
             } else {
                 console.log("PoolGetConnection err : "+err);
@@ -283,10 +280,10 @@ function ExecuteQuery(ConQue) {     // Connection과 쿼리문을 받아와서 �
     return new Promise( function (resolve, reject) {
         ConQue.connection.query(ConQue.query, function(err, rows, fields) {
             if (!err) {
-                console.log("ExecuteQuery : "+ JSON.stringify(rows));
+                console.log("query 실행 결과 : "+ JSON.stringify(rows));
                 resolve(rows);
             } else {
-                console.log("ExecuteQuery err : "+err);
+                console.log("query 실행 err : "+err);
                 reject(err);
             }
             ConQue.connection.release();
@@ -296,12 +293,9 @@ function ExecuteQuery(ConQue) {     // Connection과 쿼리문을 받아와서 �
 
 function BcryptCompare ( password, User ) {
     return new Promise( function (resolve, reject) {
-
-        console.log("BcryptCompare가 받은 User : "+ User.id);
-
         bcrypt.compare(password, User.password, function(err, isMatch) {
-           if (isMatch) {
-               console.log("BcryptCompare : "+ isMatch);
+           if (isMatch === true) {
+               console.log("패스워드 일치 : "+ isMatch);
                let isMatchUser = {
                    result : isMatch,
                    user : User
@@ -344,19 +338,10 @@ function LoginComplete( res, AuthToken ) {
     return new Promise( function () {
         res.json({
             success : true,
-            user : {
-                name: AuthToken.user.name,
-                id: AuthToken.user.id,
-                tel: AuthToken.user.tel,
-                addr: AuthToken.user.addr,
-                email: AuthToken.user.email,
-                indi: AuthToken.user.indi
-            },
             ptoken : AuthToken.ptoken,
             stoken : AuthToken.stoken
         });
-        console.log('AuthToken name : '+ AuthToken.user.name);
-        console.log("User Login Complete");
+        console.log("로그인 성공");
     })
 }
 

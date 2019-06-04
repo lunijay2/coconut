@@ -20,7 +20,7 @@
         data () {
             return {
                 Choice : this.choice
-            } 
+            }
         },
         methods : {
             GetCategory : function () {
