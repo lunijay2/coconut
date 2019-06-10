@@ -32,7 +32,7 @@
                 }
             }
         },
-        methods:{
+        methods:{ 
             onLoginSubmit() {
                 const User = this.User;
 
