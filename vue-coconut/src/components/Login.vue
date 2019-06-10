@@ -32,7 +32,7 @@
                 }
             }
         },
-        methods:{ 
+        methods:{
             onLoginSubmit() {
                 const User = this.User;
 
@@ -41,20 +41,19 @@
                 }
                 this.$store.dispatch('LOGIN', User)
                     .then( response => {
-                        //console.log(response);
                         if(response.data.success === true) {
                             return this.$store.commit('LOGIN', response);
-                            console.log('로그인 성공 : '+response);
+                            console.log('로그인 성공 : '+ JSON.stringify(response));
                             alert('로그인 성공');
                             this.$router.replace({ path : '/' });
                         } else {
-                            console.log("Login Error! 1 : ");
+                            console.log("Login Error! 1 : "+JSON.stringify(response));
                             return alert('로그인 실패 1');
                         }
                     })
                     .catch( err => {
-                        console.log("Login Error! 2 : ", err);
-                        return alert('로그인 실패 2' + err);
+                        console.log("Login Error! 2 : ", JSON.stringify(err));
+                        return alert('로그인 실패 2');
                     });
             }
         }
