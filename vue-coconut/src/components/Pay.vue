@@ -9,17 +9,15 @@
             <!--<button v-if="result" type="submit" class="btn btn-primary">결제</button>-->
         </form>
         <div class="list-group">
-            <div v-for="product in Products">
                 <a class="list-group-item list-group-item-action flex-column align-items-start">
                     <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1">{{product.name}}</h5>
-                        <small class="text-muted">{{product.category}}</small>
+                        <h5 class="mb-1">{{result.order_no}}</h5>
+                        <small class="text-muted">{{result.product}}</small>
                     </div>
                     <p class="mb-1">{{product.description}}</p>
-                    <small class="text-muted">{{product.price}}원</small>
+                    <small class="text-muted">{{result.price}}원</small>
                 </a>
                 <br>
-            </div>
         </div>
     </div>
 </template>
