@@ -42,9 +42,9 @@
                 this.$store.dispatch('LOGIN', User)
                     .then( response => {
                         //console.log(response);
-                        if(response.data.success == true) {
+                        if(response.data.success === true) {
                             return this.$store.commit('LOGIN', response);
-                            console.log('로그인 성공');
+                            console.log('로그인 성공 : '+response);
                             alert('로그인 성공');
                             this.$router.replace({ path : '/' });
                         } else {
