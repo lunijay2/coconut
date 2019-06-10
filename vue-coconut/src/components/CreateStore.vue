@@ -67,7 +67,7 @@
                     description: '',
                     seller: '',
                     number : '',
-                }
+                } 
             }
         },
         methods : {
