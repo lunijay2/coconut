@@ -37,6 +37,9 @@ app.use('/users', users);
 app.use('/stores', stores);
 app.use('/Pay', pay);
 
+
+app.use(express.static(path.join(__dirname, 'public')));
+
 app.get('/*', function(req, res) {
     res.sendFile(path.join(__dirname, 'public/index.html'), function(err) {
         if (err) {
@@ -44,10 +47,6 @@ app.get('/*', function(req, res) {
         }
     })
 });
-
-app.use(express.static(path.join(__dirname, 'public')));
-
-//app.use(express.static(path.join(__dirname, 'public')));
 
 // Start server
 app.listen(port, function(){
