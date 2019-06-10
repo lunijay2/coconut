@@ -24,8 +24,6 @@ export default new Vuex.Store({
             state.pToken = payload.data.ptoken;
             localStorage.setItem('pToken', payload.data.ptoken);
             localStorage.setItem('sToken', payload.data.stoken);
-            let result = true;
-            return result;
         },
         LOGOUT : function (state) {
             state.sToken = null;

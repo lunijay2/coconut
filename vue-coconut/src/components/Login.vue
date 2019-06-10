@@ -42,17 +42,19 @@
                 this.$store.dispatch('LOGIN', User)
                     .then( response => {
                         //console.log(response);
-                        this.$store.commit('LOGIN', response);
-                    })
-                    .then( res => {
-                        //console.log(res);
-                        console.log('로그인 성공');
-                        alert('로그인 성공');
-                        this.$router.replace({ path : '/' });
+                        if(response.data.success == true) {
+                            return this.$store.commit('LOGIN', response);
+                            console.log('로그인 성공');
+                            alert('로그인 성공');
+                            this.$router.replace({ path : '/' });
+                        } else {
+                            console.log("Login Error! 1 : ");
+                            return alert('로그인 실패 1');
+                        }
                     })
                     .catch( err => {
-                        console.log("Login Error! : ", err);
-                        return alert('로그인 실패' + err);
+                        console.log("Login Error! 2 : ", err);
+                        return alert('로그인 실패 2' + err);
                     });
             }
         }

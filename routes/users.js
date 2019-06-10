@@ -161,7 +161,7 @@ router.post('/authenticate', (req, res, next) => {
         })
         .catch(err => {
             console.log(err);
-            res.json({success: false, msg: 'Failed to Login User'});
+            res.json({success: false, msg: err });
         })
 });
 
