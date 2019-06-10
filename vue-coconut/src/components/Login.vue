@@ -29,7 +29,7 @@
                 User : {
                     id: '',
                     password: ''
-                }
+                } 
             }
         },
         methods:{
