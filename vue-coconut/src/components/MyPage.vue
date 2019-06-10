@@ -5,20 +5,20 @@
         <div class="card text-white bg-primary mb-3" style="max-width: 20rem;" v-if="user.name">
             <div class="card-header">{{ user.name }}님 환영합니다.</div>
             <div class="card-body">
-                <h4 class="card-title">이름 : {{user.name}}</h4>
+                <h4 class="card-title">이    름 : {{user.name}}</h4>
                 <h4 class="card-title">전화번호 : {{user.tel}}</h4>
-                <h4 class="card-title">주소 : {{user.addr}}</h4>
-                <h4 class="card-title">이메일 : {{user.email}}</h4>
-                <h4 class="card-title">계좌 : {{user.account}}</h4>
-                <h4 class="card-title">잔액 : {{user.money}}</h4>
+                <h4 class="card-title">주    소 : {{user.addr}}</h4>
+                <h4 class="card-title">이 메 일 : {{user.email}}</h4>
+                <h4 class="card-title">계    좌 : {{user.account}}</h4>
+                <h4 class="card-title">잔    액 : {{user.money}}</h4>
                 <br>
-                <p class="card-text" v-if="Store">상호명 : {{Store.company}}</p>
+                <h3 class="card-text" v-if="Store">상호명 : {{Store.company}}</h3>
             </div>
         </div>
 
         <div v-if="Store.seller == 1">
             <router-link to="/CreateStore" class="nav-link">
-                <button type="button" class="btn btn-success">상품 등록</button>
+                <button type="button" class="btn btn-primary">상품 등록</button>
             </router-link>
         </div>
     </div>
