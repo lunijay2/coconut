@@ -29,7 +29,7 @@
                 User : {
                     id: '',
                     password: ''
-                } 
+                }
             }
         },
         methods:{
@@ -44,16 +44,16 @@
                         if(response.data.success === true) {
                             return this.$store.commit('LOGIN', response);
                             console.log('로그인 성공 : '+ JSON.stringify(response));
-                            alert('로그인 성공');
+                            alert('Login Success');
                             this.$router.replace({ path : '/' });
                         } else {
-                            console.log("Login Error! 1 : "+JSON.stringify(response));
-                            return alert('로그인 실패 1');
+                            console.log("Login Error! 1");
+                            return alert('Login Error');
                         }
                     })
                     .catch( err => {
-                        console.log("Login Error! 2 : ", JSON.stringify(err));
-                        return alert('로그인 실패 2');
+                        console.log("Login Error! 2");
+                        return alert('Login Error');
                     });
             }
         }
