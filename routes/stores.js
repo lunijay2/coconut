@@ -171,7 +171,7 @@ router.post('/FindProduct', (req, res, next) => {
 router.post('/FindCategory', (req, res, next) => {
 
     const category = req.body.category;
-    console.log("This Solutions is : " + category);
+    console.log("category is : " + category);
 
     CreateFindCategoryQuery(category)
         .then( query => {
@@ -202,7 +202,7 @@ router.post('/FindCategory', (req, res, next) => {
 function CreateFindCategoryQuery(category) {
     return new Promise( function (resolve) {
         console.log('category : '+category);
-        let statement = "SELECT * FROM product where category="+category+";";
+        let statement = "SELECT * FROM product where category='"+category+"';";
         console.log("CreateFindCategoryQuery : "+statement);
         resolve(statement);
     });

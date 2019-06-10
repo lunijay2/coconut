@@ -2,10 +2,15 @@
     <div>
         <form @submit="PaySubmit">
             <p class="error">{{ error }}</p>
-            <p v-if="result">인식</p>
             <!--<p class="decode-result">Last result: <b>{{ result }}</b></p>-->
             <qrcode-stream @decode="onDecode" @init="onInit" /><br><br>
-            <button v-if="result" type="submit" class="btn btn-primary">결제</button>
+            <h1 v-if="result">인식되었습니다
+            <p>
+                {{result}}
+            </p>
+            </h1>
+
+            <!--<button v-if="result" type="submit" class="btn btn-primary">결제</button>-->
         </form>
     </div>
 </template>
