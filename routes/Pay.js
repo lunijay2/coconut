@@ -89,6 +89,7 @@ function ExecuteQuery(ConQue) {     // Connection과 쿼리문을 받아와서 �
 
 function Complete(res, rows) {
     return new Promise( function () {
+        console.log('Success');
         res.json({success: true, order: rows});
     });
 }

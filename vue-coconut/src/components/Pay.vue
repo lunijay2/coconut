@@ -5,12 +5,22 @@
             <!--<p class="decode-result">Last result: <b>{{ result }}</b></p>-->
             <qrcode-stream @decode="onDecode" @init="onInit" /><br><br>
             <h1 v-if="result.order_no">인식되었습니다
-            <p>
-                상품 번호 : {{result}}
-            </p>
             </h1>
             <!--<button v-if="result" type="submit" class="btn btn-primary">결제</button>-->
         </form>
+        <div class="list-group">
+            <div v-for="product in Products">
+                <a class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">{{product.name}}</h5>
+                        <small class="text-muted">{{product.category}}</small>
+                    </div>
+                    <p class="mb-1">{{product.description}}</p>
+                    <small class="text-muted">{{product.price}}원</small>
+                </a>
+                <br>
+            </div>
+        </div>
     </div>
 </template>
 
