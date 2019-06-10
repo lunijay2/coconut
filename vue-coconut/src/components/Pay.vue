@@ -1,9 +1,9 @@
 <template>
     <div>
-        <form @submit="PaySubmit" v-if="!result.order_no">
+        <form @submit="PaySubmit">
             <p class="error">{{ error }}</p>
             <!--<p class="decode-result">Last result: <b>{{ result }}</b></p>-->
-            <qrcode-stream @decode="onDecode" @init="onInit" /><br><br>
+            <qrcode-stream v-if="!result.order_no" @decode="onDecode" @init="onInit" /><br><br>
 
             <div v-if="result.order_no">
                 <a class="list-group-item list-group-item-action flex-column align-items-start">
