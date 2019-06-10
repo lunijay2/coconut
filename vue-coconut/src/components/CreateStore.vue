@@ -74,7 +74,7 @@
             newStoreSubmit : function () {
                 this.$store.dispatch('NewProduct', this.newStore)
                     .then( response => {
-                        if(response.data.success === true) {
+                        if(response.data.success == true) {
                             alert('상품 등록 성공');
                             console.log('상품 등록 성공');
                             this.$router.replace({ path : '/AllProduct' });

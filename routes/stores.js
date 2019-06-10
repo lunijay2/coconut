@@ -34,18 +34,15 @@ router.post('/newStore', (req, res, next) => {
             console.log("This Solutions is : " + JSON.stringify(rows));
             return StoreComplete(res);    // RegComplete에 res를 보냄. res.json을 실행하기 위해서는 res값이 필요하기 때문에 res를 인자값으로 보냄
         }, function(err) {  // ExecuteQuery가 쿼리문을 실행한 결과로 에러가 온 경우
-            console.log("나누기 1 err : "+err);
+            console.log("err 1 : "+err);
             return Rollback(connection); // 쿼리문 실행 중 에러가 나면 롤백을 실행해야 함
-        })
-        .catch( function (err) {    // 전체적으로 에러를 캐치한다
-            console.log("Catch 1 err : "+err);
-            res.json({success: false, msg: 'Failed to register user'}); // 에러 캐치시 false반환
         })
         .then( function () {
             return ReleaseConnection( connectionQuery.connection );   // 결과값이 어떻든 커넥션은 반환되어야 한다
         })
         .catch(function (err) { //마지막으로 에러를 캐치
             console.log(err);
+            res.json({success: false, msg: 'Failed to register user'});
         })
 });
 
