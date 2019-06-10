@@ -35,7 +35,6 @@ router.post('/GetOrder',(req, res, next) => {
 
 });
 
-
 function procpay(number, jwt) {
     return new Promise( function (resolve, reject) {
         let temp = passport_policy(jwt);
@@ -46,7 +45,7 @@ function procpay(number, jwt) {
 function OrderFoundQuery(ordernumber) {
     return new Promise( function (resolve, reject) {
         if(ordernumber) {
-            let statement = "SELECT * FROM trade_detail WHERE order_no='" + ordernumber + "';";
+            let statement = "SELECT * FROM trade_detail WHERE order_no=" + ordernumber + ";";
             console.log("OrderFoundQuery : "+statement);
             resolve(statement);
         } else {
