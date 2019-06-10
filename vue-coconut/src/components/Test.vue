@@ -1,9 +1,8 @@
 <template>
     <div>
         <h1>결제테스트 페이지</h1>
-        <qrcode-vue :value="value1" :size="size" level="H"></qrcode-vue>
-        <br><br><br>
-        <qrcode-vue :value="value2" :size="size" level="H"></qrcode-vue>
+        <qrcode-vue :value="value" :size="size" level="H"></qrcode-vue>
+        <button @click="onNextSubmit" type="submit" class="btn btn-primary">QR코드 변경</button>
     </div>
 </template>
 
@@ -13,13 +12,20 @@
     export default {
         name: "Test",
     data() {
-
         return {
-            value1 : '1',
-            value2 : '2',
+            value : '1',
             size : 300
         }
-    },
+    }, methods: {
+            onNextSubmit : function () {
+                if(this.value == '1') {
+                    this.value = '2';
+                } else {
+                    this.value = '1';
+                }
+
+            }
+        },
     components: {
         QrcodeVue
         }
