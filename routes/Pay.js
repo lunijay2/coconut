@@ -108,4 +108,6 @@ function ReleaseConnection(connection) {    // 쿼리문을 다 실행한 후 Co
     });
 }
 
+var pool = mysql.createPool(config); //연결에 대한 풀을 만든다. 기본값은 10개
+
 module.exports = router;

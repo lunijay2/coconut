@@ -37,6 +37,14 @@ app.use('/users', users);
 app.use('/stores', stores);
 app.use('/Pay', pay);
 
+app.get('/*', function(req, res) {
+    res.sendFile(path.join(__dirname, 'path/to/your/index.html'), function(err) {
+        if (err) {
+            res.status(500).send(err)
+        }
+    })
+});
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 //app.use(express.static(path.join(__dirname, 'public')));
