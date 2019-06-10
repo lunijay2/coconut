@@ -1,6 +1,6 @@
 <template>
     <div id="app" >
-      <img alt="Vue logo" height="200px" width="200px" src="./assets/coconut.svg">
+      <img alt="Vue logo" height="150px" width="150px" src="./assets/coconut.svg">
       <router-view/>
       <Navbar></Navbar>
     </div>
