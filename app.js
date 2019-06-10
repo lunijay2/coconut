@@ -38,7 +38,7 @@ app.use('/stores', stores);
 app.use('/Pay', pay);
 
 app.get('/*', function(req, res) {
-    res.sendFile(path.join(__dirname, 'path/to/your/index.html'), function(err) {
+    res.sendFile(path.join(__dirname, 'public/index.html'), function(err) {
         if (err) {
             res.status(500).send(err)
         }
