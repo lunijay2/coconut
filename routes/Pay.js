@@ -26,7 +26,7 @@ router.post('/GetOrder',(req, res, next) => {
             return ExecuteQuery(connectionQuery);
         })
         .then( rows => {
-            return LoginComplete( res, rows );
+            return Complete( res, rows );
         })
         .catch(err => {
             console.log(err);
