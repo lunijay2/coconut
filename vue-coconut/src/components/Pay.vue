@@ -8,7 +8,7 @@
             </h1>
             <!--<button v-if="result" type="submit" class="btn btn-primary">결제</button>-->
         </form>
-        <div class="list-group">
+        <div class="list-group" v-if="result.price">
                 <a class="list-group-item list-group-item-action flex-column align-items-start">
                     <div class="d-flex w-100 justify-content-between">
                         <h5 class="mb-1">{{result.order_no}}</h5>
@@ -27,7 +27,7 @@
         name: "Pay",
         data() {
             return {
-                result : '',
+                result : {},
                 ordernumber : '',
                 error : ''
             }
@@ -88,7 +88,7 @@
                 };
                 this.$store.dispatch('GetOrder', ordernum)
                     .then( response => {
-                        //alert('카테고리 결과 2 : '+JSON.stringify(response));
+                        alert('주문내역 성공 : '+JSON.stringify(response));
                         this.result = response.data.order;
                         console.log('주문내역 성공 : '+JSON.stringify(this.result));
                     })
