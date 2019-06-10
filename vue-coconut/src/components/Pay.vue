@@ -4,12 +4,12 @@
             <p class="error">{{ error }}</p>
             <!--<p class="decode-result">Last result: <b>{{ result }}</b></p>-->
             <qrcode-stream @decode="onDecode" @init="onInit" /><br><br>
-            <h1 v-if="result">인식되었습니다
+            <h1 v-if="result.order_no">인식되었습니다
             <p>
-                {{result}}
+                상품 번호 : {{result.product}}
+                가격 : {{result.price}}
             </p>
             </h1>
-
             <!--<button v-if="result" type="submit" class="btn btn-primary">결제</button>-->
         </form>
     </div>
@@ -21,12 +21,13 @@
         data() {
             return {
                 result : '',
+                ordernumber : '',
                 error : ''
             }
         },
         methods: {
-            onDecode (result) {
-                this.result = result
+            onDecode (ordernumber) {
+                this.ordernumber = ordernumber
             },
             async onInit (promise) {
                 try {
@@ -54,12 +55,12 @@
                 let i = 0;//문자열에 한글자씩 접근하는 인덱스
                 let j = 0;//0이면 주문번호, 1이면 jwt
                 while(exit) {
-                    if(this.result.charAt(i)) {
+                    if(this.ordernumber.charAt(i)) {
                         if(j==0) {
-                            number = number + this.result.charAt(i);
+                            number = number + this.ordernumber.charAt(i);
                         }
                         else {
-                            jwt = jwt + this.result.charAt(i);
+                            jwt = jwt + this.ordernumber.charAt(i);
                         }
                     }
                 }
@@ -70,6 +71,23 @@
                 this.$store.dispatch('PAY', Payinfo)
                     .then(response => {
                         console.log(response);
+                    })
+            }
+        },
+        watch : {
+            ordernumber : function (order) {
+                let ordernum = {
+                    orderno : order
+                };
+                this.$store.dispatch('GetOrder', ordernum)
+                    .then( response => {
+                        //alert('카테고리 결과 2 : '+JSON.stringify(response));
+                        this.result = response.data.order;
+                        console.log('주문내역 성공 : '+JSON.stringify(this.result));
+                    })
+                    .catch( err => {
+                        console.log('주문내역 실패 : ' + err);
+                        //alert(err);
                     })
             }
         }

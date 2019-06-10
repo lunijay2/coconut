@@ -20,11 +20,6 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarsExampleDefault">
                 <ul class="navbar-nav ml-auto">
-                    <!--
-                    <li class="nav-item">
-                        <input type="text" name="FirstName" placeholder="검색어를 입력해주세요.     ">
-                    </li>
-                    -->
                     <li class="nav-item" v-if="this.$store.state.pToken">
                         <router-link to="/MyPage" class="nav-link">
                             마이페이지
@@ -35,14 +30,21 @@
                             상품보기
                         </router-link>
                     </li>
+                    <!--
                     <li class="nav-item">
                         <router-link to="/AllStore" class="nav-link">
                             상점보기
                         </router-link>
                     </li>
+                    -->
                     <li class="nav-item"> <!--v-if="this.$store.state.pToken">-->
                         <router-link to="/Pay" class="nav-link">
                             결제
+                        </router-link>
+                    </li>
+                    <li class="nav-item">
+                        <router-link to="/Test" class="nav-link">
+                            결제 테스트
                         </router-link>
                     </li>
                     <li class="nav-item" v-if="!this.$store.state.pToken">
@@ -55,23 +57,24 @@
                             로그인
                         </router-link>
                     </li>
-                    <li class="nav-item">
-                        <router-link to="/Test" class="nav-link">
-                            결제 테스트
-                        </router-link>
-                    </li>
+
+                    <!--
                     <li class="nav-item">
                         <router-link to="/ImageUpload" class="nav-link">
                             이미지 업로드
                         </router-link>
                     </li>
+                    -->
                     <li class="nav-item" v-if="this.$store.state.pToken">
                         <a class="nav-link" href="#" @click.prevent="onLogoutClick">로그아웃</a>
                     </li>
                 </ul>
             </div>
         </div>
+            <!--<input type="text" name="FirstName" placeholder="검색어를 입력해주세요.     ">-->
+
     </nav>
+
 </template>
 
 <script>
