@@ -1,15 +1,21 @@
 <template>
     <div>
-        <form @submit="PaySubmit">
+        <form @submit="PaySubmit" v-if="!result.order_no">
             <p class="error">{{ error }}</p>
             <!--<p class="decode-result">Last result: <b>{{ result }}</b></p>-->
             <qrcode-stream @decode="onDecode" @init="onInit" /><br><br>
 
-            <a class="list-group-item list-group-item-action flex-column align-items-start" v-if="result.order_no">
-                <p class="mb-1">{{result.product}}</p>
-                <small class="text-muted">{{result.price}}원</small>
-            </a>
-            <!--<button v-if="result" type="submit" class="btn btn-primary">결제</button>-->
+            <div v-if="result.order_no">
+                <a class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">주문 내역 확인</h5>
+                        <small class="text-muted">주문번호 : {{result.order_no}}</small>
+                    </div>
+                    <p class="mb-1">{{result.product}}</p>
+                    <small class="text-muted">{{result.price}}원</small>
+                </a>
+                <button @click="onResetSubmit" type="submit" class="btn btn-primary">QR코드 재인식</button>
+            </div>
         </form>
     </div>
 </template>
@@ -25,6 +31,9 @@
             }
         },
         methods: {
+            onResetSubmit : function() {
+                this.result = {};
+            },
             onDecode (ordernumber) {
                 this.ordernumber = ordernumber
             },
@@ -80,7 +89,7 @@
                 };
                 this.$store.dispatch('GetOrder', ordernum)
                     .then( response => {
-                        alert('주문내역 성공 : '+JSON.stringify(response.data.order[0]));
+                        //alert('주문내역 성공 : '+JSON.stringify(response.data.order[0]));
                         this.result = response.data.order[0];
                         console.log('주문내역 성공 : '+JSON.stringify(this.result));
                     })
