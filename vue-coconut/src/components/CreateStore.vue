@@ -72,21 +72,20 @@
         },
         methods : {
             newStoreSubmit : function () {
-                this.$axios.post('http://localhost:3000/stores/newStore', this.newStore )
-                //this.$axios.post('/users/register', this.newUser )
-                    .then((response) => {
-                        if(response.data.success == true) {
+                this.$store.dispatch('NewProduct', this.newStore)
+                    .then( response => {
+                        if(response.data.success === true) {
                             alert('상품 등록 성공');
                             console.log('상품 등록 성공');
-                            this.$router.replace({ path : '/' });
+                            this.$router.replace({ path : '/AllProduct' });
                         } else {
-                            alert('상품 등록 실패(에러없음)');
-                            console.log('상품 등록 실패(에러없음)')
+                            alert('상품 등록 실패 1');
+                            console.log('상품 등록 실패 1');
                         }
                     }). catch((err) => {
-                    console.log("Error! : ", err);
-                    console.log('상품 등록 실패');
-                })
+                        alert('상품 등록 실패 2');
+                        console.log('상품 등록 실패 2');
+                    });
             }
         },
 

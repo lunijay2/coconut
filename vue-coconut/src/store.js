@@ -68,6 +68,10 @@ export default new Vuex.Store({
             //return axios.post( resourceHost+'/Pay/procpay', payload);
             return axios.post( '/Pay/procpay', payload);
         },
+        NewProduct : function (context, payload) {
+            //return axios.post(resourceHost+'/stores/newStore', payload);
+            return axios.post('/stores/newStore', payload);
+        },
         GetProduct : function (context) {
             //return axios.post(resourceHost+'/stores/Product');
             return axios.post('/stores/Product');
