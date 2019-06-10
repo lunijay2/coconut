@@ -6,8 +6,7 @@
             <qrcode-stream @decode="onDecode" @init="onInit" /><br><br>
             <h1 v-if="result.order_no">인식되었습니다
             <p>
-                상품 번호 : {{result.product}}
-                가격 : {{result.price}}
+                상품 번호 : {{result}}
             </p>
             </h1>
             <!--<button v-if="result" type="submit" class="btn btn-primary">결제</button>-->
