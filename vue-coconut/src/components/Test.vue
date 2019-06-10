@@ -1,7 +1,9 @@
 <template>
     <div>
         <h1>결제테스트 페이지</h1>
-        <qrcode-vue :value="value" :size="size" level="H"></qrcode-vue>
+        <qrcode-vue :value="value1" :size="size" level="H"></qrcode-vue>
+        <br><br><br>
+        <qrcode-vue :value="value2" :size="size" level="H"></qrcode-vue>
     </div>
 </template>
 
@@ -13,7 +15,8 @@
     data() {
 
         return {
-            value : '1',
+            value1 : '1',
+            value2 : '2',
             size : 300
         }
     },
