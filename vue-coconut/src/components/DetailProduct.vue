@@ -16,7 +16,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>
+                        <td> 
                             <h3 class="float-left">{{Product.price.toLocaleString()}}원</h3>
                         </td>
                     </tr>
