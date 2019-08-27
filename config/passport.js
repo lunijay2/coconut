@@ -20,6 +20,7 @@ module.exports = function(passport){
                 connection.query(statement, function(err, rows, fields) {
                     if (err) {
                         console.log('Error while performing Query.', err);
+                        throw err;
                         return done(err, false);
                     } else if (rows){
                         //console.log('The solution is: ', JSON.stringify(rows[0]));
@@ -28,8 +29,8 @@ module.exports = function(passport){
                         return done(null, false);
                     }
                 });
+                connection.release(); //쿼리가 성공하던 실패하던 커넥션을 반환해야 함
             }
-            connection.release(); //쿼리가 성공하던 실패하던 커넥션을 반환해야 함
         });
 
         /*

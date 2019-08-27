@@ -35,6 +35,33 @@ router.post('/GetOrder',(req, res, next) => {
 
 });
 
+router.post('/newOrder',(req, res, next) => {
+    let newOrder = {
+        product: req.body.product,
+        price: req.body.price,
+        orderer: req.body.orderer,
+        delivery_address: req.body.delivery_address,
+        delivery_tel: req.body.delivery_tel
+    };
+    console.log('newOrder : '+JSON.stringify(newOrder));
+
+    CreateOrderQuery(newOrder)
+        .then( query => {
+            return PoolGetConnection(query);
+        })
+        .then(connectionQuery => {
+            return ExecuteQuery(connectionQuery);
+        })
+        .then( rows => {
+            return Complete( res, rows );
+        })
+        .catch(err => {
+            console.log(err);
+            res.json({success: false});
+        })
+
+});
+
 function procpay(number, jwt) {
     return new Promise( function (resolve, reject) {
         let temp = passport_policy(jwt);
@@ -52,6 +79,14 @@ function OrderFoundQuery(ordernumber) {
             console.log("OrderFoundQuery err : "+err);
             reject(err);
         }
+    });
+}
+
+function CreateOrderQuery(newOrder) {
+    return new Promise( function (resolve) {
+        let statement = "INSERT INTO trade_detail (product, price, orderer, paid, delivery_address, delivery_tel) VALUES ('" + newOrder.product + "', '" + newOrder.price + "', '" + newOrder.orderer + "', '" + 0 + "', '" + newOrder.delivery_address + "', '" + newOrder.delivery_tel + "');";
+        console.log("newOrderQuery : "+statement);
+        resolve(statement);
     });
 }
 

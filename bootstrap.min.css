@@ -14,11 +14,11 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 
-@import url('https://fonts.googleapis.com/css?family=Dosis:200&display=swap');
 li {
     padding-right: 20px;
 }
 
+@import url('https://fonts.googleapis.com/css?family=Dosis:400&display=swap');
 :root {
     --blue: #4582EC;
     --indigo: #6610f2;
@@ -48,31 +48,6 @@ li {
     --breakpoint-xl: 1200px;
     --font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace
-}
-
-.sample_image img {
-    -webkit-transform: scale(1);
-    -moz-transform: scale(1);
-    -ms-transform: scale(1);
-    -o-transform: scale(1);
-    transform: scale(1);
-    -webkit-transition: .8s;
-    -moz-transition: .8s;
-    -ms-transition: .8s;
-    -o-transition: .8s;
-    transition: .8s;
-}
-
-.sample_image:hover img {
-    -webkit-transform: scale(1.2);
-    -moz-transform: scale(1.2);
-    -ms-transform: scale(1.2);
-    -o-transform: scale(1.2);
-    transform: scale(1.2);
-}
-
-.sample_image {
-    overflow: hidden;
 }
 
 
@@ -4734,7 +4709,7 @@ input[type="button"].btn-block {
     -webkit-box-pack: justify;
     -ms-flex-pack: justify;
     justify-content: space-between;
-    padding: 0.7rem 1rem
+    padding: 0.5rem 1rem
 }
 
 .navbar>.container,
@@ -5133,19 +5108,16 @@ input[type="button"].btn-block {
     color: #fff
 }
 
-
-/*네브바 글씨*/
-
 .navbar-dark .navbar-nav .nav-link {
     font-size: 1.5em;
-    /*text-shadow: -1px 0 rgb(255, 255, 255), 0 1px rgb(255, 255, 255), 1px 0 rgb(255, 255, 255), 0 -1px rgb(255, 255, 255);*/
-    color: #ffffff;
+    text-shadow: -1px 0 rgb(255, 255, 255), 0 1px rgb(255, 255, 255), 1px 0 rgb(255, 252, 252), 0 -1px rgb(255, 255, 255);
+    color: #000;
     font-weight: 900;
 }
 
 .navbar-dark .navbar-nav .nav-link:hover,
 .navbar-dark .navbar-nav .nav-link:focus {
-    color: #B6B6B6;
+    color: #128400;
     /*text-shadow: -1px 0 rgb(0, 0, 0), 0 1px rgb(0, 0, 0), 1px 0 rgb(0, 0, 0), 0 -1px rgb(0, 0, 0);*/
 }
 
@@ -5219,7 +5191,7 @@ input[type="button"].btn-block {
     -webkit-box-flex: 1;
     -ms-flex: 1 1 auto;
     flex: 1 1 auto;
-    padding: 1rem
+    padding: 1.25rem
 }
 
 .card-title {
@@ -10754,8 +10726,8 @@ button.bg-dark:focus {
     font-style: italic !important
 }
 
-.text-black {
-    color: #000 !important
+.text-white {
+    color: #fff !important
 }
 
 .text-primary {
@@ -10959,13 +10931,9 @@ a.text-dark:focus {
     font-size: 0.875em
 }
 
-
-/*네브바 배경색*/
-
 .bg-dark {
     font-family: 'Dosis', sans-serif;
-    background-color: black !important;
-    font-size: x-small
+    background-color: #ffffff !important
 }
 
 .bg-light {

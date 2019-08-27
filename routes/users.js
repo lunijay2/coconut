@@ -53,22 +53,39 @@ router.post('/register', (req, res, next) => {
             return ExecuteQuery(connectionQuery);   // ExecuteQuery함수에 커넥션과 쿼리문을 보냄
         })
         .then(function(rows) {  // ExecuteQuery가 쿼리문을 사용한 결과값을 받음
-            console.log("This Solutions is : " + rows[0]);
+            console.log("가입 결과 : " + JSON.stringify(rows));
+            return CreateShoppingCart(newUser.id);
+        })
+        .then( function (cartQuery) {
+            return PoolGetConnection(cartQuery);
+        })
+        .then(function (connectionQuery) {
+            return ExecuteQuery(connectionQuery);
+        })
+        .then(function(rows) {  // ExecuteQuery가 쿼리문을 사용한 결과값을 받음
+            console.log("장바구니 생성 결과 : " + JSON.stringify(rows));
+            return CreateCertTable(newUser.id);
+        })
+        .then( function (certQuery) {
+            return PoolGetConnection(certQuery);
+        })
+        .then(function (connectionQuery) {
+            return ExecuteQuery(connectionQuery);
+        })
+        .then(function (rows) {
+            console.log("인증서 테이블 생성 결과 : " + JSON.stringify(rows));
             return RegComplete(res);    // RegComplete에 res를 보냄. res.json을 실행하기 위해서는 res값이 필요하기 때문에 res를 인자값으로 보냄
         }, function(err) {  // ExecuteQuery가 쿼리문을 실행한 결과로 에러가 온 경우
             console.log("Excute Query err : "+err);
-            return Rollback(connection); // 쿼리문 실행 중 에러가 나면 롤백을 실행해야 함
+            res.json({success: false, msg: 'Failed to register user 1'});
         })
         .catch( function (err) {    // 전체적으로 에러를 캐치한다
             console.log("Catch err : "+err);
-            res.json({success: false, msg: 'Failed to register user'}); // 에러 캐치시 false반환
-        })
-        .then( function () {
-            return ReleaseConnection( connectionQuery.connection );   // 결과값이 어떻든 커넥션은 반환되어야 한다
+            res.json({success: false, msg: 'Failed to register user 2'}); // 에러 캐치시 false반환
         })
         .catch(function (err) { //마지막으로 에러를 캐치
             console.log(err);
-        })
+        });
 });
 
 // RegisterEnt
@@ -118,6 +135,26 @@ router.post('/registerEnt', (req, res, next) => {
         })
         .then(function(connectionQuery) {
             return ExecuteQuery(connectionQuery)
+        })
+        .then(function(rows) {  // ExecuteQuery가 쿼리문을 사용한 결과값을 받음
+            console.log("This Solutions is : " + JSON.stringify(rows));
+            return CreateShoppingCart(newUser.id);
+        })
+        .then( function (cartQuery) {
+            return PoolGetConnection(cartQuery);
+        })
+        .then(function (connectionQuery) {
+            return ExecuteQuery(connectionQuery);
+        })
+        .then(function(rows) {  // ExecuteQuery가 쿼리문을 사용한 결과값을 받음
+            console.log("This Solutions is : " + JSON.stringify(rows));
+            return CreateCertTable(newUser.id);
+        })
+        .then( function (certQuery) {
+            return PoolGetConnection(certQuery);
+        })
+        .then(function (connectionQuery) {
+            return ExecuteQuery(connectionQuery);
         })
         .then(function(rows) { // ExecuteQuery가 쿼리문을 사용한 결과값을 받음
             console.log("This Solutions is : " + JSON.stringify(rows));
@@ -190,7 +227,56 @@ router.get('/profile', passport.authenticate("jwt", {session: false}), function(
     }
 });
 
+router.post('/addBasket', (req, res, next) => {
+    let product = {
+        userid : req.body.userid,
+        number: req.body.number,
+        price: req.body.price,
+        productcode: req.body.productcode,
+        productname: req.body.name,
+        quantity: req.body.quantity,
+        seller: req.body.seller
+    };
+
+    addBasketQuery(product)        // Salt값 생성 함수 호출
+        .then( function(query) {
+            console.log("query : " + query);
+            return PoolGetConnection(query);
+        })
+        .then(function (connectionQuery) {
+            return ExecuteQuery(connectionQuery);
+        })
+        .then(function(rows) {
+            console.log("This Solutions is : " + JSON.stringify(rows));
+            return Complete(res);
+        }, function(err) {
+            console.log("err 1 : "+err);
+            res.json({success: false, msg : err });
+        })
+        .catch(function (err) {
+            console.log(err);
+            res.json({success: false, msg : err });
+        })
+});
+
 var pool = mysql.createPool(config); //연결에 대한 풀을 만든다. 기본값은 10개
+
+function CreateShoppingCart(id) {
+    return new Promise( function ( resolve ) {
+        console.log(id);
+        var aa = "CREATE TABLE `shoppingcart_"+ id + "` ( `number` INT NOT NULL AUTO_INCREMENT, `productcode` INT NOT NULL, `productname` VARCHAR(250) NOT NULL, `quantity` INT NOT NULL, `price` INT NOT NULL, `seller` VARCHAR(45) NOT NULL, PRIMARY KEY (`number`));";
+        resolve(aa);
+    })
+}
+
+function CreateCertTable(id) {
+    return new Promise( function ( resolve ) {
+        console.log(id);
+        var aa = "CREATE TABLE `cert_"+ id + "` ( `certnumber` INT NOT NULL AUTO_INCREMENT, `masterCert` BOOLEAN NOT NULL DEFAULT FALSE, `allowed` BOOLEAN NOT NULL DEFAULT FALSE, `cert` TEXT(2000) NOT NULL, PRIMARY KEY (`certnumber`));";
+        //var aa = "CREATE TABLE `cert_"+ id + "` ( `certnumber` INT NOT NULL AUTO_INCREMENT, `masterCert` BOOLEAN NOT NULL DEFAULT FALSE, `cert` TEXT(2000) NOT NULL, PRIMARY KEY (`certnumber`), UNIQUE (`cert`));";
+        resolve(aa);
+    })
+}
 
 function CreateSalt() {     //salt값을 생성하는 Promise 함수
     return new Promise( function (resolve, reject) {
@@ -254,6 +340,19 @@ function CreateUserFoundQuery(Userid) {     //유저 정보, 해쉬화된 비밀
             resolve(statement);
         } else {
             console.log("CreateUserFoundQuery err : "+err);
+            reject(err);
+        }
+    });
+}
+
+function addBasketQuery(product) {     //유저 정보, 해쉬화된 비밀번호를 받아서 쿼리문을 작성하는 Promise 함수
+    return new Promise( function (resolve, reject) {
+        if(product) {
+            let statement = "INSERT INTO shoppingcart_"+product.userid+" (price, productcode, productname, quantity, seller) VALUES ('" + product.price + "', '" + product.productcode + "', '" + product.productname + "', '" + product.quantity + "', '" + product.seller + "');";
+            console.log("addBasketQuery : "+statement);
+            resolve(statement);
+        } else {
+            console.log("addBasketQuery err : "+err);
             reject(err);
         }
     });
@@ -348,6 +447,12 @@ function LoginComplete( res, AuthToken ) {
 function RegComplete(res) {     // 프론트 엔드에 Success : true값을 반환하는 Promise 함수
     return new Promise( function () {
         res.json({success: true, msg: 'User registed'});
+    });
+}
+
+function Complete(res) {     // 프론트 엔드에 Success : true값을 반환하는 Promise 함수
+    return new Promise( function () {
+        res.json({ success: true });
     });
 }
 

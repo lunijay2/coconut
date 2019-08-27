@@ -2,7 +2,7 @@
     <div>
         <h1>결제테스트 페이지</h1>
         <qrcode-vue :value="value" :size="size" level="H"></qrcode-vue>
-        <button @click="onNextSubmit" type="submit" class="btn btn-primary">QR코드 변경</button>
+        <button @click="onNextSubmit" type="button"  class="btn btn-primary">QR코드 변경</button>
     </div>
 </template>
 

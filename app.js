@@ -10,7 +10,8 @@ const forge = require('node-forge');
 const fs = require('fs');
 const jwt = require('jsonwebtoken');
 const pay = require('./routes/Pay');
-const stores = require('./routes/stores')
+const stores = require('./routes/stores');
+const cert = require('./routes/Cert');
 
 const https = require('https');
 const http = require('http');
@@ -18,8 +19,8 @@ const http = require('http');
 const app = express();
 
 // port number
-//const port = 3000;
-const port = process.env.PORT || 6000;
+const port = 3000;
+//const port = process.env.PORT || 6000;
 
 // CORS Middleware
 app.use(cors());
@@ -36,6 +37,7 @@ require('./config/passport')(passport);
 app.use('/users', users);
 app.use('/stores', stores);
 app.use('/Pay', pay);
+app.use('/Cert', cert);
 
 
 app.use(express.static(path.join(__dirname, 'public')));

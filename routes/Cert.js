@@ -8,7 +8,244 @@ const bcrypt = require('bcryptjs');
 
 const forge = require('node-forge');
 const fs = require('fs');
+const pki = forge.pki;
+const caCertPem = fs.readFileSync('caCert.pem', 'utf8');
+const caPrivateKeyPem = fs.readFileSync('caPrivateKey.pem', 'utf8');
+const caCert = pki.certificateFromPem(caCertPem);
+const caPrivateKey = pki.privateKeyFromPem(caPrivateKeyPem);
 
+
+router.post('/newCert', (req, res, next) => {
+    console.log(JSON.stringify(req.body));
+    var cert = pki.createCertificate();
+    cert.publicKey = pki.publicKeyFromPem(req.body.publicKey);
+    cert.serialNumber = '01';
+    cert.validity.notBefore = new Date();
+    cert.validity.notAfter.setFullYear(cert.validity.notBefore.getFullYear() + 5);
+
+    var userAttrs = [
+        {
+            name: 'commonName',
+            value: req.body.user.number
+        }, {
+            name: 'countryName',
+            value: 'kr'
+        }, {
+            name: 'organizationName',
+            value: 'Coconut'
+        }, {
+            shortName: 'OU',
+            value: 'Master'
+        }
+    ];
+    cert.setSubject(userAttrs);
+
+    var caAttrs = [
+        {
+            name: 'commonName',
+            value: caCert.subject.getField('CN').value
+        }, {
+            name: 'countryName',
+            value: caCert.subject.getField('C').value
+        }, {
+            shortName: 'ST',
+            value: caCert.subject.getField('ST').value
+        }, {
+            name: 'localityName',
+            value: caCert.subject.getField('L').value
+        }, {
+            name: 'organizationName',
+            value: caCert.subject.getField('O').value
+        }, {
+            shortName: 'OU',
+            value: caCert.subject.getField('OU').value
+        }
+    ];
+    cert.setIssuer(caAttrs);
+
+    cert.setExtensions([
+        {
+            name: 'basicConstraints',
+            cA: true
+        }, {
+            name: 'keyUsage',
+            keyCertSign: true,
+            digitalSignature: true,
+            nonRepudiation: true,
+            keyEncipherment: true,
+            dataEncipherment: true
+        }, {
+            name: 'extKeyUsage',
+            serverAuth: true,
+            clientAuth: true,
+            codeSigning: true,
+            emailProtection: true,
+            timeStamping: true
+        }, {
+            name: 'nsCertType',
+            client: true,
+            server: true,
+            email: true,
+            objsign: true,
+            sslCA: true,
+            emailCA: true,
+            objCA: true
+        }, {
+            name: 'subjectAltName',
+            altNames: [{
+                type: 6, // URI
+                value: 'http://coconutpay.herokuapp.com/'
+            }]
+        }, {
+            name: 'subjectKeyIdentifier'
+        }
+    ]);
+
+    cert.sign(caPrivateKey);
+
+    let certinfo = {
+        cert : pki.certificateToPem(cert),
+        caCert: caCertPem,
+        user : req.body.user
+    };
+
+    addMasterCertQuery(certinfo)        // Salt값 생성 함수 호출
+        .then( function(query) {
+            console.log("masterCert query : " + query);
+            return PoolGetConnection(query);
+        })
+        .then(function (connectionQuery) {
+            return ExecuteQuery(connectionQuery);
+        })
+        .then(function(rows) {
+            console.log("This Solutions is : " + JSON.stringify(rows));
+            return MasterCertComplete(res, certinfo);
+        }, function(err) {
+            console.log("err 1 : "+err);
+            res.json({success: false, msg : err });
+        })
+        .catch(function (err) {
+            console.log(err);
+            res.json({success: false, msg : err });
+        });
+
+});
+
+router.post('/AddCert', (req, res, next) => {
+    console.log(JSON.stringify(req.body));
+    var cert = pki.createCertificate();
+    cert.publicKey = pki.publicKeyFromPem(req.body.publicKey);
+    cert.serialNumber = '01'; // 이 부분은 시리얼 넘버가 점점 올라가도록 해야 함
+    cert.validity.notBefore = new Date();
+    cert.validity.notAfter.setFullYear(cert.validity.notBefore.getFullYear() + 1);
+
+    var userAttrs = [
+        {
+            name: 'commonName',
+            value: req.body.user.number
+        }, {
+            name: 'countryName',
+            value: 'kr'
+        }, {
+            name: 'organizationName',
+            value: 'Coconut'
+        }, {
+            shortName: 'OU',
+            value: req.body.deviceId //이 부분은 나중에 사용자가 입력한 기기 식별명으로 변경
+        }
+    ];
+    cert.setSubject(userAttrs);
+
+    var caAttrs = [
+        {
+            name: 'commonName',
+            value: caCert.subject.getField('CN').value
+        }, {
+            name: 'countryName',
+            value: caCert.subject.getField('C').value
+        }, {
+            shortName: 'ST',
+            value: caCert.subject.getField('ST').value
+        }, {
+            name: 'localityName',
+            value: caCert.subject.getField('L').value
+        }, {
+            name: 'organizationName',
+            value: caCert.subject.getField('O').value
+        }, {
+            shortName: 'OU',
+            value: caCert.subject.getField('OU').value
+        }
+    ];
+    cert.setIssuer(caAttrs);
+
+    cert.setExtensions([
+        {
+            name: 'basicConstraints',
+            cA: true
+        }, {
+            name: 'keyUsage',
+            keyCertSign: true,
+            digitalSignature: true,
+            nonRepudiation: true,
+            keyEncipherment: true,
+            dataEncipherment: true
+        }, {
+            name: 'extKeyUsage',
+            serverAuth: true,
+            clientAuth: true,
+            codeSigning: true,
+            emailProtection: true,
+            timeStamping: true
+        }, {
+            name: 'nsCertType',
+            client: true,
+            server: true,
+            email: true,
+            objsign: true,
+            sslCA: true,
+            emailCA: true,
+            objCA: true
+        }, {
+            name: 'subjectAltName',
+            altNames: [{
+                type: 6, // URI
+                value: 'http://coconutpay.herokuapp.com/'
+            }]
+        }, {
+            name: 'subjectKeyIdentifier'
+        }
+    ]);
+
+    cert.sign(caPrivateKey);
+
+    let certinfo = {
+        cert : pki.certificateToPem(cert),
+        caCert: caCertPem,
+        user : req.body.user
+    };
+
+    addMasterCertQuery(certinfo)        // Salt값 생성 함수 호출
+        .then( function(query) {
+            console.log("masterCert query : " + query);
+            return PoolGetConnection(query);
+        })
+        .then(function (connectionQuery) {
+            return ExecuteQuery(connectionQuery);
+        })
+        .then(function(rows) {
+            console.log("This Solutions is : " + JSON.stringify(rows));
+            return MasterCertComplete(res, certinfo);
+        }, function(err) {
+            console.log("err 1 : "+err);
+            res.json({success: false, msg : err });
+        })
+        .catch(function (err) {
+            console.log(err);
+            res.json({success: false, msg : err });
+        });
+
+});
 
 router.post('/newStore', (req, res, next) => {
     let newStore = {
@@ -235,11 +472,10 @@ function CreateFindCategoryQuery(category) {
     });
 }
 
-function CreateFindProductCodeQuery(productcode) {
+function addMasterCertQuery(certinfo) {
     return new Promise( function (resolve) {
-        console.log('productcode : '+productcode);
-        let statement = "SELECT * FROM product where productcode='"+productcode+"';";
-        console.log("CreateFindProductCodeQuery : "+statement);
+        let statement = "INSERT INTO cert_"+certinfo.user.id+" (masterCert, cert) VALUES ('" + 1 + "', '" + certinfo.cert + "');";
+        console.log("addMasterCertQuery : "+statement);
         resolve(statement);
     });
 }
@@ -249,43 +485,6 @@ function CreateProductFoundQuery() {
         let statement = "SELECT * FROM product";
         console.log("ALLProductFoundQuery : "+statement);
         resolve(statement);
-    });
-}
-
-
-function CreateStoreFoundQuery() {
-    return new Promise( function (resolve) {
-        let statement = "SELECT * FROM ent WHERE seller = 1";
-        console.log("CreateStoreFoundQuery : "+statement);
-        resolve(statement);
-    });
-}
-
-function CreateFoundEntQuery(number) {
-    return new Promise( function (resolve) {
-        let statement = "SELECT * FROM ent where number = " + number + ";";
-        console.log("CreateFoundEntQuery : "+statement);
-        resolve(statement);
-    });
-}
-
-function CreateFindProductQuery(store) {
-    return new Promise( function (resolve) {
-        let statement = "SELECT * FROM product where user_number = " + store + ";";
-        console.log("CreateFindProductQuery : "+statement);
-        resolve(statement);
-    });
-}
-
-function CreateStoreQuery(newStore) {     //유저 정보, 해쉬화된 비밀번호를 받아서 쿼리문을 작성하는 Promise 함수
-    return new Promise( function (resolve, reject) {
-        if(newStore) {
-            let statement = "INSERT INTO product (user_number, seller, name, price, quantity, category, description) VALUES ('" + newStore.number + "', '" + newStore.seller + "', '" + newStore.name + "', '" + newStore.price + "', '" + newStore.quantity + "', '" + newStore.category + "', '" + newStore.description + "');";
-            resolve(statement);
-        } else {
-            console.log("CreateRegisterQuery err : "+err);
-            reject(err);
-        }
     });
 }
 
@@ -323,7 +522,7 @@ function ExecuteQuery(ConQue) {     // Connection과 쿼리문을 받아와서 �
     });
 }
 
-function Complete(res, rows) {     // 프론트 엔드에 Success : true값을 반환하는 Promise 함수
+function CompleteResult(res, rows) {
     return new Promise( function () {
         console.log('성공 : '+ JSON.stringify(rows));
         res.json({
@@ -333,45 +532,37 @@ function Complete(res, rows) {     // 프론트 엔드에 Success : true값을 �
     });
 }
 
-function GetStoreComplete(res, rows) {     // 프론트 엔드에 Success : true값을 반환하는 Promise 함수
+function MasterCertComplete(res, certinfo) {
     return new Promise( function () {
-        console.log('마지막 : '+ JSON.stringify(rows));
+        console.log('성공 : '+ JSON.stringify(certinfo));
         res.json({
             success: true,
-            store : rows
+            Mcert : certinfo.cert,
+            caCert : certinfo.caCert
         });
     });
 }
 
-function GetProductComplete(res, rows) {     // 프론트 엔드에 Success : true값을 반환하는 Promise 함수
+function Complete(res) {     // 프론트 엔드에 Success : true값을 반환하는 Promise 함수
     return new Promise( function () {
-        res.json({
-            success: true,
-            Product : rows
-        });
+        res.json({success: true, msg: 'Success'});
     });
 }
 
-function StoreComplete(res) {     // 프론트 엔드에 Success : true값을 반환하는 Promise 함수
+function Rollback(connection) {
     return new Promise( function () {
-        res.json({success: true, msg: 'User registed'});
-    });
-}
-
-function Rollback(connection) {      // 쿼리문 에러시 롤백을 실행하는 Promise 함수
-    return new Promise( function () {
-        connection.rollback(function (){ //쿼리가 에러로 실패하면 롤백해야 함
+        connection.rollback(function (){
             console.error('rollback error1');
         });
     });
 }
 
-function ReleaseConnection(connection) {    // 쿼리문을 다 실행한 후 Connection을 반환하는 Promise 함수
+function ReleaseConnection(connection) {
     return new Promise( function () {
         connection.release();
     });
 }
 
-var pool = mysql.createPool(config); //연결에 대한 풀을 만든다. 기본값은 10개
+var pool = mysql.createPool(config);
 
 module.exports = router;

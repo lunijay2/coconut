@@ -29,6 +29,13 @@ import CreateStore from "./components/CreateStore";
 import AllProduct from "./components/AllProduct";
 import AllStore from "./components/AllStore";
 import Category from "./components/Category";
+import DetailProduct from "./components/DetailProduct";
+import CreateOrder from "./components/CreateOrder";
+import Cert from "./components/Cert";
+import Cart from "./components/Cart";
+import CertTest from "./components/CertTest";
+import AdditionalCert from "./components/AdditionalCert";
+//import jusoPopup from "../popup/jusoPopup.jsp";
 
 const router = new VueRouter({
   mode: 'history',
@@ -48,7 +55,14 @@ const router = new VueRouter({
     {path:'/AllProduct', component : AllProduct },
     {path:'/AllStore', component : AllStore },
     {path:'/Category', component : Category },
-    {path:'*', component: NotFound }
+    {path:'/DetailProduct/:product', component : DetailProduct },
+    {path:'/CreateOrder/:product/:quantity', component : CreateOrder },
+    {path:'/Cert', component : Cert },
+    {path:'/Cart', component : Cart },
+    {path:'/CertTest', component : CertTest },
+    {path:'/AdditionalCert', component : AdditionalCert },
+    {path:'*', component: NotFound },
+    //{path: 'jusoPopup', component : jusoPopup }
   ]
 });
 new Vue({
