@@ -1,0 +1,9 @@
+/* You can add global styles to this file, and also import other style files */
+body{
+  margin-top:70px; /*메뉴바와 본문의 간격 설정*/
+}
+ @media(max-width: 768px){
+  body{
+    margin-top:180px;
+  }
+}
