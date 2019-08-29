@@ -8,10 +8,12 @@
                 max-files="1"
                 server="/users/imgupload"
                 accepted-file-types="image/jpeg, image/png"
-                v-bind:files="myFiles"
                 v-on:init="handleFilePondInit"
         />
-        <!-- server="http://localhost:3000/users/imgupload"-->
+        <!--
+        v-bind:files="myFiles"
+        server="http://localhost:3000/users/imgupload"
+        -->
     </div>
 </template>
 
