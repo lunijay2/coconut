@@ -88,7 +88,7 @@
                     console.log('response : '+JSON.stringify(response));
                     this.Product = response.data.result;
                     //this.imageThumbnail = "http://localhost:3000\\img\\"+this.Product.thumbnail;
-                    this.imageThumbnail = "\\img\\"+this.Product.thumbnail;
+                    this.imageThumbnail = "/img/"+this.Product.thumbnail;
                 });
             /*
             let buffer = "../../../public/images/dfab3a9e573bb8ba8decc86596ca71de";
@@ -181,10 +181,11 @@
     .heightSet {
         max-height: 498px;
     }
+    /*
     img.border-shadow{
         border:0px solid #888888;
-        /*box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);*/
-    }
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }*/
     .imageBox{
         max-width: 500px;
         max-height: 500px;
