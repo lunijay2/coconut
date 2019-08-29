@@ -1,10 +1,16 @@
 <template>
     <div>
-        <div class="productgroup row">
+        <div class="row">
             <div class="col-md-6">
+                <div class="imageBox">
+                    <img v-bind:src="imageThumbnail" class="widthSet heightSet" />
+                </div>
             </div>
-            <div class="col-md-6">
-                <table border="0" width="400">
+            <div class="col-md-1">
+            </div>
+            <div class="col-md-5">
+                <br><br>
+                <table border="0">
                     <tr>
                         <td>
                             <h3 class="float-left"><strong>{{Product.name}}</strong></h3>
@@ -42,15 +48,16 @@
                     </tr>
                     <tr>
                         <td></td>
-                        <td>
-                            <h6 class="float-right">총 상품금액 {{(Product.price*quantity).toLocaleString()}}원</h6>
-                        </td>
+                        <td colspan="2"></td>
                     </tr>
+                </table>
+                <h6>총 상품금액 {{(Product.price*quantity).toLocaleString()}}원</h6>
+                <table border="0">
                     <tr>
-                        <td width="200px">
+                        <td>
                             <button @click="addBasketSubmit" type="button" class="btn btn-block btn-lg btn-outline-success">장바구니</button>
                         </td>
-                        <td width="200px">
+                        <td>
                             <button @click="CreateOrderSubmit" type="button" class="btn btn-block btn-lg btn-primary">바로구매</button>
                         </td>
                     </tr>
@@ -66,7 +73,7 @@
         data () {
             return {
                 Product : {},
-                image :'',
+                imageThumbnail :'',
                 quantity : 1,
             }
         },
@@ -80,6 +87,8 @@
                     console.log('성공');
                     console.log('response : '+JSON.stringify(response));
                     this.Product = response.data.result;
+                    //this.imageThumbnail = "http://localhost:3000\\img\\"+this.Product.thumbnail;
+                    this.imageThumbnail = "\\img\\"+this.Product.thumbnail;
                 });
             /*
             let buffer = "../../../public/images/dfab3a9e573bb8ba8decc86596ca71de";
@@ -165,5 +174,21 @@
         left: 18%;
         //background: #fff;
         //transform: translate(-50%, -50%)
+    }
+    .widthSet {
+        max-width: 498px;
+    }
+    .heightSet {
+        max-height: 498px;
+    }
+    img.border-shadow{
+        border:0px solid #888888;
+        /*box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);*/
+    }
+    .imageBox{
+        max-width: 500px;
+        max-height: 500px;
+        border:0px solid #888888;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     }
 </style>

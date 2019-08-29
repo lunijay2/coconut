@@ -1,8 +1,10 @@
 <template>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-        <!--홈 이미지-->
-        <router-link to="/" class="navbar-brand">
-            <div class="centered">COCONUT</div>
+        <!--홈 <이미지-->
+        <div class="container">
+        <router-link to="/" class="navbar-brand floa">
+            COCONUT
+            <!--<div class="centered">COCONUT</div>-->
         </router-link>
 
         <button
@@ -56,6 +58,7 @@
                 </li>
             </ul>
         </div>
+        </div>
     </nav>
 </template>
 
@@ -73,7 +76,6 @@
 
 <style scoped>
     .centered {position: absolute; left: 45%; bottom: 25%; }
-
     router-link{
         text-decoration: none;
         color: #333333;

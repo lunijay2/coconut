@@ -13,7 +13,7 @@
             <h5 v-if="m.co == true" style="color:green;" class="float-left">{{m.me}}</h5>
             <h5 v-if="m.co == false" style="color:red;" class="float-left">{{m.me}}</h5>
             <br>
-            <button @click="AddCertSubmit" type="button" class="btn-sm btn-primary">추가 인증서 발급 요청</button>
+            <button @click="AddCertSubmit" type="button" class="btn btn-primary">추가 인증서 발급 요청</button>
         </div>
         <div class="col-md-3"></div>
     </div>
@@ -59,7 +59,7 @@
                         user : this.user,
                         deviceId: this.deviceId
                     };
-                    this.$store.dispatch('AddcertRequest', certR)
+                    this.$store.dispatch('AddCertRequest', certR)
                         .then( response => {
                             if(response.data.success == true) {
                                 console.log('Cert Request 1 : '+JSON.stringify(response));

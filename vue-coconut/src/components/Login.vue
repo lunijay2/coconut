@@ -1,23 +1,36 @@
 <template>
-    <div> <h2>로그인</h2><br><br>
+    <div>
+        <h2 class="page-header">로그인</h2>
         <div class="row">
-            <div class="col-md-3"></div>
             <div class="col-md-6">
-                <div class="form-group row">
-                    <label for="id" class="col-sm-2 col-form-label"><h3>아이디</h3></label>
-                    <div class="col-sm-10">
-                        <input type="text" id="id" v-model="User.id" class="form-control" placeholder="ID">
-                    </div>
-                    <br><br><br>
-                    <label for="password" class="col-sm-2 col-form-label"><h3>비밀번호</h3></label>
-                    <div class="col-sm-10">
-                        <input type="password" id="password" v-model="User.password" class="form-control" placeholder="Password">
-                    </div>
+                <div class="alert alert-warning" role="alert">
+                    <h3 class="page-header">ID/PASS 로그인</h3>
+                        <div class="form-group">
+                            <label>ID (Username)</label>
+                            <input type="text" class="form-control" v-model="User.id" name="username">
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" class="form-control" v-model="User.password" name="password">
+                        </div>
+                    <button @click="onLoginSubmit" type="button" class="btn btn-primary">ID/PASS 로그인</button>
                 </div>
-                <br>
-                <button @click="onLoginSubmit" type="button" class="btn btn-primary">로그인</button>
             </div>
-            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <div class="alert alert-info" role="alert">
+                    <h3 class="page-header">전자서명 간편 로그인</h3>
+                    <p>
+                        전자서명 로그인은 서버에서 인증서를 발급받은 경우에만 사용 가능합니다.
+                        패스워드를 입력할 필요없이 간편하게 로그인 가능합니다.
+                    </p>
+                    <br>
+                        <div class="form-group">
+                            <label>ID (Username)</label>
+                            <input type="text" class="form-control" name="username1">
+                        </div>
+                        <input type="submit" class="btn btn-primary" value="전자서명 간편 로그인">
+                </div>
+            </div>
         </div>
     </div>
 </template>

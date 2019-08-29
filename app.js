@@ -12,6 +12,7 @@ const jwt = require('jsonwebtoken');
 const pay = require('./routes/Pay');
 const stores = require('./routes/stores');
 const cert = require('./routes/Cert');
+//const img = require('./public/images');
 
 const https = require('https');
 const http = require('http');
@@ -38,6 +39,7 @@ app.use('/users', users);
 app.use('/stores', stores);
 app.use('/Pay', pay);
 app.use('/Cert', cert);
+//app.use('/img', img);
 
 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -49,6 +51,7 @@ app.get('/*', function(req, res) {
         }
     })
 });
+
 
 // Start server
 app.listen(port, function(){

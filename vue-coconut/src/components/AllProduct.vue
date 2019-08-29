@@ -1,7 +1,6 @@
 <template>
     <div class="AllProduct">
     <div class="row">
-        <div class="col-md-1"></div>
         <div class="col-md-2">
             <table class="table table-hover">
                 <tbody>
@@ -53,7 +52,7 @@
             </table>
         </div>
         <div class="col-md-1"></div>
-        <div class="col-md-6">
+        <div class="col-md-7">
             <Category v-bind:choice="choiceCategory"></Category>
         </div>
     </div>

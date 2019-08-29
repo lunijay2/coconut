@@ -1,9 +1,8 @@
 <template>
     <div>
-        <div><h2>코코넛에 오신 것을 환영합니다</h2><br></div>
+        <div><h2><strong>회원가입</strong></h2><br></div>
         <div class="row">
-            <div class="col-md-3"></div>
-            <div class="col-md-3">
+            <div class="col-md-6">
                 <div class="card mb-3" style="max-width: 30rem;">
                     <div class="card-header text-white bg-danger"><strong>개인 회원 가입</strong></div>
                     <div class="list-group">
@@ -19,7 +18,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-6">
                 <div class="card mb-3" style="max-width: 40rem;">
                     <div class="card-header text-white bg-info"><strong>사업자 회원 가입</strong></div>
                     <div class="list-group">

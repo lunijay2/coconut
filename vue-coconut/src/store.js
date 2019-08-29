@@ -12,7 +12,8 @@ import main from './main';
 
 Vue.use(Vuex);
 
-const resourceHost = 'http://localhost:3000';
+//const resourceHost = 'http://localhost:3000';
+const resourceHost = '';
 
 export default new Vuex.Store({
     state: {
@@ -39,15 +40,15 @@ export default new Vuex.Store({
     },
     actions: {
         LOGIN : function (context, payload) {
-            //return axios.post( resourceHost+'/users/authenticate', payload);
-            return axios.post( '/users/authenticate', payload);
+            return axios.post( resourceHost+'/users/authenticate', payload);
+            //return axios.post( '/users/authenticate', payload);
         },
         LOGOUT : function (context) {
             context.commit('LOGOUT');
         },
         REGISTER : function (context, payload) {
-            //return axios.post( resourceHost+payload.path, payload.user);
-            return axios.post( payload.path, payload.user);
+            return axios.post( resourceHost+payload.path, payload.user);
+            //return axios.post( payload.path, payload.user);
         },
         GetProfile : function (context) {
             let currTime = new Date().getTime();
@@ -59,8 +60,8 @@ export default new Vuex.Store({
             let auth = md.digest().toHex();
 
             return axios.get(
-                //resourceHost+'/users/profile',
-                '/users/profile',
+                resourceHost+'/users/profile',
+                //'/users/profile',
                 { headers: {
                         "Authorization" : pt,
                         "Ctime" : currTime,
@@ -70,44 +71,44 @@ export default new Vuex.Store({
                 });
         },
         PAY : function (context, payload) {
-            //return axios.post( resourceHost+'/Pay/procpay', payload);
-            return axios.post( '/Pay/procpay', payload);
+            return axios.post( resourceHost+'/Pay/procpay', payload);
+            //return axios.post( '/Pay/procpay', payload);
         },
         NewProduct : function (context, payload) {
-            //return axios.post(resourceHost+'/stores/newStore', payload);
-            return axios.post('/stores/newStore', payload);
+            return axios.post(resourceHost+'/stores/newStore', payload);
+            //return axios.post('/stores/newStore', payload);
         },
         GetProduct : function (context) {
-            //return axios.post(resourceHost+'/stores/Product');
-            return axios.post('/stores/Product');
+            return axios.post(resourceHost+'/stores/Product');
+            //return axios.post('/stores/Product');
         },
         GetStore : function (context) {
-            //return axios.post(resourceHost+'/stores/Store');
-            return axios.post('/stores/Store');
+            return axios.post(resourceHost+'/stores/Store');
+            //return axios.post('/stores/Store');
         },
         FoundEnt : function (context, payload) {
-            //return axios.post(resourceHost+'/stores/FoundEnt', payload);
-            return axios.post('/stores/FoundEnt', payload);
+            return axios.post(resourceHost+'/stores/FoundEnt', payload);
+            //return axios.post('/stores/FoundEnt', payload);
         },
         FindCategory : function (context, payload) {
-            //return axios.post(resourceHost+'/stores/FindCategory', payload);
-            return axios.post('/stores/FindCategory', payload);
+            return axios.post(resourceHost+'/stores/FindCategory', payload);
+            //return axios.post('/stores/FindCategory', payload);
         },
         GetOrder : function (context, payload) {
-            //return axios.post( resourceHost+'/Pay/GetOrder', payload);
-            return axios.post( '/Pay/GetOrder', payload);
+            return axios.post( resourceHost+'/Pay/GetOrder', payload);
+            //return axios.post( '/Pay/GetOrder', payload);
         },
         GetProductDetail : function (context, payload) {
-            //return axios.post( resourceHost+'/stores/GetProductDetail', payload);
-            return axios.post( '/stores/GetProductDetail', payload);
+            return axios.post( resourceHost+'/stores/GetProductDetail', payload);
+            //return axios.post( '/stores/GetProductDetail', payload);
         },
         addBasket : function (context, payload) {
-            //return axios.post( resourceHost+'/users/addBasket', payload);
-            return axios.post( '/users/addBasket', payload);
+            return axios.post( resourceHost+'/users/addBasket', payload);
+            //return axios.post( '/users/addBasket', payload);
         },
         newOrder : function (context, payload) {
-            //return axios.post( resourceHost+'/Pay/newOrder', payload);
-            return axios.post( '/Pay/newOrder', payload);
+            return axios.post( resourceHost+'/Pay/newOrder', payload);
+            //return axios.post( '/Pay/newOrder', payload);
         },
         certRequest : function(context, payload) {
 
@@ -172,8 +173,8 @@ export default new Vuex.Store({
                 publicKey: publicKeyPem
             };
 
-            //return axios.post( resourceHost+'/Cert/newCert', req);
-            return axios.post( '/Cert/newCert', req);
+            return axios.post( resourceHost+'/Cert/newCert', req);
+            //return axios.post( '/Cert/newCert', req);
         },
         CertValidate : function(context, payload) {
             console.log(payload.id+'.pem');
@@ -223,7 +224,7 @@ export default new Vuex.Store({
             console.log('Signature Verify : '+verifySignature);
 
         },
-        AddcertRequest : function(context, payload) {
+        AddCertRequest : function(context, payload) {
             var keypair = pki.rsa.generateKeyPair(2048);
             var publicKey = keypair.publicKey;
             var privateKey = keypair.privateKey;
@@ -257,9 +258,10 @@ export default new Vuex.Store({
                 deviceId : payload.deviceId,
                 publicKey: publicKeyPem
             };
+            console.log("req : "+JSON.stringify(req));
 
-            //return axios.post( resourceHost+'/Cert/AddCert', req);
-            return axios.post( '/Cert/AddCert', req);
+            return axios.post( resourceHost+'/Cert/AddCert', req);
+            //return axios.post( '/Cert/AddCert', req);
         },
         storeMCert : function(context, payload) {
             localStorage.setItem(payload.id+'.cert', payload.response.Mcert);

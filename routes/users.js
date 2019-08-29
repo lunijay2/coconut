@@ -6,10 +6,22 @@ const mysql = require('mysql');
 const config = require('../config/database');
 const bcrypt = require('bcryptjs');
 const multer = require('multer');
-const upload = multer({dest : './public/images'});
-
 const forge = require('node-forge');
 const fs = require('fs');
+const path = require('path');
+
+//const upload = multer({dest : './public/images'});
+const upload = multer({
+    storage: multer.diskStorage({
+        destination: function (req, file, cb) {
+            cb(null, './public/img/');
+        },
+        filename: function (req, file, cb) {
+            cb(null, new Date().valueOf() + '.jpg');
+            //cb(null, new Date().valueOf() + file.originalname);
+        }
+    }),
+});
 
 router.post('/imgupload', upload.single('bin'), (req, res, next) => {
     console.log(req.body);

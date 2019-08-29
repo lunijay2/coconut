@@ -6,11 +6,12 @@
                 label-idle="Drop files here or <span class='filepond--label-action'>Browse</span>"
                 allow-multiple="false"
                 max-files="1"
-                server='http://localhost:3000/users/imgupload'
+                server="/users/imgupload"
                 accepted-file-types="image/jpeg, image/png"
                 v-bind:files="myFiles"
                 v-on:init="handleFilePondInit"
         />
+        <!-- server="http://localhost:3000/users/imgupload"-->
     </div>
 </template>
 
@@ -40,7 +41,7 @@
         name: "ImageUpload",
         data: function() {
             return {
-                myFiles: ['my-file.jpg']
+                //myFiles: ['']
             };
         },
         methods: {

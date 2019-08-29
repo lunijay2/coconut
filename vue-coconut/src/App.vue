@@ -1,5 +1,5 @@
 <template>
-    <div id="app">
+    <div id="app" class="container">
         <form>
             <header>
                 <Navbar></Navbar>
@@ -32,12 +32,18 @@
         font-family: "Avenir", Helvetica, Arial, sans-serif;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
-        text-align: center;
-        color: #2c3e50;
-        top: 70px;
+        /*text-align: center;*/
         position: relative;
-        background-color: #f8f8f8;
-        height: -webkit-fill-available;
-        width: 100%
+        width: 100%;
     }
+    body{
+        margin-top:70px; /*메뉴바와 본문의 간격 설정*/
+    }
+    @media(max-width: 768px){
+        body{
+            margin-top:70px;
+        }
+    }
+
+
 </style>
