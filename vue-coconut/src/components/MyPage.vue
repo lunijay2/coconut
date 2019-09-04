@@ -2,17 +2,8 @@
     <from>
         <div>
             <h1>마이 페이지입니다.</h1>
-            <div class="col-md-1"></div>
-            <div class="card text-white bg-primary mb-3"  v-if="user.name">
-                <div class="card-header">{{ user.name }}님 환영합니다.</div>
-                <div class="card-body">
-                    <h4 class="card-title">{{user}}</h4>
-                    <p class="card-text">{{Store}}</p>
-                </div>
-            </div>
             <div class="AllProduct">
                 <div class="row">
-                    <div class="col-md-1"></div>
                     <div class="col-md-2">
                         <table class="table table-hover">
                             <tbody>
@@ -49,8 +40,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="col-md-1"></div>
-                    <div class="col-md-6">
+                    <div class="col-md-10">
                         <MyCategory v-bind:choice="choiceCategory"></MyCategory>
                         <ChangePassword v-bind:choice="choiceCategory"></ChangePassword>
                         <CreateStore v-bind:choice="choiceCategory"></CreateStore>
