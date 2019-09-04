@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8b5f4b00-2556-4e32-bc20-84d0221e8b34" name="Default Changelist" comment="">
+    <list default="true" id="8b5f4b00-2556-4e32-bc20-84d0221e8b34" name="Default Changelist" comment="190829 bootstrap v2">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/database.js" beforeDir="false" afterPath="$PROJECT_DIR$/config/database.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/img/1567038252881.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/img/1567038343732.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/img/1567038367684.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/img/1567038387996.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/stores.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/stores.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/users.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue-coconut/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue-coconut/src/App.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue-coconut/src/components/AllProduct.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue-coconut/src/components/AllProduct.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue-coconut/src/components/Category.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue-coconut/src/components/Category.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue-coconut/src/components/CreateStore.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue-coconut/src/components/CreateStore.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue-coconut/src/components/ImageUpload.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue-coconut/src/components/ImageUpload.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vue-coconut/src/components/MyPage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue-coconut/src/components/MyPage.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vue-coconut/src/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/vue-coconut/src/store.js" afterDir="false" />
     </list>
@@ -26,10 +28,28 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/ImageUpload.vue">
+        <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/CreateStore.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="342">
-              <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
+            <state relative-caret-position="887">
+              <caret line="100" column="18" lean-forward="true" selection-start-line="100" selection-start-column="18" selection-end-line="100" selection-end-column="18" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/DetailProduct.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="437">
+              <caret line="90" column="20" lean-forward="true" selection-start-line="90" selection-start-column="20" selection-end-line="90" selection-end-column="20" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/Category.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="450">
+              <caret line="80" column="17" lean-forward="true" selection-start-line="80" selection-start-column="17" selection-end-line="80" selection-end-column="17" />
             </state>
           </provider>
         </entry>
@@ -37,8 +57,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/vue-coconut/src/store.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="513">
-              <caret line="277" column="2" lean-forward="true" selection-start-line="277" selection-start-column="2" selection-end-line="277" selection-end-column="2" />
+            <state relative-caret-position="285">
+              <caret line="15" column="24" lean-forward="true" selection-start-line="15" selection-start-column="24" selection-end-line="15" selection-end-column="24" />
               <folding>
                 <element signature="e#0#22#0" expanded="true" />
                 <element signature="e#263#289#0" expanded="true" />
@@ -47,44 +67,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="53">
-              <caret line="23" lean-forward="true" selection-start-line="23" selection-end-line="23" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/config/database.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="337">
-              <caret line="23" selection-start-line="23" selection-end-line="23" />
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/MyPage.vue">
-          <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="456">
-              <caret line="42" column="41" selection-start-line="42" selection-start-column="41" selection-end-line="42" selection-end-column="41" />
-              <folding>
-                <element signature="e#2889#2927#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/routes/users.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="399">
-              <caret line="21" column="9" selection-start-line="21" selection-start-column="9" selection-end-line="21" selection-end-column="9" />
+              <caret line="24" column="18" lean-forward="true" selection-start-line="24" selection-start-column="18" selection-end-line="24" selection-end-column="18" />
             </state>
           </provider>
         </entry>
@@ -135,8 +122,6 @@
         <option value="$PROJECT_DIR$/vue-coconut/public/bootstrap.min.css" />
         <option value="$PROJECT_DIR$/public/bootstrap.min.css" />
         <option value="$PROJECT_DIR$/vue-coconut/src/components/Pay.vue" />
-        <option value="$PROJECT_DIR$/vue-coconut/src/components/CreateStore.vue" />
-        <option value="$PROJECT_DIR$/routes/stores.js" />
         <option value="$PROJECT_DIR$/config/database2.js" />
         <option value="$PROJECT_DIR$/config/passport.js" />
         <option value="$PROJECT_DIR$/vue-coconut/popup/jusoPopup.jsp" />
@@ -145,7 +130,6 @@
         <option value="$PROJECT_DIR$/caCert.js" />
         <option value="$PROJECT_DIR$/vue-coconut/src/components/Cart.vue" />
         <option value="$PROJECT_DIR$/vue-coconut/src/components/Test.vue" />
-        <option value="$PROJECT_DIR$/vue-coconut/src/components/Category.vue" />
         <option value="$PROJECT_DIR$/PKCS8test.js" />
         <option value="$PROJECT_DIR$/vue-coconut/src/components/Cert.vue" />
         <option value="$PROJECT_DIR$/vue-coconut/src/components/CertTest.vue" />
@@ -153,20 +137,23 @@
         <option value="$PROJECT_DIR$/routes/Cert.js" />
         <option value="$PROJECT_DIR$/public/index.html" />
         <option value="$PROJECT_DIR$/vue-coconut/src/components/AdditionalCert.vue" />
-        <option value="$PROJECT_DIR$/vue-coconut/src/App.vue" />
         <option value="$PROJECT_DIR$/vue-coconut/src/components/Login.vue" />
         <option value="$PROJECT_DIR$/vue-coconut/src/components/ChoiceMemberType.vue" />
         <option value="$PROJECT_DIR$/vue-coconut/src/components/Navbar.vue" />
-        <option value="$PROJECT_DIR$/vue-coconut/src/components/AllProduct.vue" />
-        <option value="$PROJECT_DIR$/routes/users.js" />
         <option value="$PROJECT_DIR$/vue-coconut/src/components/Home.vue" />
-        <option value="$PROJECT_DIR$/vue-coconut/src/components/DetailProduct.vue" />
-        <option value="$PROJECT_DIR$/vue-coconut/src/components/ImageUpload.vue" />
         <option value="$PROJECT_DIR$/vue-coconut/public/index.html" />
+        <option value="$PROJECT_DIR$/vue-coconut/src/App.vue" />
+        <option value="$PROJECT_DIR$/vue-coconut/src/components/AllProduct.vue" />
+        <option value="$PROJECT_DIR$/vue-coconut/src/components/ImageUpload.vue" />
+        <option value="$PROJECT_DIR$/vue-coconut/src/components/MyPage.vue" />
+        <option value="$PROJECT_DIR$/config/database.js" />
+        <option value="$PROJECT_DIR$/routes/users.js" />
+        <option value="$PROJECT_DIR$/routes/stores.js" />
+        <option value="$PROJECT_DIR$/vue-coconut/src/components/CreateStore.vue" />
+        <option value="$PROJECT_DIR$/vue-coconut/src/components/DetailProduct.vue" />
+        <option value="$PROJECT_DIR$/vue-coconut/src/components/Category.vue" />
         <option value="$PROJECT_DIR$/vue-coconut/src/store.js" />
         <option value="$PROJECT_DIR$/app.js" />
-        <option value="$PROJECT_DIR$/config/database.js" />
-        <option value="$PROJECT_DIR$/vue-coconut/src/components/MyPage.vue" />
       </list>
     </option>
   </component>
@@ -181,7 +168,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -244,6 +230,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -366,14 +353,9 @@
       <workItem from="1567005608521" duration="4049000" />
       <workItem from="1567029643350" duration="826000" />
       <workItem from="1567037155608" duration="7355000" />
-      <workItem from="1567567116053" duration="1427000" />
-    </task>
-    <task id="LOCAL-00033" summary="190531 Heroku v4">
-      <created>1559540231588</created>
-      <option name="number" value="00033" />
-      <option name="presentableId" value="LOCAL-00033" />
-      <option name="project" value="LOCAL" />
-      <updated>1559540231588</updated>
+      <workItem from="1567567116053" duration="6539000" />
+      <workItem from="1567596575286" duration="15623000" />
+      <workItem from="1567634466834" duration="101000" />
     </task>
     <task id="LOCAL-00034" summary="190604">
       <created>1559619872006</created>
@@ -711,11 +693,18 @@
       <option name="project" value="LOCAL" />
       <updated>1567051026902</updated>
     </task>
-    <option name="localTasksCounter" value="82" />
+    <task id="LOCAL-00082" summary="190829 bootstrap v2">
+      <created>1567572251955</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1567572251955</updated>
+    </task>
+    <option name="localTasksCounter" value="83" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="428701000" />
+    <option name="totallyTimeSpent" value="449537000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -736,7 +725,7 @@
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49679488" visible="true" weight="0.248104" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49679488" weight="0.248104" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3997833" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -835,13 +824,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/CreateStore.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="108" column="18" lean-forward="true" selection-start-line="108" selection-start-column="18" selection-end-line="108" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vue-coconut/popup/jusoPopup.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="855">
@@ -919,13 +901,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="608">
           <caret line="32" column="13" selection-start-line="32" selection-start-column="13" selection-end-line="32" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/stores.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="494">
-          <caret line="375" selection-start-line="375" selection-end-line="375" />
         </state>
       </provider>
     </entry>
@@ -1017,13 +992,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/Navbar.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="35" column="36" lean-forward="true" selection-start-line="35" selection-start-column="36" selection-end-line="35" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/AdditionalCert.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="190">
@@ -1031,24 +999,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/Category.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="494">
-          <caret line="26" column="17" lean-forward="true" selection-start-line="26" selection-start-column="17" selection-end-line="26" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/Login.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="95">
           <caret line="5" column="59" selection-start-line="5" selection-start-column="58" selection-end-line="5" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/AllProduct.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="5" column="23" selection-start-line="5" selection-start-column="23" selection-end-line="5" selection-end-column="23" />
         </state>
       </provider>
     </entry>
@@ -1075,8 +1029,8 @@
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/public/js/app.450c15ec.js.map">
-      <provider editor-type-id="sourcemapFileViewerProvider" />
       <provider selected="true" editor-type-id="text-editor" />
+      <provider editor-type-id="sourcemapFileViewerProvider" />
     </entry>
     <entry file="file://$PROJECT_DIR$/public/js/app.450c15ec.js">
       <provider selected="true" editor-type-id="text-editor">
@@ -1099,31 +1053,90 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/DetailProduct.vue">
+    <entry file="file://$PROJECT_DIR$/vue-coconut/src/App.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="603">
-          <caret line="90" column="44" selection-start-line="90" selection-start-column="44" selection-end-line="90" selection-end-column="44" />
+        <state relative-caret-position="798">
+          <caret line="42" column="13" selection-start-line="42" selection-start-column="13" selection-end-line="42" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vue-coconut/src/App.vue">
+    <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/Navbar.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="603">
-          <caret line="34" column="31" selection-start-line="34" selection-start-column="31" selection-end-line="34" selection-end-column="31" />
+        <state relative-caret-position="665">
+          <caret line="35" column="36" selection-start-line="35" selection-start-column="36" selection-end-line="35" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/database.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="10" selection-start-line="10" selection-end-line="10" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/AllProduct.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="54" column="28" selection-start-line="54" selection-start-column="28" selection-end-line="54" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/MyPage.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="589">
+          <caret line="112" column="42" lean-forward="true" selection-start-line="112" selection-start-column="42" selection-end-line="112" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/CreateStore.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="887">
+          <caret line="100" column="18" lean-forward="true" selection-start-line="100" selection-start-column="18" selection-end-line="100" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/users.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="13" column="23" lean-forward="true" selection-start-line="13" selection-start-column="23" selection-end-line="13" selection-end-column="23" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/ImageUpload.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
+        <state relative-caret-position="1121">
+          <caret line="60" column="17" lean-forward="true" selection-start-line="60" selection-start-column="17" selection-end-line="60" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/DetailProduct.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="437">
+          <caret line="90" column="20" lean-forward="true" selection-start-line="90" selection-start-column="20" selection-end-line="90" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/Category.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="80" column="17" lean-forward="true" selection-start-line="80" selection-start-column="17" selection-end-line="80" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/stores.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="217">
+          <caret line="86" column="10" selection-start-line="86" selection-start-column="10" selection-end-line="86" selection-end-column="10" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/vue-coconut/src/store.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="513">
-          <caret line="277" column="2" lean-forward="true" selection-start-line="277" selection-start-column="2" selection-end-line="277" selection-end-column="2" />
+        <state relative-caret-position="285">
+          <caret line="15" column="24" lean-forward="true" selection-start-line="15" selection-start-column="24" selection-end-line="15" selection-end-column="24" />
           <folding>
             <element signature="e#0#22#0" expanded="true" />
             <element signature="e#263#289#0" expanded="true" />
@@ -1131,37 +1144,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/users.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="399">
-          <caret line="21" column="9" selection-start-line="21" selection-start-column="9" selection-end-line="21" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="53">
-          <caret line="23" lean-forward="true" selection-start-line="23" selection-end-line="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config/database.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="337">
-          <caret line="23" selection-start-line="23" selection-end-line="23" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/MyPage.vue">
-      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="456">
-          <caret line="42" column="41" selection-start-line="42" selection-start-column="41" selection-end-line="42" selection-end-column="41" />
-          <folding>
-            <element signature="e#2889#2927#0" expanded="true" />
-          </folding>
+          <caret line="24" column="18" lean-forward="true" selection-start-line="24" selection-start-column="18" selection-end-line="24" selection-end-column="18" />
         </state>
       </provider>
     </entry>

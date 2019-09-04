@@ -39,11 +39,9 @@
     body{
         margin-top:70px; /*메뉴바와 본문의 간격 설정*/
     }
-    @media(max-width: 768px){
+    @media(max-width: 840px){
         body{
             margin-top:70px;
         }
     }
-
-
 </style>

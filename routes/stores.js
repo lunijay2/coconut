@@ -18,8 +18,11 @@ router.post('/newStore', (req, res, next) => {
         quantity: req.body.quantity,
         category: req.body.category,
         description: req.body.description,
-        number : req.body.number
+        number : req.body.number,
+        thumbnail : req.body.image
     };
+
+    newStore.thumbnail = (newStore.thumbnail).replace(/"/g, "");
 
     CreateStoreQuery(newStore)        // Salt값 생성 함수 호출
         .then( function(query) {
@@ -280,7 +283,7 @@ function CreateFindProductQuery(store) {
 function CreateStoreQuery(newStore) {     //유저 정보, 해쉬화된 비밀번호를 받아서 쿼리문을 작성하는 Promise 함수
     return new Promise( function (resolve, reject) {
         if(newStore) {
-            let statement = "INSERT INTO product (user_number, seller, name, price, quantity, category, description) VALUES ('" + newStore.number + "', '" + newStore.seller + "', '" + newStore.name + "', '" + newStore.price + "', '" + newStore.quantity + "', '" + newStore.category + "', '" + newStore.description + "');";
+            let statement = "INSERT INTO product (user_number, seller, name, price, quantity, category, description, thumbnail) VALUES ('" + newStore.number + "', '" + newStore.seller + "', '" + newStore.name + "', '" + newStore.price + "', '" + newStore.quantity + "', '" + newStore.category + "', '" + newStore.description + "', '" + newStore.thumbnail + "');";
             resolve(statement);
         } else {
             console.log("CreateRegisterQuery err : "+err);

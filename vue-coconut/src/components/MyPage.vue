@@ -1,5 +1,4 @@
 <template>
-    <from>
         <div>
             <h1>마이 페이지입니다.</h1>
             <div class="AllProduct">
@@ -40,7 +39,8 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="col-md-10">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-7">
                         <MyCategory v-bind:choice="choiceCategory"></MyCategory>
                         <ChangePassword v-bind:choice="choiceCategory"></ChangePassword>
                         <CreateStore v-bind:choice="choiceCategory"></CreateStore>
@@ -48,10 +48,7 @@
                     </div>
                 </div>
             </div>
-
-
         </div>
-    </from>
 </template>
 
 <script>
@@ -89,7 +86,7 @@
                     console.log('토큰검증 성공');
                     this.user = response.data.user;
 
-                    if( 0 == response.data.user.indi) {
+                    if( response.data.user.indi == 0) {
                         let UserNumber = {
                             number : response.data.user.number
                         };
@@ -101,8 +98,8 @@
                     }
                 })
                 .then( res => {
-                    this.Store = res.data.store
-                    if (res.data.store.seller === 1) {
+                    this.Store = res.data.store;
+                    if (res.data.store.seller == 1) {
                         this.newStore.seller = res.data.store.company;
                         this.newStore.number = res.data.store.number;
 

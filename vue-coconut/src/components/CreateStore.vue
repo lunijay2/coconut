@@ -1,7 +1,5 @@
 <template>
-    <div class="row">
-        <div class="col-md-3"></div>
-        <div class="col-md-6">
+    <div>
             <h2>{{newStore.seller}}</h2>
             <h2>상품 등록</h2>
             <h2>상점 등록도 같이 됩니당</h2>
@@ -25,7 +23,8 @@
                 <br><br><br>
 
                 <label for="exampleSelect" class="col-sm-2 col-form-label">카테고리</label>
-                <select class="form-control col-sm-10" id="exampleSelect" v-model="newStore.category">
+                <div class="col-sm-10">
+                <select class="form-control" id="exampleSelect" v-model="newStore.category">
                     <option value="의류">의류</option>
                     <option value="식품">식품</option>
                     <option value="생활용품">생활용품</option>
@@ -40,25 +39,66 @@
                     <option value="출산/유아동">출산/유아동</option>
                     <option value="주방용품">주방용품</option>
                 </select>
+                </div>
                 <br><br><br>
 
                 <label for="description" class="col-sm-2 col-form-label">설명</label>
                 <div class="col-sm-10">
                     <input type="text" id="description" v-model="newStore.description" class="form-control">
                 </div>
+                <br><br><br>
+                <label for="description" class="col-sm-2 col-form-label">이미지</label>
+                <div class="col-sm-10">
+                    <div id="app">
+                        <file-pond
+                                name="bin"
+                                ref="pond"
+                                label-idle="마우스로 이미지 파일을 끌어오거나 <strong><span class='filepond--label-action'>직접 첨부</span></strong>"
+                                allow-multiple="false"
+                                v-bind:instantUpload="instanceFlag"
+                                max-files="1"
+                                v-bind:server="server"
+                                accepted-file-types="image/jpeg, image/png"
+                                v-on:init="handleFilePondInit"
+                                v-on:processfile="onload"
+                        />
+                    </div>
+                </div>
             </div>
             <button @click="newStoreSubmit" type="button" class="btn btn-primary">상품등록</button>
-            <div class="col-md-3"></div>
         </div>
-    </div>
 </template>
 
 <script>
 
+    import vueFilePond from 'vue-filepond'
+    // Import FilePond styles
+    import 'filepond/dist/filepond.min.css'
+    // Import FilePond plugins
+    // Please note that you need to install these plugins separately
+    // Import image preview plugin styles
+    import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css'
+    // Import image preview and file type validation plugins
+    import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type'
+    import FilePondPluginImagePreview from 'filepond-plugin-image-preview'
+    // Create component
+    const FilePond = vueFilePond(
+        FilePondPluginFileValidateType,
+        FilePondPluginImagePreview
+    );
     export default {
         name: "CreateStore",
         data(){
             return {
+                server: {
+                    //url: "http://localhost:3000/users/imgupload",
+                    url: ` /users/imgupload`,
+                    process: {
+                        headers: {
+                            Authorization : this.$store.state.pToken
+                        }
+                    }
+                },
                 newStore : {
                     name: '',
                     price: '',
@@ -67,7 +107,9 @@
                     description: '',
                     seller: '',
                     number : '',
-                }
+                    image : ''
+                },
+                instanceFlag : false
             }
         },
         methods : {
@@ -86,16 +128,33 @@
                         alert('상품 등록 실패 2');
                         console.log('상품 등록 실패 2');
                     });
+            },
+            handleFilePondInit: function() {
+                console.log('FilePond has initialized'+this.$refs.pond);
+                // FilePond instance methods are available on `this.$refs.pond`
+            },
+            onload : function (e, r) {
+                if (e) {
+                    console.log(e);
+                } else {
+                    console.log(r);
+                    console.log(r.serverId.filename);
+                    console.log(r.fileExtension);
+                    console.log(r.serverId);
+                    var link = r.serverId;
+                    this.newStore.image = link;
+                    console.log("img : "+ this.newStore.image);
+                }
             }
         },
-
         created() {
+
             this.$store.dispatch('GetProfile')
                 .then( response => {
                     //alert('토큰검증 성공 : '+JSON.stringify(response.data.user));
                     console.log('토큰검증 성공');
                     //console.log('response : '+JSON.stringify(response));
-                    if( 0 == response.data.user.indi) {
+                    if( response.data.user.indi == 0) {
                         let UserNumber = {
                             number : response.data.user.number
                         };
@@ -107,9 +166,9 @@
                         this.$router.replace({path : '/Login'});
                     }
                 })
-                .then( res => {
-                    //console.log('res : '+JSON.stringify(res));
-                    if (res.data.store.seller === 1) {
+                .then( (res) => {
+                    if (res.data.store.seller == 1) {
+                        this.server.process.headers = this.$store.state.pToken;
                         this.newStore.seller = res.data.store.company;
                         this.newStore.number = res.data.store.number;
                         console.log('판매자 검증 성공');

@@ -6,6 +6,7 @@
                 label-idle="Drop files here or <span class='filepond--label-action'>Browse</span>"
                 allow-multiple="false"
                 max-files="1"
+                instantUpload="false"
                 server="/users/imgupload"
                 accepted-file-types="image/jpeg, image/png"
                 v-on:init="handleFilePondInit"
@@ -53,7 +54,11 @@
                 // FilePond instance methods are available on `this.$refs.pond`
             },
             onload (e, r) {
-                console.log(r)
+                if (e) {
+                    console.log(e);
+                } else {
+                    console.log(r);
+                }
             }
         }
     }

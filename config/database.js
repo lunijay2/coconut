@@ -9,7 +9,6 @@ module.exports = {
     connectionLimit : 100
 }*/
 
-/*
 module.exports = {
     host : 'db4free.net',
     user : 'coconut',
@@ -20,8 +19,8 @@ module.exports = {
     connectionLimit : 100,
     timeout : 60 * 60 * 1000
 }
-*/
 
+/*
 module.exports = {
     host : 'gkszm.com',
     user : 'dba',
@@ -32,3 +31,4 @@ module.exports = {
     connectionLimit : 100,
     timeout : 60 * 60 * 1000
 }
+*/

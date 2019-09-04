@@ -24,9 +24,9 @@ const upload = multer({
 });
 
 router.post('/imgupload', upload.single('bin'), (req, res, next) => {
-    console.log(req.body);
-    console.log(req.file);
-    res.json({ success : true, filename : req.file.originalname });
+    console.log('req.body : '+JSON.stringify(req.body));
+    console.log('req.file : '+JSON.stringify(req.file));
+    res.json(req.file.filename);
 });
 
 router.delete('/imgupload', (req, res, next) => {
