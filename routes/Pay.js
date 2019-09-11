@@ -18,8 +18,8 @@ router.post('/GetOrder',(req, res, next) => {
     let o = req.body.orderno;
     console.log('order_number : '+o);
 
-    var order_no = order_no.split('/');
-    console.log('o : '+JSON.stringify(order_no));
+    //var order_no = order_no.split('/');
+    //console.log('o : '+JSON.stringify(order_no));
 
     OrderFoundQuery(order_no[0])
         .then( query => {
