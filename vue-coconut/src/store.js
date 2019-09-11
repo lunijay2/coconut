@@ -113,12 +113,10 @@ export default new Vuex.Store({
                     }});
             //return axios.post( '/Pay/GetOrder', payload);
         },
-        /*
-        GetOrder : function (context, payload) {
-            return axios.post( resourceHost+'/Pay/GetOrder', payload);
+        GetOrder2 : function (context, payload) {
+            return axios.post( resourceHost+'/Pay/GetOrder2', payload);
             //return axios.post( '/Pay/GetOrder', payload);
         },
-         */
         GetProductOder : function (context, payload) {
             console.log('product payload'+payload);
             return axios.post( resourceHost+'/stores/GetProductOder', payload);

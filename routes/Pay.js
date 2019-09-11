@@ -35,6 +35,37 @@ router.post('/GetOrder',(req, res, next) => {
 
 });
 
+
+router.post('/GetOrder2',(req, res, next) => {
+
+    let order_no = req.body.orderno;
+    let no = req.body.order_no.no;
+    let time1 = req.body.orderno.t;
+    console.log('order_number : '+order_no);
+    console.log('no : '+no);
+    console.log('time1 : '+time1);
+
+    let order = JSON.parse(req.body.order_no);
+    console.log('JSON parser order : '+JSON.stringify(order));
+
+    OrderFoundQuery(order_no)
+        .then( query => {
+            return PoolGetConnection(query);
+        })
+        .then(connectionQuery => {
+            return ExecuteQuery(connectionQuery);
+        })
+        .then( rows => {
+            return Complete( res, rows );
+        })
+        .catch(err => {
+            console.log(err);
+            res.json({success: false});
+        })
+
+});
+
+
 router.post('/newOrder',(req, res, next) => {
     let newOrder = {
         product: req.body.product[0].product,

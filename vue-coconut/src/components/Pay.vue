@@ -76,7 +76,7 @@
                     order_no : number,
                     t : t
                 };
-                console.log('payinfo : '+JSON.stringify(Payinfo));
+                alert('payinfo : '+JSON.stringify(Payinfo));
                 this.$store.dispatch('PAY', Payinfo)
                     .then(response => {
                         console.log(response);
@@ -88,7 +88,7 @@
                 let ordernum = {
                     orderno : order
                 };
-                this.$store.dispatch('GetOrder', ordernum)
+                this.$store.dispatch('GetOrder2', ordernum)
                     .then( response => {
                         //alert('주문내역 성공 : '+JSON.stringify(response.data.order[0]));
                         this.result = response.data.order[0];
