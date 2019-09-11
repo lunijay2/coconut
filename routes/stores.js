@@ -9,7 +9,6 @@ const bcrypt = require('bcryptjs');
 const forge = require('node-forge');
 const fs = require('fs');
 
-
 router.post('/newStore', (req, res, next) => {
     let newStore = {
         seller: req.body.seller,
@@ -49,6 +48,7 @@ router.post('/newStore', (req, res, next) => {
         })
 });
 
+/*--------상품 보기 & 바로 구매-------*/
 router.post('/GetProductDetail', (req, res, next) => {
 
     const productcode = req.body.productcode;
@@ -61,8 +61,8 @@ router.post('/GetProductDetail', (req, res, next) => {
             return ExecuteQuery(connectionQuery);
         })
         .then(function(rows) {  // ExecuteQuery가 쿼리문을 사용한 결과값을 받음
-            console.log("This Solutions is : " + JSON.stringify(rows[0]));
-            return Complete(res, rows[0]);    // RegComplete에 res를 보냄. res.json을 실행하기 위해서는 res값이 필요하기 때문에 res를 인자값으로 보냄
+            console.log("This Solutions is : " + JSON.stringify(rows));
+            return Complete(res, rows);    // RegComplete에 res를 보냄. res.json을 실행하기 위해서는 res값이 필요하기 때문에 res를 인자값으로 보냄
         }, function(err) {  // ExecuteQuery가 쿼리문을 실행한 결과로 에러가 온 경우
             console.log("Query Excute err : "+err);
             return Rollback(connection); // 쿼리문 실행 중 에러가 나면 롤백을 실행해야 함
@@ -78,6 +78,68 @@ router.post('/GetProductDetail', (req, res, next) => {
             console.log(err);
         })
 });
+
+
+/*--------장바구니 구매-------*/
+router.post('/GetProductOder', (req, res, next) => {
+
+    const product = req.body.product;
+    const name = req.body.name;
+    console.log('product1 : ' +JSON.stringify(product));
+    console.log('name : ' +JSON.stringify(name));
+
+    var b = '';
+    var c = '';
+
+    for (var i=0; i<(product.length); i++) {
+        console.log('product2 : ' +JSON.stringify(product[i].productcode));
+        var a = product[i].productcode;
+        console.log(a);
+
+        c = c+b.concat(a+', '+0);
+
+        console.log('c :'+c);
+        console.log('b' +b);
+
+    }
+
+    console.log(c);
+
+    CreateFindCartProductQuery(name, c)
+        .then( query => {
+            return PoolGetConnection(query);
+        })
+        .then(connectionQuery => {
+            return ExecuteQuery(connectionQuery);
+        })
+        .then(function(rows) {  // ExecuteQuery가 쿼리문을 사용한 결과값을 받음
+            console.log("This Solutions is : " + JSON.stringify(rows));
+            return Complete(res, rows);    // RegComplete에 res를 보냄. res.json을 실행하기 위해서는 res값이 필요하기 때문에 res를 인자값으로 보냄
+        }, function(err) {  // ExecuteQuery가 쿼리문을 실행한 결과로 에러가 온 경우
+            console.log("Query Excute err : "+err);
+            return Rollback(connection); // 쿼리문 실행 중 에러가 나면 롤백을 실행해야 함
+        })
+        .catch( function (err) {    // 전체적으로 에러를 캐치한다
+            console.log("Catch 1 err : "+err);
+            res.json({success: false, msg: 'Failed to Get Product Detail'}); // 에러 캐치시 false반환
+        })
+        .then( function () {
+            return ReleaseConnection( connectionQuery.connection );   // 결과값이 어떻든 커넥션은 반환되어야 한다
+        })
+        .catch(function (err) { //마지막으로 에러를 캐치
+            console.log(err);
+        })
+});
+
+function CreateFindCartProductQuery(name, c) {
+    return new Promise( function (resolve) {
+        console.log('product2 : '+JSON.stringify(c));
+        let statement = "SELECT * FROM shoppingcart_"+name+" where productcode IN ("+c+") ;";
+        console.log("CreateFindProductCodeQuery : "+statement);
+        resolve(statement);
+    });
+}
+/*---------------------------------*/
 
 router.post('/Product', (req, res, next) => {
 
@@ -228,6 +290,87 @@ router.post('/FindCategory', (req, res, next) => {
         })
 
 });
+
+router.post('/MyProduct', (req, res, next) => {
+
+    const number = req.body.number;
+
+    console.log("This number is : " + number);
+
+    MyCreateProductFoundQuery(number)
+        .then( query => {
+            return PoolGetConnection(query);
+        })
+        .then(connectionQuery => {
+            return ExecuteQuery(connectionQuery);
+        })
+        .then(function(rows) {  // ExecuteQuery가 쿼리문을 사용한 결과값을 받음
+            console.log("This Solutions is : " + JSON.stringify(rows));
+            return GetProductComplete(res, rows);    // RegComplete에 res를 보냄. res.json을 실행하기 위해서는 res값이 필요하기 때문에 res를 인자값으로 보냄
+        }, function(err) {  // ExecuteQuery가 쿼리문을 실행한 결과로 에러가 온 경우
+            console.log("나누기 1 err : "+err);
+            return Rollback(connection); // 쿼리문 실행 중 에러가 나면 롤백을 실행해야 함
+        })
+        .catch( function (err) {    // 전체적으로 에러를 캐치한다
+            console.log("Catch 1 err : "+err);
+            res.json({success: false, msg: 'Failed to register user'}); // 에러 캐치시 false반환
+        })
+        .then( function () {
+            return ReleaseConnection( connectionQuery.connection );   // 결과값이 어떻든 커넥션은 반환되어야 한다
+        })
+        .catch(function (err) { //마지막으로 에러를 캐치
+            console.log(err);
+        })
+});
+
+function MyCreateProductFoundQuery(number) {
+    return new Promise( function (resolve) {
+        let statement = "SELECT * FROM product where user_number='"+number+"';";
+        console.log("CreateStoreFoundQuery : "+statement);
+        resolve(statement);
+    });
+}
+/*---------------------------------*/
+
+router.post('/GetCart', (req, res, next) => {
+
+    const id = req.body.number;
+
+    CreateGetCartQuery(id)
+        .then( query => {
+            return PoolGetConnection(query);
+        })
+        .then(connectionQuery => {
+            return ExecuteQuery(connectionQuery);
+        })
+        .then(function(rows) {  // ExecuteQuery가 쿼리문을 사용한 결과값을 받음
+            console.log("This Solutions is : " + JSON.stringify(rows));
+            return GetStoreComplete(res, rows);    // RegComplete에 res를 보냄. res.json을 실행하기 위해서는 res값이 필요하기 때문에 res를 인자값으로 보냄
+        }, function(err) {  // ExecuteQuery가 쿼리문을 실행한 결과로 에러가 온 경우
+            console.log("나누기 1 err : "+err);
+            return Rollback(connection); // 쿼리문 실행 중 에러가 나면 롤백을 실행해야 함
+        })
+        .catch( function (err) {    // 전체적으로 에러를 캐치한다
+            console.log("Catch 1 err : "+err);
+            res.json({success: false, msg: 'Failed to register user'}); // 에러 캐치시 false반환
+        })
+        .then( function () {
+            return ReleaseConnection( connectionQuery.connection );   // 결과값이 어떻든 커넥션은 반환되어야 한다
+        })
+        .catch(function (err) { //마지막으로 에러를 캐치
+            console.log(err);
+        })
+});
+
+function CreateGetCartQuery(id) {
+    return new Promise( function (resolve) {
+        console.log('id : '+id);
+        let statement = "SELECT * FROM shoppingcart_"+id+";";
+        console.log("CreateGetCartQuery : "+statement);
+        resolve(statement);
+    });
+}
+/*---------------------------------*/
 
 function CreateFindCategoryQuery(category) {
     return new Promise( function (resolve) {

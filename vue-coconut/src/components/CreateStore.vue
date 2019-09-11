@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="row" v-if="choice == 'Create'">
             <h2>{{newStore.seller}}</h2>
             <h2>상품 등록</h2>
             <h2>상점 등록도 같이 됩니당</h2>
@@ -112,6 +112,56 @@
                 instanceFlag : false
             }
         },
+        props: {
+            choice : ''
+        },
+        watch : {
+            choice : function (category) {
+                if ( category == 'Create') {
+                    console.log('왔다 : '+category);
+                    this.$store.dispatch('GetProfile')
+                        .then( response => {
+                            //alert('토큰검증 성공 : '+JSON.stringify(response.data.user));
+                            console.log('토큰검증 성공');
+                            //console.log('response : '+JSON.stringify(response));
+                            if( response.data.user.indi == 0) {
+                                let UserNumber = {
+                                    number : response.data.user.number
+                                };
+                                return this.$store.dispatch('FoundEnt', UserNumber);
+                            } else {
+                                console.log('기업 검증 실패');
+                                alert('기업 검증 실패');
+                                this.$store.dispatch('LOGOUT');
+                                this.$router.replace({path : '/Login'});
+                            }
+                        })
+                        .then( (res) => {
+                            if (res.data.store.seller == 1) {
+                                this.server.process.headers = this.$store.state.pToken;
+                                this.newStore.seller = res.data.store.company;
+                                this.newStore.number = res.data.store.number;
+                                console.log('판매자 검증 성공');
+                            } else {
+                                console.log('판매자 검증 실패');
+                                alert('판매자 검증 실패');
+                                this.$store.dispatch('LOGOUT');
+                                this.$router.replace({path : '/Login'});
+                            }
+                        })
+                        .catch( err => {
+                            console.log('검증 실패' + err);
+                            //alert(err);
+                            this.$store.dispatch('LOGOUT');
+                            this.$router.replace({path : '/Login'});
+                        })
+                }
+                else {
+                    console.log('안왔다: ');
+                }
+
+            }
+        },
         methods : {
             newStoreSubmit : function () {
                 this.$store.dispatch('NewProduct', this.newStore)
@@ -148,43 +198,12 @@
             }
         },
         created() {
-
             this.$store.dispatch('GetProfile')
                 .then( response => {
                     //alert('토큰검증 성공 : '+JSON.stringify(response.data.user));
                     console.log('토큰검증 성공');
                     //console.log('response : '+JSON.stringify(response));
-                    if( response.data.user.indi == 0) {
-                        let UserNumber = {
-                            number : response.data.user.number
-                        };
-                        return this.$store.dispatch('FoundEnt', UserNumber);
-                    } else {
-                        console.log('기업 검증 실패');
-                        alert('기업 검증 실패');
-                        this.$store.dispatch('LOGOUT');
-                        this.$router.replace({path : '/Login'});
-                    }
-                })
-                .then( (res) => {
-                    if (res.data.store.seller == 1) {
-                        this.server.process.headers = this.$store.state.pToken;
-                        this.newStore.seller = res.data.store.company;
-                        this.newStore.number = res.data.store.number;
-                        console.log('판매자 검증 성공');
-                    } else {
-                        console.log('판매자 검증 실패');
-                        alert('판매자 검증 실패');
-                        this.$store.dispatch('LOGOUT');
-                        this.$router.replace({path : '/Login'});
-                    }
-                })
-                .catch( err => {
-                    console.log('검증 실패' + err);
-                    //alert(err);
-                    this.$store.dispatch('LOGOUT');
-                    this.$router.replace({path : '/Login'});
-                })
+                });
         }
     }
 </script>

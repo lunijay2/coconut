@@ -13,12 +13,12 @@
                 <table border="0">
                     <tr>
                         <td>
-                            <h3 class="float-left"><strong>{{Product.name}}</strong></h3>
+                            <h3 class="float-left"><strong>{{Product.productname}}</strong></h3>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <h6 class="float-left"><b>남은 수량 : {{Product.quantity.toLocaleString()}}개</b></h6>
+                            <h6 class="float-left"><b>남은 수량 : {{Product.allquantity.toLocaleString()}}개</b></h6>
                         </td>
                     </tr>
                     <tr>
@@ -72,6 +72,7 @@
         name: "DetailProduct",
         data () {
             return {
+                Products : [],
                 Product : {},
                 imageThumbnail :'',
                 quantity : 1,
@@ -86,25 +87,14 @@
                     //alert('성공 : '+JSON.stringify(response.data.user));
                     console.log('성공');
                     console.log('response : '+JSON.stringify(response));
-                    this.Product = response.data.result;
+                    this.Products = response.data.result;
+                    this.Product = this.Products[0];
+
                     //this.imageThumbnail = "http://localhost:3000\\img\\"+this.Product.thumbnail;
                     this.imageThumbnail = "/img/"+this.Product.thumbnail;
                 });
-            /*
-            let buffer = "../../../public/images/dfab3a9e573bb8ba8decc86596ca71de";
-            this.image = this.transimg(buffer);
-            console.log(this.image);
-            */
         },
         methods : {
-            transimg : function(buffer) {
-                /*
-                let u8 = new Uint8Array(buffer);
-                let b64encoded = btoa([].reduce.call(new Uint8Array(buffer),function(p,c){return p+String.fromCharCode(c)},''));
-                let mimetype="image/jpeg";
-                return "data:"+mimetype+";base64,"+b64encoded;
-                 */
-            },
             decreaseQuantity : function() {
                 if(this.quantity <= 1) {
                     this.quantity = 1;
@@ -131,7 +121,7 @@
                             price : this.Product.price,
                             productcode : this.Product.productcode,
                             quantity : this.quantity,
-                            name : this.Product.name
+                            productname : this.Product.productname
                         };
 
                         console.log(JSON.stringify(selectProduct));
@@ -156,7 +146,19 @@
                 });
             },
             CreateOrderSubmit : function () {
+                var arr = [];
+
+                var a = String(this.Product.productcode);
+                var b = String(this.quantity);
+
+                console.log("number"+a);
+                let ab = String(a+'&'+b);
+                arr.push(ab);
+                this.$router.push({ path : '/CreateOrder/'+1+'/'+arr });
+                console.log("product"+JSON.stringify(this.Product));
+                /*
                 this.$router.push({ path : '/CreateOrder/'+this.$route.params.product+'/'+this.quantity });
+                 */
             }
         }
 

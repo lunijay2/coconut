@@ -94,9 +94,39 @@ export default new Vuex.Store({
             return axios.post(resourceHost+'/stores/FindCategory', payload);
             //return axios.post('/stores/FindCategory', payload);
         },
+        MyGetProduct : function (context, payload) {
+            return axios.post(resourceHost+'/stores/MyProduct', payload);
+        },
+        MyFindCategory : function (context, payload) {
+            return axios.post(resourceHost+'/stores/MyFindCategory', payload);
+        },
+        ChangePass: function (context, payload) {
+            return axios.post(resourceHost+'/users/ChangePass', payload);
+        },
+        GetOrder : function (context, payload) {
+            let auth = localStorage.getItem("pToken");
+            return axios.post(
+                resourceHost+'/Pay/GetOrder',
+                payload,
+                {headers : {
+                        "Authorization" : auth
+                    }});
+            //return axios.post( '/Pay/GetOrder', payload);
+        },
+        /*
         GetOrder : function (context, payload) {
             return axios.post( resourceHost+'/Pay/GetOrder', payload);
             //return axios.post( '/Pay/GetOrder', payload);
+        },
+         */
+        GetProductOder : function (context, payload) {
+            console.log('product payload'+payload);
+            return axios.post( resourceHost+'/stores/GetProductOder', payload);
+            //return axios.post( '/stores/GetProductDetail', payload);
+        },
+        GetCart : function (context, payload) {
+            console.log(JSON.stringify(payload));
+            return axios.post(resourceHost+'/stores/GetCart', payload);
         },
         GetProductDetail : function (context, payload) {
             return axios.post( resourceHost+'/stores/GetProductDetail', payload);

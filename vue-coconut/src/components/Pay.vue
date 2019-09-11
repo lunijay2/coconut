@@ -58,7 +58,7 @@
             },
             PaySubmit() {
                 let number = '';
-                let jwt = '';
+                let t = '';
                 let exit = false;
                 let i = 0;//문자열에 한글자씩 접근하는 인덱스
                 let j = 0;//0이면 주문번호, 1이면 jwt
@@ -68,13 +68,13 @@
                             number = number + this.ordernumber.charAt(i);
                         }
                         else {
-                            jwt = jwt + this.ordernumber.charAt(i);
+                            t = t + this.ordernumber.charAt(i);
                         }
                     }
                 }
                 const Payinfo = {
                     order_no : number,
-                    token : jwt
+                    t : t
                 };
                 this.$store.dispatch('PAY', Payinfo)
                     .then(response => {

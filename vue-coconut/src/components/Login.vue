@@ -1,8 +1,9 @@
 <template>
     <div>
-        <h2 class="page-header">로그인</h2>
         <div class="row">
+            <div class="col-md-3"></div>
             <div class="col-md-6">
+                <h2 class="page-header">로그인</h2><br>
                 <div class="alert alert-warning" role="alert">
                     <h3 class="page-header">ID/PASS 로그인</h3>
                         <div class="form-group">
@@ -16,12 +17,12 @@
                     <button @click="onLoginSubmit" type="button" class="btn btn-primary">ID/PASS 로그인</button>
                 </div>
             </div>
+            <!--
             <div class="col-md-6">
                 <div class="alert alert-info" role="alert">
-                    <h3 class="page-header">전자서명 간편 로그인</h3>
+                    <h3 class="page-header">인증서 간편 로그인</h3>
                     <p>
-                        전자서명 로그인은 서버에서 인증서를 발급받은 경우에만 사용 가능합니다.
-                        패스워드를 입력할 필요없이 간편하게 로그인 가능합니다.
+                        인증서 로그인은 서버에서 인증서를 발급받은 경우에만 사용 가능합니다.
                     </p>
                     <br>
                         <div class="form-group">
@@ -31,6 +32,8 @@
                         <input type="submit" class="btn btn-primary" value="전자서명 간편 로그인">
                 </div>
             </div>
+            -->
+            <div class="col-md-3"></div>
         </div>
     </div>
 </template>

@@ -7,7 +7,7 @@
                         <img v-bind:src="product.thumbnail" class="widthSet heightSet" />
                     </div>
                     <div class="col-md-4">
-                        <h5><router-link :to="'/DetailProduct/'+product.productcode" class="nav-link">{{product.name}}</router-link></h5>
+                        <h5><router-link :to="'/DetailProduct/'+product.productcode" class="nav-link">{{product.productname}}</router-link></h5>
                         <!--<h6>{{product.description}}</h6>-->
                         <p></p>
                         <small class="text-muted col-md-1">{{product.category}}</small>

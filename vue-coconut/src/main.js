@@ -35,6 +35,9 @@ import Cert from "./components/Cert";
 import Cart from "./components/Cart";
 import CertTest from "./components/CertTest";
 import AdditionalCert from "./components/AdditionalCert";
+import ChangePassword from "./components/ChangePassword";
+import MyCategory from "./components/MyCategory";
+import ChoicePaytype from "./components/ChoicePayType";
 //import jusoPopup from "../popup/jusoPopup.jsp";
 
 const router = new VueRouter({
@@ -56,12 +59,16 @@ const router = new VueRouter({
     {path:'/AllStore', component : AllStore },
     {path:'/Category', component : Category },
     {path:'/DetailProduct/:product', component : DetailProduct },
-    {path:'/CreateOrder/:product/:quantity', component : CreateOrder },
     {path:'/Cert', component : Cert },
     {path:'/Cart', component : Cart },
     {path:'/CertTest', component : CertTest },
     {path:'/AdditionalCert', component : AdditionalCert },
-    {path:'*', component: NotFound },
+    {path:'/MyCategory', component : MyCategory },
+    {path:'/ChangePassword', component : ChangePassword },
+    {path:'/CreateOrder/:number/:product', component : CreateOrder },
+    {path:'/ChoicePayType/:order', component : ChoicePaytype },
+    {path:'*', component: NotFound }
+
     //{path: 'jusoPopup', component : jusoPopup }
   ]
 });

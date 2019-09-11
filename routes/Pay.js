@@ -37,8 +37,8 @@ router.post('/GetOrder',(req, res, next) => {
 
 router.post('/newOrder',(req, res, next) => {
     let newOrder = {
-        product: req.body.product,
-        price: req.body.price,
+        product: req.body.product[0].product,
+        price: req.body.product[0].price,
         orderer: req.body.orderer,
         delivery_address: req.body.delivery_address,
         delivery_tel: req.body.delivery_tel

@@ -1,6 +1,6 @@
 <template>
-    <div v-if="Product.name">
-        <h2>주문서</h2><br><br>
+    <div>
+        <h2>{{user.name}}님의 주문서</h2><br><br>
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6">
@@ -14,12 +14,12 @@
                         <th scope="col">판매자</th>
                     </tr>
                     </thead>
-                    <tbody>
+                    <tbody v-for="Pro in Product">
                     <tr>
-                        <td>{{Product.name}}</td>
-                        <td>{{(Product.price*quantity).toLocaleString()}}</td>
-                        <td>{{quantity}}</td>
-                        <td>{{Product.seller}}</td>
+                        <td>{{Pro.productname}}</td>
+                        <td>{{(Pro.quantity*Pro.price).toLocaleString()}}원</td>
+                        <td>{{Pro.quantity}}개</td>
+                        <td>{{Pro.seller}}</td>
                     </tr>
                     </tbody>
                 </table>
@@ -27,19 +27,7 @@
                 <h5 class="float-left">2. 배송지 정보 입력</h5>
                 <table class="table">
                     <thead>
-                        <!--
-                        <th scope="col">
-                            <form name="form" id="form" method="post">
-                                <input type="text" name="currentPage" value="1"/> <-- 요청 변수 설정 (현재 페이지. currentPage : n > 0)
-                                <input type="text" name="countPerPage" value="10"/> 요청 변수 설정 (페이지당 출력 개수. countPerPage 범위 : 0 < n <= 100)
-                                <input type="text" name="resultType" value="json"/> <-- 요청 변수 설정 (검색결과형식 설정, json)
-                                <input type="text" name="confmKey" value="U01TX0FVVEgyMDE5MDcxMDE2MzIwMTEwODg3MTk="/> 요청 변수 설정 (승인키)
-                                <input type="text" name="keyword" value="" onkeydown="enterSearch();"/> 요청 변수 설정 (키워드)
-                                <input type="button" onClick="getAddr();" value="주소검색하기"/>
-                                <div id="list" ></div>검색 결과 리스트 출력 영역
-                            </form>
-                        </th>
-                        -->
+
                     <tr>
                         <th class="table-active" scope="row"><h6>고객입력 상세주소</h6></th>
                         <th scope="col">
@@ -66,6 +54,22 @@
             <div class="col-md-3"></div>
         </div>
     </div>
+    <!--
+    <from>
+        <div v-for="(Pro, i) in Product">
+            <li>{{Pro.seller}}</li>
+            <li>{{Pro.productcode}}</li>
+            <li>{{Pro.name}}</li>
+            <li>{{Pro.price}}</li>
+            <li>{{Pro.category}}</li>
+            <li>{{Products.product[i].quantity}}</li>
+            <br>
+        </div>
+        <div>
+            <li>{{Product}}</li>
+        </div>
+    </from>
+    -->
 </template>
 
 <script>
@@ -74,14 +78,20 @@
         data () {
             return {
                 Product : {},
-                quantity : this.$route.params.quantity,
+                Products : {},
+                quantitys : {},
+                aArray : [],
+                bArray : [],
                 roadFullAddr : '',
                 roadAddrPart1 : '',
                 roadAddrPart2 : '',
                 addrDetail : '',
                 zipNo : '',
                 unum : Number,
-                orderTel : ''
+                orderTel : '',
+                number : 1,
+                user : {},
+                numbers : {},
             }
         },
         created() {
@@ -89,11 +99,52 @@
                 .then( response => {
                     console.log('토큰검증 성공'+JSON.stringify(response.data.user));
                     this.unum = response.data.user.number;
-                    let product = {
-                        productcode : this.$route.params.product,
-                        quantity : this.$route.params.quantity
-                    };
-                    return this.$store.dispatch('GetProductDetail', product);
+                    this.user = response.data.user;
+
+                    var a = this.$route.params.product;
+
+                    console.log("이건뭐지"+JSON.stringify(this.$route.params.product));
+
+                    var number = this.$route.params.number;
+                    console.log("number : "+number);
+
+                    if ( number == '1') {//바로구매
+                        this.aArray = a.split('&');
+                        this.Products = {
+                            productcode : this.aArray[0],
+                            quantity : this.aArray[1]
+                        };
+                        this.quantitys = this.aArray[1];
+
+                        return this.$store.dispatch('GetProductDetail', this.Products);
+
+                    } else if ( number == '0') {//장바구니
+                        this.bArray = a.split(',');
+                        console.log("안쪽에1"+JSON.stringify(this.bArray));
+                        this.aArray = this.bArray.toString().split('&');
+                        console.log("안쪽에2"+JSON.stringify(this.aArray));
+                        this.bArray = this.aArray.toString().split(',');
+                        console.log("안쪽에3"+JSON.stringify(this.bArray));
+                        var cArray = [];
+
+                        for (var i=0; i<(this.bArray.length); i++) {
+                            if ( ((i+2) % 2) == 0) {
+                                cArray.push(
+                                    {
+                                        productcode : this.bArray[i],
+                                        quantity : this.bArray[i+1]
+                                    }
+                                );
+                            }
+                        }
+                        this.Products = {
+                            product : cArray,
+                            name : this.user.name
+                        };
+                        console.log('product : '+JSON.stringify(this.Products));
+                    }
+                    return this.$store.dispatch('GetProductOder', this.Products);
+                    this.numbers = this.$route.params.number;
                 }, err => {
                     console.log('검증 실패' + err);
                     this.$store.dispatch('LOGOUT');
@@ -101,8 +152,19 @@
                 })
                 .then( res => {
                     console.log('성공');
-                    console.log('response : '+JSON.stringify(res));
-                    this.Product = res.data.result;
+                    console.log('가지고 온 상품들 : '+JSON.stringify(res));
+                    var a = res.data.result;
+                    console.log('number'+ this.$route.params.number);
+                    if ( this.$route.params.number == '1') {
+                        a[0].quantity = this.quantitys
+
+                    }else{
+                        console.log('data : ' +JSON.stringify(JSON.stringify(res.data)));
+                    }
+                    this.Product = a;
+                    console.log('data : ' +JSON.stringify(JSON.stringify(res.data)));
+                    console.log('result : ' +JSON.stringify(JSON.stringify(res.data.result)));
+                    console.log('Product : ' +JSON.stringify(JSON.stringify(this.Product)));
                 })
                 .catch( err => {
                     console.log('검증 실패' + err);
@@ -111,28 +173,42 @@
                 });
         },
         methods : {
-            goPopup : function () {
-                var pop = window.open("jusoPopup.jsp","pop","width=570,height=420, scrollbars=yes, resizable=yes");
-            },
             newOrderSubmit : function () {
                 if ( this.addrDetail == '' || this.orderTel == '' ) {
                     alert('주소와 전화번호를 입력하세요');
                     console.log('validate fail');
                 } else {
+                    var allproduct = [];
+                    for (var i=0; i<(this.Product.length); i++) {
+                        allproduct.push(
+                            {
+                                product: this.Product[i].productcode + '/' + this.Product[i].quantity,
+                                price: this.Product[i].price * this.Product[i].quantity,
+                            }
+                        );
+                    }
+                    console.log(JSON.stringify(" number :"+this.$route.params.number));
+                    console.log(JSON.stringify(" length :"+this.Product.length));
+                    console.log(JSON.stringify(" code :"+this.Product[0].productcode));
+                    console.log(JSON.stringify(" price :"+this.Product[0].price));
+                    console.log(JSON.stringify(" quantity :"+this.Product[0].quantity));
+                    console.log(JSON.stringify(" allproduct :"+allproduct[0].product));
+                    console.log(JSON.stringify(" quantity :"+this.quantitys));
+
                     let newOrder = {
-                        product: this.Product.productcode + '/' + this.quantity,
-                        price: this.Product.price * this.quantity,
+                        product : allproduct,
                         orderer: this.unum,
                         delivery_address: this.addrDetail,
                         delivery_tel: this.orderTel
                     };
-                    console.log(JSON.stringify(newOrder));
+                    console.log("newOrder : "+JSON.stringify(newOrder));
 
                     this.$store.dispatch('newOrder', newOrder)
                         .then( response => {
                             if(response.data.success == true) {
-                                alert('Order Success');
-                                console.log('Order Success');
+                                //alert('Order Success');
+                                console.log('Order Success : '+ JSON.stringify(response));
+                                this.$router.push({ path : '/ChoicePayType/'+response.data.order.insertId});
                             } else {
                                 alert('Order Failure');
                                 console.log('Order Failure : '+ JSON.stringify(response))

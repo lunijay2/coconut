@@ -1,7 +1,7 @@
 <template>
         <div class="row" v-if="user.id">
-            <div class="col-md-3"></div>
-            <div class="col-md-6">
+            <div class="col-md-1"></div>
+            <div class="col-md-9">
                 <h2>인증서 발급</h2><br>
                 <input type="password" v-model="p" class="form-control" placeholder="비밀번호">
                 <p></p>
@@ -9,10 +9,10 @@
                 <p></p>
                 <h5 v-if="m.co == true" style="color:green;" class="float-left">{{m.me}}</h5>
                 <h5 v-if="m.co == false" style="color:red;" class="float-left">{{m.me}}</h5>
-                <br>
+                <br><br>
                 <button @click="newCertSubmit" type="button" class="btn btn-primary">인증서 발급</button>
             </div>
-            <div class="col-md-3"></div>
+            <div class="col-md-2"></div>
         </div>
 </template>
 
