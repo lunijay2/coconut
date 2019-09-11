@@ -92,7 +92,7 @@
                     .then( response => {
                         //alert('주문내역 성공 : '+JSON.stringify(response.data.order[0]));
                         this.result = response.data.order[0];
-                        console.log('주문내역 성공 : '+JSON.stringify(this.result));
+                        alert('주문내역 성공 : '+JSON.stringify(response.data));
                     })
                     .catch( err => {
                         console.log('주문내역 실패 : ' + err);
