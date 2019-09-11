@@ -36,7 +36,7 @@ router.post('/GetOrder',(req, res, next) => {
 });
 
 
-router.post('/GetOrder2',(req, res, next) => {
+router.post('/GetOrder_Camera',(req, res, next) => {
 
     let order_no = req.body.orderno;
     //let no = req.body.order_no.no;
