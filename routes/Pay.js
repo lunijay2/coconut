@@ -45,7 +45,7 @@ router.post('/GetOrder2',(req, res, next) => {
     //console.log('no : '+no);
     //console.log('time1 : '+time1);
 
-    let order = JSON.parse(req.body.order_no);
+    let order = JSON.parse(order_no);
     console.log('JSON parser order : '+JSON.stringify(order));
 
     OrderFoundQuery(order_no)
