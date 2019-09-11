@@ -15,13 +15,13 @@ router.post('/procpay',(req, res, next) => {
 });
 
 router.post('/GetOrder',(req, res, next) => {
-    let o = req.body.orderno;
-    console.log('order_number : '+o);
+    let order_no = req.body.orderno;
+    console.log('order_number : '+order_no);
 
     //var order_no = order_no.split('/');
     //console.log('o : '+JSON.stringify(order_no));
 
-    OrderFoundQuery(order_no[0])
+    OrderFoundQuery(order_no)
         .then( query => {
             return PoolGetConnection(query);
         })
