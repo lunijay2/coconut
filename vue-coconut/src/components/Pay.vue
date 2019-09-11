@@ -88,7 +88,7 @@
                 let ordernum = {
                     orderno : order
                 };
-                this.$store.dispatch('GetOrder_Camera', ordernum)
+                this.$store.dispatch('GetOrder', ordernum)
                     .then( response => {
                         //alert('주문내역 성공 : '+JSON.stringify(response.data.order[0]));
                         this.result = response.data.order[0];
