@@ -76,6 +76,7 @@
                     order_no : number,
                     t : t
                 };
+                console.log('payinfo : '+JSON.stringify(Payinfo));
                 this.$store.dispatch('PAY', Payinfo)
                     .then(response => {
                         console.log(response);
