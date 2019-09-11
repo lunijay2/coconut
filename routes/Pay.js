@@ -44,9 +44,11 @@ router.post('/GetOrder2',(req, res, next) => {
     console.log('order_number : '+order_no);
     //console.log('no : '+no);
     //console.log('time1 : '+time1);
+    //let order = JSON.parse(order_no);
+    //console.log('JSON parser order : '+JSON.stringify(order));
 
-    let order = JSON.parse(order_no);
-    console.log('JSON parser order : '+JSON.stringify(order));
+    var o = order_no.split('/');
+    console.log('o : '+JSON.stringify(o));
 
     OrderFoundQuery(order_no)
         .then( query => {

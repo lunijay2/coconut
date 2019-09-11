@@ -97,12 +97,16 @@
                 this.choiceType = true;
             },
             qrChoice : function () {
+                /*
                 var v = {
                     no : this.order.order_no,
                     t : new Date().getTime()
                 };
-                this.value = JSON.stringify(v);
-                console.log('value : '+JSON.stringify(v));
+                */
+                //this.value = JSON.stringify(v);
+                //console.log('value : '+JSON.stringify(v));
+                var v = this.order.order_no+'/'+new Date().getTime();
+                console.log(v);
                 this.choiceType = false;
             }
         },
