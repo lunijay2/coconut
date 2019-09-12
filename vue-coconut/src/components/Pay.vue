@@ -3,57 +3,61 @@
         <form @submit="PaySubmit">
             <p class="error">{{ error }}</p>
             <!--<p class="decode-result">Last result: <b>{{ result }}</b></p>-->
-            <qrcode-stream v-if="!result.order_no" @decode="onDecode" @init="onInit" /><br><br>
+            <qrcode-stream v-if="!allow == true" @decode="onDecode" @init="onInit" /><br><br>
 
-            <div v-if="allow == true">
-                <table class="table">
-                    <thead>
-                    <tr class="table-active">
-                        <th scope="col">상품정보</th>
-                        <th scope="col">금액</th>
-                        <th scope="col">수량</th>
-                        <th scope="col">판매자</th>
-                    </tr>
-                    </thead>
-                    <tbody v-for="Pro in Products">
-                    <tr>
-                        <td>
-                            <div class="media">
-                                <img v-bind:src="Pro.thumbnail" class="align-self-start mr-3 widthSet heightSet" />
-                                <div class="media-body">
-                                    <h5 class="mt-0">{{Pro.productname}}</h5>
-                                    <h6 class="text-muted">
-                                        {{Pro.description}}<br>
-                                        {{Pro.category}}
-                                    </h6>
+            <div class="row" v-if="allow == true">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <table class="table">
+                        <thead>
+                        <tr class="table-active">
+                            <th scope="col">상품정보</th>
+                            <th scope="col">금액</th>
+                            <th scope="col">수량</th>
+                            <th scope="col">판매자</th>
+                        </tr>
+                        </thead>
+                        <tbody v-for="Pro in Products">
+                        <tr>
+                            <td>
+                                <div class="media">
+                                    <img v-bind:src="Pro.thumbnail" class="align-self-start mr-3 widthSet heightSet" />
+                                    <div class="media-body">
+                                        <h5 class="mt-0">{{Pro.productname}}</h5>
+                                        <h6 class="text-muted">
+                                            {{Pro.description}}<br>
+                                            {{Pro.category}}
+                                        </h6>
+                                    </div>
                                 </div>
+                            </td>
+                            <td><h5>{{(Pro.oquantity*Pro.price).toLocaleString()}}원</h5></td>
+                            <td><h5>{{Pro.oquantity}}개</h5></td>
+                            <td><h5>{{Pro.seller}}</h5></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <hr noshade/>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <h6 class="col-md-3"></h6>
+                                <h6 class="col-md-3">총 주문 상품수</h6>
+                                <h6 class="col-md-3">{{kind[0]}}종 {{kind[1]}}개</h6>
+                                <h6 class="col-md-3"></h6>
                             </div>
-                        </td>
-                        <td><h5>{{(Pro.oquantity*Pro.price).toLocaleString()}}원</h5></td>
-                        <td><h5>{{Pro.oquantity}}개</h5></td>
-                        <td><h5>{{Pro.seller}}</h5></td>
-                    </tr>
-                    </tbody>
-                </table>
-                <hr noshade/>
-                <div class="card">
-                    <div class="card-body">
-                        <div class="row">
-                            <h6 class="col-md-3"></h6>
-                            <h6 class="col-md-3">총 주문 상품수</h6>
-                            <h6 class="col-md-3">{{kind[0]}}종 {{kind[1]}}개</h6>
-                            <h6 class="col-md-3"></h6>
-                        </div>
-                        <hr class="my-4">
-                        <div class="row">
-                            <h6 class="col-md-3"></h6>
-                            <h6 class="col-md-3">총 결제 예상 금액</h6>
-                            <h5 style="color: crimson" class="col-md-4">{{allprice.toLocaleString()}}원</h5>
-                            <h6 class="col-md-2"></h6>
+                            <hr class="my-4">
+                            <div class="row">
+                                <h6 class="col-md-3"></h6>
+                                <h6 class="col-md-3">총 결제 예상 금액</h6>
+                                <h5 style="color: crimson" class="col-md-4">{{allprice.toLocaleString()}}원</h5>
+                                <h6 class="col-md-2"></h6>
+                            </div>
                         </div>
                     </div>
+                    <br>
+                    <button @click="onResetSubmit" type="submit" class="btn btn-primary btn-lg">QR코드 재인식</button>
                 </div>
-                <button @click="onResetSubmit" type="submit" class="btn btn-primary btn-lg">QR코드 재인식</button>
             </div>
         </form>
     </div>
