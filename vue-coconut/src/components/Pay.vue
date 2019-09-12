@@ -5,7 +5,7 @@
             <!--<p class="decode-result">Last result: <b>{{ result }}</b></p>-->
             <qrcode-stream v-if="!result.order_no" @decode="onDecode" @init="onInit" /><br><br>
 
-            <div v-if="Products[0].productcode">
+            <div v-if="result.order_no">
 
                 <table class="table">
                     <thead>
