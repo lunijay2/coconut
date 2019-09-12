@@ -245,7 +245,7 @@ router.post('/addBasket', (req, res, next) => {
         number: req.body.number,
         price: req.body.price,
         productcode: req.body.productcode,
-        productname: req.body.name,
+        productname: req.body.productname,
         quantity: req.body.quantity,
         seller: req.body.seller
     };

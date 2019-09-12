@@ -19,20 +19,38 @@
                         <div class="media">
                             <img v-bind:src="Pro.thumbnail" class="align-self-start mr-3 widthSet heightSet" />
                             <div class="media-body">
-                                <h5 class="mt-0">{{Pro.name}}</h5>
-                                <p class="text-muted">
+                                <h5 class="mt-0">{{Pro.productname}}</h5>
+                                <h6 class="text-muted">
                                     {{Pro.description}}<br>
                                     {{Pro.category}}
-                                </p>
+                                </h6>
                             </div>
                         </div>
                     </td>
-                    <td><h5>{{order.price.toLocaleString()}}원</h5></td>
-                    <td><h5>{{pquan}}개</h5></td>
-                    <td><h5>{{seller}}</h5></td>
+                    <td><h5>{{(Pro.oquantity*Pro.price).toLocaleString()}}원</h5></td>
+                    <td><h5>{{Pro.oquantity}}개</h5></td>
+                    <td><h5>{{Pro.seller}}</h5></td>
                 </tr>
                 </tbody>
             </table>
+            <hr noshade/>
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <h6 class="col-md-3"></h6>
+                        <h6 class="col-md-3">총 주문 상품수</h6>
+                        <h6 class="col-md-3">{{kind[0]}}종 {{kind[1]}}개</h6>
+                        <h6 class="col-md-3"></h6>
+                    </div>
+                    <hr class="my-4">
+                    <div class="row">
+                        <h6 class="col-md-3"></h6>
+                        <h6 class="col-md-3">총 결제 예상 금액</h6>
+                        <h5 style="color: crimson" class="col-md-4">{{allprice.toLocaleString()}}원</h5>
+                        <h6 class="col-md-2"></h6>
+                    </div>
+                </div>
+            </div>
             <br>
             <div class="row">
                 <div class="col-md-6">
@@ -70,14 +88,16 @@
         name: "ChoicePayType",
         data () {
             return {
-                value : {},
+                value : '',
                 size : 300,
+                kind : [ 0 ],
+                allprice : 0,
                 choiceType : null,
                 allow : false,
                 user : {},
                 order : {},
                 pcode : '',
-                pquan : '',
+                pquan : [],
                 seller : '',
                 pnum : {
                     orderno : this.$route.params.order
@@ -88,6 +108,11 @@
             }
         },
         methods : {
+            quantityAppend : function(Prod) {
+                for (let i=0; i<Prod.length; i++) {
+                    Prod[i].oquantity = this.pquan[i];
+                }
+            },
             imglnk : function () {
                 for (var i=0; i<(this.Products.length); i++) {
                     this.Products[i].thumbnail = this.lnk+this.Products[i].thumbnail;
@@ -107,6 +132,7 @@
                 //console.log('value : '+JSON.stringify(v));
                 var v = this.order.order_no+'/'+new Date().getTime();
                 console.log(v);
+                this.value = v;
                 this.choiceType = false;
             }
         },
@@ -121,25 +147,46 @@
                     console.log('get order : '+JSON.stringify(response.data));
                     this.order = response.data.order[0];
                     var p = response.data.order[0].product;
-                    //이부분은 여러 상품을 구매할 경우 반복문 필요
-                    var pArray = p.split('/');
-                    var pcode = {
-                        productcode : pArray[0]
+
+                    var p1 = p.split(',');
+                    var p2 = new Array;
+                    var p3 = new Array;
+                    for (var i=0; i<p1.length; i++) {
+                        p2.push(p1[i].split('/'));
+                        p3.push(p2[i][1]);
+                    }
+                    console.log('p2 : '+JSON.stringify(p2));
+                    console.log('p3 : '+JSON.stringify(p3));
+
+                    this.pquan = p3;
+
+                    var pcode2 = {
+                        productcode : p
                     };
-                    this.pcode = pArray[0];
-                    this.pquan = pArray[1];
-                    return this.$store.dispatch('GetProductDetail', pcode);
+                    console.log("pcode2 : "+JSON.stringify(pcode2));
+                    return this.$store.dispatch('GetProductDetail2', pcode2);
                 })
                 .then( response => {
                     console.log('product detail : '+JSON.stringify(response.data));
                     this.Products = response.data.result;
                     this.seller = response.data.result[0].seller;
                     this.imglnk();
+                    this.quantityAppend(response.data.result);
+                    console.log('product detail2 : '+JSON.stringify(this.Products));
                     if (this.user.number == this.order.orderer) {
                         this.allow = true;
                     } else {
                         alert('잘못된 요청입니다.');
                         this.$router.replace({ path : '/' });
+                    }
+                })
+                .finally( () => {
+                    this.kind[0] = this.Products.length;
+                    this.kind[1] = 0;
+                    for (let i=0; i<this.Products.length; i++){
+                        this.allprice = this.allprice + this.Products[i].oquantity * this.Products[i].price;
+                        this.Products[i].oquantity *= 1; //스트링을 정수로 형변환
+                        this.kind[1] = this.kind[1] + this.Products[i].oquantity;
                     }
                 })
                 .catch( err => {

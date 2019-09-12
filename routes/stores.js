@@ -79,6 +79,78 @@ router.post('/GetProductDetail', (req, res, next) => {
         })
 });
 
+router.post('/GetProductDetail2', (req, res, next) => {
+
+    const productcode = req.body.productcode;
+    console.log(productcode);
+
+    var p1 = productcode.split(',');
+    var p2 = new Array;
+    var p3 = new Array;
+    for (var i=0; i<p1.length; i++) {
+        p2.push(p1[i].split('/'));
+        p3.push(p2[i][0]);
+    }
+    console.log('p2 : '+JSON.stringify(p2));
+    console.log('p3 : '+JSON.stringify(p3));
+
+    CreateFindProductCodeQuery2(p3)
+        .then( query => {
+            return PoolGetConnection(query);
+        })
+        .then(connectionQuery => {
+            return ExecuteQuery(connectionQuery);
+        })
+        .then(function(rows) {  // ExecuteQuery가 쿼리문을 사용한 결과값을 받음
+            console.log("This Solutions is : " + JSON.stringify(rows));
+            return Complete(res, rows);    // RegComplete에 res를 보냄. res.json을 실행하기 위해서는 res값이 필요하기 때문에 res를 인자값으로 보냄
+        }, function(err) {  // ExecuteQuery가 쿼리문을 실행한 결과로 에러가 온 경우
+            console.log("Query Excute err : "+err);
+            return Rollback(connection); // 쿼리문 실행 중 에러가 나면 롤백을 실행해야 함
+        })
+        .catch( function (err) {    // 전체적으로 에러를 캐치한다
+            console.log("Catch 1 err : "+err);
+            res.json({success: false, msg: 'Failed to Get Product Detail'}); // 에러 캐치시 false반환
+        })
+        .then( function () {
+            return ReleaseConnection( connectionQuery.connection );   // 결과값이 어떻든 커넥션은 반환되어야 한다
+        })
+        .catch(function (err) { //마지막으로 에러를 캐치
+            console.log(err);
+        })
+});
+
+router.post('/GetProductDetail3', (req, res, next) => {
+
+    const productcode = req.body.productcode;
+    console.log(productcode);
+    var p1 = productcode.split('/');
+
+    CreateFindProductCodeQuery2(p1)
+        .then( query => {
+            return PoolGetConnection(query);
+        })
+        .then(connectionQuery => {
+            return ExecuteQuery(connectionQuery);
+        })
+        .then(function(rows) {  // ExecuteQuery가 쿼리문을 사용한 결과값을 받음
+            console.log("This Solutions is : " + JSON.stringify(rows));
+            return Complete(res, rows);    // RegComplete에 res를 보냄. res.json을 실행하기 위해서는 res값이 필요하기 때문에 res를 인자값으로 보냄
+        }, function(err) {  // ExecuteQuery가 쿼리문을 실행한 결과로 에러가 온 경우
+            console.log("Query Excute err : "+err);
+            return Rollback(connection); // 쿼리문 실행 중 에러가 나면 롤백을 실행해야 함
+        })
+        .catch( function (err) {    // 전체적으로 에러를 캐치한다
+            console.log("Catch 1 err : "+err);
+            res.json({success: false, msg: 'Failed to Get Product Detail'}); // 에러 캐치시 false반환
+        })
+        .then( function () {
+            return ReleaseConnection( connectionQuery.connection );   // 결과값이 어떻든 커넥션은 반환되어야 한다
+        })
+        .catch(function (err) { //마지막으로 에러를 캐치
+            console.log(err);
+        })
+});
 
 /*--------장바구니 구매-------*/
 router.post('/GetProductOder', (req, res, next) => {
@@ -390,6 +462,15 @@ function CreateFindProductCodeQuery(productcode) {
     });
 }
 
+function CreateFindProductCodeQuery2(productcode) {
+    return new Promise( function (resolve) {
+        console.log('productcode : '+productcode);
+        let statement = "SELECT * FROM product WHERE productcode IN ("+productcode+");";
+        console.log("CreateFindProductCodeQuery2 : "+statement);
+        resolve(statement);
+    });
+}
+
 function CreateProductFoundQuery() {
     return new Promise( function (resolve) {
         let statement = "SELECT * FROM product";
@@ -426,7 +507,7 @@ function CreateFindProductQuery(store) {
 function CreateStoreQuery(newStore) {     //유저 정보, 해쉬화된 비밀번호를 받아서 쿼리문을 작성하는 Promise 함수
     return new Promise( function (resolve, reject) {
         if(newStore) {
-            let statement = "INSERT INTO product (user_number, seller, name, price, quantity, category, description, thumbnail) VALUES ('" + newStore.number + "', '" + newStore.seller + "', '" + newStore.name + "', '" + newStore.price + "', '" + newStore.quantity + "', '" + newStore.category + "', '" + newStore.description + "', '" + newStore.thumbnail + "');";
+            let statement = "INSERT INTO product (user_number, seller, productname, price, quantity, category, description, thumbnail) VALUES ('" + newStore.number + "', '" + newStore.seller + "', '" + newStore.name + "', '" + newStore.price + "', '" + newStore.quantity + "', '" + newStore.category + "', '" + newStore.description + "', '" + newStore.thumbnail + "');";
             resolve(statement);
         } else {
             console.log("CreateRegisterQuery err : "+err);

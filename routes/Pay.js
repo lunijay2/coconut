@@ -72,13 +72,30 @@ router.post('/GetOrder_Camera',(req, res, next) => {
 
 
 router.post('/newOrder',(req, res, next) => {
+
+    console.log(JSON.stringify(req.body));
     let newOrder = {
-        product: req.body.product[0].product,
-        price: req.body.product[0].price,
+        //product: req.body.product[0].product,
+        //price: req.body.product[0].price,
+        product : '',
+        price : 0,
         orderer: req.body.orderer,
         delivery_address: req.body.delivery_address,
         delivery_tel: req.body.delivery_tel
     };
+
+    for(var i=0; i< req.body.product.length; i++ ) {
+        if(i==0){
+            newOrder.product = req.body.product[i].product;
+            newOrder.price = req.body.product[i].price;
+        } else {
+            newOrder.product = newOrder.product+','+req.body.product[i].product;
+            newOrder.price = newOrder.price + req.body.product[i].price;
+        }
+        console.log('new order product : '+newOrder.product);
+        console.log('new order price : '+newOrder.price);
+    }
+
     console.log('newOrder : '+JSON.stringify(newOrder));
 
     CreateOrderQuery(newOrder)

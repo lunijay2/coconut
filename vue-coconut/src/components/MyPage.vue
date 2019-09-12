@@ -1,6 +1,7 @@
 <template>
-        <div>
-            <h1>마이 페이지입니다.</h1>
+        <div v-if="user">
+            <h1>{{user.name}}의 마이 페이지</h1>
+            <hr noshade/>
             <div class="AllProduct">
                 <div class="row">
                     <div class="col-md-2">

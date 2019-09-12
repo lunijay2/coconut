@@ -1,9 +1,11 @@
 <template>
     <div>
-        <h2>{{user.name}}님의 주문서</h2><br><br>
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6">
+                <h2>{{user.name}}님의 주문서</h2>
+                <hr noshade/>
+                <br>
                 <h5 class="float-left">1. 주문상품 확인</h5>
                 <table class="table">
                     <thead>

@@ -130,6 +130,14 @@ export default new Vuex.Store({
             return axios.post( resourceHost+'/stores/GetProductDetail', payload);
             //return axios.post( '/stores/GetProductDetail', payload);
         },
+        GetProductDetail2 : function (context, payload) {
+            return axios.post( resourceHost+'/stores/GetProductDetail2', payload);
+            //return axios.post( '/stores/GetProductDetail', payload);
+        },
+        GetProductDetail3 : function (context, payload) {
+            return axios.post( resourceHost+'/stores/GetProductDetail3', payload);
+            //return axios.post( '/stores/GetProductDetail', payload);
+        },
         addBasket : function (context, payload) {
             return axios.post( resourceHost+'/users/addBasket', payload);
             //return axios.post( '/users/addBasket', payload);
