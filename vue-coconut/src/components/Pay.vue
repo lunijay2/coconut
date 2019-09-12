@@ -6,7 +6,6 @@
             <qrcode-stream v-if="!result.order_no" @decode="onDecode" @init="onInit" /><br><br>
 
             <div v-if="allow == true">
-
                 <table class="table">
                     <thead>
                     <tr class="table-active">
@@ -158,6 +157,18 @@
                         //alert('주문내역 성공 : '+JSON.stringify(response.data.order[0]));
                         this.result = response.data.order[0];
                         //alert('주문내역 : '+JSON.stringify(response.data.order[0]));
+
+                        var p = response.data.order[0].product;
+                        var p1 = p.split(',');
+                        var p2 = new Array;
+                        var p3 = new Array;
+                        for (var i=0; i<p1.length; i++) {
+                            p2.push(p1[i].split('/'));
+                            p3.push(p2[i][1]);
+                        }
+                        console.log('p2 : '+JSON.stringify(p2));
+                        console.log('p3 : '+JSON.stringify(p3));
+                        this.pquan = p2;
                         let pcode = {
                             productcode : response.data.order[0].product
                         };
@@ -165,6 +176,7 @@
                     })
                     .then( response => {
                         console.log('product detail : '+JSON.stringify(response.data));
+                        //여기까진 모바일에서 실행됨
                         let pp = response.data.result;
                         for (let i=0; i<pp.length; i++) {
                             for(let j=0; j<pp.length; j++) {
@@ -183,7 +195,7 @@
                         this.seller = response.data.result[0].seller;
                         this.imglnk();
                         //this.quantityAppend(response.data.result);
-                        this.allow = true;
+                        this.allow = true; //모바일에서 여기까지 못옴
                         alert('product detail : '+JSON.stringify(response.data));
                         console.log('product detail2 : '+JSON.stringify(this.Products));
                     })
