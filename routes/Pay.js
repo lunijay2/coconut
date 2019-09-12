@@ -45,9 +45,10 @@ router.post('/GetOrder_2',(req, res, next) => {
     console.log('order_number : '+order_no);
     console.log('time1 : '+t1);
     let t2 = new Date().getTime();
+    console.log('time2 : '+t2);
 
-    //if((t2 - t1) > (1000 * 60 * 5)) {
-    if((t2 - t1) > (1000 * 5)) {
+    if((t2 - t1) > (1000 * 60 * 5)) {
+    //if((t2 - t1) > (1000 * 5)) {
         console.log('유효시간 초과');
         res.json({
             success: false,
