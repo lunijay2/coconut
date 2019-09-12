@@ -113,9 +113,11 @@
                     for(let j=0; j<Prod.length; j++) {
                         if(Prod[i].productcode == this.pquan[j][0]) {
                             Prod[i].oquantity = this.pquan[j][1];
+                            console.log('일치');
                         }
                     }
                 }
+                this.Products = Prod;
             },
             imglnk : function () {
                 for (var i=0; i<(this.Products.length); i++) {
@@ -163,7 +165,7 @@
                     console.log('p3 : '+JSON.stringify(p3));
 
                     this.pquan = p2;
-                    
+
                     var pcode2 = {
                         productcode : p
                     };
@@ -172,7 +174,7 @@
                 })
                 .then( response => {
                     console.log('product detail : '+JSON.stringify(response.data));
-                    this.Products = response.data.result;
+                    //this.Products = response.data.result;
                     this.seller = response.data.result[0].seller;
                     this.imglnk();
                     this.quantityAppend(response.data.result);
