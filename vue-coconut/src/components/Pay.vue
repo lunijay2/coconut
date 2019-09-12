@@ -56,7 +56,26 @@
                         </div>
                     </div>
                     <br>
-                    <button @click="onResetSubmit" type="submit" class="btn btn-primary btn-lg">QR코드 재인식</button>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button @click="onResetSubmit" type="button" class="btn btn-lg btn-success col-md-12">QR코드 재인식</button>
+                        </div>
+                        <br>
+                        <div class="col-md-6">
+                            <button @click="nomalChoice" type="button" class="btn btn-lg btn-primary col-md-12">결제</button>
+                            <div v-if="choiceType==true">
+                                <hr noshade/>
+                                <div class="alert alert-warning" role="alert">
+                                    <h3 class="page-header">인증서 비밀번호 입력</h3>
+                                    <div class="form-group">
+                                        <label>Password</label>
+                                        <input type="password" class="form-control" name="password">
+                                    </div>
+                                    <button @click="" type="button" class="btn btn-primary align-self-center">결제</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </form>
@@ -68,6 +87,7 @@
         name: "Pay",
         data() {
             return {
+                choiceType : null,
                 allow : false,
                 Products : [],
                 kind : [ 0 ],
@@ -85,6 +105,9 @@
             }
         },
         methods: {
+            nomalChoice : function () {
+                this.choiceType = true;
+            },
             imglnk : function () {
                 for (var i=0; i<(this.Products.length); i++) {
                     this.Products[i].thumbnail = this.lnk+this.Products[i].thumbnail;
@@ -92,6 +115,7 @@
             },
             onResetSubmit : function() {
                 this.allow = false;
+                this.choiceType = null;
             },
             onDecode (ordernumber) {
                 this.ordernumber = ordernumber
