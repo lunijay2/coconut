@@ -5,7 +5,7 @@
             <!--<p class="decode-result">Last result: <b>{{ result }}</b></p>-->
             <qrcode-stream v-if="!result.order_no" @decode="onDecode" @init="onInit" /><br><br>
 
-            <div v-if="result.order_no">
+            <div v-if="allow == true">
 
                 <table class="table">
                     <thead>
@@ -74,6 +74,7 @@
         name: "Pay",
         data() {
             return {
+                allow : false,
                 Products : [],
                 kind : [ 0 ],
                 allprice : 0,
@@ -96,7 +97,7 @@
                 }
             },
             onResetSubmit : function() {
-                this.result = {};
+                this.allow = false;
             },
             onDecode (ordernumber) {
                 this.ordernumber = ordernumber
@@ -164,7 +165,6 @@
                     })
                     .then( response => {
                         console.log('product detail : '+JSON.stringify(response.data));
-                        alert('product detail : '+JSON.stringify(response.data));
                         let pp = response.data.result;
                         for (let i=0; i<pp.length; i++) {
                             for(let j=0; j<pp.length; j++) {
@@ -183,6 +183,8 @@
                         this.seller = response.data.result[0].seller;
                         this.imglnk();
                         //this.quantityAppend(response.data.result);
+                        this.allow = true;
+                        alert('product detail : '+JSON.stringify(response.data));
                         console.log('product detail2 : '+JSON.stringify(this.Products));
                     })
                     .finally( () => {
