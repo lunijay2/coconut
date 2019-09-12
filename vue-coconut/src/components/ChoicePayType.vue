@@ -162,8 +162,8 @@
                     console.log('p2 : '+JSON.stringify(p2));
                     console.log('p3 : '+JSON.stringify(p3));
 
-                    this.pquan = p3;
-
+                    this.pquan = p2;
+                    
                     var pcode2 = {
                         productcode : p
                     };
