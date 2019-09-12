@@ -110,7 +110,11 @@
         methods : {
             quantityAppend : function(Prod) {
                 for (let i=0; i<Prod.length; i++) {
-                    Prod[i].oquantity = this.pquan[i];
+                    for(let j=0; j<Prod.length; j++) {
+                        if(Prod[i].productcode == this.pquan[j][0]) {
+                            Prod[i].oquantity = this.pquan[j][1];
+                        }
+                    }
                 }
             },
             imglnk : function () {
