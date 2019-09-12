@@ -6,6 +6,55 @@
             <qrcode-stream v-if="!result.order_no" @decode="onDecode" @init="onInit" /><br><br>
 
             <div v-if="result.order_no">
+
+                <table class="table">
+                    <thead>
+                    <tr class="table-active">
+                        <th scope="col">상품정보</th>
+                        <th scope="col">금액</th>
+                        <th scope="col">수량</th>
+                        <th scope="col">판매자</th>
+                    </tr>
+                    </thead>
+                    <tbody v-for="Pro in Products">
+                    <tr>
+                        <td>
+                            <div class="media">
+                                <img v-bind:src="Pro.thumbnail" class="align-self-start mr-3 widthSet heightSet" />
+                                <div class="media-body">
+                                    <h5 class="mt-0">{{Pro.productname}}</h5>
+                                    <h6 class="text-muted">
+                                        {{Pro.description}}<br>
+                                        {{Pro.category}}
+                                    </h6>
+                                </div>
+                            </div>
+                        </td>
+                        <td><h5>{{(Pro.oquantity*Pro.price).toLocaleString()}}원</h5></td>
+                        <td><h5>{{Pro.oquantity}}개</h5></td>
+                        <td><h5>{{Pro.seller}}</h5></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <hr noshade/>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <h6 class="col-md-3"></h6>
+                            <h6 class="col-md-3">총 주문 상품수</h6>
+                            <h6 class="col-md-3">{{kind[0]}}종 {{kind[1]}}개</h6>
+                            <h6 class="col-md-3"></h6>
+                        </div>
+                        <hr class="my-4">
+                        <div class="row">
+                            <h6 class="col-md-3"></h6>
+                            <h6 class="col-md-3">총 결제 예상 금액</h6>
+                            <h5 style="color: crimson" class="col-md-4">{{allprice.toLocaleString()}}원</h5>
+                            <h6 class="col-md-2"></h6>
+                        </div>
+                    </div>
+                </div>
+
                 <a class="list-group-item list-group-item-action flex-column align-items-start">
                     <div class="d-flex w-100 justify-content-between">
                         <h5 class="mb-1">주문 내역 확인</h5>
@@ -14,7 +63,7 @@
                     <p class="mb-1">{{result.product}}</p>
                     <small class="text-muted">{{result.price}}원</small>
                 </a>
-                <button @click="onResetSubmit" type="submit" class="btn btn-primary">QR코드 재인식</button>
+                <button @click="onResetSubmit" type="submit" class="btn btn-primary btn-lg">QR코드 재인식</button>
             </div>
         </form>
     </div>
@@ -25,12 +74,27 @@
         name: "Pay",
         data() {
             return {
+                Products : [],
+                kind : [ 0 ],
+                allprice : 0,
+                user : {},
+                order : {},
+                pcode : '',
+                pquan : [],
+                seller : '',
                 result : {},
                 ordernumber : '',
-                error : ''
+                error : '',
+                //lnk : 'http://localhost:3000/img/',
+                lnk : "/img/"
             }
         },
         methods: {
+            imglnk : function () {
+                for (var i=0; i<(this.Products.length); i++) {
+                    this.Products[i].thumbnail = this.lnk+this.Products[i].thumbnail;
+                }
+            },
             onResetSubmit : function() {
                 this.result = {};
             },
@@ -92,7 +156,42 @@
                     .then( response => {
                         //alert('주문내역 성공 : '+JSON.stringify(response.data.order[0]));
                         this.result = response.data.order[0];
-                        alert('주문내역 성공 : '+JSON.stringify(response.data));
+                        alert('주문내역 : '+JSON.stringify(response.data.order[0]));
+                        let pcode = {
+                            productcode : response.data.order[0].product
+                        };
+                        return this.$store.dispatch('GetProductDetail2', pcode);
+                    })
+                    .then( response => {
+                        console.log('product detail : '+JSON.stringify(response.data));
+                        let pp = response.data.result;
+                        for (let i=0; i<pp.length; i++) {
+                            for(let j=0; j<pp.length; j++) {
+                                this.pquan[i][j] *= 1;
+                                console.log('pp '+i+' : '+pp[i].productcode);
+                                console.log('pquan '+j+' : '+ this.pquan[j][0]);
+                                if(pp[i].productcode == this.pquan[j][0]) {
+                                    pp[i].oquantity = this.pquan[j][1];
+                                    console.log('일치');
+                                } else {
+                                    console.log('불일치');
+                                }
+                            }
+                        }
+                        this.Products = pp;
+                        this.seller = response.data.result[0].seller;
+                        this.imglnk();
+                        //this.quantityAppend(response.data.result);
+                        console.log('product detail2 : '+JSON.stringify(this.Products));
+                    })
+                    .finally( () => {
+                        this.kind[0] = this.Products.length;
+                        this.kind[1] = 0;
+                        for (let i=0; i<this.Products.length; i++){
+                            this.allprice = this.allprice + this.Products[i].oquantity * this.Products[i].price;
+                            this.Products[i].oquantity *= 1; //스트링을 정수로 형변환
+                            this.kind[1] = this.kind[1] + this.Products[i].oquantity;
+                        }
                     })
                     .catch( err => {
                         console.log('주문내역 실패 : ' + err);
