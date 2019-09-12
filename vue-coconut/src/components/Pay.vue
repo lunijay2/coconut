@@ -216,6 +216,11 @@
         }
     }
 </script>
-
 <style scoped>
+    .widthSet {
+        max-width: 80px;
+    }
+    .heightSet {
+        max-height: 80px;
+    }
 </style>
