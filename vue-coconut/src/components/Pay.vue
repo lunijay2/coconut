@@ -4,10 +4,11 @@
             <p class="error">{{ error }}</p>
             <!--<p class="decode-result">Last result: <b>{{ result }}</b></p>-->
             <qrcode-stream v-if="!allow == true" @decode="onDecode" @init="onInit" /><br><br>
-
             <div class="row" v-if="allow == true">
                 <div class="col-md-2"></div>
                 <div class="col-md-8">
+                    <h2>주문 정보 확인</h2>
+                    <hr noshade/>
                     <table class="table">
                         <thead>
                         <tr class="table-active">
@@ -195,7 +196,6 @@
                     })
                     .then( response => {
                         console.log('product detail : '+JSON.stringify(response.data));
-                        //여기까진 모바일에서 실행됨
                         let pp = response.data.result;
                         for (let i=0; i<pp.length; i++) {
                             for(let j=0; j<pp.length; j++) {
@@ -214,8 +214,8 @@
                         this.seller = response.data.result[0].seller;
                         this.imglnk();
                         //this.quantityAppend(response.data.result);
-                        this.allow = true; //모바일에서 여기까지 못옴
-                        alert('product detail : '+JSON.stringify(response.data));
+                        this.allow = true;
+                        //alert('product detail : '+JSON.stringify(response.data));
                         console.log('product detail2 : '+JSON.stringify(this.Products));
                     })
                     .finally( () => {
