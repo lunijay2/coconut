@@ -182,7 +182,7 @@
                             this.pquan[i][j] *= 1;
                             console.log('pp '+i+' : '+pp[i].productcode);
                             console.log('pquan '+j+' : '+ this.pquan[j][0]);
-                            if(pp[i].productcode === this.pquan[j][0]) {
+                            if(pp[i].productcode == this.pquan[j][0]) {
                                 pp[i].oquantity = this.pquan[j][1];
                                 console.log('일치');
                             } else {
