@@ -49,23 +49,22 @@ router.post('/GetOrder_2',(req, res, next) => {
     if((t2 - t1) > 5000) {
         console.log('유효시간 초과');
         res.json({success: false});
+    } else {
+        OrderFoundQuery(order_no)
+            .then( query => {
+                return PoolGetConnection(query);
+            })
+            .then(connectionQuery => {
+                return ExecuteQuery(connectionQuery);
+            })
+            .then( rows => {
+                return Complete( res, rows );
+            })
+            .catch(err => {
+                console.log(err);
+                res.json({success: false});
+            })
     }
-
-    OrderFoundQuery(order_no)
-        .then( query => {
-            return PoolGetConnection(query);
-        })
-        .then(connectionQuery => {
-            return ExecuteQuery(connectionQuery);
-        })
-        .then( rows => {
-            return Complete( res, rows );
-        })
-        .catch(err => {
-            console.log(err);
-            res.json({success: false});
-        })
-
 });
 
 router.post('/newOrder',(req, res, next) => {
