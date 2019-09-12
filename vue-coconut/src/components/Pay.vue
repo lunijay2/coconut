@@ -5,7 +5,7 @@
             <!--<p class="decode-result">Last result: <b>{{ result }}</b></p>-->
             <qrcode-stream v-if="!result.order_no" @decode="onDecode" @init="onInit" /><br><br>
 
-            <div v-if="result.order_no">
+            <div v-if="Products[0].productcode">
 
                 <table class="table">
                     <thead>
@@ -164,6 +164,7 @@
                     })
                     .then( response => {
                         console.log('product detail : '+JSON.stringify(response.data));
+                        alert('product detail : '+JSON.stringify(response.data));
                         let pp = response.data.result;
                         for (let i=0; i<pp.length; i++) {
                             for(let j=0; j<pp.length; j++) {
