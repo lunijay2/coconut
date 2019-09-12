@@ -46,9 +46,13 @@ router.post('/GetOrder_2',(req, res, next) => {
     console.log('time1 : '+t1);
     let t2 = new Date().getTime();
 
-    if((t2 - t1) > 300000) {
+    //if((t2 - t1) > (1000 * 60 * 5)) {
+    if((t2 - t1) > (1000 * 5)) {
         console.log('유효시간 초과');
-        res.json({success: false});
+        res.json({
+            success: false,
+            msg : '유효시간 초과'
+        });
     } else {
         OrderFoundQuery(order_no)
             .then( query => {
