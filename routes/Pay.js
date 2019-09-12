@@ -38,20 +38,18 @@ router.post('/GetOrder',(req, res, next) => {
 
 });
 
+router.post('/GetOrder_2',(req, res, next) => {
 
-router.post('/GetOrder_Camera',(req, res, next) => {
-
-    let order_no = req.body.orderno;
-    //let no = req.body.order_no.no;
-    //let time1 = req.body.orderno.t;
+    let order_no = req.body.order_no;
+    let t1 = req.body.time;
     console.log('order_number : '+order_no);
-    //console.log('no : '+no);
-    //console.log('time1 : '+time1);
-    //let order = JSON.parse(order_no);
-    //console.log('JSON parser order : '+JSON.stringify(order));
+    console.log('time1 : '+t1);
+    let t2 = new Date().getTime();
 
-    var o = order_no.split('/');
-    console.log('o : '+JSON.stringify(o));
+    if((t2 - t1) > 5000) {
+        console.log('유효시간 초과');
+        res.json({success: false});
+    }
 
     OrderFoundQuery(order_no)
         .then( query => {
@@ -69,7 +67,6 @@ router.post('/GetOrder_Camera',(req, res, next) => {
         })
 
 });
-
 
 router.post('/newOrder',(req, res, next) => {
 

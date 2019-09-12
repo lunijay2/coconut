@@ -113,8 +113,13 @@ export default new Vuex.Store({
                     }});
             //return axios.post( '/Pay/GetOrder', payload);
         },
-        GetOrder_Camera : function (context, payload) {
-            return axios.post( resourceHost+'/Pay/GetOrder_Camera', payload);
+        GetOrder_2 : function (context, payload) {
+            let a = (payload.orderno).split('/');
+            let order = {
+                order_no: a[0],
+                time : a[1]
+            };
+            return axios.post( resourceHost+'/Pay/GetOrder_2', order);
             //return axios.post( '/Pay/GetOrder', payload);
         },
         GetProductOder : function (context, payload) {
