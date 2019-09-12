@@ -176,10 +176,21 @@
                 })
                 .then( response => {
                     console.log('product detail : '+JSON.stringify(response.data));
-                    this.Products = response.data.result;
+                    let pp = response.data.result;
+                    for (let i=0; i<pp.length; i++) {
+                        for(let j=0; j<pp.length; j++) {
+                            console.log('pp '+i+' : '+pp[i].productcode);
+                            console.log('pquan '+j+' : '+ this.pquan[j][0]);
+                            if(pp[i].productcode == this.pquan[j][0]) {
+                                pp[i].oquantity = this.pquan[j][1];
+                                console.log('일치');
+                            }
+                        }
+                    }
+                    this.Products = pp;
                     this.seller = response.data.result[0].seller;
                     this.imglnk();
-                    this.quantityAppend(response.data.result);
+                    //this.quantityAppend(response.data.result);
                     console.log('product detail2 : '+JSON.stringify(this.Products));
                     if (this.user.number == this.order.orderer) {
                         this.allow = true;
