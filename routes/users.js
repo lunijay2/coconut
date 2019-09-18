@@ -321,7 +321,7 @@ function PasswordHash(salt, pass) {     //비밀번호를 해쉬화하는 Promis
 function CreateRegisterQuery(newUserHash) {     //유저 정보, 해쉬화된 비밀번호를 받아서 쿼리문을 작성하는 Promise 함수
     return new Promise( function (resolve, reject) {
         if(newUserHash) {
-            let statement = "INSERT INTO user (name, id, password, tel, addr, email, indi) VALUES ('" + newUserHash.newUser.name + "', '" + newUserHash.newUser.id + "', '" + newUserHash.hash + "', '" + newUserHash.newUser.tel + "', '" + newUserHash.newUser.addr + "', '" + newUserHash.newUser.email + "', " + newUserHash.newUser.indi + ");";
+            let statement = "INSERT INTO user (name, id, password, tel, addr, email, indi, money) VALUES ('" + newUserHash.newUser.name + "', '" + newUserHash.newUser.id + "', '" + newUserHash.hash + "', '" + newUserHash.newUser.tel + "', '" + newUserHash.newUser.addr + "', '" + newUserHash.newUser.email + "', " + newUserHash.newUser.indi + ", " + 1000000 + ");";
             resolve(statement);
         } else {
             console.log("CreateRegisterQuery err : "+err);

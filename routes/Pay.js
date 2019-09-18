@@ -6,6 +6,14 @@ const mysql = require('mysql');
 const config = require('../config/database');
 const passport_policy = require('../config/passport');
 const bcrypt = require('bcryptjs');
+const forge = require('node-forge');
+const fs = require('fs');
+const pki = forge.pki;
+
+const caCertPem = fs.readFileSync('caCert.pem', 'utf8');
+const caPrivateKeyPem = fs.readFileSync('caPrivateKey.pem', 'utf8');
+const caCert = pki.certificateFromPem(caCertPem);
+const caPrivateKey = pki.privateKeyFromPem(caPrivateKeyPem);
 
 router.post('/procpay',(req, res, next) => {
     let number = req.body.Payinfo.order_no;
@@ -72,6 +80,38 @@ router.post('/GetOrder_2',(req, res, next) => {
     }
 });
 
+router.post('/GetOrder_3',(req, res, next) => {
+    let number = req.body.number;
+
+    UserOrderFoundQuery(number)
+        .then( query => {
+            return PoolGetConnection(query);
+        })
+        .then(connectionQuery => {
+            return ExecuteQuery(connectionQuery);
+        })
+        .then( rows => {
+            return Complete( res, rows );
+        })
+        .catch(err => {
+            console.log(err);
+            res.json({success: false, msg : err });
+        })
+});
+
+function UserOrderFoundQuery(number) {
+    return new Promise( function (resolve, reject) {
+        if(number) {
+            let statement = "SELECT * FROM trade_detail WHERE orderer=" + number + ";";
+            console.log("UserOrderFoundQuery : "+statement);
+            resolve(statement);
+        } else {
+            console.log("UserOrderFoundQuery err : "+err);
+            reject(err);
+        }
+    });
+}
+
 router.post('/newOrder',(req, res, next) => {
 
     console.log(JSON.stringify(req.body));
@@ -116,11 +156,316 @@ router.post('/newOrder',(req, res, next) => {
 
 });
 
+router.post('/Trade',(req, res, next) => {
+    let signatureHex = req.body.signature;
+    let Request = req.body.Request;
+    let currentTime1 = req.body.currentT;
+
+    console.log('Request : '+JSON.stringify(Request));
+
+    const cert = pki.certificateFromPem(req.body.cert);
+    const signature = forge.util.hexToBytes(signatureHex);
+    const publicKey = cert.publicKey;
+    const serialNumber = cert.serialNumber;
+    const commonCert = cert.subject.getField('CN').value;
+    let DbCertPem;
+
+    var pss;
+    var md;
+    var verify0;
+    var verify1;
+    var verify2;
+    var verify3;
+    var verify4;
+    var p;
+    var p1;
+    var p2;
+    var p3;
+    var p4;
+    var p5;
+
+    FindCertQuery(serialNumber, Request.id)
+        .then( query => {
+            return PoolGetConnection(query);
+        })
+        .then(connectionQuery => {
+            return ExecuteQuery(connectionQuery);
+        })
+        .then( rows => {
+            //console.log(rows);
+            DbCertPem = rows[0].cert;
+            //console.log("DbCertPem : "+DbCertPem);
+
+            const DbCert = pki.certificateFromPem(DbCertPem);
+            const DbPublicKey = DbCert.publicKey;
+            const DbCommonCert = DbCert.subject.getField('CN').value;
+            //받아온 인증서가 DB 인증서 테이블에 존재 하는지 확인
+            //그리고 DB의 인증서와 받아온 인증서가 같은지 확인
+
+            //console.log("Cert : "+JSON.stringify(cert));
+            //console.log("DbCert : "+JSON.stringify(DbCert));
+            //console.log(JSON.stringify(cert) == JSON.stringify(DbCert));
+
+            if( JSON.stringify(cert) == JSON.stringify(DbCert) ) {
+                verify0 = true;
+                console.log('Signature Verify0 : '+verify0);
+
+                const currentTime2 = new Date().getTime();
+                const diff = currentTime2 - currentTime1;
+
+                // verify RSASSA-PSS signature
+                pss = forge.pss.create({
+                    md: forge.md.sha1.create(),
+                    mgf: forge.mgf.mgf1.create(forge.md.sha1.create()),
+                    saltLength: 20
+                    // optionally pass 'prng' with a custom PRNG implementation
+                });
+                md = forge.md.sha1.create();
+                md.update(Request, 'utf8');
+                md.update(currentTime1, 'utf8');
+                verify1 =  DbPublicKey.verify(md.digest().getBytes(), signature, pss);
+                console.log('Signature Verify1 : '+verify1);
+                verify2 = caCert.verify(DbCert);
+                console.log('Signature Verify2 : '+verify2);
+
+                if(diff < 1000 * 30) { //30초
+                    verify3 = true;
+                    console.log('Signature Verify3 : '+verify3);
+                }
+                if ( Request.unum == DbCommonCert ) { //인증서 내부의 CN 필드(유저넘버) 비교
+                    verify4 = true;
+                    console.log('Signature Verify4 : '+verify4);
+                }
+
+                if( verify0==true && verify1==true && verify2==true && verify3==true && verify4==true) {
+
+                    p = Request.order.product;
+                    p1 = p.split(',');
+                    p2 = new Array;
+                    p3 = new Array;
+                    p4 = new Array;
+                    for (var i=0; i<p1.length; i++) {
+                        p2.push(p1[i].split('/'));
+                        p3.push(p2[i][0]);
+                        p4.push(p2[i][1]);
+                    }
+
+                    for (var j=0; j<p3.length; j++){
+                        //p3[j] *= 1;
+                        //p4[j] *= 1;
+
+                        for (var k=0; k<p4.length; k++){
+                            //p2[j][k] *= 1;
+                        }
+                    }
+                    console.log('p2 (1) : '+p2);
+                    console.log('p2 (2) : '+JSON.stringify(p2));
+                    console.log('p3 : '+JSON.stringify(p3)); // 코드
+                    console.log('p4 : '+JSON.stringify(p4)); // 수량
+
+                    // 1. 구매한 상품들에서 수량 빼고
+                    let statement = new Array;
+                    for (var i=0; i<p2.length; i++){
+                        statement.push("UPDATE product SET allquantity=allquantity-"+p2[i][1]+" WHERE productcode="+p2[i][0]+";");
+                    }
+                    console.log('statement : '+JSON.stringify(statement));
+                    return PoolGetConnection(statement);
+                    // 실패 시 모두 롤백
+                } else {
+                    console.log("Signature Verify err");
+                    return res.json({success:false, msg: 'Signature Verify Err'});
+                }
+
+            } else {
+                return res.json({success:false, msg: 'Certificate Validate Err'});
+            }
+        })
+        .then(connectionQuery => {
+            return ExecuteQuery2(connectionQuery);
+        })
+        .then( rows => {
+            console.log("rows : "+JSON.stringify(rows));
+
+            let statement = new Array;
+            for (var i=0; i<p3.length; i++){
+                statement.push("SELECT * FROM product WHERE productcode=" + p3[i] + ";");
+            }
+            console.log('statement 2 : '+JSON.stringify(statement));
+            //return res.json({success:true, msg: '111'});
+
+            return PoolGetConnection(statement);
+        })
+        .then(connectionQuery => {
+            return ExecuteQuery2(connectionQuery);
+        })
+        .then( rows => {
+            // 2. 판매자한테는 돈 넣고
+            console.log("rows : "+JSON.stringify(rows));
+            console.log("rows user_number 0 : "+JSON.stringify(rows[0][0].user_number));
+            console.log("rows user_number 1 : "+JSON.stringify(rows[1][0].user_number));
+
+            let statement = new Array;
+            console.log("rows.length : "+rows.length);
+            for (var i=0; i<rows.length; i++){
+                for (var j=0; j<rows.length; j++){
+                    console.log("rows["+i+"][0].productcode : "+rows[i][0].productcode);
+                    console.log("p3["+j+"] : "+p3[j]);
+                    if (rows[i][0].productcode == p3[j]) {
+                        statement.push("UPDATE user SET money=money+"+ rows[i][0].price * p4[j] +" WHERE number="+rows[i][0].user_number+";");
+                    }
+                }
+            }
+            console.log('statement 3 : '+JSON.stringify(statement));
+
+            return PoolGetConnection(statement);
+        })
+        .then(connectionQuery => {
+            return ExecuteQuery2(connectionQuery);
+        })
+        .then( rows => {
+            // 3. 구매자한테서 돈 빼고
+            console.log('rows : '+JSON.stringify(rows));
+
+            let statement = new Array;
+            statement.push("UPDATE user SET money=money-"+ Request.order.price +" WHERE id='"+ Request.id +"';");
+
+            console.log('statement 4 : '+JSON.stringify(statement));
+            return PoolGetConnection(statement);
+        })
+        .then(connectionQuery => {
+            return ExecuteQuery2(connectionQuery);
+        })
+        .then( rows => {
+            // 4. 주문정보 테이블에 결제 정보 업데이트
+            console.log('rows : '+JSON.stringify(rows));
+
+            let statement = new Array;
+            statement.push("UPDATE trade_detail SET purchase_signature='"+ signatureHex +"', paid="+ 1 +", buyer="+Request.unum+" WHERE order_no="+ Request.order_no +";");
+
+            console.log('statement 5 : '+JSON.stringify(statement));
+
+            return PoolGetConnection(statement);
+        })
+        .then(connectionQuery => {
+            return ExecuteQuery2(connectionQuery);
+        })
+        .then( rows => {
+            console.log("rows : "+JSON.stringify(rows));
+
+            let statement = new Array;
+            statement.push("SELECT * FROM user WHERE number='"+ Request.order.orderer +"';");
+            console.log('statement 6 : '+JSON.stringify(statement));
+
+            return PoolGetConnection(statement);
+        })
+        .then(connectionQuery => {
+            return ExecuteQuery2(connectionQuery);
+        })
+        .then( rows => {
+            // 5. 장바구니에서 삭제
+            console.log("rows : "+JSON.stringify(rows));
+
+            let statement = new Array;
+            for (var i=0; i<p3.length; i++){
+                statement.push("DELETE FROM shoppingcart_"+rows[0][0].id+" WHERE productcode="+ p3[i] +";");
+            }
+            console.log('statement 7 : '+JSON.stringify(statement));
+
+            return PoolGetConnection(statement);
+        })
+        .then(connectionQuery => {
+            return ExecuteQuery2(connectionQuery);
+        })
+        .then( rows => {
+            console.log("rows : "+JSON.stringify(rows));
+            return res.json({success:true, order: Request.order_no });
+        })
+        .catch( function (err, connection) {
+            console.log(err);
+            //connection.rollback();
+        });
+
+
+
+    /*
+    TradeQuery()
+        .then( query => {
+            return PoolGetConnection(query);
+        })
+        .then(connectionQuery => {
+            return ExecuteQuery(connectionQuery);
+        })
+        .then( rows => {
+            return Complete( res, rows );
+        })
+        .catch(err => {
+            console.log(err);
+            res.json({success: false});
+        })
+     */
+});
+
+function ExecuteQuery2(ConQue) {     // Connection과 쿼리문을 받아와서 실행하는 Promise 함수
+    return new Promise( function (resolve, reject) {
+        let aaa = new Array;
+        console.log("ConQue : "+ConQue.query.length);
+        let bbb = ConQue.query.length - 1;
+        console.log('bbb : '+bbb);
+        for (var i=0; i<(ConQue.query.length); i++) {
+            ConQue.connection.query(ConQue.query[i], function(err, rows, fields) {
+                if (!err) {
+                    console.log("query 실행 결과 : "+ JSON.stringify(rows));
+                    aaa.push(rows);
+                    console.log("query 실행 중 : " + JSON.stringify(aaa));
+                    console.log('i : '+i);
+                    if (i === aaa.length ) {
+                        console.log("query 실행 끝 : " + JSON.stringify(aaa));
+                        resolve(aaa);
+                        ConQue.connection.release();
+                    }
+                } else {
+                    console.log("query 실행 err : "+err);
+                    reject(err);
+                }
+            });
+        }
+    });
+}
+
 function procpay(number, jwt) {
     return new Promise( function (resolve, reject) {
         let temp = passport_policy(jwt);
         console.log(temp);
     })
+}
+
+function TradeQuery(ordernumber) {
+    return new Promise( function (resolve, reject) {
+        if(ordernumber) {
+            let statement = "SELECT * FROM trade_detail WHERE order_no=" + ordernumber + ";";
+            console.log("TradeQuery : "+statement);
+            resolve(statement);
+        } else {
+            console.log("TradeQuery err : "+err);
+            reject(err);
+        }
+    });
+}
+
+function FindCertQuery(serial, id) {
+    return new Promise( function (resolve, reject) {
+        if(serial && id) {
+            let statement = "SELECT * FROM cert_"+id+" WHERE certnumber=" + serial +";";
+
+            //statement = statement.replace(/\n/g, ""); //행바꿈제거
+            // = statement.replace(/\r/g, "");//엔터제거
+            console.log("FindCertQuery : "+statement);
+            resolve(statement);
+        } else {
+            console.log("FindCertQuery err : "+err);
+            reject(err);
+        }
+    });
 }
 
 function OrderFoundQuery(ordernumber) {

@@ -141,7 +141,7 @@
                         }
                         this.Products = {
                             product : cArray,
-                            name : this.user.name
+                            id : this.user.id
                         };
                         console.log('product : '+JSON.stringify(this.Products));
                     }

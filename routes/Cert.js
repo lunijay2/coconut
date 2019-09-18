@@ -15,101 +15,129 @@ const caCert = pki.certificateFromPem(caCertPem);
 const caPrivateKey = pki.privateKeyFromPem(caPrivateKeyPem);
 
 
+function pad(n, width) {
+    n = n + '';
+    return n.length >= width ? n : new Array(width - n.length + 1).join('0') + n;
+}
+
 router.post('/newCert', (req, res, next) => {
     console.log(JSON.stringify(req.body));
-    var cert = pki.createCertificate();
-    cert.publicKey = pki.publicKeyFromPem(req.body.publicKey);
-    cert.serialNumber = '01';
-    cert.validity.notBefore = new Date();
-    cert.validity.notAfter.setFullYear(cert.validity.notBefore.getFullYear() + 5);
+    let certinfo;
 
-    var userAttrs = [
-        {
-            name: 'commonName',
-            value: req.body.user.number
-        }, {
-            name: 'countryName',
-            value: 'kr'
-        }, {
-            name: 'organizationName',
-            value: 'Coconut'
-        }, {
-            shortName: 'OU',
-            value: 'Master'
-        }
-    ];
-    cert.setSubject(userAttrs);
+    let highestCertNumber;
+    FindCertNumberHighestQuery(req.body.user.id)        // Salt값 생성 함수 호출
+        .then( function(query) {
+            //console.log("masterCert query : " + query);
+            return PoolGetConnection(query);
+        })
+        .then(function (connectionQuery) {
+            return ExecuteQuery(connectionQuery);
+        })
+        .then(function(rows) {
+            console.log("FindCertNumberHighest is : " + JSON.stringify(rows));
+            highestCertNumber = rows[0].max_certnumber;
+            console.log('highestCertNumber 1 : '+highestCertNumber);
 
-    var caAttrs = [
-        {
-            name: 'commonName',
-            value: caCert.subject.getField('CN').value
-        }, {
-            name: 'countryName',
-            value: caCert.subject.getField('C').value
-        }, {
-            shortName: 'ST',
-            value: caCert.subject.getField('ST').value
-        }, {
-            name: 'localityName',
-            value: caCert.subject.getField('L').value
-        }, {
-            name: 'organizationName',
-            value: caCert.subject.getField('O').value
-        }, {
-            shortName: 'OU',
-            value: caCert.subject.getField('OU').value
-        }
-    ];
-    cert.setIssuer(caAttrs);
+            highestCertNumber = pad(highestCertNumber+1, 2);
+            console.log('highestCertNumber 2 : '+highestCertNumber);
 
-    cert.setExtensions([
-        {
-            name: 'basicConstraints',
-            cA: true
-        }, {
-            name: 'keyUsage',
-            keyCertSign: true,
-            digitalSignature: true,
-            nonRepudiation: true,
-            keyEncipherment: true,
-            dataEncipherment: true
-        }, {
-            name: 'extKeyUsage',
-            serverAuth: true,
-            clientAuth: true,
-            codeSigning: true,
-            emailProtection: true,
-            timeStamping: true
-        }, {
-            name: 'nsCertType',
-            client: true,
-            server: true,
-            email: true,
-            objsign: true,
-            sslCA: true,
-            emailCA: true,
-            objCA: true
-        }, {
-            name: 'subjectAltName',
-            altNames: [{
-                type: 6, // URI
-                value: 'http://coconutpay.herokuapp.com/'
-            }]
-        }, {
-            name: 'subjectKeyIdentifier'
-        }
-    ]);
+            var cert = pki.createCertificate();
+            cert.publicKey = pki.publicKeyFromPem(req.body.publicKey);
+            cert.serialNumber = highestCertNumber;
+            cert.validity.notBefore = new Date();
+            cert.validity.notAfter.setFullYear(cert.validity.notBefore.getFullYear() + 5);
 
-    cert.sign(caPrivateKey);
+            console.log('cert serial : '+cert.serialNumber);
 
-    let certinfo = {
-        cert : pki.certificateToPem(cert),
-        caCert: caCertPem,
-        user : req.body.user
-    };
+            var userAttrs = [
+                {
+                    name: 'commonName',
+                    value: req.body.user.number
+                }, {
+                    name: 'countryName',
+                    value: 'kr'
+                }, {
+                    name: 'organizationName',
+                    value: 'Coconut'
+                }, {
+                    shortName: 'OU',
+                    value: 'Master'
+                }
+            ];
+            cert.setSubject(userAttrs);
 
-    addMasterCertQuery(certinfo)        // Salt값 생성 함수 호출
+            var caAttrs = [
+                {
+                    name: 'commonName',
+                    value: caCert.subject.getField('CN').value
+                }, {
+                    name: 'countryName',
+                    value: caCert.subject.getField('C').value
+                }, {
+                    shortName: 'ST',
+                    value: caCert.subject.getField('ST').value
+                }, {
+                    name: 'localityName',
+                    value: caCert.subject.getField('L').value
+                }, {
+                    name: 'organizationName',
+                    value: caCert.subject.getField('O').value
+                }, {
+                    shortName: 'OU',
+                    value: caCert.subject.getField('OU').value
+                }
+            ];
+            cert.setIssuer(caAttrs);
+
+            cert.setExtensions([
+                {
+                    name: 'basicConstraints',
+                    cA: true
+                }, {
+                    name: 'keyUsage',
+                    keyCertSign: true,
+                    digitalSignature: true,
+                    nonRepudiation: true,
+                    keyEncipherment: true,
+                    dataEncipherment: true
+                }, {
+                    name: 'extKeyUsage',
+                    serverAuth: true,
+                    clientAuth: true,
+                    codeSigning: true,
+                    emailProtection: true,
+                    timeStamping: true
+                }, {
+                    name: 'nsCertType',
+                    client: true,
+                    server: true,
+                    email: true,
+                    objsign: true,
+                    sslCA: true,
+                    emailCA: true,
+                    objCA: true
+                }, {
+                    name: 'subjectAltName',
+                    altNames: [{
+                        type: 6, // URI
+                        value: 'http://coconutpay.herokuapp.com/'
+                    }]
+                }, {
+                    name: 'subjectKeyIdentifier'
+                }
+            ]);
+
+            cert.sign(caPrivateKey);
+
+            certinfo = {
+                cert : pki.certificateToPem(cert),
+                caCert: caCertPem,
+                user : req.body.user
+            };
+            return addMasterCertQuery(certinfo);
+        }, function(err) {
+            console.log("err 1 : "+err);
+        })
         .then( function(query) {
             console.log("masterCert query : " + query);
             return PoolGetConnection(query);
@@ -130,6 +158,14 @@ router.post('/newCert', (req, res, next) => {
         });
 
 });
+
+function FindCertNumberHighestQuery(id) {
+    return new Promise( function (resolve) {
+        let statement = "SELECT MAX(certnumber) AS max_certnumber FROM cert_"+id+";";
+        console.log("FindCertNumberHighestQuery : "+statement);
+        resolve(statement);
+    });
+}
 
 router.post('/AddCert', (req, res, next) => {
     console.log(JSON.stringify(req.body));

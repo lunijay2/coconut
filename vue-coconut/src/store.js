@@ -122,6 +122,13 @@ export default new Vuex.Store({
             return axios.post( resourceHost+'/Pay/GetOrder_2', order);
             //return axios.post( '/Pay/GetOrder', payload);
         },
+        GetOrder_3 : function (context, payload) { //사용자의 주문 조회
+            let number = {
+                number : payload.number
+            };
+            return axios.post( resourceHost+'/Pay/GetOrder_3', number);
+            //return axios.post( '/Pay/GetOrder', payload);
+        },
         GetProductOder : function (context, payload) {
             console.log('product payload'+payload);
             return axios.post( resourceHost+'/stores/GetProductOder', payload);
@@ -314,6 +321,82 @@ export default new Vuex.Store({
         },
         deletePem : function(context, payload) {
             localStorage.removeItem(payload.user.id+'.pem');
-        }
+        },
+        TradeRequest : function(context, payload) {
+            console.log(payload.id+'.pem');
+            var pem = localStorage.getItem(payload.id+'.pem');
+            console.log('pem : '+pem);
+            var encryptedPrivateKeyInfo = pki.encryptedPrivateKeyFromPem(pem);
+            console.log('encryptedPrivateKeyInfo : '+JSON.stringify(encryptedPrivateKeyInfo));
+            var privateKeyInfo = pki.decryptPrivateKeyInfo(
+                encryptedPrivateKeyInfo, payload.pa);
+            console.log('privateKeyInfo : '+JSON.stringify(privateKeyInfo));
+            var privateKey = pki.privateKeyFromAsn1(privateKeyInfo);
+            console.log('privateKey : '+JSON.stringify(privateKey));
+
+            var currentTime = new Date().getTime();
+
+            console.log('payload : '+JSON.stringify(payload));
+            console.log('currentTime : '+currentTime);
+
+            const sign = {
+                id : payload.id,
+                unum : payload.unum,
+                order : payload.order,
+                order_no : payload.order_no,
+            };
+
+            // sign data using RSASSA-PSS where PSS uses a SHA-1 hash, a SHA-1 based
+            // masking function MGF1, and a 20 byte salt
+            var md1 = forge.md.sha1.create();
+            md1.update(sign, 'utf8');
+            md1.update(currentTime, 'utf8');
+            var pss1 = forge.pss.create({
+                md: forge.md.sha1.create(),
+                mgf: forge.mgf.mgf1.create(forge.md.sha1.create()),
+                saltLength: 20
+                // optionally pass 'prng' with a custom PRNG implementation
+                // optionalls pass 'salt' with a forge.util.ByteBuffer w/custom salt
+            });
+            var signature1 = privateKey.sign(md1, pss1);
+            var signatureHex1 = forge.util.bytesToHex(signature1);
+            console.log('signature 1 : '+signature1);
+            console.log('signature Hex 1 : '+signatureHex1);
+            //여기까지 서명 생성
+
+            const certPem = localStorage.getItem(payload.id+'.cert');
+
+            const Trade = {
+                Request : {
+                    id : payload.id,
+                    unum : payload.unum,
+                    order : payload.order,
+                    order_no : payload.order_no
+                },
+                cert : certPem,
+                currentT : currentTime,
+                signature : signatureHex1
+            };
+
+            return axios.post( resourceHost+'/Pay/Trade', Trade);
+            /*
+            //여기부터 서명 검증
+            const certPem = localStorage.getItem(payload.id+'.cert');
+            const cert = pki.certificateFromPem(certPem);
+            const publicKey = cert.publicKey;
+            // verify RSASSA-PSS signature
+            var pss2 = forge.pss.create({
+                md: forge.md.sha1.create(),
+                mgf: forge.mgf.mgf1.create(forge.md.sha1.create()),
+                saltLength: 20
+                // optionally pass 'prng' with a custom PRNG implementation
+            });
+            var md2 = forge.md.sha1.create();
+            md2.update(payload, 'utf8');
+            md2.update(currentTime, 'utf8');
+            var verifySignature =  publicKey.verify(md2.digest().getBytes(), signature1, pss2);
+            console.log('Signature Verify : '+verifySignature);
+             */
+        },
     }
 })

@@ -38,6 +38,7 @@ import AdditionalCert from "./components/AdditionalCert";
 import ChangePassword from "./components/ChangePassword";
 import MyCategory from "./components/MyCategory";
 import ChoicePaytype from "./components/ChoicePayType";
+import OrderView from "./components/OrderView";
 //import jusoPopup from "../popup/jusoPopup.jsp";
 
 const router = new VueRouter({
@@ -67,6 +68,7 @@ const router = new VueRouter({
     {path:'/ChangePassword', component : ChangePassword },
     {path:'/CreateOrder/:number/:product', component : CreateOrder },
     {path:'/ChoicePayType/:order', component : ChoicePaytype },
+    {path:'/OrderView', component : OrderView },
     {path:'*', component: NotFound }
 
     //{path: 'jusoPopup', component : jusoPopup }

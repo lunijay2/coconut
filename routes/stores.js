@@ -156,9 +156,9 @@ router.post('/GetProductDetail3', (req, res, next) => {
 router.post('/GetProductOder', (req, res, next) => {
 
     const product = req.body.product;
-    const name = req.body.name;
+    const id = req.body.id;
     console.log('product1 : ' +JSON.stringify(product));
-    console.log('name : ' +JSON.stringify(name));
+    console.log('id : ' +JSON.stringify(id));
 
     var b = '';
     var c = '';
@@ -177,7 +177,7 @@ router.post('/GetProductOder', (req, res, next) => {
 
     console.log(c);
 
-    CreateFindCartProductQuery(name, c)
+    CreateFindCartProductQuery(id, c)
         .then( query => {
             return PoolGetConnection(query);
         })
@@ -203,10 +203,10 @@ router.post('/GetProductOder', (req, res, next) => {
         })
 });
 
-function CreateFindCartProductQuery(name, c) {
+function CreateFindCartProductQuery(id, c) {
     return new Promise( function (resolve) {
         console.log('product2 : '+JSON.stringify(c));
-        let statement = "SELECT * FROM shoppingcart_"+name+" where productcode IN ("+c+") ;";
+        let statement = "SELECT * FROM shoppingcart_"+id+" where productcode IN ("+c+") ;";
         console.log("CreateFindProductCodeQuery : "+statement);
         resolve(statement);
     });
@@ -507,7 +507,7 @@ function CreateFindProductQuery(store) {
 function CreateStoreQuery(newStore) {     //유저 정보, 해쉬화된 비밀번호를 받아서 쿼리문을 작성하는 Promise 함수
     return new Promise( function (resolve, reject) {
         if(newStore) {
-            let statement = "INSERT INTO product (user_number, seller, productname, price, quantity, category, description, thumbnail) VALUES ('" + newStore.number + "', '" + newStore.seller + "', '" + newStore.name + "', '" + newStore.price + "', '" + newStore.quantity + "', '" + newStore.category + "', '" + newStore.description + "', '" + newStore.thumbnail + "');";
+            let statement = "INSERT INTO product (user_number, seller, productname, price, allquantity, category, description, thumbnail) VALUES ('" + newStore.number + "', '" + newStore.seller + "', '" + newStore.name + "', '" + newStore.price + "', '" + newStore.quantity + "', '" + newStore.category + "', '" + newStore.description + "', '" + newStore.thumbnail + "');";
             resolve(statement);
         } else {
             console.log("CreateRegisterQuery err : "+err);

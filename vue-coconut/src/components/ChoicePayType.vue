@@ -61,9 +61,9 @@
                             <h3 class="page-header">인증서 비밀번호 입력</h3>
                             <div class="form-group">
                                 <label>Password</label>
-                                <input type="password" class="form-control" name="password">
+                                <input type="password" class="form-control" v-model="Cpass" name="password">
                             </div>
-                            <button @click="" type="button" class="btn btn-primary align-self-center">결제</button>
+                            <button @click="Trade" type="button" class="btn btn-primary align-self-center">결제</button>
                         </div>
                     </div>
                 </div>
@@ -89,6 +89,8 @@
         data () {
             return {
                 value : '',
+                time : null,
+                Cpass : '',
                 size : 300,
                 kind : [ 0 ],
                 allprice : 0,
@@ -108,6 +110,22 @@
             }
         },
         methods : {
+            Trade : function () {
+                let certR = {
+                    pa : this.Cpass,
+                    id : this.user.id,
+                    unum : this.user.number,
+                    order : this.order,
+                    order_no : this.$route.params.order
+                };
+                this.$store.dispatch('TradeRequest', certR)
+                    .then( (response) => {
+                        alert('TradeRequest Success : '+JSON.stringify(response));
+                        console.log('TradeRequest Success : '+JSON.stringify(response));
+                    }).catch( err => {
+                        console.log('TradeRequest Err : '+ err);
+                    });
+            },
             quantityAppend : function(Prod) {
                 for (let i=0; i<Prod.length; i++) {
                     for(let j=0; j<Prod.length; j++) {
@@ -138,9 +156,9 @@
                 */
                 //this.value = JSON.stringify(v);
                 //console.log('value : '+JSON.stringify(v));
-                var v = this.order.order_no+'/'+new Date().getTime();
-                console.log(v);
-                this.value = v;
+                this.time = this.order.order_no+'/'+new Date().getTime();
+                console.log(this.time);
+                this.value = this.time;
                 this.choiceType = false;
             }
         },

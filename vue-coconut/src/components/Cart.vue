@@ -74,8 +74,8 @@
             return {
                 user : {},
                 carts : {},
-                lnk : 'http://localhost:3000/img/',
-                //lnk : "/img/"
+                //lnk : 'http://localhost:3000/img/',
+                lnk : "/img/"
             }
         },
         props: {

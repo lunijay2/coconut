@@ -1,6 +1,6 @@
 <template>
         <div v-if="user">
-            <h1>{{user.name}}의 마이 페이지</h1>
+            <h1>{{user.name}}님의 마이 페이지</h1>
             <hr noshade/>
             <div class="AllProduct">
                 <div class="row">
@@ -18,7 +18,7 @@
                                 </th>
                             </tr>
                             <tr class="table-success">
-                                <th scope="row" v-on:click="onCategory('아직')">
+                                <th scope="row" v-on:click="onCategory('receipt')">
                                     영수증
                                 </th>
                             </tr>
@@ -28,7 +28,7 @@
                                 </th>
                             </tr>
                             <tr class="table-success" >
-                                <th scope="row" v-on:click="onCategory('아직')">
+                                <th scope="row" v-on:click="onCategory('order')">
                                     주문내역
                                 </th>
                             </tr>
@@ -42,10 +42,12 @@
                     </div>
                     <div class="col-md-1"></div>
                     <div class="col-md-7">
+                        <p>잔액 : {{user.money.toLocaleString()}}원</p>
                         <MyCategory v-bind:choice="choiceCategory"></MyCategory>
                         <ChangePassword v-bind:choice="choiceCategory"></ChangePassword>
                         <CreateStore v-bind:choice="choiceCategory"></CreateStore>
                         <Cart v-bind:choice="choiceCategory"></Cart>
+                        <OrderView v-bind:choice="choiceCategory"></OrderView>
                     </div>
                 </div>
             </div>
@@ -56,11 +58,13 @@
     import MyCategory from "./MyCategory";
     import CreateStore from "./CreateStore";
     import ChangePassword from "./ChangePassword";
+    import OrderView from "./OrderView";
     import Cart from "./Cart";
 
     export default {
         name: "MyPage",
         components : {
+            OrderView,
             MyCategory,
             CreateStore,
             ChangePassword,
