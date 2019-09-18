@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="8b5f4b00-2556-4e32-bc20-84d0221e8b34" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vue-coconut/src/components/Pay.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue-coconut/src/components/Pay.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/Pay.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/Pay.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -22,7 +22,7 @@
         <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/ChoicePayType.vue">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="342">
-              <caret line="171" column="36" lean-forward="true" selection-start-line="171" selection-start-column="36" selection-end-line="171" selection-end-column="36" />
+              <caret line="171" column="36" selection-start-line="171" selection-start-column="36" selection-end-line="171" selection-end-column="36" />
               <folding>
                 <element signature="n#style#0;n#h5#0;n#div#1;n#div#0;n#div#0;n#div#1;n#div#0;n#template#0;n#!!top" expanded="true" />
               </folding>
@@ -30,20 +30,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/Pay.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="399">
-              <caret line="195" column="14" selection-start-line="195" selection-start-column="14" selection-end-line="195" selection-end-column="14" />
+            <state relative-caret-position="247">
+              <caret line="187" column="17" lean-forward="true" selection-start-line="187" selection-start-column="17" selection-end-line="187" selection-end-column="17" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/routes/Pay.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="304">
-              <caret line="302" column="56" lean-forward="true" selection-start-line="302" selection-start-column="56" selection-end-line="302" selection-end-column="56" />
+            <state relative-caret-position="380">
+              <caret line="243" column="42" lean-forward="true" selection-start-line="243" selection-start-column="42" selection-end-line="243" selection-end-column="42" />
             </state>
           </provider>
         </entry>
@@ -148,8 +148,8 @@
         <option value="$PROJECT_DIR$/vue-coconut/src/components/CreateStore.vue" />
         <option value="$PROJECT_DIR$/vue-coconut/src/components/Cart.vue" />
         <option value="$PROJECT_DIR$/vue-coconut/src/components/Category.vue" />
-        <option value="$PROJECT_DIR$/routes/Pay.js" />
         <option value="$PROJECT_DIR$/vue-coconut/src/components/Pay.vue" />
+        <option value="$PROJECT_DIR$/routes/Pay.js" />
       </list>
     </option>
   </component>
@@ -353,21 +353,7 @@
       <workItem from="1568280861686" duration="25561000" />
       <workItem from="1568445492798" duration="38946000" />
       <workItem from="1568683951505" duration="3691000" />
-      <workItem from="1568779839312" duration="6632000" />
-    </task>
-    <task id="LOCAL-00079" summary="190829 bootstrap v2">
-      <created>1567042418220</created>
-      <option name="number" value="00079" />
-      <option name="presentableId" value="LOCAL-00079" />
-      <option name="project" value="LOCAL" />
-      <updated>1567042418220</updated>
-    </task>
-    <task id="LOCAL-00080" summary="190829 bootstrap v2">
-      <created>1567044478100</created>
-      <option name="number" value="00080" />
-      <option name="presentableId" value="LOCAL-00080" />
-      <option name="project" value="LOCAL" />
-      <updated>1567044478100</updated>
+      <workItem from="1568779839312" duration="7215000" />
     </task>
     <task id="LOCAL-00081" summary="190829 bootstrap v2">
       <created>1567051026902</created>
@@ -698,11 +684,25 @@
       <option name="project" value="LOCAL" />
       <updated>1568786231620</updated>
     </task>
-    <option name="localTasksCounter" value="128" />
+    <task id="LOCAL-00128" summary="190918v1">
+      <created>1568786638562</created>
+      <option name="number" value="00128" />
+      <option name="presentableId" value="LOCAL-00128" />
+      <option name="project" value="LOCAL" />
+      <updated>1568786638562</updated>
+    </task>
+    <task id="LOCAL-00129" summary="190918v1">
+      <created>1568786920178</created>
+      <option name="number" value="00129" />
+      <option name="presentableId" value="LOCAL-00129" />
+      <option name="project" value="LOCAL" />
+      <updated>1568786920178</updated>
+    </task>
+    <option name="localTasksCounter" value="130" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="559856000" />
+    <option name="totallyTimeSpent" value="560439000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1103,17 +1103,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/Pay.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="302" column="56" lean-forward="true" selection-start-line="302" selection-start-column="56" selection-end-line="302" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/ChoicePayType.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="342">
-          <caret line="171" column="36" lean-forward="true" selection-start-line="171" selection-start-column="36" selection-end-line="171" selection-end-column="36" />
+          <caret line="171" column="36" selection-start-line="171" selection-start-column="36" selection-end-line="171" selection-end-column="36" />
           <folding>
             <element signature="n#style#0;n#h5#0;n#div#1;n#div#0;n#div#0;n#div#1;n#div#0;n#template#0;n#!!top" expanded="true" />
           </folding>
@@ -1122,8 +1115,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/Pay.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="399">
-          <caret line="195" column="14" selection-start-line="195" selection-start-column="14" selection-end-line="195" selection-end-column="14" />
+        <state relative-caret-position="247">
+          <caret line="187" column="17" lean-forward="true" selection-start-line="187" selection-start-column="17" selection-end-line="187" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/Pay.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="243" column="42" lean-forward="true" selection-start-line="243" selection-start-column="42" selection-end-line="243" selection-end-column="42" />
         </state>
       </provider>
     </entry>

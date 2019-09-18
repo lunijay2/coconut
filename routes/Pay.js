@@ -241,6 +241,8 @@ router.post('/Trade',(req, res, next) => {
 
                     p = Request.order.product;
 
+                    console.log('p : '+p);
+
                     if(p.length >= 1) {
                         p1 = p.split(',');
                     } else {
