@@ -114,7 +114,7 @@
                     id : this.user.id,
                     unum : this.user.number,
                     order : this.order,
-                    order_no : ornum
+                    order_no : ornum[0]
                 };
                 this.$store.dispatch('TradeRequest', certR)
                     .then( (response) => {
