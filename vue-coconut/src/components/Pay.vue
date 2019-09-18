@@ -121,6 +121,7 @@
                         console.log('TradeRequest Success : '+JSON.stringify(response));
                     }).catch( err => {
                     console.log('TradeRequest Err : '+ err);
+                    alert('TradeRequest Success : '+err);
                 });
             },
             nomalChoice : function () {
