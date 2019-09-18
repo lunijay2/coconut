@@ -301,8 +301,8 @@ router.post('/Trade',(req, res, next) => {
         .then( rows => {
             // 2. 판매자한테는 돈 넣고
             console.log("rows : "+JSON.stringify(rows));
-            console.log("rows user_number 0 : "+JSON.stringify(rows[0][0].user_number));
-            console.log("rows user_number 1 : "+JSON.stringify(rows[1][0].user_number));
+            //console.log("rows user_number 0 : "+JSON.stringify(rows[0][0].user_number));
+            //console.log("rows user_number 1 : "+JSON.stringify(rows[1][0].user_number));
 
             let statement = new Array;
             console.log("rows.length : "+rows.length);
