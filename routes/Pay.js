@@ -243,11 +243,16 @@ router.post('/Trade',(req, res, next) => {
 
                     console.log('p : '+p);
 
+                    p1 = p.split(',');
+
+                    /*
                     if(p.length >= 1) {
                         p1 = p.split(',');
                     } else {
                         p1 = p;
                     }
+                     */
+
                     p2 = new Array;
                     p3 = new Array;
                     p4 = new Array;

@@ -198,7 +198,7 @@
                     })
                     .then( response => {
                         //alert('주문내역 성공 : '+JSON.stringify(response.data.order[0]));
-                        this.result = response.data.order[0];
+                        this.order = response.data.order[0];
                         //alert('주문내역 : '+JSON.stringify(response.data.order[0]));
 
                         var p = response.data.order[0].product;
