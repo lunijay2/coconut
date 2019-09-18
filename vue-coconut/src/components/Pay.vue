@@ -108,12 +108,13 @@
         },
         methods: {
             Trade : function () {
+                var ornum = (this.ordernumber).split("/");
                 let certR = {
                     pa : this.Cpass,
                     id : this.user.id,
                     unum : this.user.number,
                     order : this.order,
-                    order_no : this.ordernumber
+                    order_no : ornum
                 };
                 this.$store.dispatch('TradeRequest', certR)
                     .then( (response) => {
@@ -140,8 +141,7 @@
                 this.choiceType = null;
             },
             onDecode (ordernumber) {
-                let aa = ordernumber.split("/");
-                this.ordernumber = aa;
+                this.ordernumber = ordernumber;
             },
             async onInit (promise) {
                 try {
