@@ -140,7 +140,8 @@
                 this.choiceType = null;
             },
             onDecode (ordernumber) {
-                this.ordernumber = ordernumber
+                let aa = ordernumber.split("/");
+                this.ordernumber = aa;
             },
             async onInit (promise) {
                 try {
