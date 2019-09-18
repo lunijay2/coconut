@@ -1,8 +1,59 @@
 <template>
   <div>
+    <div class="jumbotron text-center">
+      <h1>QR코드 간편결제 시스템</h1>
+      <br>
+      <div class="row">
+      <div class="col-md-4">
+        <qrcode-vue :value="value" :size="size" level="H"></qrcode-vue>
+      </div>
+        <div class="col-md-8">
+          <h4>QR코드를 이용한 모바일 웹 애플리케이션</h4>
+          <h4>인증서를 사용한 안전한 거래</h4>
+          <h4>JSON Web Token기반의 무상태 서비스 제공</h4>
+          <h4></h4>
+        </div>
+    </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <h3>Express Backend</h3>
+        <p>Express는 웹 및 모바일 애플리케이션을 위한 일련의 강력한 기능을 제공하는 간결하고 유연한 Node.js 웹 애플리케이션 프레임워크입니다.</p>
+        <p>자유롭게 활용할 수 있는 수많은 HTTP 유틸리티 메소드 및 미들웨어를 통해 쉽고 빠르게 강력한 API를 작성할 수 있습니다.</p>
+      </div>
+      <div class="col-md-4">
+        <h3>Vue JS</h3>
+        <p>Vue.js는 뷰(View)에 최적화된 프론트엔드 프레임워크입니다. 컨트롤러 대신 뷰 모델을 가지는 MVVM(Model-View-ViewModel) 패턴을 기반으로 디자인되었으며, 컴포넌트를 사용하여 재사용이 가능한 UI들을 묶고 뷰 레이어를 정리하는 것이 가장 강력한 기능입니다.</p>
+        <p></p>
+      </div>
+      <div class="col-md-4">
+        <h3>JWT Tokens</h3>
+        <p>JSON Web Token은 정보를 안전하게 전송하기 위해 정의된 공개된 표준(RFC 7519)입니다. JWT은 자체적으로 필요한 모든 정보를 포함합니다. 헤더 정보와, 실제 전달할 데이터, 검증할 수 있는 서명 데이터를 모두 포함하고 있습니다.</p>
+        <p>디지털 서명에 의해 검증할 수 있으며 신뢰할 수 있습니다. 비밀 값을 사용하는 HMAC 알고리즘이나 RDS or ECDSA와 같은 공개키, 개인키 쌍으로 서명될 수 있습니다.</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <h3>X.509 인증서</h3>
+        <p>X.509는 PKI에서 사용하는 표준 인증서 형식이다. PKI에서 사용하는 공개키, 개인키 같은 비대칭키를 X.509 인증서로 관리한다.</p>
+        <p>X.509(V1)은 1993년 디렉터리 접근 제어를 위한 두 가지 내용을 추가하기 위해 X.509(V2) 형식으로 개정되었다. 그리고 e메일의 보안 요소 등 새로운 개념이 포함된 X.509(V3)가 1996년에 발표되었다.</p>
+      </div>
+      <div class="col-md-4">
+        <h3>Vuex</h3>
+        <p>Vuex는 Vue.js 애플리케이션에 대한 상태 관리 패턴 + 라이브러리 입니다. 애플리케이션의 모든 컴포넌트에 대한 중앙 집중식 저장소 역할을 하며 예측 가능한 방식으로 상태를 변경할 수 있습니다. 또한 Vue의 공식 확장 프로그램과 통합되어 설정 시간이 필요 없는 디버깅 및 상태 스냅 샷과 같은 고급 기능을 제공합니다.</p>
+      </div>
+      <div class="col-md-4">
+        <h3></h3>
+        <p></p>
+      </div>
+    </div>
+  </div>
+
+  <!--
+  <div>
     <body>
-    <div id="wapper">
-      <!--헤더시작-->
+    <div id="wapper">-->
+      <!--헤더시작
       <header>
         <iframe
                 muted="muted"
@@ -15,13 +66,14 @@
                 allowfullscreen
         ></iframe>
       </header>
+      -->
       <!--네비게이션-->
       <!--
       <nav>
         <p>nav</p>
       </nav>
       -->
-      <!--콘텐츠부분-->
+      <!--콘텐츠부분-
       <div class="row">
         <div class="col-md-4">
           <img src="./apple.jpg" style="height:200px" />
@@ -32,7 +84,7 @@
         <div class="col-md-4">
           <img src="./straw.jpeg" style="height:200px" />
         </div>
-      </div>
+      </div>-->
       <!--
       <section>
         <p>section</p>
@@ -82,6 +134,7 @@
         </address>
       </footer>
       -->
+  <!--
       <div class="padding">
         * Not intended for use by people under 22 years old or those who have been previously diagnosed with atrial fibrillation.
         Apple Watch Series 3 has a water resistance rating of 50 meters under ISO standard 22810:2010. This means that it may be used for shallow-water activities like swimming in a pool or ocean. However, it should not be used for scuba diving, waterskiing, or other activities involving high-velocity water or submersion below shallow depth.
@@ -92,12 +145,22 @@
       </div>
     </div>
     </body>
-  </div>
+  </div>-->
 </template>
 
 <script>
+  import QrcodeVue from 'qrcode.vue';
   export default {
-    name: "Home"
+    name: "Home",
+    data() {
+      return {
+        value : 'https://coconutpay.herokuapp.com/',
+        size : 250
+      }
+    },
+    components: {
+      QrcodeVue
+    }
   };
 </script>
 

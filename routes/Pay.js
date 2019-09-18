@@ -351,8 +351,10 @@ router.post('/Trade',(req, res, next) => {
             // 4. 주문정보 테이블에 결제 정보 업데이트
             console.log('rows : '+JSON.stringify(rows));
 
+            var time = new Date().getTime();
+
             let statement = new Array;
-            statement.push("UPDATE trade_detail SET purchase_signature='"+ signatureHex +"', paid="+ 1 +", buyer="+Request.unum+" WHERE order_no="+ Request.order_no +";");
+            statement.push("UPDATE trade_detail SET purchase_signature='"+ signatureHex +"', paid="+ 1 +", trade_time='"+ time +"', buyer="+Request.unum+" WHERE order_no="+ Request.order_no +";");
 
             console.log('statement 5 : '+JSON.stringify(statement));
 
@@ -390,6 +392,7 @@ router.post('/Trade',(req, res, next) => {
         })
         .then( rows => {
             console.log("rows : "+JSON.stringify(rows));
+            console.log("결제 성공");
             return res.json({success:true, order: Request.order_no });
         })
         .catch( function (err, connection) {

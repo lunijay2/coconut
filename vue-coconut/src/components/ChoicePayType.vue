@@ -120,8 +120,12 @@
                 };
                 this.$store.dispatch('TradeRequest', certR)
                     .then( (response) => {
-                        alert('TradeRequest Success : '+JSON.stringify(response));
-                        console.log('TradeRequest Success : '+JSON.stringify(response));
+                        console.log('결제 : '+JSON.stringify(response));
+                            alert('결제 완료');
+                            console.log('TradeRequest Success : '+JSON.stringify(response));
+                            var p = response.data.order;
+                            var p1 = p.split('/');
+                            this.$router.replace({ path : '/PurchaseSuccess/'+p1[0] });
                     }).catch( err => {
                         console.log('TradeRequest Err : '+ err);
                     });

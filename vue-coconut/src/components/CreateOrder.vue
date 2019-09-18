@@ -25,11 +25,10 @@
                     </tr>
                     </tbody>
                 </table>
-                <br><br>
+                <br>
                 <h5 class="float-left">2. 배송지 정보 입력</h5>
                 <table class="table">
                     <thead>
-
                     <tr>
                         <th class="table-active" scope="row"><h6>고객입력 상세주소</h6></th>
                         <th scope="col">
@@ -51,7 +50,7 @@
                     </thead>
                 </table>
                 <br><br>
-                <button @click="newOrderSubmit" type="button" class="btn btn-primary">주문하기</button>
+                <button @click="newOrderSubmit" type="button" class="btn btn-primary btn-lg col-md-12">주문하기</button>
             </div>
             <div class="col-md-3"></div>
         </div>

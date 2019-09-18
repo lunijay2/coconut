@@ -39,6 +39,7 @@ import ChangePassword from "./components/ChangePassword";
 import MyCategory from "./components/MyCategory";
 import ChoicePaytype from "./components/ChoicePayType";
 import OrderView from "./components/OrderView";
+import PurchaseSuccess from "./components/PurchaseSuccess";
 //import jusoPopup from "../popup/jusoPopup.jsp";
 
 const router = new VueRouter({
@@ -69,6 +70,7 @@ const router = new VueRouter({
     {path:'/CreateOrder/:number/:product', component : CreateOrder },
     {path:'/ChoicePayType/:order', component : ChoicePaytype },
     {path:'/OrderView', component : OrderView },
+    {path:'/PurchaseSuccess/:order', component : PurchaseSuccess },
     {path:'*', component: NotFound }
 
     //{path: 'jusoPopup', component : jusoPopup }

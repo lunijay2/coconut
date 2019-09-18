@@ -103,6 +103,9 @@ export default new Vuex.Store({
         ChangePass: function (context, payload) {
             return axios.post(resourceHost+'/users/ChangePass', payload);
         },
+        FindUsername: function (context, payload) {
+            return axios.post(resourceHost+'/users/FindUsername', payload);
+        },
         GetOrder : function (context, payload) {
             let auth = localStorage.getItem("pToken");
             return axios.post(

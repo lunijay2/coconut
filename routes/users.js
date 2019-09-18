@@ -271,6 +271,31 @@ router.post('/addBasket', (req, res, next) => {
         })
 });
 
+
+router.post('/FindUsername', (req, res, next) => {
+    number = req.body.number;
+
+    UsernameFoundQuery(number)        // Salt값 생성 함수 호출
+        .then( function(query) {
+            console.log("query : " + query);
+            return PoolGetConnection(query);
+        })
+        .then(function (connectionQuery) {
+            return ExecuteQuery(connectionQuery);
+        })
+        .then(function(rows) {
+            console.log("This Solutions is : " + JSON.stringify(rows));
+            return Complete(res, rows);
+        }, function(err) {
+            console.log("err 1 : "+err);
+            res.json({success: false, msg : err });
+        })
+        .catch(function (err) {
+            console.log(err);
+            res.json({success: false, msg : err });
+        })
+});
+
 var pool = mysql.createPool(config); //연결에 대한 풀을 만든다. 기본값은 10개
 
 function CreateShoppingCart(id) {
@@ -352,6 +377,19 @@ function CreateUserFoundQuery(Userid) {     //유저 정보, 해쉬화된 비밀
             resolve(statement);
         } else {
             console.log("CreateUserFoundQuery err : "+err);
+            reject(err);
+        }
+    });
+}
+
+function UsernameFoundQuery(number) {     //유저 정보, 해쉬화된 비밀번호를 받아서 쿼리문을 작성하는 Promise 함수
+    return new Promise( function (resolve, reject) {
+        if(number) {
+            let statement = "SELECT name FROM user WHERE number=" + number + ";";
+            console.log("CreateUserFoundQuery : "+statement);
+            resolve(statement);
+        } else {
+            console.log("UsernameFoundQuery err : "+err);
             reject(err);
         }
     });
@@ -462,9 +500,9 @@ function RegComplete(res) {     // 프론트 엔드에 Success : true값을 반�
     });
 }
 
-function Complete(res) {     // 프론트 엔드에 Success : true값을 반환하는 Promise 함수
+function Complete(res, rows) {     // 프론트 엔드에 Success : true값을 반환하는 Promise 함수
     return new Promise( function () {
-        res.json({ success: true });
+        res.json({ success: true, result : rows });
     });
 }
 
