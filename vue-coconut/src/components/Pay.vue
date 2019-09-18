@@ -70,9 +70,9 @@
                                     <h3 class="page-header">인증서 비밀번호 입력</h3>
                                     <div class="form-group">
                                         <label>Password</label>
-                                        <input type="password" class="form-control" name="password">
+                                        <input type="password" class="form-control" v-model="Cpass" name="password">
                                     </div>
-                                    <button @click="" type="button" class="btn btn-primary align-self-center">결제</button>
+                                    <button @click="Trade" type="button" class="btn btn-primary align-self-center">결제</button>
                                 </div>
                             </div>
                         </div>
@@ -93,6 +93,7 @@
                 Products : [],
                 kind : [ 0 ],
                 allprice : 0,
+                Cpass : '',
                 user : {},
                 order : {},
                 pcode : '',
@@ -106,6 +107,22 @@
             }
         },
         methods: {
+            Trade : function () {
+                let certR = {
+                    pa : this.Cpass,
+                    id : this.user.id,
+                    unum : this.user.number,
+                    order : this.order,
+                    order_no : this.order.order_no
+                };
+                this.$store.dispatch('TradeRequest', certR)
+                    .then( (response) => {
+                        alert('TradeRequest Success : '+JSON.stringify(response));
+                        console.log('TradeRequest Success : '+JSON.stringify(response));
+                    }).catch( err => {
+                    console.log('TradeRequest Err : '+ err);
+                });
+            },
             nomalChoice : function () {
                 this.choiceType = true;
             },
