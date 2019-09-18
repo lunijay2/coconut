@@ -113,7 +113,7 @@
                     id : this.user.id,
                     unum : this.user.number,
                     order : this.order,
-                    order_no : this.order.order_no
+                    order_no : this.ordernumber
                 };
                 this.$store.dispatch('TradeRequest', certR)
                     .then( (response) => {
@@ -190,7 +190,12 @@
                 let ordernum = {
                     orderno : order
                 };
-                this.$store.dispatch('GetOrder_2', ordernum)
+                this.$store.dispatch('GetProfile')
+                    .then( response => {
+                        console.log('토큰검증 성공');
+                        this.user = response.data.user;
+                        return this.$store.dispatch('GetOrder_2', ordernum)
+                    })
                     .then( response => {
                         //alert('주문내역 성공 : '+JSON.stringify(response.data.order[0]));
                         this.result = response.data.order[0];
