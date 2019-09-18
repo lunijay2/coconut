@@ -240,7 +240,12 @@ router.post('/Trade',(req, res, next) => {
                 if( verify0==true && verify1==true && verify2==true && verify3==true && verify4==true) {
 
                     p = Request.order.product;
-                    p1 = p.split(',');
+
+                    if(p.length >= 1) {
+                        p1 = p.split(',');
+                    } else {
+                        p1 = p;
+                    }
                     p2 = new Array;
                     p3 = new Array;
                     p4 = new Array;
