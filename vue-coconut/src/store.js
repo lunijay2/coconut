@@ -12,8 +12,8 @@ import main from './main';
 
 Vue.use(Vuex);
 
-const resourceHost = 'http://localhost:3000';
-//const resourceHost = '';
+//const resourceHost = 'http://localhost:3000';
+const resourceHost = '';
 
 export default new Vuex.Store({
     state: {
