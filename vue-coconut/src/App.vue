@@ -37,11 +37,11 @@
         width: 100%;
     }
     body{
-        margin-top:70px; /*메뉴바와 본문의 간격 설정*/
+        margin-top:120px; /*메뉴바와 본문의 간격 설정*/
     }
     @media(max-width: 840px){
         body{
-            margin-top:70px;
+            margin-top:120px;
         }
     }
 </style>
