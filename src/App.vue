@@ -4,7 +4,7 @@
     <header>
       <Navbar></Navbar>
     </header>
-
+<br><br>
     <section>
         <router-view />
       
