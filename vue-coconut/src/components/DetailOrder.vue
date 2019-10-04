@@ -235,63 +235,68 @@
                         this.$router.replace({path: '/'});
                     }
 
-
-                    var receipt00;
-                    var receipt01 = [];
-                    var receipt02 = [];
-                    var receipt03 = [];
-                    let char01 = '';
-                    receipt00 = this.order.receipt.split(',');
-                    for (var q=0; q<receipt00.length; q++){
-                        receipt01.push(receipt00[q].split('+'));
-                    }
-                    for (var l = 0; l < receipt01.length; l++) {
-                        receipt02.push(receipt01[l][0].split('-'));
-                        for (var m = 0; m < receipt02[l].length; m++) {
-                            receipt03.push(receipt02[l][m].split('/'));
-                            //receipt04.push(receipt03[j][0]);
+                    if (this.order.receipt != null) {
+                        var receipt00;
+                        var receipt01 = [];
+                        var receipt02 = [];
+                        var receipt03 = [];
+                        let char01 = '';
+                        receipt00 = this.order.receipt.split(',');
+                        for (var q=0; q<receipt00.length; q++){
+                            receipt01.push(receipt00[q].split('+'));
                         }
-                    }
-                    let receiptCount = 0;
-                    for (var n=0; n<receipt03.length; n++){
-                        if (receiptCount > 0) {
-                            this.receipt = true;
-                            console.log('영수증 있음 3');
-                            break;
-                        } else {
-                            for (var o=0; o<this.Products.length; o++){
-                                if (receipt03[n][0] == this.Products[o].productcode) {
-                                    receiptCount += 1;
-                                    console.log('영수증 있음 1');
-                                    char01 = receipt03[n][0] + '/';
-                                    var isExist;
-                                    for (var u = 0; u < receipt01.length; u++){
-                                        isExist = (receipt01[u][0].indexOf(char01)!== -1);
-                                        console.log('isExist : '+isExist);
-                                        console.log('u : '+u);
-                                        if (isExist == true) {
-                                            console.log('receipt01['+u+'][1] : '+receipt01[u][1]);
-                                            this.receiptSign.push(receipt01[u][1]);
-                                            break;
+                        for (var l = 0; l < receipt01.length; l++) {
+                            receipt02.push(receipt01[l][0].split('-'));
+                            for (var m = 0; m < receipt02[l].length; m++) {
+                                receipt03.push(receipt02[l][m].split('/'));
+                                //receipt04.push(receipt03[j][0]);
+                            }
+                        }
+                        let receiptCount = 0;
+                        for (var n=0; n<receipt03.length; n++){
+                            if (receiptCount > 0) {
+                                this.receipt = true;
+                                console.log('영수증 있음 3');
+                                break;
+                            } else {
+                                for (var o=0; o<this.Products.length; o++){
+                                    if (receipt03[n][0] == this.Products[o].productcode) {
+                                        receiptCount += 1;
+                                        console.log('영수증 있음 1');
+                                        char01 = receipt03[n][0] + '/';
+                                        var isExist;
+                                        for (var u = 0; u < receipt01.length; u++){
+                                            isExist = (receipt01[u][0].indexOf(char01)!== -1);
+                                            console.log('isExist : '+isExist);
+                                            console.log('u : '+u);
+                                            if (isExist == true) {
+                                                console.log('receipt01['+u+'][1] : '+receipt01[u][1]);
+                                                this.receiptSign.push(receipt01[u][1]);
+                                                break;
+                                            }
                                         }
+                                        break;
+                                    } else {
+                                        console.log('영수증 없음 1');
                                     }
-                                    break;
+                                }
+                            }
+                            if (n == (receipt03.length - 1)) {
+                                if (receiptCount == 0) {
+                                    this.receipt = false;
+                                    console.log('영수증 없음 2');
                                 } else {
-                                    console.log('영수증 없음 1');
+                                    this.receipt = true;
+                                    console.log('영수증 있음 2');
+                                    break;
                                 }
                             }
                         }
-                        if (n == (receipt03.length - 1)) {
-                            if (receiptCount == 0) {
-                                this.receipt = false;
-                                console.log('영수증 없음 2');
-                            } else {
-                                this.receipt = true;
-                                console.log('영수증 있음 2');
-                                break;
-                            }
-                        }
+                    } else {
+                        this.receipt = false;
+                        console.log('영수증 없음 4');
                     }
+
                 })
                 .finally(() => {
                     this.kind[0] = this.Products.length;
