@@ -228,14 +228,12 @@
                     //this.quantityAppend(response.data.result);
                     console.log('product detail2 : ' + JSON.stringify(this.Products));
 
-                    /*
                     if (this.user.number == this.order.orderer) {
                         this.allow = true;
                     } else {
                         alert('잘못된 요청입니다.');
                         this.$router.replace({path: '/'});
                     }
-                     */
 
 
                     var receipt00;
@@ -308,7 +306,7 @@
 
                 })
                 .catch(err => {
-                    alert('잘못된 요청입니다.');
+                    alert('잘못된 요청입니다. : '+err);
                     this.$router.replace({path: '/'});
                 });
         },

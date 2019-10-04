@@ -1,21 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8b5f4b00-2556-4e32-bc20-84d0221e8b34" name="Default Changelist" comment="190922v1">
-      <change afterPath="$PROJECT_DIR$/vue-coconut/src/components/DetailOrder.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vue-coconut/src/components/DetailOrderSell.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vue-coconut/src/components/SalesHistory.vue" afterDir="false" />
+    <list default="true" id="8b5f4b00-2556-4e32-bc20-84d0221e8b34" name="Default Changelist" comment="191004v1">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/Pay.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/Pay.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/stores.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/stores.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vue-coconut/src/components/Cart.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue-coconut/src/components/Cart.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vue-coconut/src/components/CreateStore.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue-coconut/src/components/CreateStore.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vue-coconut/src/components/MyCategory.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue-coconut/src/components/MyCategory.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vue-coconut/src/components/MyPage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue-coconut/src/components/MyPage.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vue-coconut/src/components/OrderView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue-coconut/src/components/OrderView.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vue-coconut/src/components/PurchaseSuccess.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue-coconut/src/components/PurchaseSuccess.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vue-coconut/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/vue-coconut/src/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vue-coconut/src/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/vue-coconut/src/store.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue-coconut/src/components/DetailOrder.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue-coconut/src/components/DetailOrder.vue" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -34,10 +22,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/CreateStore.vue">
+        <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/DetailOrder.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="57">
-              <caret line="118" column="20" lean-forward="true" selection-start-line="118" selection-start-column="20" selection-end-line="118" selection-end-column="20" />
+            <state relative-caret-position="459">
+              <caret line="235" column="21" lean-forward="true" selection-start-line="235" selection-start-column="21" selection-end-line="235" selection-end-column="21" />
             </state>
           </provider>
         </entry>
@@ -55,7 +43,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>welcom</find>
       <find>ax</find>
       <find>pool</find>
       <find>tell</find>
@@ -85,6 +72,7 @@
       <find>SET</find>
       <find>product</find>
       <find>productcode=</find>
+      <find>getFullYear</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -133,7 +121,6 @@
         <option value="$PROJECT_DIR$/vue-coconut/src/components/PurchaseSuccess.vue" />
         <option value="$PROJECT_DIR$/routes/Pay.js" />
         <option value="$PROJECT_DIR$/vue-coconut/src/store.js" />
-        <option value="$PROJECT_DIR$/vue-coconut/src/components/DetailOrder.vue" />
         <option value="$PROJECT_DIR$/vue-coconut/src/components/DetailOrderSell.vue" />
         <option value="$PROJECT_DIR$/app.js" />
         <option value="$PROJECT_DIR$/vue-coconut/src/components/Cart.vue" />
@@ -144,6 +131,7 @@
         <option value="$PROJECT_DIR$/vue-coconut/src/components/OrderView.vue" />
         <option value="$PROJECT_DIR$/vue-coconut/src/components/Pay.vue" />
         <option value="$PROJECT_DIR$/vue-coconut/src/components/SalesHistory.vue" />
+        <option value="$PROJECT_DIR$/vue-coconut/src/components/DetailOrder.vue" />
       </list>
     </option>
   </component>
@@ -230,16 +218,16 @@
     <property name="settings.editor.selected.configurable" value="preferences.editor" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\lunij\Documents\Coconut\vue-coconut\src\components" />
+      <recent name="C:\Users\lunij\Documents\Coconut\public" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\lunij\Documents\Coconut\public\img" />
       <recent name="C:\Users\lunij\Documents\Coconut\vue-coconut\public" />
       <recent name="C:\Users\lunij\Documents\Coconut\vue-coconut\src\components" />
       <recent name="C:\Users\lunij\Documents\Coconut" />
       <recent name="C:\Users\lunij\Documents\Coconut\vue-coconut" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\lunij\Documents\Coconut\vue-coconut\src\components" />
-      <recent name="C:\Users\lunij\Documents\Coconut\public" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -361,21 +349,7 @@
       <workItem from="1569984265687" duration="8929000" />
       <workItem from="1570009721845" duration="23497000" />
       <workItem from="1570082754165" duration="32055000" />
-      <workItem from="1570186393387" duration="895000" />
-    </task>
-    <task id="LOCAL-00090" summary="190911v1">
-      <created>1568171854464</created>
-      <option name="number" value="00090" />
-      <option name="presentableId" value="LOCAL-00090" />
-      <option name="project" value="LOCAL" />
-      <updated>1568171854464</updated>
-    </task>
-    <task id="LOCAL-00091" summary="190911v1">
-      <created>1568174467123</created>
-      <option name="number" value="00091" />
-      <option name="presentableId" value="LOCAL-00091" />
-      <option name="project" value="LOCAL" />
-      <updated>1568174467123</updated>
+      <workItem from="1570186393387" duration="1986000" />
     </task>
     <task id="LOCAL-00092" summary="190911v1">
       <created>1568174597270</created>
@@ -706,11 +680,25 @@
       <option name="project" value="LOCAL" />
       <updated>1569259651955</updated>
     </task>
-    <option name="localTasksCounter" value="139" />
+    <task id="LOCAL-00139" summary="191004v1">
+      <created>1570189146796</created>
+      <option name="number" value="00139" />
+      <option name="presentableId" value="LOCAL-00139" />
+      <option name="project" value="LOCAL" />
+      <updated>1570189146797</updated>
+    </task>
+    <task id="LOCAL-00140" summary="191004v1">
+      <created>1570189821337</created>
+      <option name="number" value="00140" />
+      <option name="presentableId" value="LOCAL-00140" />
+      <option name="project" value="LOCAL" />
+      <updated>1570189821337</updated>
+    </task>
+    <option name="localTasksCounter" value="141" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="683030000" />
+    <option name="totallyTimeSpent" value="684121000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -739,7 +727,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.49834764" weight="0.32792208" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5032051" side_tool="true" weight="0.27410617" />
-      <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.4957039" weight="0.22426869" />
+      <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.4957039" visible="true" weight="0.22426869" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -751,7 +739,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="ver1905010.17:33" />
     <MESSAGE value="ver190510.18:05" />
     <MESSAGE value="Heroku build" />
     <MESSAGE value="Heroku build2" />
@@ -776,7 +763,8 @@
     <MESSAGE value="190912v1" />
     <MESSAGE value="190918v1" />
     <MESSAGE value="190922v1" />
-    <option name="LAST_COMMIT_MESSAGE" value="190922v1" />
+    <MESSAGE value="191004v1" />
+    <option name="LAST_COMMIT_MESSAGE" value="191004v1" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/HelloWorld.vue">
@@ -1133,17 +1121,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/DetailOrder.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="71">
-          <caret line="147" column="8" lean-forward="true" selection-start-line="147" selection-start-column="8" selection-end-line="147" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/CreateStore.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="57">
-          <caret line="118" column="20" lean-forward="true" selection-start-line="118" selection-start-column="20" selection-end-line="118" selection-end-column="20" />
+          <caret line="118" column="20" selection-start-line="118" selection-start-column="20" selection-end-line="118" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/DetailOrder.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="235" column="21" lean-forward="true" selection-start-line="235" selection-start-column="21" selection-end-line="235" selection-end-column="21" />
         </state>
       </provider>
     </entry>
