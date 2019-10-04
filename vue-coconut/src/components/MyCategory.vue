@@ -1,15 +1,18 @@
 <template>
     <div class="list-group" v-if="choice == 'all'">
-        <h1>{{user.name}}님이 올린 상품</h1>
+        <h2>등록 상품 관리</h2>
+        <br>
         <div v-for="product in Products">
             <a class="list-group-item list-group-item-action flex-column align-items-start">
                 <div class="d-flex w-100 justify-content-between">
-
-                    <h5 class="mb-1">{{product.name}}</h5>
+                    <h4 class="mb-1">{{product.productname}}</h4>
+                    <h6 class="mb-1">수량 : {{product.allquantity}}</h6>
                     <small class="text-muted">{{product.category}}</small>
                 </div>
                 <p class="mb-1">{{product.description}}</p>
-                <small class="text-muted">{{product.price}}원</small>
+                <small class="mb-1">상품번호 : {{product.productcode}}
+                    <br>
+                    {{product.price}}원</small>
             </a>
             <br>
         </div>

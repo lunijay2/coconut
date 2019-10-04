@@ -40,6 +40,9 @@ import MyCategory from "./components/MyCategory";
 import ChoicePaytype from "./components/ChoicePayType";
 import OrderView from "./components/OrderView";
 import PurchaseSuccess from "./components/PurchaseSuccess";
+import DetailOrder from "./components/DetailOrder";
+import DetailOrderSell from "./components/DetailOrderSell";
+import SalesHistory from "./components/SalesHistory";
 //import jusoPopup from "../popup/jusoPopup.jsp";
 
 const router = new VueRouter({
@@ -71,6 +74,9 @@ const router = new VueRouter({
     {path:'/ChoicePayType/:order', component : ChoicePaytype },
     {path:'/OrderView', component : OrderView },
     {path:'/PurchaseSuccess/:order', component : PurchaseSuccess },
+    {path:'/DetailOrder/:order', component : DetailOrder },
+    {path:'/DetailOrderSell/:order', component : DetailOrderSell },
+    {path:'/SalesHistory', component : SalesHistory },
     {path:'*', component: NotFound }
 
     //{path: 'jusoPopup', component : jusoPopup }

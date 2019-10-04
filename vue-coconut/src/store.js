@@ -97,6 +97,9 @@ export default new Vuex.Store({
         MyGetProduct : function (context, payload) {
             return axios.post(resourceHost+'/stores/MyProduct', payload);
         },
+        MyGetProduct2 : function (context, payload) {
+            return axios.post(resourceHost+'/stores/MyProduct2', payload);
+        },
         MyFindCategory : function (context, payload) {
             return axios.post(resourceHost+'/stores/MyFindCategory', payload);
         },
@@ -132,6 +135,10 @@ export default new Vuex.Store({
             return axios.post( resourceHost+'/Pay/GetOrder_3', number);
             //return axios.post( '/Pay/GetOrder', payload);
         },
+        GetOrder_4 : function (context, payload) { //판매자의 판매상품 주문 조회
+            return axios.post( resourceHost+'/Pay/GetOrder_4', payload);
+            //return axios.post( '/Pay/GetOrder', payload);
+        },
         GetProductOder : function (context, payload) {
             console.log('product payload'+payload);
             return axios.post( resourceHost+'/stores/GetProductOder', payload);
@@ -151,6 +158,10 @@ export default new Vuex.Store({
         },
         GetProductDetail3 : function (context, payload) {
             return axios.post( resourceHost+'/stores/GetProductDetail3', payload);
+            //return axios.post( '/stores/GetProductDetail', payload);
+        },
+        GetProductDetail4 : function (context, payload) {
+            return axios.post( resourceHost+'/stores/GetProductDetail4', payload);
             //return axios.post( '/stores/GetProductDetail', payload);
         },
         addBasket : function (context, payload) {
@@ -400,6 +411,182 @@ export default new Vuex.Store({
             var verifySignature =  publicKey.verify(md2.digest().getBytes(), signature1, pss2);
             console.log('Signature Verify : '+verifySignature);
              */
+        },
+        ReceiptRequest : function(context, payload) {
+            console.log(payload.user.id+'.pem');
+            var pem = localStorage.getItem(payload.user.id+'.pem');
+            console.log('pem : '+pem);
+            var encryptedPrivateKeyInfo = pki.encryptedPrivateKeyFromPem(pem);
+            console.log('encryptedPrivateKeyInfo : '+JSON.stringify(encryptedPrivateKeyInfo));
+            var privateKeyInfo = pki.decryptPrivateKeyInfo(
+                encryptedPrivateKeyInfo, payload.pa);
+            console.log('privateKeyInfo : '+JSON.stringify(privateKeyInfo));
+            var privateKey = pki.privateKeyFromAsn1(privateKeyInfo);
+            console.log('privateKey : '+JSON.stringify(privateKey));
+
+            var currentTime = new Date().getTime();
+
+            console.log('payload : '+JSON.stringify(payload));
+            console.log('currentTime : '+currentTime);
+
+            const sign = {
+                user : payload.user,
+                order : payload.order,
+                product : payload.product,
+                pprice : payload.pprice,
+            };
+
+            // sign data using RSASSA-PSS where PSS uses a SHA-1 hash, a SHA-1 based
+            // masking function MGF1, and a 20 byte salt
+            var md1 = forge.md.sha1.create();
+            md1.update(sign, 'utf8');
+            //md1.update(currentTime, 'utf8');
+            var pss1 = forge.pss.create({
+                md: forge.md.sha1.create(),
+                mgf: forge.mgf.mgf1.create(forge.md.sha1.create()),
+                saltLength: 20
+                // optionally pass 'prng' with a custom PRNG implementation
+                // optionalls pass 'salt' with a forge.util.ByteBuffer w/custom salt
+            });
+            var signature1 = privateKey.sign(md1, pss1);
+            var signatureHex1 = forge.util.bytesToHex(signature1);
+            console.log('signature 1 : '+signature1);
+            console.log('signature Hex 1 : '+signatureHex1);
+            //여기까지 서명 생성
+
+            const certPem = localStorage.getItem(payload.user.id+'.cert');
+
+            const Receipt = {
+                Request : {
+                    user : payload.user,
+                    order : payload.order,
+                    product : payload.product,
+                    pprice : payload.pprice,
+                },
+                cert : certPem,
+                currentT : currentTime,
+                signature : signatureHex1
+            };
+
+            return axios.post( resourceHost+'/Pay/Receipt', Receipt);
+            /*
+            //여기부터 서명 검증
+            const certPem = localStorage.getItem(payload.id+'.cert');
+            const cert = pki.certificateFromPem(certPem);
+            const publicKey = cert.publicKey;
+            // verify RSASSA-PSS signature
+            var pss2 = forge.pss.create({
+                md: forge.md.sha1.create(),
+                mgf: forge.mgf.mgf1.create(forge.md.sha1.create()),
+                saltLength: 20
+                // optionally pass 'prng' with a custom PRNG implementation
+            });
+            var md2 = forge.md.sha1.create();
+            md2.update(payload, 'utf8');
+            md2.update(currentTime, 'utf8');
+            var verifySignature =  publicKey.verify(md2.digest().getBytes(), signature1, pss2);
+            console.log('Signature Verify : '+verifySignature);
+             */
+        },
+        ReceiptValidateRequest : function(context, payload) {
+
+            const sign = {
+                user : payload.user,
+                order : payload.order,
+                product : payload.product,
+                pprice : payload.pprice,
+            };
+            let res;
+
+            /*
+            const Receipt = {
+                Request : {
+                    user : payload.user,
+                    order : payload.order,
+                    product : payload.product,
+                    pprice : payload.pprice,
+                },
+                cert : certPem,
+                currentT : currentTime,
+                signature : signatureHex1
+            };
+             */
+
+            axios.post( resourceHost+'/Pay/ReceiptValidate', sign)
+                .then( response => {
+                    //console.log('response : '+JSON.stringify(response));
+
+                    let certPem = response.data.Cert;
+                    //console.log('certPem : '+JSON.stringify(certPem));
+
+                    //여기부터 서명 검증
+                    //const certPem = localStorage.getItem(payload.id+'.cert');
+
+                    for (var i=0; i<certPem.length; i++){
+
+                        let cert = pki.certificateFromPem(certPem[i].cert);
+                        console.log('cert : ' + JSON.stringify(cert));
+                        let publicKey = cert.publicKey;
+                        console.log('publicKey : ' + JSON.stringify(publicKey));
+                        // verify RSASSA-PSS signature
+
+
+                        console.log("중간02");
+
+
+                        var pss2 = forge.pss.create({
+                            md: forge.md.sha1.create(),
+                            mgf: forge.mgf.mgf1.create(forge.md.sha1.create()),
+                            saltLength: 20
+                            // optionally pass 'prng' with a custom PRNG implementation
+                        });
+
+                        console.log("중간03");
+
+                        var md2 = forge.md.sha1.create();
+                        md2.update(sign, 'utf8');
+                        //md2.update(currentTime, 'utf8');
+
+
+
+                        console.log("중간04");
+
+                        var verifySignature =  publicKey.verify(md2.digest().getBytes(), payload.signature[0], pss2);
+
+                        console.log("중간05");
+
+                        console.log('Signature Verify : '+verifySignature);
+
+
+                        if (verifySignature == true) {
+
+                            res = {
+                                cert : certPem[i].cert,
+                                verifySignature : verifySignature
+                            };
+                            console.log("맞음");
+                            return res;
+                        } else {
+                            if (i == (certPem.length - 1)) {
+                                res = {
+                                    verifySignature : false
+                                };
+                                console.log("틀림");
+                                return res1;
+                            }
+                        }
+                    }
+
+                })
+                .catch( err => {
+                    res = {
+                        verifySignature : err
+                    };
+                    return res;
+                });
+
+
+
         },
     }
 })

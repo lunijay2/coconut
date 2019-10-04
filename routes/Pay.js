@@ -102,7 +102,7 @@ router.post('/GetOrder_3',(req, res, next) => {
 function UserOrderFoundQuery(number) {
     return new Promise( function (resolve, reject) {
         if(number) {
-            let statement = "SELECT * FROM trade_detail WHERE orderer=" + number + ";";
+            let statement = "SELECT * FROM trade_detail WHERE orderer=" + number + " OR buyer=" + number + ";";
             console.log("UserOrderFoundQuery : "+statement);
             resolve(statement);
         } else {
@@ -111,6 +111,64 @@ function UserOrderFoundQuery(number) {
         }
     });
 }
+
+router.post('/GetOrder_4',(req, res, next) => {
+    let products = req.body.products;
+
+    console.log('aaa : '+products);
+
+    let bbb = [];
+
+    for (let i = 0; i < products.length; i++) {
+        let ccc = {
+            productcode1 : products[i]+"\/%",
+            productcode2 : "%,"+products[i]+"\/%"
+        };
+
+        bbb.push(ccc);
+        //ccc.productcode1 = "";
+        //ccc.productcode2 = "";
+    }
+
+    console.log("bbb : " + JSON.stringify(bbb));
+
+    UserOrderFoundQuery2(bbb)
+        .then( query => {
+            return PoolGetConnection(query);
+        })
+        .then(connectionQuery => {
+            return ExecuteQuery2(connectionQuery);
+        })
+        .then( rows => {
+            return Complete( res, rows );
+        })
+        .catch(err => {
+            console.log(err);
+            res.json({success: false, msg : err });
+        })
+});
+
+function UserOrderFoundQuery2(bbb) {
+    return new Promise( function (resolve, reject) {
+        if(bbb) {
+
+            let statement = new Array;
+            for (var i=0; i<bbb.length; i++){
+                statement.push("SELECT order_no, product, orderer, buyer, price, paid FROM trade_detail WHERE product LIKE '"+ bbb[i].productcode1 +"' OR product LIKE '"+ bbb[i].productcode2 +"';");
+            }
+            console.log('statement 2 : '+JSON.stringify(statement));
+
+            //let statement = "SELECT * FROM trade_detail WHERE product LIKE ? OR product LIKE ?;";
+            //let statement = "SELECT * FROM trade_detail WHERE product IN('5\/', '7\/', ',5\/', ',7\/';";
+            console.log("UserOrderFoundQuery2 : "+statement);
+            resolve(statement);
+        } else {
+            console.log("UserOrderFoundQuery2 err : "+err);
+            reject(err);
+        }
+    });
+}
+
 
 router.post('/newOrder',(req, res, next) => {
 
@@ -420,6 +478,8 @@ router.post('/Trade',(req, res, next) => {
      */
 });
 
+
+
 function ExecuteQuery2(ConQue) {     // Connection과 쿼리문을 받아와서 실행하는 Promise 함수
     return new Promise( function (resolve, reject) {
         let aaa = new Array;
@@ -444,6 +504,249 @@ function ExecuteQuery2(ConQue) {     // Connection과 쿼리문을 받아와서 
                 }
             });
         }
+    });
+}
+
+
+/* ------------------- 영수증 발급 ------------------- */
+router.post('/Receipt',(req, res, next) => {
+    let signatureHex = req.body.signature;
+    let Request = req.body.Request;
+    let currentTime1 = req.body.currentT;
+
+    console.log('Request : '+JSON.stringify(Request));
+
+    const cert = pki.certificateFromPem(req.body.cert);
+    const signature = forge.util.hexToBytes(signatureHex);
+    const publicKey = cert.publicKey;
+    const serialNumber = cert.serialNumber;
+    const commonCert = cert.subject.getField('CN').value;
+    let DbCertPem;
+
+    var pss;
+    var md;
+    var verify0;
+    var verify1;
+    var verify2;
+    var verify3;
+    var verify4;
+    var p;
+    var p1;
+    var p2;
+    var p3;
+    var p4;
+    var p5;
+    let statementParams;
+
+    FindCertQuery(serialNumber, Request.user.id)
+        .then( query => {
+            return PoolGetConnection(query);
+        })
+        .then(connectionQuery => {
+            return ExecuteQuery(connectionQuery);
+        })
+        .then( rows => {
+            //console.log(rows);
+            DbCertPem = rows[0].cert;
+            //console.log("DbCertPem : "+DbCertPem);
+
+            const DbCert = pki.certificateFromPem(DbCertPem);
+            const DbPublicKey = DbCert.publicKey;
+            const DbCommonCert = DbCert.subject.getField('CN').value;
+            //받아온 인증서가 DB 인증서 테이블에 존재 하는지 확인
+            //그리고 DB의 인증서와 받아온 인증서가 같은지 확인
+
+            //console.log("Cert : "+JSON.stringify(cert));
+            //console.log("DbCert : "+JSON.stringify(DbCert));
+            //console.log(JSON.stringify(cert) == JSON.stringify(DbCert));
+
+            if( JSON.stringify(cert) == JSON.stringify(DbCert) ) {
+                verify0 = true;
+                console.log('Signature Verify0 : ' + verify0);
+
+                const currentTime2 = new Date().getTime();
+                const diff = currentTime2 - currentTime1;
+
+                // verify RSASSA-PSS signature
+                pss = forge.pss.create({
+                    md: forge.md.sha1.create(),
+                    mgf: forge.mgf.mgf1.create(forge.md.sha1.create()),
+                    saltLength: 20
+                    // optionally pass 'prng' with a custom PRNG implementation
+                });
+                md = forge.md.sha1.create();
+                md.update(Request, 'utf8');
+                //md.update(currentTime1, 'utf8');
+                verify1 = DbPublicKey.verify(md.digest().getBytes(), signature, pss);
+                console.log('Signature Verify1 : ' + verify1);
+                verify2 = caCert.verify(DbCert);
+                console.log('Signature Verify2 : ' + verify2);
+
+                if (diff < 1000 * 30) { //30초
+                    verify3 = true;
+                    console.log('Signature Verify3 : ' + verify3);
+                }
+                if (Request.user.number == DbCommonCert) { //인증서 내부의 CN 필드(유저넘버) 비교
+                    verify4 = true;
+                    console.log('Signature Verify4 : ' + verify4);
+                }
+
+                if (verify0 == true && verify1 == true && verify2 == true && verify3 == true && verify4 == true) {
+                    console.log("서명 검증 완료");
+
+                    //여기서 서명값 문자열 만들어서 쿼리 생성 후 실행
+                    console.log('Request : '+JSON.stringify(Request));
+
+                    let sig01 = '';
+
+                    if ( Request.order.receipt == null ) { //아직 영수증이 하나도 없으면
+
+                        sig01 = Request.product + '+' + signatureHex;
+                        console.log('sig01 : '+sig01);
+
+                    } else {    // 먼저 발급된 영수증이 하나라도 있으면
+
+                        //sig01 = Request.order.receipt;
+                        //sig01 = sig01 + ',' + Request.product + '+' + signatureHex;
+                        sig01 =',' + Request.product + '+' + signatureHex;
+                        console.log('sig01 : '+sig01);
+                    }
+
+                    let statement = "UPDATE trade_detail SET receipt=CONCAT(receipt,?) WHERE order_no=?;";
+                    statementParams = [sig01, Request.order.order_no];
+
+                    console.log('statement : '+statement);
+                    console.log('statementParams : '+statementParams);
+
+                    return PoolGetConnection(statement);
+                    // 실패 시 모두 롤백
+                } else {
+                    console.log("Signature Verify err");
+                    return res.json({success:false, msg: 'Receipt Verify Err'});
+                }
+
+            } else {
+                return res.json({success:false, msg: 'Receipt Validate Err'});
+            }
+        })
+        .then(connectionQuery => {
+            return ExecuteQuery3(connectionQuery, statementParams);
+        })
+        .then( rows => {
+            console.log("rows : "+JSON.stringify(rows));
+            console.log("영수증 성공");
+            return res.json({success:true, order: Request.order.order_no });
+        })
+        .catch( function (err, connection) {
+            console.log(err);
+            //connection.rollback();
+        });
+
+    /*
+    TradeQuery()
+        .then( query => {
+            return PoolGetConnection(query);
+        })
+        .then(connectionQuery => {
+            return ExecuteQuery(connectionQuery);
+        })
+        .then( rows => {
+            return Complete( res, rows );
+        })
+        .catch(err => {
+            console.log(err);
+            res.json({success: false});
+        })
+     */
+});
+
+
+
+// ---------------- 영수증 서명 검증 ---------------------------
+router.post('/ReceiptValidate',(req, res, next) => {
+    let products = req.body.product;
+    console.log('products : '+products);
+
+    let p = new Array;
+    let p1 = new Array;
+    p.push(products.split('-'));
+    console.log('p : '+JSON.stringify(p));
+
+    for (var i=0; i<p[0].length; i++) {
+        console.log('p[0][i] : '+JSON.stringify(p[0][i]));
+        p1.push(p[0][i].split('/'));
+    }
+    console.log('p1 : '+JSON.stringify(p1));
+
+    FindProductCodeQuery(p1[0][0])
+        .then( query => {
+            return PoolGetConnection(query);
+        })
+        .then(connectionQuery => {
+            return ExecuteQuery(connectionQuery);
+        })
+        .then( rows => {
+            console.log('rows1 : '+JSON.stringify(rows));
+
+            return ReceiptValidateQuery(rows[0].seller);
+        })
+        .then( query => {
+            return PoolGetConnection(query);
+        })
+        .then(connectionQuery => {
+            return ExecuteQuery(connectionQuery);
+        })
+        .then( rows => {
+            console.log('rows2 : '+JSON.stringify(rows));
+
+            res.json({
+                success: true,
+                Cert : rows
+            })
+        })
+        .catch(err => {
+            console.log(err);
+            res.json({success: false});
+        })
+
+    /*
+    ReceiptValidateQuery()
+        .then( query => {
+            return PoolGetConnection(query);
+        })
+        .then(connectionQuery => {
+            return ExecuteQuery(connectionQuery);
+        })
+        .then( rows => {
+            return Complete( res, rows );
+        })
+        .catch(err => {
+            console.log(err);
+            res.json({success: false});
+        })
+
+     */
+});
+
+function ReceiptValidateQuery(id) {
+    return new Promise( function (resolve, reject) {
+        if(id) {
+            let statement = "SELECT cert FROM cert_"+ id +";";
+            console.log("ReceiptValidateQuery : "+statement);
+            resolve(statement);
+        } else {
+            console.log("ReceiptValidateQuery err : "+err);
+            reject(err);
+        }
+    });
+}
+
+function FindProductCodeQuery(productcode) {
+    return new Promise( function (resolve) {
+        console.log('productcode : '+productcode);
+        let statement = "SELECT * FROM product where productcode='"+productcode+"';";
+        console.log("CreateFindProductCodeQuery : "+statement);
+        resolve(statement);
     });
 }
 
@@ -529,6 +832,21 @@ function ExecuteQuery(ConQue) {     // Connection과 쿼리문을 받아와서 �
                 resolve(rows);
             } else {
                 console.log("query 실행 err : "+err);
+                reject(err);
+            }
+            ConQue.connection.release();
+        });
+    });
+}
+
+function ExecuteQuery3(ConQue, Params) {     // Connection과 쿼리문을 받아와서 실행하는 Promise 함수
+    return new Promise( function (resolve, reject) {
+        ConQue.connection.query(ConQue.query, Params, function(err, rows, fields) {
+            if (!err) {
+                console.log("query3 실행 결과 : "+ JSON.stringify(rows));
+                resolve(rows);
+            } else {
+                console.log("query3 실행 err : "+err);
                 reject(err);
             }
             ConQue.connection.release();

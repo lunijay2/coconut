@@ -1,29 +1,25 @@
 <template>
-    <div class="row" v-if="choice == 'Create'">
-            <h2>{{newStore.seller}}</h2>
-            <h2>상품 등록</h2>
-            <h2>상점 등록도 같이 됩니당</h2>
-            <div class="form-group row">
-                <label for="name" class="col-sm-2 col-form-label">상품명</label>
-                <div class="col-sm-10">
-                    <input type="text" id="name" v-model="newStore.name" class="form-control" >
-                </div>
-                <br><br><br>
-
-                <label for="price" class="col-sm-2 col-form-label">가격</label>
-                <div class="col-sm-10">
-                    <input type="text" id="price" v-model="newStore.price" class="form-control" >
-                </div>
-                <br><br><br>
-
-                <label for="quantity" class="col-sm-2 col-form-label">수량</label>
-                <div class="col-sm-10">
-                    <input type="text" id="quantity" v-model="newStore.quantity" class="form-control">
-                </div>
-                <br><br><br>
-
-                <label for="exampleSelect" class="col-sm-2 col-form-label">카테고리</label>
-                <div class="col-sm-10">
+    <div v-if="choice == 'Create'">
+        <h2>상품 등록</h2>
+        <br>
+        <div class="form-group row">
+            <label for="name" class="col-md-2 col-form-label">상품명</label>
+            <div class="col-md-10">
+                <input type="text" id="name" v-model="newStore.name" class="form-control" >
+            </div>
+            <br><br><br>
+            <label for="price" class="col-md-2 col-form-label">가격</label>
+            <div class="col-md-10">
+                <input type="text" id="price" v-model="newStore.price" class="form-control" >
+            </div>
+            <br><br><br>
+            <label for="quantity" class="col-md-2 col-form-label">수량</label>
+            <div class="col-md-10">
+                <input type="text" id="quantity" v-model="newStore.quantity" class="form-control">
+            </div>
+            <br><br><br>
+                <label for="exampleSelect" class="col-md-2 col-form-label">카테고리</label>
+                <div class="col-md-10">
                 <select class="form-control" id="exampleSelect" v-model="newStore.category">
                     <option value="의류">의류</option>
                     <option value="식품">식품</option>
@@ -42,13 +38,13 @@
                 </div>
                 <br><br><br>
 
-                <label for="description" class="col-sm-2 col-form-label">설명</label>
-                <div class="col-sm-10">
+                <label for="description" class="col-md-2 col-form-label">설명</label>
+                <div class="col-md-10">
                     <input type="text" id="description" v-model="newStore.description" class="form-control">
                 </div>
                 <br><br><br>
-                <label for="description" class="col-sm-2 col-form-label">이미지</label>
-                <div class="col-sm-10">
+                <label for="description" class="col-md-2 col-form-label">이미지</label>
+                <div class="col-md-10">
                     <div id="app">
                         <file-pond
                                 name="bin"
@@ -63,10 +59,11 @@
                                 v-on:processfile="onload"
                         />
                     </div>
+                    <br>
+                    <button @click="newStoreSubmit" type="button" class="btn btn-primary btn-lg col-md-12">상품등록</button>
                 </div>
             </div>
-            <button @click="newStoreSubmit" type="button" class="btn btn-primary">상품등록</button>
-        </div>
+    </div>
 </template>
 
 <script>

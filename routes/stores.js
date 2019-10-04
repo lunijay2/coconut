@@ -152,6 +152,37 @@ router.post('/GetProductDetail3', (req, res, next) => {
         })
 });
 
+router.post('/GetProductDetail4', (req, res, next) => {
+
+    const products = req.body.products;
+    console.log(products);
+
+    CreateFindProductCodeQuery2(products)
+        .then( query => {
+            return PoolGetConnection(query);
+        })
+        .then(connectionQuery => {
+            return ExecuteQuery(connectionQuery);
+        })
+        .then(function(rows) {  // ExecuteQuery가 쿼리문을 사용한 결과값을 받음
+            console.log("This Solutions is : " + JSON.stringify(rows));
+            return Complete(res, rows);    // RegComplete에 res를 보냄. res.json을 실행하기 위해서는 res값이 필요하기 때문에 res를 인자값으로 보냄
+        }, function(err) {  // ExecuteQuery가 쿼리문을 실행한 결과로 에러가 온 경우
+            console.log("Query Excute err : "+err);
+            return Rollback(connection); // 쿼리문 실행 중 에러가 나면 롤백을 실행해야 함
+        })
+        .catch( function (err) {    // 전체적으로 에러를 캐치한다
+            console.log("Catch 1 err : "+err);
+            res.json({success: false, msg: 'Failed to Get Product Detail'}); // 에러 캐치시 false반환
+        })
+        .then( function () {
+            return ReleaseConnection( connectionQuery.connection );   // 결과값이 어떻든 커넥션은 반환되어야 한다
+        })
+        .catch(function (err) { //마지막으로 에러를 캐치
+            console.log(err);
+        })
+});
+
 /*--------장바구니 구매-------*/
 router.post('/GetProductOder', (req, res, next) => {
 
@@ -398,6 +429,46 @@ router.post('/MyProduct', (req, res, next) => {
 function MyCreateProductFoundQuery(number) {
     return new Promise( function (resolve) {
         let statement = "SELECT * FROM product where user_number='"+number+"';";
+        console.log("CreateStoreFoundQuery : "+statement);
+        resolve(statement);
+    });
+}
+
+router.post('/MyProduct2', (req, res, next) => {
+
+    const number = req.body.number;
+
+    console.log("This number is : " + number);
+
+    MyCreateProductFoundQuery2(number)
+        .then( query => {
+            return PoolGetConnection(query);
+        })
+        .then(connectionQuery => {
+            return ExecuteQuery(connectionQuery);
+        })
+        .then(function(rows) {  // ExecuteQuery가 쿼리문을 사용한 결과값을 받음
+            console.log("This Solutions is : " + JSON.stringify(rows));
+            return GetProductComplete(res, rows);    // RegComplete에 res를 보냄. res.json을 실행하기 위해서는 res값이 필요하기 때문에 res를 인자값으로 보냄
+        }, function(err) {  // ExecuteQuery가 쿼리문을 실행한 결과로 에러가 온 경우
+            console.log("나누기 1 err : "+err);
+            return Rollback(connection); // 쿼리문 실행 중 에러가 나면 롤백을 실행해야 함
+        })
+        .catch( function (err) {    // 전체적으로 에러를 캐치한다
+            console.log("Catch 1 err : "+err);
+            res.json({success: false, msg: 'Failed to register user'}); // 에러 캐치시 false반환
+        })
+        .then( function () {
+            return ReleaseConnection( connectionQuery.connection );   // 결과값이 어떻든 커넥션은 반환되어야 한다
+        })
+        .catch(function (err) { //마지막으로 에러를 캐치
+            console.log(err);
+        })
+});
+
+function MyCreateProductFoundQuery2(number) {
+    return new Promise( function (resolve) {
+        let statement = "SELECT productcode, productname, description, category, user_number, seller, price, thumbnail FROM product where user_number='"+number+"';";
         console.log("CreateStoreFoundQuery : "+statement);
         resolve(statement);
     });

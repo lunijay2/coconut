@@ -1,6 +1,8 @@
 <template>
     <from>
         <div class="list-group" v-if="choice == 'cart'">
+            <h2>장바구니</h2>
+            <br>
             <table class="table">
                 <thead>
                 <tr class="table-active">
@@ -74,6 +76,7 @@
             return {
                 user : {},
                 carts : {},
+                temp : {},
                 //lnk : 'http://localhost:3000/img/',
                 lnk : "/img/"
             }
@@ -90,7 +93,6 @@
         watch : {
             choice : function (category) {
                 if ( category == 'cart') {
-                    console.log('왔다 : '+category);
                     let UserNumber = {
                         number : this.user.id
                     };
@@ -98,7 +100,7 @@
                     this.$store.dispatch('GetCart', UserNumber)
                         .then( response => {
                             console.log('가지고 온거 : '+JSON.stringify(response.data.store));
-                            this.carts = response.data.store;
+                            this.temp = response.data.store;
 
                             let pp = '';
                             for (let i=0; i<response.data.store.length; i++) {
@@ -112,25 +114,27 @@
                             let p = {
                                 productcode : pp
                             };
-                            return this.$store.dispatch('GetProductDetail3', p);
+                            if ( (JSON.stringify(p).indexOf('/')) !== -1) {
+                                return this.$store.dispatch('GetProductDetail3', p);
+                            } else {
+                                return this.$store.dispatch('GetProductDetail', p);
+                            }
                         })
                         .then( response => {
                             console.log('res : '+JSON.stringify(response.data.result));
                             this.imglnk(response.data.result);
+                            this.carts = this.temp;
                             console.log('carts : '+JSON.stringify(this.carts));
                         });
-                }
-                else {
-                    console.log('안왔다: ');
                 }
             }
         },
         methods : {
             imglnk : function (res) {
-                for (let i=0; i<this.carts.length; i++) {
+                for (let i=0; i<this.temp.length; i++) {
                     for (let j=0; j<res.length; j++) {
-                        if(this.carts[i].productname == res[j].productname) {
-                            this.carts[i].thumbnail = this.lnk+res[j].thumbnail;
+                        if(this.temp[i].productname == res[j].productname) {
+                            this.temp[i].thumbnail = this.lnk+res[j].thumbnail;
                         }
                         console.log(i +'+'+j);
                     }

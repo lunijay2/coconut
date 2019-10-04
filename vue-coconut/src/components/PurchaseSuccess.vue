@@ -15,7 +15,7 @@
                 <tr>
                     <td><h5>{{order.price.toLocaleString()}}원</h5></td>
                     <td>
-                        <h5>{{date.getFullYear()}}-{{date.getMonth()}}-{{date.getDate()}} {{date.getHours()}}:{{date.getMinutes()}}:{{date.getSeconds()}}</h5>
+                        <h5>{{date.getFullYear()}}-{{("0"+(date.getMonth()+1)).slice(-2)}}-{{("0"+(date.getDate()+1)).slice(-2)}} / {{("0"+(date.getHours()+1)).slice(-2)}}:{{("0"+(date.getMinutes()+1)).slice(-2)}}:{{("0"+(date.getSeconds()+1)).slice(-2)}}</h5>
                     </td>
                 </tr>
                 </tbody>
