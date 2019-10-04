@@ -227,12 +227,15 @@
                     this.imglnk();
                     //this.quantityAppend(response.data.result);
                     console.log('product detail2 : ' + JSON.stringify(this.Products));
+
+                    /*
                     if (this.user.number == this.order.orderer) {
                         this.allow = true;
                     } else {
                         alert('잘못된 요청입니다.');
                         this.$router.replace({path: '/'});
                     }
+                     */
 
 
                     var receipt00;
