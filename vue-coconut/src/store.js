@@ -19,6 +19,7 @@ export default new Vuex.Store({
     state: {
         sToken: null,
         pToken: null,
+        paid : null,
     },
     mutations: {
         GET_TOKENS : function(state, payload) {
@@ -174,6 +175,7 @@ export default new Vuex.Store({
         },
         certRequest : function(context, payload) {
 
+            // 1. 공개키, 개인키 생성
             var keypair = pki.rsa.generateKeyPair(2048);
             var publicKey = keypair.publicKey;
             var privateKey = keypair.privateKey;
@@ -185,23 +187,23 @@ export default new Vuex.Store({
             console.log('public key PEM : '+JSON.stringify(publicKeyPem));
             console.log('private Key PEM : '+JSON.stringify(privateKeyPem));
 
-            //2. 개인키 포맷변환 Asn1
+            // 2. 개인키 포맷변환 Asn1
             var rsaPrivateKey = pki.privateKeyToAsn1(privateKey);
             console.log('rsaPrivateKey : '+JSON.stringify(rsaPrivateKey));
 
-            //3. 개인키 정보 생성
-            // 개인키를 RSA ASN.1 오브젝트 형식의 정보????
+            // 3. 개인키 정보 생성
+            // 개인키를 RSA ASN.1 오브젝트 형식으로 변환
             var privateKeyInfo = pki.wrapRsaPrivateKey(rsaPrivateKey);
             console.log('privateKeyInfo : '+JSON.stringify(privateKeyInfo));
 
-            //4. 개인키 정보를 암호화(비밀번호 사용)
+            // 4. 개인키 정보를 암호화(비밀번호 사용)
             var encryptedPrivateKeyInfo = pki.encryptPrivateKeyInfo(
                 privateKeyInfo, payload.pa, {
                     algorithm: 'aes256', // 'aes128', 'aes192', 'aes256', '3des'
                 });
             console.log('encryptedPrivateKeyInfo : '+JSON.stringify(encryptedPrivateKeyInfo));
 
-            //5. pem 형식으로 만들기 / pem을 fs 사용해서 파일로 저장
+            // 5. 암호화된 개인키를 pem 형식으로 변환
             var finalpem =  pki.encryptedPrivateKeyToPem(encryptedPrivateKeyInfo);
             console.log('encryptedPrivateKeyInfo PEM : '+finalpem);
 
@@ -332,6 +334,28 @@ export default new Vuex.Store({
         storeCert : function(context, payload) {
             localStorage.setItem('cert', payload.cert);
             localStorage.setItem('MCert', payload.MCert);
+        },
+        SecondGetOrder : function(context, payload) {
+
+            return axios.post(resourceHost+'/Pay/GetOrder', payload);
+
+            /*
+            setInterval(function() {
+                axios.post(resourceHost+'/Pay/GetOrder', payload)
+                    .then( response => {
+                        console.log('second response : '+JSON.stringify(response.data.order[0].paid));
+                        if (response.data.order[0].paid == 1) {
+                            //console.log('context : '+JSON.stringify(context));
+                            context.state.paid = true;
+                        } else {
+                            //console.log('context : '+JSON.stringify(context));
+                            context.state.paid = false;
+                        }
+                    })
+            },2000);
+
+             */
+
         },
         deletePem : function(context, payload) {
             localStorage.removeItem(payload.user.id+'.pem');
@@ -523,17 +547,13 @@ export default new Vuex.Store({
                     //const certPem = localStorage.getItem(payload.id+'.cert');
 
                     for (var i=0; i<certPem.length; i++){
-
                         let cert = pki.certificateFromPem(certPem[i].cert);
                         console.log('cert : ' + JSON.stringify(cert));
+
                         let publicKey = cert.publicKey;
                         console.log('publicKey : ' + JSON.stringify(publicKey));
+
                         // verify RSASSA-PSS signature
-
-
-                        console.log("중간02");
-
-
                         var pss2 = forge.pss.create({
                             md: forge.md.sha1.create(),
                             mgf: forge.mgf.mgf1.create(forge.md.sha1.create()),
@@ -541,37 +561,24 @@ export default new Vuex.Store({
                             // optionally pass 'prng' with a custom PRNG implementation
                         });
 
-                        console.log("중간03");
-
                         var md2 = forge.md.sha1.create();
                         md2.update(sign, 'utf8');
-                        //md2.update(currentTime, 'utf8');
-
-
-
-                        console.log("중간04");
 
                         var verifySignature =  publicKey.verify(md2.digest().getBytes(), payload.signature[0], pss2);
 
-                        console.log("중간05");
-
                         console.log('Signature Verify : '+verifySignature);
 
-
-                        if (verifySignature == true) {
-
+                        if (verifySignature === true) {
                             res = {
                                 cert : certPem[i].cert,
                                 verifySignature : verifySignature
                             };
-                            console.log("맞음");
                             return res;
                         } else {
-                            if (i == (certPem.length - 1)) {
+                            if (i === (certPem.length - 1)) {
                                 res = {
                                     verifySignature : false
                                 };
-                                console.log("틀림");
                                 return res1;
                             }
                         }

@@ -1,5 +1,5 @@
 <template>
-    <div class="row" v-if="allow">
+    <div class="row" v-if="(allow == true) && (order.paid != 1)">
         <div class="col-md-2"></div>
         <div class="col-md-8">
             <h2>결제</h2>
@@ -101,6 +101,8 @@
                 pcode : '',
                 pquan : [],
                 seller : '',
+                purchase : null,
+                purchase1 : null,
                 pnum : {
                     orderno : this.$route.params.order
                 },
@@ -120,21 +122,21 @@
                 };
                 this.$store.dispatch('TradeRequest', certR)
                     .then( (response) => {
-                        console.log('결제 : '+JSON.stringify(response));
+                        //console.log('결제 : '+JSON.stringify(response));
                             alert('결제 완료');
-                            console.log('TradeRequest Success : '+JSON.stringify(response));
+                            //console.log('TradeRequest Success : '+JSON.stringify(response));
                             var p = response.data.order;
                             var p1 = p.split('/');
                             this.$router.replace({ path : '/PurchaseSuccess/'+p1[0] });
                     }).catch( err => {
-                        console.log('TradeRequest Err : '+ err);
+                        //console.log('TradeRequest Err : '+ err);
                     });
             },
             quantityAppend : function(Prod) {
                 for (let i=0; i<Prod.length; i++) {
                     for(let j=0; j<Prod.length; j++) {
-                        console.log('prod '+i+' : '+Prod[i].productcode);
-                        console.log('pquan '+j+' : '+ this.pquan[j][0]);
+                        //console.log('prod '+i+' : '+Prod[i].productcode);
+                        //console.log('pquan '+j+' : '+ this.pquan[j][0]);
                         if(Prod[i].productcode == this.pquan[j][0]) {
                             Prod[i].oquantity = this.pquan[j][1];
                             console.log('일치');
@@ -150,6 +152,7 @@
             },
             nomalChoice : function () {
                 this.choiceType = true;
+
             },
             qrChoice : function () {
                 /*
@@ -161,20 +164,49 @@
                 //this.value = JSON.stringify(v);
                 //console.log('value : '+JSON.stringify(v));
                 this.time = this.order.order_no+'/'+new Date().getTime();
-                console.log(this.time);
+                //console.log(this.time);
                 this.value = this.time;
                 this.choiceType = false;
+
+                /*
+                return this.$store.dispatch('GetOrder', this.pnum)
+                    .then( (response) => {
+                        console.log('결제 : '+JSON.stringify(response));
+                    });
+
+                 */
+
+            },
+            ainterval : function() {
+                this.purchase1 = setInterval(() => {
+                    this.$store.dispatch('SecondGetOrder', this.pnum)
+                        .then( response => {
+                            this.purchase = response.data.order[0].paid;
+                            //console.log('this.purchase : '+JSON.stringify(this.purchase));
+
+                            return this.paid_check(this.purchase);
+                        })
+                }, 2000);
+            },
+            paid_check : function(paid_request) {
+                if (paid_request == 1) {
+                    //console.log('paid 1');
+                    clearInterval(this.purchase1);
+                    this.$router.replace({ path : '/PurchaseSuccess/'+this.pnum.orderno });
+                } else {
+                    //console.log('paid 0');
+                }
             }
         },
         created() {
             this.$store.dispatch('GetProfile')
                 .then( response => {
-                    console.log('토큰검증 성공');
+                    //console.log('토큰검증 성공');
                     this.user = response.data.user;
                     return this.$store.dispatch('GetOrder', this.pnum);
                 })
                 .then( response => {
-                    console.log('get order : '+JSON.stringify(response.data));
+                    //console.log('get order : '+JSON.stringify(response.data));
                     this.order = response.data.order[0];
                     var p = response.data.order[0].product;
 
@@ -185,30 +217,30 @@
                         p2.push(p1[i].split('/'));
                         p3.push(p2[i][1]);
                     }
-                    console.log('p2 : '+JSON.stringify(p2));
-                    console.log('p3 : '+JSON.stringify(p3));
+                    //console.log('p2 : '+JSON.stringify(p2));
+                    //console.log('p3 : '+JSON.stringify(p3));
 
                     this.pquan = p2;
 
                     var pcode2 = {
                         productcode : p
                     };
-                    console.log("pcode2 : "+JSON.stringify(pcode2));
+                    //console.log("pcode2 : "+JSON.stringify(pcode2));
                     return this.$store.dispatch('GetProductDetail2', pcode2);
                 })
                 .then( response => {
-                    console.log('product detail : '+JSON.stringify(response.data));
+                    //console.log('product detail : '+JSON.stringify(response.data));
                     let pp = response.data.result;
                     for (let i=0; i<pp.length; i++) {
                         for(let j=0; j<pp.length; j++) {
                             this.pquan[i][j] *= 1;
-                            console.log('pp '+i+' : '+pp[i].productcode);
-                            console.log('pquan '+j+' : '+ this.pquan[j][0]);
+                            //console.log('pp '+i+' : '+pp[i].productcode);
+                            //console.log('pquan '+j+' : '+ this.pquan[j][0]);
                             if(pp[i].productcode == this.pquan[j][0]) {
                                 pp[i].oquantity = this.pquan[j][1];
-                                console.log('일치');
+                                //console.log('일치');
                             } else {
-                                console.log('불일치');
+                                //console.log('불일치');
                             }
                         }
                     }
@@ -216,7 +248,7 @@
                     this.seller = response.data.result[0].seller;
                     this.imglnk();
                     //this.quantityAppend(response.data.result);
-                    console.log('product detail2 : '+JSON.stringify(this.Products));
+                    //console.log('product detail2 : '+JSON.stringify(this.Products));
                     if (this.user.number == this.order.orderer) {
                         this.allow = true;
                     } else {
@@ -231,6 +263,13 @@
                         this.allprice = this.allprice + this.Products[i].oquantity * this.Products[i].price;
                         this.Products[i].oquantity *= 1; //스트링을 정수로 형변환
                         this.kind[1] = this.kind[1] + this.Products[i].oquantity;
+                    }
+
+                    if ( this.order.paid == 0 ) {
+                        this.ainterval();
+                    } else {
+                        alert('잘못된 요청입니다.');
+                        this.$router.replace({ path : '/' });
                     }
                 })
                 .catch( err => {
