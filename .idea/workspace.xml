@@ -33,11 +33,24 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/Category.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="152">
-              <caret line="91" column="74" selection-start-line="91" selection-start-column="74" selection-end-line="91" selection-end-column="74" />
+            <state relative-caret-position="228">
+              <caret line="95" column="55" selection-start-line="95" selection-start-column="55" selection-end-line="95" selection-end-column="55" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/vue-coconut/src/store.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="171">
+              <caret line="12" column="14" lean-forward="true" selection-start-line="12" selection-start-column="14" selection-end-line="12" selection-end-column="14" />
+              <folding>
+                <element signature="e#0#22#0" expanded="true" />
+                <element signature="e#263#289#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -126,7 +139,6 @@
         <option value="$PROJECT_DIR$/vue-coconut/src/components/Navbar.vue" />
         <option value="$PROJECT_DIR$/vue-coconut/src/App.vue" />
         <option value="$PROJECT_DIR$/vue-coconut/src/components/Cert.vue" />
-        <option value="$PROJECT_DIR$/vue-coconut/src/components/MyPage.vue" />
         <option value="$PROJECT_DIR$/vue-coconut/src/components/MyCategory.vue" />
         <option value="$PROJECT_DIR$/vue-coconut/src/main.js" />
         <option value="$PROJECT_DIR$/routes/stores.js" />
@@ -136,7 +148,6 @@
         <option value="$PROJECT_DIR$/vue-coconut/src/store.js" />
         <option value="$PROJECT_DIR$/vue-coconut/src/components/Cart.vue" />
         <option value="$PROJECT_DIR$/vue-coconut/src/components/DetailOrder.vue" />
-        <option value="$PROJECT_DIR$/vue-coconut/src/components/DetailOrderSell.vue" />
         <option value="$PROJECT_DIR$/vue-coconut/src/components/DetailProduct.vue" />
         <option value="$PROJECT_DIR$/vue-coconut/src/components/OrderView.vue" />
         <option value="$PROJECT_DIR$/vue-coconut/src/components/Pay.vue" />
@@ -144,6 +155,8 @@
         <option value="$PROJECT_DIR$/app.js" />
         <option value="$PROJECT_DIR$/vue-coconut/src/components/CreateStore.vue" />
         <option value="$PROJECT_DIR$/vue-coconut/src/components/Category.vue" />
+        <option value="$PROJECT_DIR$/vue-coconut/src/components/MyPage.vue" />
+        <option value="$PROJECT_DIR$/vue-coconut/src/components/DetailOrderSell.vue" />
       </list>
     </option>
   </component>
@@ -368,14 +381,7 @@
       <workItem from="1571108456042" duration="431000" />
       <workItem from="1571205690750" duration="3260000" />
       <workItem from="1571230008665" duration="4178000" />
-      <workItem from="1571311919894" duration="2596000" />
-    </task>
-    <task id="LOCAL-00098" summary="190911v1">
-      <created>1568176674288</created>
-      <option name="number" value="00098" />
-      <option name="presentableId" value="LOCAL-00098" />
-      <option name="project" value="LOCAL" />
-      <updated>1568176674288</updated>
+      <workItem from="1571311919894" duration="3566000" />
     </task>
     <task id="LOCAL-00099" summary="190911v1">
       <created>1568176697427</created>
@@ -713,11 +719,18 @@
       <option name="project" value="LOCAL" />
       <updated>1571314889086</updated>
     </task>
-    <option name="localTasksCounter" value="147" />
+    <task id="LOCAL-00147" summary="191017v1">
+      <created>1571315479667</created>
+      <option name="number" value="00147" />
+      <option name="presentableId" value="LOCAL-00147" />
+      <option name="project" value="LOCAL" />
+      <updated>1571315479667</updated>
+    </task>
+    <option name="localTasksCounter" value="148" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="707072000" />
+    <option name="totallyTimeSpent" value="708042000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -947,13 +960,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/MyPage.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="93" column="19" lean-forward="true" selection-start-line="93" selection-start-column="19" selection-end-line="93" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/CertTest.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="19">
@@ -986,28 +992,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vue-coconut/src/store.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="15" column="24" lean-forward="true" selection-start-line="15" selection-start-column="24" selection-end-line="15" selection-end-column="24" />
-          <folding>
-            <element signature="e#0#22#0" expanded="true" />
-            <element signature="e#263#289#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/AllProduct.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
           <caret line="54" column="28" selection-start-line="54" selection-start-column="28" selection-end-line="54" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="8" column="36" lean-forward="true" selection-start-line="8" selection-start-column="36" selection-end-line="8" selection-end-column="36" />
         </state>
       </provider>
     </entry>
@@ -1063,13 +1051,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="525">
           <caret line="175" column="29" lean-forward="true" selection-start-line="175" selection-start-column="29" selection-end-line="175" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/DetailOrderSell.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="502">
-          <caret line="193" column="29" lean-forward="true" selection-start-line="193" selection-start-column="29" selection-end-line="193" selection-end-column="29" />
         </state>
       </provider>
     </entry>
@@ -1146,10 +1127,45 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/Category.vue">
+    <entry file="file://$PROJECT_DIR$/app.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="152">
-          <caret line="91" column="74" selection-start-line="91" selection-start-column="74" selection-end-line="91" selection-end-column="74" />
+          <caret line="8" column="36" lean-forward="true" selection-start-line="8" selection-start-column="36" selection-end-line="8" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/MyPage.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="4" column="25" lean-forward="true" selection-start-line="4" selection-start-column="25" selection-end-line="4" selection-end-column="25" />
+          <folding>
+            <element signature="e#3169#3207#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/DetailOrderSell.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="277">
+          <caret line="161" column="11" selection-start-line="161" selection-start-column="11" selection-end-line="161" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/Category.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="95" column="55" selection-start-line="95" selection-start-column="55" selection-end-line="95" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vue-coconut/src/store.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="12" column="14" lean-forward="true" selection-start-line="12" selection-start-column="14" selection-end-line="12" selection-end-column="14" />
+          <folding>
+            <element signature="e#0#22#0" expanded="true" />
+            <element signature="e#263#289#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
