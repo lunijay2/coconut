@@ -177,12 +177,6 @@
                 lnk : "/img/"
             }
         },
-        beforeDestroy() {
-            console.log('beforeDestory');
-        },
-        destroyed() {
-            console.log('destroyed');
-        },
         created() {
             this.$store.dispatch('GetProfile')
                 .then(response => {

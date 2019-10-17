@@ -111,6 +111,13 @@
                 lnk : "/img/"
             }
         },
+        beforeDestroy() {
+            console.log('beforeDestory');
+        },
+        destroyed() {
+            clearInterval(this.purchase1);
+            console.log('destroyed');
+        },
         methods : {
             Trade : function () {
                 let certR = {
@@ -196,6 +203,9 @@
                 } else {
                     //console.log('paid 0');
                 }
+            },
+            handler: function handler(event) {
+                clearInterval(this.purchase1);
             }
         },
         created() {
@@ -266,6 +276,7 @@
                     }
 
                     if ( this.order.paid == 0 ) {
+                        document.addEventListener('beforeunload', this.handler);
                         this.ainterval();
                     } else {
                         alert('잘못된 요청입니다.');
