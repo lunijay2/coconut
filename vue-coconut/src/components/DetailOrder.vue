@@ -309,7 +309,7 @@
 
                     this.date = new Date((this.order.trade_time *= 1));
 
-                    console.log('this.receiptSign : '+JSON.stringify(this.receiptSign));
+                    console.log('this.receiptSign:'+JSON.stringify(this.receiptSign));
 
                 })
                 .catch(err => {
