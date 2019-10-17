@@ -15,7 +15,7 @@
                 </tr>
                 </thead>
                 <tbody v-for="Pro in Products">
-                <tr v-if="Pro.seller == user.id">
+                <tr v-if="Pro.seller == Store.company">
                     <td>
                         <div class="media">
                             <img v-bind:src="Pro.thumbnail" class="align-self-start mr-3 widthSet heightSet" />
