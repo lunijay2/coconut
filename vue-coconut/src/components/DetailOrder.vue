@@ -272,7 +272,7 @@
                                             if (isExist == true) {
                                                 console.log('receipt01['+u+'][1] : '+receipt01[u][1]);
                                                 this.receiptSign.push(receipt01[u][1]);
-                                                break;
+                                                //break;
                                             }
                                         }
                                         break;
