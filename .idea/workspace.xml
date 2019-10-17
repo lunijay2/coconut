@@ -1,21 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8b5f4b00-2556-4e32-bc20-84d0221e8b34" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/public/img/1568452650771.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/img/1571313704097.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/img/1571313743340.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/img/1571313786057.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/img/1571314108526.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/img/1571314190508.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/img/1571314227793.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/img/1571314280424.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/app.6dffbc01.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/app.b24cd288.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/app.b24cd288.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/vue-coconut/src/components/Category.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue-coconut/src/components/Category.vue" afterDir="false" />
-    </list>
+    <list default="true" id="8b5f4b00-2556-4e32-bc20-84d0221e8b34" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -50,8 +36,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/Category.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="570">
-              <caret line="109" column="40" selection-start-line="109" selection-start-column="40" selection-end-line="109" selection-end-column="40" />
+            <state relative-caret-position="152">
+              <caret line="91" column="74" selection-start-line="91" selection-start-column="74" selection-end-line="91" selection-end-column="74" />
             </state>
           </provider>
         </entry>
@@ -244,16 +230,16 @@
     <property name="settings.editor.selected.configurable" value="preferences.editor" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\lunij\Documents\Coconut\vue-coconut\src\components" />
+      <recent name="C:\Users\lunij\Documents\Coconut\public" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\lunij\Documents\Coconut\public\img" />
       <recent name="C:\Users\lunij\Documents\Coconut\vue-coconut\public" />
       <recent name="C:\Users\lunij\Documents\Coconut\vue-coconut\src\components" />
       <recent name="C:\Users\lunij\Documents\Coconut" />
       <recent name="C:\Users\lunij\Documents\Coconut\vue-coconut" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\lunij\Documents\Coconut\vue-coconut\src\components" />
-      <recent name="C:\Users\lunij\Documents\Coconut\public" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -382,14 +368,7 @@
       <workItem from="1571108456042" duration="431000" />
       <workItem from="1571205690750" duration="3260000" />
       <workItem from="1571230008665" duration="4178000" />
-      <workItem from="1571311919894" duration="2016000" />
-    </task>
-    <task id="LOCAL-00097" summary="190911v1">
-      <created>1568176581589</created>
-      <option name="number" value="00097" />
-      <option name="presentableId" value="LOCAL-00097" />
-      <option name="project" value="LOCAL" />
-      <updated>1568176581589</updated>
+      <workItem from="1571311919894" duration="2596000" />
     </task>
     <task id="LOCAL-00098" summary="190911v1">
       <created>1568176674288</created>
@@ -727,11 +706,18 @@
       <option name="project" value="LOCAL" />
       <updated>1571312816303</updated>
     </task>
-    <option name="localTasksCounter" value="146" />
+    <task id="LOCAL-00146" summary="191017v1">
+      <created>1571314889086</created>
+      <option name="number" value="00146" />
+      <option name="presentableId" value="LOCAL-00146" />
+      <option name="project" value="LOCAL" />
+      <updated>1571314889086</updated>
+    </task>
+    <option name="localTasksCounter" value="147" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="706492000" />
+    <option name="totallyTimeSpent" value="707072000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1162,8 +1148,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/Category.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="570">
-          <caret line="109" column="40" selection-start-line="109" selection-start-column="40" selection-end-line="109" selection-end-column="40" />
+        <state relative-caret-position="152">
+          <caret line="91" column="74" selection-start-line="91" selection-start-column="74" selection-end-line="91" selection-end-column="74" />
         </state>
       </provider>
     </entry>
