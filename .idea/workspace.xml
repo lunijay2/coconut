@@ -2,26 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8b5f4b00-2556-4e32-bc20-84d0221e8b34" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/img/1567038252881.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/img/1567038343732.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/img/1567038367684.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/img/1567038387996.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/img/1567609147238.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/img/1567611949492.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/img/1568021489127.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/img/1568021715528.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/img/1568104783941.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/img/1568137551648.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/img/1568137715193.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/img/1568288921037.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/img/1568452510603.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/img/1568452650771.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/img/1568560248155.jpg" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/img/1568452650771.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/img/1571313704097.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/img/1571313743340.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/img/1571313786057.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/img/1571314108526.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/img/1571314190508.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/img/1571314227793.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/img/1571314280424.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/app.6dffbc01.css" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/app.854a802c.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/app.854a802c.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/vue-coconut/src/components/CreateStore.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue-coconut/src/components/CreateStore.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/app.b24cd288.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/app.b24cd288.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue-coconut/src/components/Category.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue-coconut/src/components/Category.vue" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -39,7 +32,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/OrderView.vue">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="190">
@@ -50,6 +43,15 @@
                 <element signature="n#style#0;n#strong#0;n#div#0;n#a#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#router-link#0;n#strong#0;n#div#0;n#a#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/Category.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="570">
+              <caret line="109" column="40" selection-start-line="109" selection-start-column="40" selection-end-line="109" selection-end-column="40" />
             </state>
           </provider>
         </entry>
@@ -147,7 +149,6 @@
         <option value="$PROJECT_DIR$/vue-coconut/src/components/ChoicePayType.vue" />
         <option value="$PROJECT_DIR$/vue-coconut/src/store.js" />
         <option value="$PROJECT_DIR$/vue-coconut/src/components/Cart.vue" />
-        <option value="$PROJECT_DIR$/vue-coconut/src/components/Category.vue" />
         <option value="$PROJECT_DIR$/vue-coconut/src/components/DetailOrder.vue" />
         <option value="$PROJECT_DIR$/vue-coconut/src/components/DetailOrderSell.vue" />
         <option value="$PROJECT_DIR$/vue-coconut/src/components/DetailProduct.vue" />
@@ -156,6 +157,7 @@
         <option value="$PROJECT_DIR$/vue-coconut/src/components/SalesHistory.vue" />
         <option value="$PROJECT_DIR$/app.js" />
         <option value="$PROJECT_DIR$/vue-coconut/src/components/CreateStore.vue" />
+        <option value="$PROJECT_DIR$/vue-coconut/src/components/Category.vue" />
       </list>
     </option>
   </component>
@@ -380,14 +382,7 @@
       <workItem from="1571108456042" duration="431000" />
       <workItem from="1571205690750" duration="3260000" />
       <workItem from="1571230008665" duration="4178000" />
-      <workItem from="1571311919894" duration="876000" />
-    </task>
-    <task id="LOCAL-00096" summary="190911v1">
-      <created>1568176290999</created>
-      <option name="number" value="00096" />
-      <option name="presentableId" value="LOCAL-00096" />
-      <option name="project" value="LOCAL" />
-      <updated>1568176291000</updated>
+      <workItem from="1571311919894" duration="2016000" />
     </task>
     <task id="LOCAL-00097" summary="190911v1">
       <created>1568176581589</created>
@@ -725,11 +720,18 @@
       <option name="project" value="LOCAL" />
       <updated>1571241345562</updated>
     </task>
-    <option name="localTasksCounter" value="145" />
+    <task id="LOCAL-00145" summary="191017v1">
+      <created>1571312816303</created>
+      <option name="number" value="00145" />
+      <option name="presentableId" value="LOCAL-00145" />
+      <option name="project" value="LOCAL" />
+      <updated>1571312816303</updated>
+    </task>
+    <option name="localTasksCounter" value="146" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="705352000" />
+    <option name="totallyTimeSpent" value="706492000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1037,13 +1039,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/Category.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="64" column="10" lean-forward="true" selection-start-line="64" selection-start-column="10" selection-end-line="64" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/ChoiceMemberType.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-128">
@@ -1162,6 +1157,13 @@
             <element signature="n#style#0;n#strong#0;n#div#0;n#a#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#router-link#0;n#strong#0;n#div#0;n#a#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/Category.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="570">
+          <caret line="109" column="40" selection-start-line="109" selection-start-column="40" selection-end-line="109" selection-end-column="40" />
         </state>
       </provider>
     </entry>

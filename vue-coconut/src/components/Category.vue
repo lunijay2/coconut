@@ -104,6 +104,7 @@
                         .then( response => {
                             //alert('카테고리 결과 3 : '+JSON.stringify(response));
                             this.Products = response.data.Product;
+                            this.imglnk();
                             console.log('카테고리 성공 3 : '+JSON.stringify(this.Products));
                         })
                         .catch( err => {
