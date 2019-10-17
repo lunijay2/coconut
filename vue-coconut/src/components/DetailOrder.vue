@@ -267,6 +267,8 @@
                                         var isExist;
                                         for (var u = 0; u < receipt01.length; u++){
                                             isExist = (receipt01[u][0].indexOf(char01)!== -1);
+                                            console.log('receipt01['+u+'][0] : '+receipt01[u][0]);
+                                            console.log('receipt01['+u+'][1] : '+receipt01[u][1]);
                                             console.log('isExist : '+isExist);
                                             console.log('u : '+u);
                                             if (isExist == true) {
