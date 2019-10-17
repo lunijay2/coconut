@@ -161,6 +161,7 @@
                 order : {},
                 pcode : '',
                 pquan : [],
+                pquan1 : [],
                 seller : '',
                 date : '',
                 receiptPro : [],
@@ -198,6 +199,7 @@
                     console.log('p2 : ' + JSON.stringify(p2));
                     console.log('p3 : ' + JSON.stringify(p3));
 
+                    this.pquan1 = p1;
                     this.pquan = p2;
 
                     var pcode2 = {
@@ -266,15 +268,17 @@
                                         char01 = receipt03[n][0] + '/';
                                         var isExist;
                                         for (var u = 0; u < receipt01.length; u++){
-                                            isExist = (receipt01[u][0].indexOf(char01)!== -1);
+                                            //isExist = (receipt01[u][0].indexOf(char01)!== -1);
+                                            //console.log('isExist : '+isExist);
                                             console.log('receipt01['+u+'][0] : '+receipt01[u][0]);
                                             console.log('receipt01['+u+'][1] : '+receipt01[u][1]);
-                                            console.log('isExist : '+isExist);
-                                            console.log('u : '+u);
-                                            if (isExist == true) {
-                                                console.log('receipt01['+u+'][1] : '+receipt01[u][1]);
-                                                this.receiptSign.push(receipt01[u][1]);
-                                                //break;
+
+                                            for (var v = 0; v < this.pquan1.length; v++) {
+                                                console.log('this.pquan1['+v+'] : '+this.pquan1[v]);
+                                                if (receipt01[u][0] == this.pquan1[v]) {
+                                                    this.receiptSign.push(receipt01[u][1]);
+                                                    //break;
+                                                }
                                             }
                                         }
                                         break;
