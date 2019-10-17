@@ -357,6 +357,7 @@
                 })
                 .catch(err => {
                     alert('잘못된 요청입니다.');
+                    console.log('err : '+err);
                     //this.$router.replace({path: '/'});
                 });
         },
