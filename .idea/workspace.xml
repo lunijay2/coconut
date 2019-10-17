@@ -48,8 +48,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/DetailOrder.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="409">
-              <caret line="270" column="98" lean-forward="true" selection-start-line="270" selection-start-column="98" selection-end-line="270" selection-end-column="98" />
+            <state relative-caret-position="392">
+              <caret line="183" column="33" selection-start-line="183" selection-start-column="33" selection-end-line="183" selection-end-column="33" />
             </state>
           </provider>
         </entry>
@@ -411,21 +411,7 @@
       <workItem from="1571108456042" duration="431000" />
       <workItem from="1571205690750" duration="3260000" />
       <workItem from="1571230008665" duration="4178000" />
-      <workItem from="1571311919894" duration="11238000" />
-    </task>
-    <task id="LOCAL-00107" summary="190912v1">
-      <created>1568302376820</created>
-      <option name="number" value="00107" />
-      <option name="presentableId" value="LOCAL-00107" />
-      <option name="project" value="LOCAL" />
-      <updated>1568302376820</updated>
-    </task>
-    <task id="LOCAL-00108" summary="190912v1">
-      <created>1568304375475</created>
-      <option name="number" value="00108" />
-      <option name="presentableId" value="LOCAL-00108" />
-      <option name="project" value="LOCAL" />
-      <updated>1568304375475</updated>
+      <workItem from="1571311919894" duration="13818000" />
     </task>
     <task id="LOCAL-00109" summary="190912v1">
       <created>1568304515909</created>
@@ -756,11 +742,25 @@
       <option name="project" value="LOCAL" />
       <updated>1571325860744</updated>
     </task>
-    <option name="localTasksCounter" value="156" />
+    <task id="LOCAL-00156" summary="191017v2">
+      <created>1571326213009</created>
+      <option name="number" value="00156" />
+      <option name="presentableId" value="LOCAL-00156" />
+      <option name="project" value="LOCAL" />
+      <updated>1571326213009</updated>
+    </task>
+    <task id="LOCAL-00157" summary="191017v2">
+      <created>1571327304856</created>
+      <option name="number" value="00157" />
+      <option name="presentableId" value="LOCAL-00157" />
+      <option name="project" value="LOCAL" />
+      <updated>1571327304856</updated>
+    </task>
+    <option name="localTasksCounter" value="158" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="715714000" />
+    <option name="totallyTimeSpent" value="718294000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1194,8 +1194,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/DetailOrder.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="409">
-          <caret line="270" column="98" lean-forward="true" selection-start-line="270" selection-start-column="98" selection-end-line="270" selection-end-column="98" />
+        <state relative-caret-position="392">
+          <caret line="183" column="33" selection-start-line="183" selection-start-column="33" selection-end-line="183" selection-end-column="33" />
         </state>
       </provider>
     </entry>
