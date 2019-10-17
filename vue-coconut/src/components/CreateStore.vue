@@ -88,8 +88,8 @@
         data(){
             return {
                 server: {
-                    url: "http://localhost:3000/users/imgupload",
-                    //url: `/users/imgupload`,
+                    //url: "http://localhost:3000/users/imgupload",
+                    url: `/users/imgupload`,
                     process: {
                         headers: {
                             Authorization : this.$store.state.pToken
