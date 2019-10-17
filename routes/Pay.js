@@ -598,11 +598,14 @@ router.post('/Receipt',(req, res, next) => {
                     console.log('Request : '+JSON.stringify(Request));
 
                     let sig01 = '';
+                    let statement = '';
 
                     if ( Request.order.receipt == null ) { //아직 영수증이 하나도 없으면
 
                         sig01 = Request.product + '+' + signatureHex;
                         console.log('sig01 : '+sig01);
+
+                        statement = "UPDATE trade_detail SET receipt=? WHERE order_no=?;";
 
                     } else {    // 먼저 발급된 영수증이 하나라도 있으면
 
@@ -610,9 +613,10 @@ router.post('/Receipt',(req, res, next) => {
                         //sig01 = sig01 + ',' + Request.product + '+' + signatureHex;
                         sig01 =',' + Request.product + '+' + signatureHex;
                         console.log('sig01 : '+sig01);
+
+                        statement = "UPDATE trade_detail SET receipt=CONCAT(receipt,?) WHERE order_no=?;";
                     }
 
-                    let statement = "UPDATE trade_detail SET receipt=CONCAT(receipt,?) WHERE order_no=?;";
                     statementParams = [sig01, Request.order.order_no];
 
                     console.log('statement : '+statement);

@@ -312,6 +312,7 @@
                                 for (var o=0; o<this.Products.length; o++){
                                     if (receipt03[n][0] == this.Products[o].productcode) {
                                         receiptCount += 1;
+                                        this.receipt = true;
                                         console.log('영수증 있음 1');
                                         char01 = receipt03[n][0] + '/';
                                         var isExist;
