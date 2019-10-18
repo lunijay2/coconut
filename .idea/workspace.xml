@@ -41,7 +41,7 @@
         <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/DetailProduct.vue">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="418">
-              <caret line="66" column="45" lean-forward="true" selection-start-line="66" selection-start-column="45" selection-end-line="66" selection-end-column="45" />
+              <caret line="66" column="29" lean-forward="true" selection-start-line="66" selection-start-column="29" selection-end-line="66" selection-end-column="29" />
             </state>
           </provider>
         </entry>
@@ -367,21 +367,7 @@
       <workItem from="1571205690750" duration="3260000" />
       <workItem from="1571230008665" duration="4178000" />
       <workItem from="1571311919894" duration="16334000" />
-      <workItem from="1571403196664" duration="4063000" />
-    </task>
-    <task id="LOCAL-00115" summary="190912v1">
-      <created>1568307686325</created>
-      <option name="number" value="00115" />
-      <option name="presentableId" value="LOCAL-00115" />
-      <option name="project" value="LOCAL" />
-      <updated>1568307686325</updated>
-    </task>
-    <task id="LOCAL-00116" summary="190912v1">
-      <created>1568307902289</created>
-      <option name="number" value="00116" />
-      <option name="presentableId" value="LOCAL-00116" />
-      <option name="project" value="LOCAL" />
-      <updated>1568307902289</updated>
+      <workItem from="1571403196664" duration="4674000" />
     </task>
     <task id="LOCAL-00117" summary="190912v1">
       <created>1568308264143</created>
@@ -712,11 +698,25 @@
       <option name="project" value="LOCAL" />
       <updated>1571411068135</updated>
     </task>
-    <option name="localTasksCounter" value="164" />
+    <task id="LOCAL-00164" summary="191018v1">
+      <created>1571411438993</created>
+      <option name="number" value="00164" />
+      <option name="presentableId" value="LOCAL-00164" />
+      <option name="project" value="LOCAL" />
+      <updated>1571411438994</updated>
+    </task>
+    <task id="LOCAL-00165" summary="191018v1">
+      <created>1571411725064</created>
+      <option name="number" value="00165" />
+      <option name="presentableId" value="LOCAL-00165" />
+      <option name="project" value="LOCAL" />
+      <updated>1571411725064</updated>
+    </task>
+    <option name="localTasksCounter" value="166" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="724873000" />
+    <option name="totallyTimeSpent" value="725484000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -956,13 +956,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/CreateOrder.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2779">
-          <caret line="202" column="51" selection-start-line="202" selection-start-column="51" selection-end-line="202" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/ImageUpload.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="722">
@@ -1066,13 +1059,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/CreateStore.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="651">
-          <caret line="190" column="9" selection-start-line="190" selection-start-column="9" selection-end-line="190" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/CertTest.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="19">
@@ -1153,10 +1139,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/CreateOrder.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="651">
+          <caret line="202" column="51" selection-start-line="202" selection-start-column="51" selection-end-line="202" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/CreateStore.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="684">
+          <caret line="57" column="51" selection-start-line="57" selection-start-column="51" selection-end-line="57" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/DetailProduct.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="418">
-          <caret line="66" column="45" lean-forward="true" selection-start-line="66" selection-start-column="45" selection-end-line="66" selection-end-column="45" />
+          <caret line="66" column="29" lean-forward="true" selection-start-line="66" selection-start-column="29" selection-end-line="66" selection-end-column="29" />
         </state>
       </provider>
     </entry>

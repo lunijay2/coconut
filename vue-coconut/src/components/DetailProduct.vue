@@ -59,12 +59,13 @@
                     </tr>
                 </table>
                 <h6>총 상품금액 {{(Product.price*quantity).toLocaleString()}}원</h6>
+                <br><br>
                 <table border="0">
-                    <tr class="row">
-                        <td class="col-md-6">
+                    <tr>
+                        <td>
                             <button @click="addBasketSubmit" type="button" class="btn btn-block btn-lg btn-outline-success">장바구니</button>
                         </td>
-                        <td class="col-md-6">
+                        <td>
                             <button @click="CreateOrderSubmit" type="button" class="btn btn-block btn-lg btn-primary">바로구매</button>
                         </td>
                     </tr>
