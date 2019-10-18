@@ -47,10 +47,10 @@
                 </table>
                 <table border="0">
                     <tr>
-                        <td>
-                            <button class="btn btn-sm btn-outline-dark float-left" @click="decreaseQuantity" type="button">-</button>
-                            <input type="text" maxlength="2" title="수량" value="1" v-model="quantity">
-                            <button class="btn btn-sm btn-outline-dark float-right" @click="increaseQuantity" type="button">+</button>
+                        <td class="row">
+                            <button class="btn btn-sm btn-outline-dark float-left col-md-1" @click="decreaseQuantity" type="button">-</button>
+                            <input class="col-md-1" type="text" maxlength="2" title="수량" value="1" v-model="quantity">
+                            <button class="btn btn-sm btn-outline-dark float-right col-md-1" @click="increaseQuantity" type="button">+</button>
                         </td>
                     </tr>
                     <tr>
@@ -62,10 +62,10 @@
                 <table border="0">
                     <tr>
                         <td>
-                            <button @click="addBasketSubmit" type="button" class="btn btn-block btn-lg btn-outline-success">장바구니</button>
+                            <button @click="addBasketSubmit" type="button" class="btn btn-block btn-lg btn-outline-success col-md-6">장바구니</button>
                         </td>
                         <td>
-                            <button @click="CreateOrderSubmit" type="button" class="btn btn-block btn-lg btn-primary">바로구매</button>
+                            <button @click="CreateOrderSubmit" type="button" class="btn btn-block btn-lg btn-primary col-md-6">바로구매</button>
                         </td>
                     </tr>
                 </table>
