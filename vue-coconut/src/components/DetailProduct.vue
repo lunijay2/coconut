@@ -49,7 +49,7 @@
                     <tr>
                         <td class="row">
                             <button class="btn btn-sm btn-outline-dark float-left col-md-2" @click="decreaseQuantity" type="button">-</button>
-                            <input class="col-md-4" type="text" maxlength="2" title="수량" value="1" v-model="quantity">
+                            <input class="col-md-3" type="text" maxlength="2" title="수량" value="1" v-model="quantity">
                             <button class="btn btn-sm btn-outline-dark float-right col-md-2" @click="increaseQuantity" type="button">+</button>
                         </td>
                     </tr>
@@ -60,7 +60,7 @@
                 </table>
                 <h6>총 상품금액 {{(Product.price*quantity).toLocaleString()}}원</h6>
                 <table border="0">
-                    <tr>
+                    <tr class="row">
                         <td class="col-md-6">
                             <button @click="addBasketSubmit" type="button" class="btn btn-block btn-lg btn-outline-success">장바구니</button>
                         </td>
