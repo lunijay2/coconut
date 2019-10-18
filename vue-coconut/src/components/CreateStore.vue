@@ -115,7 +115,6 @@
         watch : {
             choice : function (category) {
                 if ( category == 'Create') {
-                    console.log('왔다 : '+category);
                     this.$store.dispatch('GetProfile')
                         .then( response => {
                             //alert('토큰검증 성공 : '+JSON.stringify(response.data.user));
@@ -153,10 +152,6 @@
                             this.$router.replace({path : '/Login'});
                         })
                 }
-                else {
-                    console.log('안왔다: ');
-                }
-
             }
         },
         methods : {
@@ -193,14 +188,6 @@
                     console.log("img : "+ this.newStore.image);
                 }
             }
-        },
-        created() {
-            this.$store.dispatch('GetProfile')
-                .then( response => {
-                    //alert('토큰검증 성공 : '+JSON.stringify(response.data.user));
-                    console.log('토큰검증 성공');
-                    //console.log('response : '+JSON.stringify(response));
-                });
         }
     }
 </script>

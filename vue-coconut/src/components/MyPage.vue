@@ -134,7 +134,7 @@
                         this.storeTF = false;
                         console.log('검증 실패 err 1');
                     }
-                    else if(err.response.status === 401) {
+                    else if( (err.response.status === 401) || (err.response.status === 403) ) {
                         this.storeTF = false;
                         console.log('검증 실패' + JSON.stringify(err));
                         //this.$store.dispatch('LOGOUT');

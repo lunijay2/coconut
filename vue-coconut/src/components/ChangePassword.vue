@@ -32,13 +32,6 @@
         props: {
             choice : ''
         },
-        created() {
-            this.$store.dispatch('GetProfile')
-                .then( response => {
-                    console.log('토큰검증 성공');
-                    this.user = response.data.user;})
-        },
-
         methods : {
             onchangeSubmit() {
                 const Password = this.Password;
@@ -69,7 +62,10 @@
         watch : {
             choice : function (category) {
                 if ( category == 'change') {
-                    console.log('왔다 : '+category);
+                    this.$store.dispatch('GetProfile')
+                        .then( response => {
+                            console.log('토큰검증 성공');
+                            this.user = response.data.user;})
                 }
                 else {
                     console.log('안왔다: ');

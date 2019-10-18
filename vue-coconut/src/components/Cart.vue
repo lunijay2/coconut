@@ -84,20 +84,20 @@
         props: {
             choice : ''
         },
-        created() {
-            this.$store.dispatch('GetProfile')
-                .then( response => {
-                    console.log('토큰검증 성공');
-                    this.user = response.data.user;});
-        },
         watch : {
             choice : function (category) {
                 if ( category == 'cart') {
-                    let UserNumber = {
-                        number : this.user.id
-                    };
-                    console.log(JSON.stringify(UserNumber));
-                    this.$store.dispatch('GetCart', UserNumber)
+                    this.$store.dispatch('GetProfile')
+                        .then( response => {
+                            console.log('토큰검증 성공');
+                            this.user = response.data.user;
+
+                            let UserNumber = {
+                                number : this.user.id
+                            };
+                            console.log(JSON.stringify(UserNumber));
+                            return this.$store.dispatch('GetCart', UserNumber)
+                        })
                         .then( response => {
                             console.log('가지고 온거 : '+JSON.stringify(response.data.store));
                             this.temp = response.data.store;
