@@ -44,6 +44,8 @@
                         <br>
                     </td>
                 </tr>
+                </table>
+                <table border="0">
                     <tr>
                         <td>
                             <button class="btn btn-sm btn-outline-dark float-left" @click="decreaseQuantity" type="button">-</button>
