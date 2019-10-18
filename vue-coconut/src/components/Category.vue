@@ -4,10 +4,12 @@
             <a class="list-group-item list-grou+55p-item-action flex-column align-items-start">
                 <div class="d-flex w-100 justify-content-between row">
                     <div class="col-md-3">
-                        <img v-bind:src="product.thumbnail" class="widthSet heightSet" />
+                        <router-link :to="'/DetailProduct/'+product.productcode" style="color: black" >
+                            <img v-bind:src="product.thumbnail" class="widthSet heightSet" />
+                        </router-link>
                     </div>
                     <div class="col-md-4">
-                        <h5><router-link :to="'/DetailProduct/'+product.productcode" class="nav-link">{{product.productname}}</router-link></h5>
+                        <h5><router-link :to="'/DetailProduct/'+product.productcode" class="nav-link" style="color: black">{{product.productname}}</router-link></h5>
                         <!--<h6>{{product.description}}</h6>-->
                         <p></p>
                         <small class="text-muted col-md-1">{{product.category}}</small>

@@ -18,6 +18,11 @@
                     </tr>
                     <tr>
                         <td>
+                            <h5 class="float-left text-muted">{{Product.description}}</h5>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
                             <h6 class="float-left"><b>남은 수량 : {{Product.allquantity.toLocaleString()}}개</b></h6>
                         </td>
                     </tr>
