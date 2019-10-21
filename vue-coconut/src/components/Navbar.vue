@@ -24,7 +24,7 @@
                         <router-link to="/MyPage" class="nav-link jb-default-3">마이페이지</router-link>
                 </li>
                 <li class="nav-item" v-if="this.$store.state.pToken">
-                        <router-link to="/Cert" class="nav-link jb-default-3">인증서 발급</router-link>
+                        <router-link to="/CertificationCenter" class="nav-link jb-default-3">인증센터</router-link>
                 </li>
                 <!--
                 <li class="nav-item" v-if="this.$store.state.pToken">

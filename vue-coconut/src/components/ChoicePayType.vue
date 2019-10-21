@@ -120,23 +120,43 @@
         },
         methods : {
             Trade : function () {
-                let certR = {
-                    pa : this.Cpass,
+
+                let certcheckR = {
                     id : this.user.id,
-                    unum : this.user.number,
-                    order : this.order,
-                    order_no : this.$route.params.order
                 };
-                this.$store.dispatch('TradeRequest', certR)
+
+                this.$store.commit("GET_CERTTYPE", this.user);
+                //console.log('CertType : '+this.$store.state.CertType);
+
+                this.$store.dispatch('CertCheck', certcheckR)
+                    .then( response => {
+                        console.log('CertCheck response : '+JSON.stringify(response));
+                        if ((response.data.success == true) && (response.data.result[0].allowed == 1) && (response.data.result[0].disable == 0)) {
+                            let certR = {
+                                pa : this.Cpass,
+                                id : this.user.id,
+                                unum : this.user.number,
+                                order : this.order,
+                                order_no : this.$route.params.order
+                            };
+
+                            return this.$store.dispatch('TradeRequest', certR);
+                        } else {
+                            //console.log('CertCheck err : '+JSON.stringify(response));
+                            alert('유효하지 않은 인증서입니다.');
+                        }
+                    })
                     .then( (response) => {
                         //console.log('결제 : '+JSON.stringify(response));
+                        if (response.data.success == true) {
                             alert('결제 완료');
                             //console.log('TradeRequest Success : '+JSON.stringify(response));
                             var p = response.data.order;
                             var p1 = p.split('/');
-                            this.$router.replace({ path : '/PurchaseSuccess/'+p1[0] });
+                            this.$router.replace({path: '/PurchaseSuccess/' + p1[0]});
+                        }
                     }).catch( err => {
-                        //console.log('TradeRequest Err : '+ err);
+                        console.log('TradeRequest Err : '+ err);
                     });
             },
             quantityAppend : function(Prod) {

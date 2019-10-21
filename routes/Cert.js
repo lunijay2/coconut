@@ -127,6 +127,8 @@ router.post('/newCert', (req, res, next) => {
                 }
             ]);
 
+            console.log('cert : '+JSON.stringify(cert));
+
             cert.sign(caPrivateKey);
 
             certinfo = {
@@ -167,7 +169,366 @@ function FindCertNumberHighestQuery(id) {
     });
 }
 
-router.post('/AddCert', (req, res, next) => {
+function FindCertNumberQuery(id, deviceID) {
+    return new Promise( function (resolve) {
+        let statement = "SELECT certnumber FROM cert_"+id+" WHERE deviceID='"+deviceID+"';";
+        console.log("FindCertNumberQuery : "+statement);
+        resolve(statement);
+    });
+}
+
+function addAdditionalTempCertQuery(certinfo) {
+    return new Promise( function (resolve) {
+        let statement = "INSERT INTO cert_"+certinfo.user.id+" (masterCert, cert, deviceID) VALUES ('" + 0 + "', '" + certinfo.publicKey + "', '" + certinfo.deviceID + "');";
+        console.log("addAdditionalCert Query : "+statement);
+        resolve(statement);
+    });
+}
+
+router.post('/AddCertAllowCheck', (req, res, next) => {
+
+    console.log(JSON.stringify(req.body));
+
+    let statement = 'SELECT cert, allowed, disable, deviceID FROM cert_'+req.body.id+' WHERE deviceID="'+req.body.deviceID+'";';
+
+    PoolGetConnection(statement)
+        .then(function (connectionQuery) {
+            return ExecuteQuery(connectionQuery);
+        })
+        .then(function (rows) {
+            console.log("This Solutions is : " + JSON.stringify(rows));
+
+            if (JSON.stringify(rows) === '[]') {
+                console.log('rows = []');
+                console.log('Additional Cert Validate False');
+                res.json({success: false, msg: 'Additional Cert Validate False'});
+            } else {
+                //else if (rows[0].deviceID == req.body.deviceId) {
+                return ResponseComplete(res, rows);
+            }
+
+        }, function (err) {
+            console.log("err 1 : " + err);
+            res.json({success: false, msg: err});
+        })
+        .catch(function (err) {
+            console.log(err);
+            res.json({success: false, msg: err});
+        });
+
+});
+
+router.post('/CertCheck', (req, res, next) => {
+
+    console.log(JSON.stringify(req.body));
+
+    let statement = 'SELECT allowed, disable FROM cert_'+req.body.id+' WHERE deviceID="'+req.body.deviceID+'";';
+
+    PoolGetConnection(statement)
+        .then(function (connectionQuery) {
+            return ExecuteQuery(connectionQuery);
+        })
+        .then(function (rows) {
+            console.log("This Solutions is : " + JSON.stringify(rows));
+            return ResponseComplete(res, rows);
+        }, function (err) {
+            console.log("err 1 : " + err);
+            res.json({success: false, msg: err});
+        })
+        .catch(function (err) {
+            console.log(err);
+            res.json({success: false, msg: err});
+        });
+
+});
+
+router.post('/AddCert04', (req, res, next) => {
+
+    console.log(JSON.stringify(req.body));
+
+    let statement = "SELECT * FROM cert_"+req.body.user.id+" WHERE deviceID='"+req.body.deviceId+"';";
+
+    console.log(statement);
+
+    PoolGetConnection(statement)
+        .then(function (connectionQuery) {
+            return ExecuteQuery(connectionQuery);
+        })
+        .then(function (rows) {
+            console.log("This Solutions is : " + JSON.stringify(rows));
+            if (JSON.stringify(rows) === '[]') {
+                console.log('rows = []');
+                return Complete(res);
+            } else {
+            //else if (rows[0].deviceID == req.body.deviceId) {
+                console.log('Additional Cert Validate False');
+                res.json({success: false, msg: 'Additional Cert Validate False'});
+            }
+        }, function (err) {
+            console.log("err 1 : " + err);
+            res.json({success: false, msg: err});
+        })
+        .catch(function (err) {
+            console.log(err);
+            res.json({success: false, msg: err});
+        });
+});
+
+router.post('/AddCert00', (req, res, next) => {
+
+
+    let certinfo;
+    let statement01 = "SELECT cert FROM cert_"+req.body.user.id+" WHERE masterCert=1;";
+
+    //여기서 caCert를 masterCert로 바꿔야 함. 그전에 DB에서 Master=1인 인증서를 찾아와야 함
+
+    PoolGetConnection(statement01)
+        .then(connectionQuery => {
+            return ExecuteQuery(connectionQuery);
+        })
+        .then( rows => {
+
+            certinfo = {
+                publicKey : req.body.publicKey,
+                masterCert: rows[0].cert,
+                user : req.body.user,
+                deviceID : req.body.deviceId
+            };
+
+            return addAdditionalTempCertQuery(certinfo)
+        })
+        .then( function(query) {
+            console.log("AddCertTemp query : " + query);
+            return PoolGetConnection(query);
+        })
+        .then(function (connectionQuery) {
+            return ExecuteQuery(connectionQuery);
+        })
+        .then(function(rows) {
+            console.log("This Solutions is : " + JSON.stringify(rows));
+            return AdditionalCertComplete(res, certinfo);
+        }, function(err) {
+            console.log("err 1 : "+err);
+            res.json({success: false, msg : err });
+        })
+        .catch(function (err) {
+            console.log(err);
+            res.json({success: false, msg : err });
+        });
+});
+
+router.post('/AddCert01', (req, res, next) => {
+
+    console.log(JSON.stringify(req.body));
+
+    let CertNumber;
+
+    FindCertNumberQuery(req.body.user.id, req.body.deviceID)
+        .then(function (query) {
+            //console.log("masterCert query : " + query);
+            return PoolGetConnection(query);
+        })
+        .then(function (connectionQuery) {
+            return ExecuteQuery(connectionQuery);
+        })
+        .then(function (rows) {
+            console.log("This Solutions is : " + JSON.stringify(rows));
+            return ResponseComplete(res, rows);
+        }, function (err) {
+            console.log("err 1 : " + err);
+            res.json({success: false, msg: err});
+        })
+        .catch(function (err) {
+            console.log(err);
+            res.json({success: false, msg: err});
+        });
+});
+
+router.post('/AddCert03', (req, res, next) => {
+
+    console.log(JSON.stringify(req.body));
+
+    let statement = 'UPDATE cert_'+req.body.user.id+' SET cert="'+req.body.cert+'", allowed='+1+', disable='+0+' WHERE deviceID="'+req.body.deviceID+'";';
+
+    console.log(statement);
+
+    PoolGetConnection(statement)
+        .then(function (connectionQuery) {
+            return ExecuteQuery(connectionQuery);
+        })
+        .then(function (rows) {
+            console.log("This Solutions is : " + JSON.stringify(rows));
+            return ResponseComplete(res, rows);
+        }, function (err) {
+            console.log("err 1 : " + err);
+            res.json({success: false, msg: err});
+        })
+        .catch(function (err) {
+            console.log(err);
+            res.json({success: false, msg: err});
+        });
+});
+
+router.post('/AddCert02', (req, res, next) => {
+
+    console.log(JSON.stringify(req.body));
+    let certinfo;
+
+    let highestCertNumber;
+    var cert;
+    var userAttrs;
+    var caAttrs;
+    var masterAttrs;
+    FindCertNumberHighestQuery(req.body.user.id)
+        .then( function(query) {
+            //console.log("masterCert query : " + query);
+            return PoolGetConnection(query);
+        })
+        .then(function (connectionQuery) {
+            return ExecuteQuery(connectionQuery);
+        })
+        .then(function(rows) {
+            console.log("FindCertNumberHighest is : " + JSON.stringify(rows));
+            highestCertNumber = rows[0].max_certnumber;
+            console.log('highestCertNumber 1 : '+highestCertNumber);
+
+            highestCertNumber = pad(highestCertNumber+1, 2);
+            console.log('highestCertNumber 2 : '+highestCertNumber);
+
+            cert = pki.createCertificate();
+            cert.publicKey = pki.publicKeyFromPem(req.body.publicKey);
+            cert.serialNumber = highestCertNumber;
+            cert.validity.notBefore = new Date();
+            cert.validity.notAfter.setFullYear(cert.validity.notBefore.getFullYear() + 5);
+
+            console.log('cert serial : '+cert.serialNumber);
+
+            userAttrs = [
+                {
+                    name: 'commonName',
+                    value: req.body.user.number
+                }, {
+                    name: 'countryName',
+                    value: 'kr'
+                }, {
+                    name: 'organizationName',
+                    value: 'Coconut'
+                }, {
+                    shortName: 'OU',
+                    value: req.body.deviceId
+                }
+            ];
+            cert.setSubject(userAttrs);
+
+            let statement01 = "SELECT cert FROM cert_"+req.body.user.id+" WHERE masterCert=1;";
+
+            //여기서 caCert를 masterCert로 바꿔야 함. 그전에 DB에서 Master=1인 인증서를 찾아와야 함
+
+            return PoolGetConnection(statement01);
+        })
+        .then(connectionQuery => {
+            return ExecuteQuery(connectionQuery);
+        })
+        .then( rows => {
+            //console.log('rows 01 : ' + JSON.stringify(rows));
+
+            const masterCert = pki.certificateFromPem(rows[0].cert);
+
+            masterAttrs = [
+                {
+                    name: 'commonName',
+                    value: masterCert.subject.getField('CN').value
+                }, {
+                    name: 'countryName',
+                    value: masterCert.subject.getField('C').value
+                }, {
+                    name: 'organizationName',
+                    value: masterCert.subject.getField('O').value
+                }, {
+                    shortName: 'OU',
+                    value: masterCert.subject.getField('OU').value
+                }
+            ];
+            cert.setIssuer(masterAttrs);
+
+            cert.setExtensions([
+                {
+                    name: 'basicConstraints',
+                    cA: true
+                }, {
+                    name: 'keyUsage',
+                    keyCertSign: true,
+                    digitalSignature: true,
+                    nonRepudiation: true,
+                    keyEncipherment: true,
+                    dataEncipherment: true
+                }, {
+                    name: 'extKeyUsage',
+                    serverAuth: true,
+                    clientAuth: true,
+                    codeSigning: true,
+                    emailProtection: true,
+                    timeStamping: true
+                }, {
+                    name: 'nsCertType',
+                    client: true,
+                    server: true,
+                    email: true,
+                    objsign: true,
+                    sslCA: true,
+                    emailCA: true,
+                    objCA: true
+                }, {
+                    name: 'subjectAltName',
+                    altNames: [{
+                        type: 6, // URI
+                        value: 'http://coconutpay.herokuapp.com/'
+                    }]
+                }, {
+                    name: 'subjectKeyIdentifier'
+                }
+            ]);
+
+            console.log('add cert : '+JSON.stringify(cert));
+
+            //여기 이후로는 마스터 인증서가 승인한 후에 진행되어야 하는 부분
+            //서버로 안오고 클라이언트 측에서 마스터 인증서 개인키로 서명해야 함
+
+            //cert.sign(caPrivateKey);
+
+            certinfo = {
+                Acert : cert,
+                masterCert: rows[0].cert,
+                user : req.body.user,
+                deviceID : req.body.deviceId
+            };
+
+            console.log('add certinfo : '+JSON.stringify(certinfo));
+
+            return addAdditionalTempCertQuery(certinfo);
+        }, function(err) {
+            console.log("err 1 : "+err);
+        })
+        .then( function(query) {
+            console.log("AddCertTemp query : " + query);
+            return PoolGetConnection(query);
+        })
+        .then(function (connectionQuery) {
+            return ExecuteQuery(connectionQuery);
+        })
+        .then(function(rows) {
+            console.log("This Solutions is : " + JSON.stringify(rows));
+            return AdditionalCertComplete(res, certinfo);
+        }, function(err) {
+            console.log("err 1 : "+err);
+            res.json({success: false, msg : err });
+        })
+        .catch(function (err) {
+            console.log(err);
+            res.json({success: false, msg : err });
+        });
+
+    /*
     console.log(JSON.stringify(req.body));
     var cert = pki.createCertificate();
     cert.publicKey = pki.publicKeyFromPem(req.body.publicKey);
@@ -280,7 +641,116 @@ router.post('/AddCert', (req, res, next) => {
             console.log(err);
             res.json({success: false, msg : err });
         });
+     */
 
+});
+
+function AdditionalCertComplete(res, certinfo) {
+    return new Promise( function () {
+        console.log('성공 : '+ JSON.stringify(certinfo));
+        res.json({
+            success: true,
+            Acert : certinfo.publicKey,
+            masterCert : certinfo.masterCert
+        });
+    });
+}
+
+router.post('/CheckMasterCert', (req, res, next) => {
+    let certpem = req.body.cert;
+    let user = req.body.user;
+
+    console.log('certpem : '+certpem);
+
+    const cert =  pki.certificateFromPem(certpem);
+    const mastervalue = cert.subject.attributes[3].value;
+    const serial = cert.serialNumber;
+
+    //console.log('cert : '+JSON.stringify(cert));
+    console.log('Master : '+JSON.stringify(mastervalue));
+    console.log('serialNumber : '+serial);
+
+    if (mastervalue == 'Master') {
+
+        //let statement = 'SELECT masterCert FROM "cert_'+user.id+'" WHERE cert="'+certpem+'";';
+
+        let statement = "SELECT * FROM cert_" + user.id + " WHERE certnumber=" + serial + ";";
+
+        PoolGetConnection(statement)
+            .then(function (connectionQuery) {
+                return ExecuteQuery(connectionQuery);
+            })
+            .then(function (rows) {
+                console.log("rows : " + JSON.stringify(rows));
+
+                if (rows[0].cert == certpem) {
+
+                    statement = "SELECT cert, allowed, disable, deviceID FROM cert_" + user.id + " WHERE masterCert=0;";
+
+                    return PoolGetConnection(statement);
+                } else {
+                    res.json({success: false, msg: 'Failed to Check Master Cert'});
+                }
+
+            })
+            .then(function (connectionQuery) {
+                return ExecuteQuery(connectionQuery);
+            })
+            .then(function (rows) {
+                console.log("rows2 : " + JSON.stringify(rows));
+                return ResponseComplete(res, rows);
+            })
+            .catch(function (err) {
+                console.log(err);
+                res.json({success: false, msg: 'Failed to Check Master Cert'});
+            })
+
+    } else {
+        console.log('Failed to Check Master Cert');
+        res.json({success: false, msg: 'Failed to Check Master Cert'});
+    }
+});
+
+router.post('/CertDisable', (req, res, next) => {
+
+    var user = req.body.user;
+    var cert = req.body.cert;
+
+    let statement = 'UPDATE cert_'+user.id+' SET disable='+1+' WHERE deviceID="'+cert.deviceID+'";';
+
+    PoolGetConnection(statement)
+        .then(function (connectionQuery) {
+            return ExecuteQuery(connectionQuery);
+        })
+        .then(function(rows) {
+            console.log("This Solutions is : " + JSON.stringify(rows));
+            return Complete(res);
+        })
+        .catch(function (err) {
+            console.log(err);
+            res.json({success: false, msg: 'Failed to CertDisable'});
+        })
+});
+
+router.post('/CertAble', (req, res, next) => {
+
+    var user = req.body.user;
+    var cert = req.body.cert;
+
+    let statement = 'UPDATE cert_'+user.id+' SET disable='+0+' WHERE deviceID="'+cert.deviceID+'";';
+
+    PoolGetConnection(statement)
+        .then(function (connectionQuery) {
+            return ExecuteQuery(connectionQuery);
+        })
+        .then(function(rows) {
+            console.log("This Solutions is : " + JSON.stringify(rows));
+            return Complete(res);
+        })
+        .catch(function (err) {
+            console.log(err);
+            res.json({success: false, msg: 'Failed to CertAble'});
+        })
 });
 
 router.post('/newStore', (req, res, next) => {
@@ -582,6 +1052,18 @@ function MasterCertComplete(res, certinfo) {
 function Complete(res) {     // 프론트 엔드에 Success : true값을 반환하는 Promise 함수
     return new Promise( function () {
         res.json({success: true, msg: 'Success'});
+    });
+}
+
+function ResponseComplete(res, rows) {
+    return new Promise( function () {
+        console.log('성공');
+        console.log('rows response : '+JSON.stringify(rows));
+        res.json({
+            success: true,
+            result : rows,
+            msg: 'Success'
+        });
     });
 }
 

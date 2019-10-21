@@ -35,15 +35,12 @@
                         <td>
                             <br>
                         </td>
-                    </tr><tr>
-                    <td>
-                        <br>
-                    </td>
-                </tr><tr>
-                    <td>
-                        <br>
-                    </td>
-                </tr>
+                    </tr>
+                    <tr>
+                        <td>
+                            <br>
+                        </td>
+                    </tr>
                 </table>
                 <table border="0">
                     <tr>
@@ -143,10 +140,10 @@
                     })
                     .then( response => {
                         if(response.data.success == true) {
-                            alert('add Basket Success');
+                            alert('장바구니에 추가되었습니다');
                             console.log('add Basket Success');
                         } else {
-                            alert('add Basket Failure');
+                            alert('장바구니에 넣지 못했습니다');
                             console.log('add Basket Failure')
                         }
                     }).catch( err => {

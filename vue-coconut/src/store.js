@@ -20,11 +20,22 @@ export default new Vuex.Store({
         sToken: null,
         pToken: null,
         paid : null,
+        CertType : null,
     },
     mutations: {
         GET_TOKENS : function(state, payload) {
             state.sToken = localStorage.getItem('sToken');
             state.pToken = localStorage.getItem('pToken');
+        },
+        GET_CERTTYPE : function(state, payload) {
+            var M = localStorage.getItem(payload.id+'.cert');
+            var A = localStorage.getItem(payload.id+'.Acert');
+            if (M != null) {
+                state.CertType = 'm';
+            }
+            if (A != null) {
+                state.CertType = 'a';
+            }
         },
         LOGIN : function (state, payload) {
             state.sToken = payload.data.stoken;
@@ -240,6 +251,256 @@ export default new Vuex.Store({
             return axios.post( resourceHost+'/Cert/newCert', req);
             //return axios.post( '/Cert/newCert', req);
         },
+        AddCertRequest : function(context, payload) {
+
+            // 1. 공개키, 개인키 생성
+            var keypair = pki.rsa.generateKeyPair(2048);
+            var publicKey = keypair.publicKey;
+            var privateKey = keypair.privateKey;
+            var privateKeyPem = pki.privateKeyToPem(privateKey);
+            var publicKeyPem = pki.publicKeyToPem(publicKey);
+
+            console.log('Add public key : '+JSON.stringify(publicKey));
+            console.log('Add private Key : '+JSON.stringify(privateKey));
+            console.log('Add public key PEM : '+JSON.stringify(publicKeyPem));
+            console.log('Add private Key PEM : '+JSON.stringify(privateKeyPem));
+
+            // 2. 개인키 포맷변환 Asn1
+            var rsaPrivateKey = pki.privateKeyToAsn1(privateKey);
+            console.log('Add rsaPrivateKey : '+JSON.stringify(rsaPrivateKey));
+
+            // 3. 개인키 정보 생성
+            // 개인키를 RSA ASN.1 오브젝트 형식으로 변환
+            var privateKeyInfo = pki.wrapRsaPrivateKey(rsaPrivateKey);
+            console.log('Add privateKeyInfo : '+JSON.stringify(privateKeyInfo));
+
+            // 4. 개인키 정보를 암호화(비밀번호 사용)
+            var encryptedPrivateKeyInfo = pki.encryptPrivateKeyInfo(
+                privateKeyInfo, payload.pa, {
+                    algorithm: 'aes256', // 'aes128', 'aes192', 'aes256', '3des'
+                });
+            console.log('Add encryptedPrivateKeyInfo : '+JSON.stringify(encryptedPrivateKeyInfo));
+
+            // 5. 암호화된 개인키를 pem 형식으로 변환
+            var finalpem =  pki.encryptedPrivateKeyToPem(encryptedPrivateKeyInfo);
+            console.log('Add encryptedPrivateKeyInfo PEM : '+finalpem);
+
+            localStorage.setItem(payload.user.id+'.pem', finalpem);
+
+            const req = {
+                user : payload.user,
+                deviceId : payload.deviceId,
+                publicKey: publicKeyPem
+            };
+            console.log("req : "+JSON.stringify(req));
+
+            return axios.post( resourceHost+'/Cert/AddCert00', req);
+            //return axios.post( '/Cert/AddCert', req);
+        },
+        AddCertAllow : function(context, payload) {
+
+            console.log('cert payload : '+JSON.stringify(payload));
+
+            function pad(n, width) {
+                n = n + '';
+                return n.length >= width ? n : new Array(width - n.length + 1).join('0') + n;
+            }
+
+            let cert;
+            let userAttrs;
+            let masterAttrs;
+            let certinfo;
+
+            const master = localStorage.getItem(payload.user.id+'.cert');
+            const masterCert = pki.certificateFromPem(master);
+            const masterPem = localStorage.getItem(payload.user.id+'.pem');
+
+            // 1. 공개키 받음
+            var publicKey =  pki.publicKeyFromPem(payload.cert.cert);
+            console.log('publickKey : '+JSON.stringify(publicKey));
+
+            let R01 = {
+                user : payload.user,
+                deviceID: payload.cert.deviceID
+            };
+
+            return axios.post(resourceHost+'/Cert/AddCert01', R01)
+                .then( response => {
+                    console.log('vuex response : '+JSON.stringify(response));
+
+                    let CertNumber = response.data.result[0].certnumber;
+                    console.log('CertNumber 1 : '+CertNumber);
+
+                    CertNumber = pad(CertNumber, 2);
+                    console.log('CertNumber 2 : '+CertNumber);
+
+                    cert = pki.createCertificate();
+                    cert.publicKey = publicKey;
+                    cert.serialNumber = CertNumber;
+                    cert.validity.notBefore = new Date();
+                    cert.validity.notAfter.setFullYear(cert.validity.notBefore.getFullYear() + 3);
+
+                    console.log('cert serial : '+cert.serialNumber);
+
+                    userAttrs = [
+                        {
+                            name: 'commonName',
+                            value: payload.user.number
+                        }, {
+                            name: 'countryName',
+                            value: 'kr'
+                        }, {
+                            name: 'organizationName',
+                            value: 'Coconut'
+                        }, {
+                            shortName: 'OU',
+                            value: payload.cert.deviceID
+                        }
+                    ];
+                    cert.setSubject(userAttrs);
+
+                    masterAttrs = [
+                        {
+                            name: 'commonName',
+                            value: masterCert.subject.getField('CN').value
+                        }, {
+                            name: 'countryName',
+                            value: masterCert.subject.getField('C').value
+                        }, {
+                            name: 'organizationName',
+                            value: masterCert.subject.getField('O').value
+                        }, {
+                            shortName: 'OU',
+                            value: masterCert.subject.getField('OU').value
+                        }, {
+                            shortName: 'ST',
+                            value: 'Gyeonggi-do'
+                        }, {
+                            name: 'localityName',
+                            value: 'Goyang-si'
+                        },
+                    ];
+                    cert.setIssuer(masterAttrs);
+
+                    cert.setExtensions([
+                        {
+                            name: 'basicConstraints',
+                            cA: true
+                        }, {
+                            name: 'keyUsage',
+                            keyCertSign: true,
+                            digitalSignature: true,
+                            nonRepudiation: true,
+                            keyEncipherment: true,
+                            dataEncipherment: true
+                        }, {
+                            name: 'extKeyUsage',
+                            serverAuth: true,
+                            clientAuth: true,
+                            codeSigning: true,
+                            emailProtection: true,
+                            timeStamping: true
+                        }, {
+                            name: 'nsCertType',
+                            client: true,
+                            server: true,
+                            email: true,
+                            objsign: true,
+                            sslCA: true,
+                            emailCA: true,
+                            objCA: true
+                        }, {
+                            name: 'subjectAltName',
+                            altNames: [{
+                                type: 6, // URI
+                                value: 'http://coconutpay.herokuapp.com/'
+                            }]
+                        }, {
+                            name: 'subjectKeyIdentifier'
+                        }
+                    ]);
+
+                    // 마스터 인증서의 개인키 복호화
+                    var encryptedPrivateKeyInfo = pki.encryptedPrivateKeyFromPem(masterPem);
+                    console.log('encryptedPrivateKeyInfo : '+JSON.stringify(encryptedPrivateKeyInfo));
+
+                    var privateKeyInfo = pki.decryptPrivateKeyInfo(
+                        encryptedPrivateKeyInfo, payload.pa);
+                    console.log('privateKeyInfo : '+JSON.stringify(privateKeyInfo));
+
+                    var privateKey = pki.privateKeyFromAsn1(privateKeyInfo);
+                    console.log('privateKey : '+JSON.stringify(privateKey));
+
+
+                    // 마스터 인증서 개인키로 추가 인증서 서명
+                    cert.sign(privateKey);
+
+                    certinfo = {
+                        cert : pki.certificateToPem(cert),
+                        deviceID : payload.cert.deviceID,
+                        masterCert: master,
+                        user : payload.user
+                    };
+
+                    console.log('cert info : '+JSON.stringify(certinfo));
+                    return axios.post(resourceHost+'/Cert/AddCert03', certinfo);
+                })
+                .finally( (response) => {
+                    console.log('final response : '+JSON.stringify(response));
+
+                    return response
+                })
+                .catch( err => {
+                    console.log('vuex err : ' + err);
+                })
+        },
+        AddCertDisable : function(context, payload) {
+            return axios.post( resourceHost+'/Cert/CertDisable', payload);
+        },
+        AddCertAble : function(context, payload) {
+            return axios.post( resourceHost+'/Cert/CertAble', payload);
+        },
+        AddCert04 : function(context, payload) {
+            return axios.post( resourceHost+'/Cert/AddCert04', payload);
+        },
+        AddCertAllowCheck : function(context, payload) {
+            let device = localStorage.getItem(payload.id+'.deviceId');
+
+            var deviceR = {
+                deviceID : device,
+                id : payload.id
+            };
+
+            return axios.post( resourceHost+'/Cert/AddCertAllowCheck', deviceR);
+        },
+        CertCheck : function(context, payload) {
+            console.log('CertType : '+context.state.CertType);
+            if (context.state.CertType === 'm') {
+                var re01 = {
+                    date : {
+                        success : true
+                    }
+                };
+                return re01;
+            } else if (context.state.CertType === 'a') {
+                const deviceID = localStorage.getItem(payload.id+'.deviceId');
+
+                let check = {
+                    id : payload.id,
+                    deviceID : deviceID
+                };
+
+                return axios.post( resourceHost+'/Cert/CertCheck', check);
+
+            } else {
+                var re02 = {
+                    date : {
+                        success : false
+                    }
+                };
+                return re02;
+            }
+        },
         CertValidate : function(context, payload) {
             console.log(payload.id+'.pem');
             var pem = localStorage.getItem(payload.id+'.pem');
@@ -288,52 +549,37 @@ export default new Vuex.Store({
             console.log('Signature Verify : '+verifySignature);
 
         },
-        AddCertRequest : function(context, payload) {
-            var keypair = pki.rsa.generateKeyPair(2048);
-            var publicKey = keypair.publicKey;
-            var privateKey = keypair.privateKey;
-            var privateKeyPem = pki.privateKeyToPem(privateKey);
-            var publicKeyPem = pki.publicKeyToPem(publicKey);
+        CheckMasterCert : function(context, payload) {
 
-            console.log('Add public key : '+JSON.stringify(publicKey));
-            console.log('Add private Key : '+JSON.stringify(privateKey));
-            console.log('Add public key PEM : '+JSON.stringify(publicKeyPem));
-            console.log('Add private Key PEM : '+JSON.stringify(privateKeyPem));
+            var cert = localStorage.getItem(payload.id+'.cert');
+            console.log('cert : '+cert);
 
-            var rsaPrivateKey = pki.privateKeyToAsn1(privateKey);
-            console.log('Add rsaPrivateKey : '+JSON.stringify(rsaPrivateKey));
+            var cert01 =  pki.certificateFromPem(cert);
+            console.log('cert01 : '+JSON.stringify(cert01));
+            console.log('Master : '+JSON.stringify(cert01.subject.attributes[3].value));
+            console.log('serialNumber : '+cert01.serialNumber);
 
-            var privateKeyInfo = pki.wrapRsaPrivateKey(rsaPrivateKey);
-            console.log('Add privateKeyInfo : '+JSON.stringify(privateKeyInfo));
-
-            var encryptedPrivateKeyInfo = pki.encryptPrivateKeyInfo(
-                privateKeyInfo, payload.pa, {
-                    algorithm: 'aes256', // 'aes128', 'aes192', 'aes256', '3des'
-                });
-            console.log('Add encryptedPrivateKeyInfo : '+JSON.stringify(encryptedPrivateKeyInfo));
-
-            var finalpem =  pki.encryptedPrivateKeyToPem(encryptedPrivateKeyInfo);
-            console.log('Add encryptedPrivateKeyInfo PEM : '+finalpem);
-
-            localStorage.setItem(payload.user.id+'.pem', finalpem);
-
-            const req = {
-                user : payload.user,
-                deviceId : payload.deviceId,
-                publicKey: publicKeyPem
+            var certR = {
+                cert : cert,
+                user : payload
             };
-            console.log("req : "+JSON.stringify(req));
 
-            return axios.post( resourceHost+'/Cert/AddCert', req);
-            //return axios.post( '/Cert/AddCert', req);
+            return axios.post(resourceHost+'/Cert/CheckMasterCert', certR);
         },
         storeMCert : function(context, payload) {
             localStorage.setItem(payload.id+'.cert', payload.response.Mcert);
             localStorage.setItem('caCert', payload.response.caCert);
         },
-        storeCert : function(context, payload) {
-            localStorage.setItem('cert', payload.cert);
-            localStorage.setItem('MCert', payload.MCert);
+        storeACert : function(context, payload) {
+            localStorage.setItem(payload.id+'.Acert', payload.response.Acert);
+            localStorage.setItem(payload.id+'.masterCert', payload.response.masterCert);
+            localStorage.setItem(payload.id+'.deviceId', payload.deviceId);
+        },
+        storeACertissue : function(context, payload) {
+            localStorage.setItem(payload.user.id+'.Acert', payload.cert);
+        },
+        deletePem : function(context, payload) {
+            localStorage.removeItem(payload.user.id+'.pem');
         },
         SecondGetOrder : function(context, payload) {
 
@@ -356,9 +602,6 @@ export default new Vuex.Store({
 
              */
 
-        },
-        deletePem : function(context, payload) {
-            localStorage.removeItem(payload.user.id+'.pem');
         },
         TradeRequest : function(context, payload) {
             console.log(payload.id+'.pem');
