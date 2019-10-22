@@ -93,8 +93,8 @@
                     return this.$store.dispatch('AddCertAllowCheck', this.user);
                 }, err => {
                     console.log('검증 실패' + err);
-                    this.$store.dispatch('LOGOUT');
-                    this.$router.replace({path : '/Login'});
+                    //this.$store.dispatch('LOGOUT');
+                    //this.$router.replace({path : '/Login'});
                 })
                 .then( response => {
                     console.log('AddCertAllowCheck response : '+JSON.stringify(response));
