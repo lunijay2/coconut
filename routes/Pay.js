@@ -272,9 +272,18 @@ router.post('/TradeA',(req, res, next) => {
             DbCertPem = rows[0].cert;
             //console.log("DbCertPem : "+DbCertPem);
 
-            const DbCert = pki.certificateFromPem(DbCertPem);
-            const DbPublicKey = DbCert.publicKey;
-            const DbCommonCert = DbCert.subject.getField('CN').value;
+            //const DbCert = pki.certificateFromPem(DbCertPem);
+            //const DbPublicKey = DbCert.publicKey;
+            //const DbCommonCert = DbCert.subject.getField('CN').value;
+
+            var certString = (rows[0].cert).toString('binary');
+            var obj = forge.asn1.fromDer(certString);
+            var objcert = forge.pki.certificateFromAsn1(obj);
+
+            console.log('certString : '+certString);
+            console.log('obj : '+ obj);
+            console.log('objcert : '+objcert);
+
             //받아온 인증서가 DB 인증서 테이블에 존재 하는지 확인
             //그리고 DB의 인증서와 받아온 인증서가 같은지 확인
 
