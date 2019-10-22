@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="8b5f4b00-2556-4e32-bc20-84d0221e8b34" name="Default Changelist" comment="191022v2">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vue-coconut/src/components/AdditionalCert.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue-coconut/src/components/AdditionalCert.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/Cert.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/Cert.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -22,36 +22,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/ChoicePayType.vue">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="208">
-              <caret line="133" column="10" selection-start-line="133" selection-start-column="10" selection-end-line="133" selection-end-column="10" />
-              <folding>
-                <element signature="n#style#0;n#h5#0;n#div#1;n#div#0;n#div#0;n#div#1;n#div#0;n#template#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/CertManagement.vue">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="127" column="45" lean-forward="true" selection-start-line="127" selection-start-column="45" selection-end-line="127" selection-end-column="45" />
-              <folding>
-                <element signature="n#style#0;n#th#1;n#tr#0;n#thead#0;n#table#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#th#2;n#tr#0;n#thead#0;n#table#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#th#3;n#tr#0;n#thead#0;n#table#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/AdditionalCert.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="399">
-              <caret line="165" column="36" lean-forward="true" selection-start-line="165" selection-start-column="36" selection-end-line="165" selection-end-column="36" />
+            <state relative-caret-position="209">
+              <caret line="92" column="57" selection-start-line="92" selection-start-column="57" selection-end-line="92" selection-end-column="57" />
             </state>
           </provider>
         </entry>
@@ -59,8 +33,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/vue-coconut/src/store.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="231">
-              <caret line="575" column="23" selection-start-line="575" selection-start-column="8" selection-end-line="575" selection-end-column="23" />
+            <state relative-caret-position="383">
+              <caret line="471" column="60" selection-start-line="471" selection-start-column="60" selection-end-line="471" selection-end-column="60" />
               <folding>
                 <element signature="e#0#22#0" expanded="true" />
                 <element signature="e#263#289#0" expanded="true" />
@@ -69,11 +43,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/routes/Cert.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="373">
-              <caret line="685" column="46" lean-forward="true" selection-start-line="685" selection-start-column="46" selection-end-line="685" selection-end-column="46" />
+            <state relative-caret-position="307">
+              <caret line="193" column="32" lean-forward="true" selection-start-line="193" selection-start-column="32" selection-end-line="193" selection-end-column="32" />
             </state>
           </provider>
         </entry>
@@ -82,7 +56,7 @@
         <entry file="file://$PROJECT_DIR$/routes/Pay.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="18">
-              <caret line="230" column="7" lean-forward="true" selection-start-line="230" selection-start-column="7" selection-end-line="230" selection-end-column="7" />
+              <caret line="230" column="7" selection-start-line="230" selection-start-column="7" selection-end-line="230" selection-end-column="7" />
             </state>
           </provider>
         </entry>
@@ -91,7 +65,7 @@
         <entry file="file://$PROJECT_DIR$/routes/users.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="79">
-              <caret line="303" column="54" lean-forward="true" selection-start-line="303" selection-start-column="54" selection-end-line="303" selection-end-column="54" />
+              <caret line="303" column="54" selection-start-line="303" selection-start-column="54" selection-end-line="303" selection-end-column="54" />
             </state>
           </provider>
         </entry>
@@ -109,7 +83,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>nav-item</find>
       <find>cert</find>
       <find>addBasketQu</find>
       <find>new</find>
@@ -139,6 +112,7 @@
       <find>addcert03</find>
       <find>checkma</find>
       <find>storeACertissue</find>
+      <find>addcertallowch</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -196,8 +170,8 @@
         <option value="$PROJECT_DIR$/routes/users.js" />
         <option value="$PROJECT_DIR$/routes/Pay.js" />
         <option value="$PROJECT_DIR$/vue-coconut/src/store.js" />
-        <option value="$PROJECT_DIR$/routes/Cert.js" />
         <option value="$PROJECT_DIR$/vue-coconut/src/components/AdditionalCert.vue" />
+        <option value="$PROJECT_DIR$/routes/Cert.js" />
       </list>
     </option>
   </component>
@@ -418,21 +392,7 @@
       <workItem from="1571230008665" duration="4178000" />
       <workItem from="1571311919894" duration="16334000" />
       <workItem from="1571403196664" duration="74932000" />
-      <workItem from="1571739076594" duration="15250000" />
-    </task>
-    <task id="LOCAL-00132" summary="190918v1">
-      <created>1568824662477</created>
-      <option name="number" value="00132" />
-      <option name="presentableId" value="LOCAL-00132" />
-      <option name="project" value="LOCAL" />
-      <updated>1568824662478</updated>
-    </task>
-    <task id="LOCAL-00133" summary="190918v1">
-      <created>1568825553133</created>
-      <option name="number" value="00133" />
-      <option name="presentableId" value="LOCAL-00133" />
-      <option name="project" value="LOCAL" />
-      <updated>1568825553133</updated>
+      <workItem from="1571739076594" duration="15721000" />
     </task>
     <task id="LOCAL-00134" summary="190918v1">
       <created>1568825944792</created>
@@ -763,11 +723,25 @@
       <option name="project" value="LOCAL" />
       <updated>1571765905011</updated>
     </task>
-    <option name="localTasksCounter" value="181" />
+    <task id="LOCAL-00181" summary="191022v2">
+      <created>1571766242997</created>
+      <option name="number" value="00181" />
+      <option name="presentableId" value="LOCAL-00181" />
+      <option name="project" value="LOCAL" />
+      <updated>1571766242997</updated>
+    </task>
+    <task id="LOCAL-00182" summary="191022v2">
+      <created>1571766450207</created>
+      <option name="number" value="00182" />
+      <option name="presentableId" value="LOCAL-00182" />
+      <option name="project" value="LOCAL" />
+      <updated>1571766450207</updated>
+    </task>
+    <option name="localTasksCounter" value="183" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="810992000" />
+    <option name="totallyTimeSpent" value="811463000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1158,28 +1132,21 @@
     <entry file="file://$PROJECT_DIR$/routes/Pay.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="18">
-          <caret line="230" column="7" lean-forward="true" selection-start-line="230" selection-start-column="7" selection-end-line="230" selection-end-column="7" />
+          <caret line="230" column="7" selection-start-line="230" selection-start-column="7" selection-end-line="230" selection-end-column="7" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/users.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="79">
-          <caret line="303" column="54" lean-forward="true" selection-start-line="303" selection-start-column="54" selection-end-line="303" selection-end-column="54" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/Cert.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="373">
-          <caret line="685" column="46" lean-forward="true" selection-start-line="685" selection-start-column="46" selection-end-line="685" selection-end-column="46" />
+          <caret line="303" column="54" selection-start-line="303" selection-start-column="54" selection-end-line="303" selection-end-column="54" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/CertManagement.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="360">
-          <caret line="127" column="45" lean-forward="true" selection-start-line="127" selection-start-column="45" selection-end-line="127" selection-end-column="45" />
+          <caret line="127" column="45" selection-start-line="127" selection-start-column="45" selection-end-line="127" selection-end-column="45" />
           <folding>
             <element signature="n#style#0;n#th#1;n#tr#0;n#thead#0;n#table#0;n#div#0;n#template#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#th#2;n#tr#0;n#thead#0;n#table#0;n#div#0;n#template#0;n#!!top" expanded="true" />
@@ -1198,10 +1165,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/AdditionalCert.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="92" column="57" selection-start-line="92" selection-start-column="57" selection-end-line="92" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/vue-coconut/src/store.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="575" column="23" selection-start-line="575" selection-start-column="8" selection-end-line="575" selection-end-column="23" />
+        <state relative-caret-position="383">
+          <caret line="471" column="60" selection-start-line="471" selection-start-column="60" selection-end-line="471" selection-end-column="60" />
           <folding>
             <element signature="e#0#22#0" expanded="true" />
             <element signature="e#263#289#0" expanded="true" />
@@ -1209,10 +1183,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/AdditionalCert.vue">
+    <entry file="file://$PROJECT_DIR$/routes/Cert.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="399">
-          <caret line="165" column="36" lean-forward="true" selection-start-line="165" selection-start-column="36" selection-end-line="165" selection-end-column="36" />
+        <state relative-caret-position="307">
+          <caret line="193" column="32" lean-forward="true" selection-start-line="193" selection-start-column="32" selection-end-line="193" selection-end-column="32" />
         </state>
       </provider>
     </entry>

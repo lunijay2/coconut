@@ -189,7 +189,7 @@ router.post('/AddCertAllowCheck', (req, res, next) => {
 
     console.log(JSON.stringify(req.body));
 
-    let statement = 'SELECT public, allowed, disable, deviceID FROM cert_'+req.body.id+' WHERE deviceID="'+req.body.deviceID+'";';
+    let statement = 'SELECT cert, public, allowed, disable, deviceID FROM cert_'+req.body.id+' WHERE deviceID="'+req.body.deviceID+'";';
 
     PoolGetConnection(statement)
         .then(function (connectionQuery) {
