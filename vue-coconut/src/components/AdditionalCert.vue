@@ -148,7 +148,7 @@
                                 console.log('Cert Request Success');
                                 this.$router.replace({path : '/CertificationCenter'});
                             } else {
-                                this.$store.dispatch('deletePem', certR);
+                                this.$store.dispatch('deletePem', certVal);
                                 console.log('Cert Request Failure');
                                 alert('Cert Request Failure');
                             }
