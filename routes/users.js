@@ -309,7 +309,7 @@ function CreateShoppingCart(id) {
 function CreateCertTable(id) {
     return new Promise( function ( resolve ) {
         console.log(id);
-        var aa = "CREATE TABLE `cert_"+ id + "` ( `certnumber` INT NOT NULL AUTO_INCREMENT, `masterCert` BOOLEAN NOT NULL DEFAULT FALSE, `allowed` BOOLEAN NOT NULL DEFAULT FALSE, `disable` BOOLEAN NOT NULL DEFAULT TRUE, `cert` TEXT(5000) NOT NULL, `deviceID` VARCHAR(45), PRIMARY KEY (`certnumber`));";
+        var aa = "CREATE TABLE `cert_"+ id + "` ( `certnumber` INT NOT NULL AUTO_INCREMENT, `masterCert` BOOLEAN NOT NULL DEFAULT FALSE, `allowed` BOOLEAN NOT NULL DEFAULT FALSE, `disable` BOOLEAN NOT NULL DEFAULT TRUE, `cert` TEXT(5000) NOT NULL, `public` TEXT(5000), `deviceID` VARCHAR(45), PRIMARY KEY (`certnumber`));";
         //var aa = "CREATE TABLE `cert_"+ id + "` ( `certnumber` INT NOT NULL AUTO_INCREMENT, `masterCert` BOOLEAN NOT NULL DEFAULT FALSE, `cert` TEXT(2000) NOT NULL, PRIMARY KEY (`certnumber`), UNIQUE (`cert`));";
         resolve(aa);
     })

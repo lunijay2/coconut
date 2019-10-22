@@ -273,29 +273,29 @@ router.post('/TradeA',(req, res, next) => {
             //console.log("DbCertPem : "+DbCertPem);
 
             //const DbCert = pki.certificateFromPem(DbCertPem);
-            //const DbPublicKey = DbCert.publicKey;
+            const DbPublicKey = pki.publicKeyFromPem(rows[0].public);
             //const DbCommonCert = DbCert.subject.getField('CN').value;
 
-            var certString = (rows[0].cert).toString('binary');
-            console.log('certString : '+certString);
+            //var certString = (rows[0].cert).toString('binary');
+            //console.log('certString : '+certString);
 
             //var strcert = pki.certificateFromPem(certString);
             //console.log('strcert : '+strcert);
 
-            var obj = forge.asn1.from(certString);
-            console.log('obj : '+ obj);
+            //var obj = forge.asn1.from(certString);
+            //console.log('obj : '+ obj);
 
-            var objcert = forge.pki.certificateFromAsn1(obj);
-            console.log('objcert : '+objcert);
+            //var objcert = forge.pki.certificateFromAsn1(obj);
+            //console.log('objcert : '+objcert);
 
             //받아온 인증서가 DB 인증서 테이블에 존재 하는지 확인
             //그리고 DB의 인증서와 받아온 인증서가 같은지 확인
 
-            //console.log("Cert : "+JSON.stringify(cert));
-            //console.log("DbCert : "+JSON.stringify(DbCert));
-            //console.log(JSON.stringify(cert) == JSON.stringify(DbCert));
+            console.log("Cert : "+cert);
+            console.log("DbCertPem : "+DbCertPem);
+            console.log(cert == DbCertPem);
 
-            if( JSON.stringify(cert) == JSON.stringify(DbCert) ) {
+            if( cert == DbCertPem ) {
                 verify0 = true;
                 console.log('Signature Verify0 : '+verify0);
 
@@ -314,19 +314,13 @@ router.post('/TradeA',(req, res, next) => {
                 md.update(currentTime1, 'utf8');
                 verify1 =  DbPublicKey.verify(md.digest().getBytes(), signature, pss);
                 console.log('Signature Verify1 : '+verify1);
-                verify2 = caCert.verify(DbCert);
-                console.log('Signature Verify2 : '+verify2);
 
                 if(diff < 1000 * 30) { //30초
-                    verify3 = true;
-                    console.log('Signature Verify3 : '+verify3);
-                }
-                if ( Request.unum == DbCommonCert ) { //인증서 내부의 CN 필드(유저넘버) 비교
-                    verify4 = true;
-                    console.log('Signature Verify4 : '+verify4);
+                    verify2 = true;
+                    console.log('Signature Verify2 : '+verify2);
                 }
 
-                if( verify0==true && verify1==true && verify2==true && verify3==true && verify4==true) {
+                if( verify0==true && verify1==true && verify2==true) {
 
                     p = Request.order.product;
 

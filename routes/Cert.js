@@ -179,7 +179,7 @@ function FindCertNumberQuery(id, deviceID) {
 
 function addAdditionalTempCertQuery(certinfo) {
     return new Promise( function (resolve) {
-        let statement = "INSERT INTO cert_"+certinfo.user.id+" (masterCert, cert, deviceID) VALUES ('" + 0 + "', '" + certinfo.publicKey + "', '" + certinfo.deviceID + "');";
+        let statement = "INSERT INTO cert_"+certinfo.user.id+" (masterCert, public, deviceID) VALUES ('" + 0 + "', '" + certinfo.publicKey + "', '" + certinfo.deviceID + "');";
         console.log("addAdditionalCert Query : "+statement);
         resolve(statement);
     });

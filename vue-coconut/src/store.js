@@ -331,7 +331,7 @@ export default new Vuex.Store({
                     let cert = pki.createCertificate();
 
                     // 1. 공개키 받음
-                    var publicKey =  pki.publicKeyFromPem(payload.cert.cert);
+                    var publicKey =  pki.publicKeyFromPem(payload.cert.public);
                     console.log('publickKey : '+JSON.stringify(publicKey));
 
                     cert.publicKey = publicKey;
@@ -430,15 +430,8 @@ export default new Vuex.Store({
                     var privateKey = pki.privateKeyFromAsn1(privateKeyInfo);
                     console.log('privateKey : '+JSON.stringify(privateKey));
 
-
                     // 마스터 인증서 개인키로 추가 인증서 서명
                     cert.sign(privateKey);
-
-                    let pemcert01 = pki.certificateToPem(cert);
-                    console.log('pki.certificateToPem(cert) : '+pki.certificateToPem(cert));
-
-                    let cert01 = pki.certificateFromPem(pemcert01);
-                    console.log('pki.certificateFromPem(pemcert01) : '+JSON.stringify(pki.certificateFromPem(pemcert01)));
 
                     let certinfo = {
                         cert : pki.certificateToPem(cert),
