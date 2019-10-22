@@ -17,7 +17,7 @@
                 </div>
             </div>
             <br>
-            <div class="row" v-if="tempCert.cert">
+            <div class="row" v-if="tempCert.public">
                 <div class="card col-md-11">
                     <div class="card-body">
                         <div v-if="(tempCert.allowed == 0) && (tempCert.disable == 1)">
@@ -146,6 +146,7 @@
                                 this.$store.dispatch('storeACert', re);
                                 alert('Cert Request Success');
                                 console.log('Cert Request Success');
+                                this.$router.replace({path : '/CertificationCenter'});
                             } else {
                                 this.$store.dispatch('deletePem', certR);
                                 console.log('Cert Request Failure');
@@ -161,7 +162,7 @@
             },
             AddCertIssue : function () {
                 var issue = {
-                    cert : this.tempCert.cert,
+                    cert : this.tempCert.public,
                     user : this.user
                 };
                 this.$store.dispatch('storeACertissue', issue);
