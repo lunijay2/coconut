@@ -9,9 +9,9 @@
                 <tr class="table-active">
                     <th scope="col" style="width: 47%">상품정보</th>
                     <th scope="col" style="width: 15%">금액</th>
-                    <th scope="col" style="width: 7%">수량</th>
+                    <th scope="col" style="width: 8%">수량</th>
                     <th scope="col" style="width: 17%">판매자</th>
-                    <th scope="col" style="width: 14%">영수증</th>
+                    <th scope="col" style="width: 13%">영수증</th>
                 </tr>
                 </thead>
                 <tbody v-for="Pro in Products">
