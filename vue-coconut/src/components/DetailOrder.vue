@@ -7,10 +7,10 @@
             <table class="table">
                 <thead>
                 <tr class="table-active">
-                    <th scope="col" style="width: 40%">상품정보</th>
+                    <th scope="col" style="width: 47%">상품정보</th>
                     <th scope="col" style="width: 15%">금액</th>
-                    <th scope="col" style="width: 11%">수량</th>
-                    <th scope="col" style="width: 20%">판매자</th>
+                    <th scope="col" style="width: 7%">수량</th>
+                    <th scope="col" style="width: 17%">판매자</th>
                     <th scope="col" style="width: 14%">영수증</th>
                 </tr>
                 </thead>
