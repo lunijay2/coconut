@@ -685,7 +685,7 @@ router.post('/CheckMasterCert', (req, res, next) => {
 
                 if (rows[0].cert == certpem) {
 
-                    statement = "SELECT cert, allowed, disable, deviceID FROM cert_" + user.id + " WHERE masterCert=0;";
+                    statement = "SELECT cert, public, allowed, disable, deviceID FROM cert_" + user.id + " WHERE masterCert=0;";
 
                     return PoolGetConnection(statement);
                 } else {
