@@ -282,7 +282,7 @@ router.post('/TradeA',(req, res, next) => {
             //var strcert = pki.certificateFromPem(certString);
             //console.log('strcert : '+strcert);
 
-            var obj = forge.asn1.fromAsn1(certString);
+            var obj = forge.asn1.from(certString);
             console.log('obj : '+ obj);
 
             var objcert = forge.pki.certificateFromAsn1(obj);

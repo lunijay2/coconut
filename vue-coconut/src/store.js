@@ -306,18 +306,11 @@ export default new Vuex.Store({
                 return n.length >= width ? n : new Array(width - n.length + 1).join('0') + n;
             }
 
-            let cert;
-            let userAttrs;
-            let masterAttrs;
-            let certinfo;
 
             const master = localStorage.getItem(payload.user.id+'.cert');
             const masterCert = pki.certificateFromPem(master);
             const masterPem = localStorage.getItem(payload.user.id+'.pem');
 
-            // 1. 공개키 받음
-            var publicKey =  pki.publicKeyFromPem(payload.cert.cert);
-            console.log('publickKey : '+JSON.stringify(publicKey));
 
             let R01 = {
                 user : payload.user,
@@ -334,15 +327,21 @@ export default new Vuex.Store({
                     CertNumber = pad(CertNumber, 2);
                     console.log('CertNumber 2 : '+CertNumber);
 
-                    cert = pki.createCertificate();
+
+                    let cert = pki.createCertificate();
+
+                    // 1. 공개키 받음
+                    var publicKey =  pki.publicKeyFromPem(payload.cert.cert);
+                    console.log('publickKey : '+JSON.stringify(publicKey));
+
                     cert.publicKey = publicKey;
                     cert.serialNumber = CertNumber;
                     cert.validity.notBefore = new Date();
-                    cert.validity.notAfter.setFullYear(cert.validity.notBefore.getFullYear() + 3);
+                    cert.validity.notAfter.setFullYear(cert.validity.notBefore.getFullYear() + 5);
 
                     console.log('cert serial : '+cert.serialNumber);
 
-                    userAttrs = [
+                    let userAttrs = [
                         {
                             name: 'commonName',
                             value: payload.user.number
@@ -359,7 +358,7 @@ export default new Vuex.Store({
                     ];
                     cert.setSubject(userAttrs);
 
-                    masterAttrs = [
+                    let masterAttrs = [
                         {
                             name: 'commonName',
                             value: masterCert.subject.getField('CN').value
@@ -435,7 +434,13 @@ export default new Vuex.Store({
                     // 마스터 인증서 개인키로 추가 인증서 서명
                     cert.sign(privateKey);
 
-                    certinfo = {
+                    let pemcert01 = pki.certificateToPem(cert);
+                    console.log('pki.certificateToPem(cert) : '+pki.certificateToPem(cert));
+
+                    let cert01 = pki.certificateFromPem(pemcert01);
+                    console.log('pki.certificateFromPem(pemcert01) : '+JSON.stringify(pki.certificateFromPem(pemcert01)));
+
+                    let certinfo = {
                         cert : pki.certificateToPem(cert),
                         deviceID : payload.cert.deviceID,
                         masterCert: master,
