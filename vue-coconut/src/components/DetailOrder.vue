@@ -7,11 +7,11 @@
             <table class="table">
                 <thead>
                 <tr class="table-active">
-                    <th scope="col">상품정보</th>
-                    <th scope="col">금액</th>
-                    <th scope="col">수량</th>
-                    <th scope="col">판매자</th>
-                    <th scope="col">영수증</th>
+                    <th scope="col" style="width: 30%">상품정보</th>
+                    <th scope="col" style="width: 20%">금액</th>
+                    <th scope="col" style="width: 15%">수량</th>
+                    <th scope="col" style="width: 20%">판매자</th>
+                    <th scope="col" style="width: 15%">영수증</th>
                 </tr>
                 </thead>
                 <tbody v-for="Pro in Products">
