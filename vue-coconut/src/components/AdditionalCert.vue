@@ -162,7 +162,7 @@
             },
             AddCertIssue : function () {
                 var issue = {
-                    cert : this.tempCert.public,
+                    cert : this.tempCert.cert,
                     user : this.user
                 };
                 this.$store.dispatch('storeACertissue', issue);
