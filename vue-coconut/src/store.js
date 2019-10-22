@@ -645,21 +645,50 @@ export default new Vuex.Store({
             console.log('signature Hex 1 : '+signatureHex1);
             //여기까지 서명 생성
 
-            const certPem = localStorage.getItem(payload.id+'.cert');
 
-            const Trade = {
-                Request : {
-                    id : payload.id,
-                    unum : payload.unum,
-                    order : payload.order,
-                    order_no : payload.order_no
-                },
-                cert : certPem,
-                currentT : currentTime,
-                signature : signatureHex1
-            };
+            if (context.state.CertType == 'a') {
 
-            return axios.post( resourceHost+'/Pay/Trade', Trade);
+                const certPem01 = localStorage.getItem(payload.id+'.Acert');
+
+                const TradeA = {
+                    Request : {
+                        id : payload.id,
+                        unum : payload.unum,
+                        order : payload.order,
+                        order_no : payload.order_no
+                    },
+                    deviceID : localStorage.getItem(payload.id+'.deviceId'),
+                    currentT : currentTime,
+                    cert : certPem01,
+                    signature : signatureHex1
+                };
+
+                console.log('TradeA : '+JSON.stringify(TradeA));
+
+                return axios.post( resourceHost+'/Pay/TradeA', TradeA);
+
+            } else if (context.state.CertType == 'm') {
+
+                const certPem = localStorage.getItem(payload.id+'.cert');
+
+                const Trade = {
+                    Request : {
+                        id : payload.id,
+                        unum : payload.unum,
+                        order : payload.order,
+                        order_no : payload.order_no
+                    },
+                    cert : certPem,
+                    currentT : currentTime,
+                    signature : signatureHex1
+                };
+
+                console.log('TradeM : '+JSON.stringify(Trade));
+
+                return axios.post( resourceHost+'/Pay/Trade', Trade);
+            }
+
+
             /*
             //여기부터 서명 검증
             const certPem = localStorage.getItem(payload.id+'.cert');

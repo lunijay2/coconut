@@ -16,8 +16,8 @@
                     </div>
                 </div>
             </div>
+            <br>
             <div class="row" v-if="tempCert.cert">
-                <br>
                 <div class="card col-md-11">
                     <div class="card-body">
                         <div v-if="(tempCert.allowed == 0) && (tempCert.disable == 1)">
@@ -166,6 +166,7 @@
                 };
                 this.$store.dispatch('storeACertissue', issue);
                 alert('추가 인증서가 발급되었습니다.');
+                this.$router.replace({path : '/CertificationCenter'});
             }
         },
         watch : {
