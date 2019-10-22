@@ -16,8 +16,8 @@
                     </div>
                 </div>
             </div>
-            <br>
             <div class="row" v-if="tempCert.cert">
+                <br>
                 <div class="card col-md-11">
                     <div class="card-body">
                         <div v-if="(tempCert.allowed == 0) && (tempCert.disable == 1)">
@@ -98,7 +98,9 @@
                 })
                 .then( response => {
                     console.log('AddCertAllowCheck response : '+JSON.stringify(response));
-                    this.tempCert = response.data.result[0];
+                    if (response.data.success == true) {
+                        this.tempCert = response.data.result[0];
+                    }
                 })
                 .catch( err => {
                     console.log('검증 에러' + err);

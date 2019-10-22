@@ -60,7 +60,7 @@
                         if(response.data.success === true) {
                             this.$store.commit('LOGIN', response);
                             console.log('로그인 성공');
-                            alert('Login Success');
+                            //alert('Login Success');
                             this.$router.replace({ path : '/' });
                         } else {
                             console.log("Login Error! 1");

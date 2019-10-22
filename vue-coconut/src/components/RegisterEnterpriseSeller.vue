@@ -59,11 +59,11 @@
                 this.$store.dispatch('REGISTER', pathuser)
                     .then( response => {
                         if(response.data.success == true) {
-                            alert('Enterprise Seller user register Success');
+                            alert('가입되었습니다.');
                             console.log('Enterprise Seller user register Success');
                             this.$router.replace({ path : '/Login' });
                         } else {
-                            alert('Enterprise Seller user register Failure');
+                            alert('가입에 실패했습니다.');
                             console.log('Enterprise Seller user register Failure')
                         }
                     }).catch( err => {
