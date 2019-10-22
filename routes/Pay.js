@@ -279,8 +279,8 @@ router.post('/TradeA',(req, res, next) => {
             var certString = (rows[0].cert).toString('binary');
             console.log('certString : '+certString);
 
-            var strcert = pki.certificateFromPem(certString);
-            console.log('strcert : '+strcert);
+            //var strcert = pki.certificateFromPem(certString);
+            //console.log('strcert : '+strcert);
 
             var obj = forge.asn1.fromDer(certString);
             console.log('obj : '+ obj);
