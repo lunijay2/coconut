@@ -54,10 +54,10 @@
                 allow : false,
                 pcode : '',
                 pquan : [],
-                seller : '',
                 pnum : {
                     orderno : this.$route.params.order
                 },
+                seller : '',
                 //lnk : 'http://localhost:3000/img/',
                 lnk : "/img/"
             }
