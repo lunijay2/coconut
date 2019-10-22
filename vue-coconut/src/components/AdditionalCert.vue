@@ -102,8 +102,8 @@
                 })
                 .catch( err => {
                     console.log('검증 에러' + err);
-                    this.$store.dispatch('LOGOUT');
-                    this.$router.replace({path : '/Login'});
+                    //this.$store.dispatch('LOGOUT');
+                    //this.$router.replace({path : '/Login'});
                 });
         },
         methods : {
