@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8b5f4b00-2556-4e32-bc20-84d0221e8b34" name="Default Changelist" comment="191022v2">
+    <list default="true" id="8b5f4b00-2556-4e32-bc20-84d0221e8b34" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/Pay.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/Pay.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vue-coconut/src/components/AdditionalCert.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue-coconut/src/components/AdditionalCert.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vue-coconut/src/components/Cert.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue-coconut/src/components/Cert.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vue-coconut/src/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/vue-coconut/src/store.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -41,7 +38,7 @@
         <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/ChoicePayType.vue">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="94">
-              <caret line="130" column="41" lean-forward="true" selection-start-line="130" selection-start-column="41" selection-end-line="130" selection-end-column="41" />
+              <caret line="130" column="41" selection-start-line="130" selection-start-column="41" selection-end-line="130" selection-end-column="41" />
               <folding>
                 <element signature="n#style#0;n#h5#0;n#div#1;n#div#0;n#div#0;n#div#1;n#div#0;n#template#0;n#!!top" expanded="true" />
               </folding>
@@ -65,8 +62,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/routes/Pay.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="287">
-              <caret line="294" column="51" selection-start-line="294" selection-start-column="51" selection-end-line="294" selection-end-column="51" />
+            <state relative-caret-position="458">
+              <caret line="282" column="46" lean-forward="true" selection-start-line="282" selection-start-column="46" selection-end-line="282" selection-end-column="46" />
             </state>
           </provider>
         </entry>
@@ -75,7 +72,7 @@
         <entry file="file://$PROJECT_DIR$/routes/Cert.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="529">
-              <caret line="71" column="53" lean-forward="true" selection-start-line="71" selection-start-column="53" selection-end-line="71" selection-end-column="53" />
+              <caret line="71" column="53" selection-start-line="71" selection-start-column="53" selection-end-line="71" selection-end-column="53" />
             </state>
           </provider>
         </entry>
@@ -262,16 +259,16 @@
     <property name="settings.editor.selected.configurable" value="preferences.editor" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\lunij\Documents\Coconut\vue-coconut\src\components" />
+      <recent name="C:\Users\lunij\Documents\Coconut\public" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\lunij\Documents\Coconut\public\img" />
       <recent name="C:\Users\lunij\Documents\Coconut\vue-coconut\public" />
       <recent name="C:\Users\lunij\Documents\Coconut\vue-coconut\src\components" />
       <recent name="C:\Users\lunij\Documents\Coconut" />
       <recent name="C:\Users\lunij\Documents\Coconut\vue-coconut" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\lunij\Documents\Coconut\vue-coconut\src\components" />
-      <recent name="C:\Users\lunij\Documents\Coconut\public" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -402,21 +399,7 @@
       <workItem from="1571230008665" duration="4178000" />
       <workItem from="1571311919894" duration="16334000" />
       <workItem from="1571403196664" duration="74932000" />
-      <workItem from="1571739076594" duration="5481000" />
-    </task>
-    <task id="LOCAL-00121" summary="190912v1">
-      <created>1568310029274</created>
-      <option name="number" value="00121" />
-      <option name="presentableId" value="LOCAL-00121" />
-      <option name="project" value="LOCAL" />
-      <updated>1568310029274</updated>
-    </task>
-    <task id="LOCAL-00122" summary="190912v1">
-      <created>1568310524693</created>
-      <option name="number" value="00122" />
-      <option name="presentableId" value="LOCAL-00122" />
-      <option name="project" value="LOCAL" />
-      <updated>1568310524693</updated>
+      <workItem from="1571739076594" duration="6364000" />
     </task>
     <task id="LOCAL-00123" summary="190912v1">
       <created>1568310872804</created>
@@ -747,11 +730,25 @@
       <option name="project" value="LOCAL" />
       <updated>1571741969822</updated>
     </task>
-    <option name="localTasksCounter" value="170" />
+    <task id="LOCAL-00170" summary="191022v2">
+      <created>1571746811239</created>
+      <option name="number" value="00170" />
+      <option name="presentableId" value="LOCAL-00170" />
+      <option name="project" value="LOCAL" />
+      <updated>1571746811239</updated>
+    </task>
+    <task id="LOCAL-00171" summary="191022v2">
+      <created>1571747325309</created>
+      <option name="number" value="00171" />
+      <option name="presentableId" value="LOCAL-00171" />
+      <option name="project" value="LOCAL" />
+      <updated>1571747325309</updated>
+    </task>
+    <option name="localTasksCounter" value="172" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="801223000" />
+    <option name="totallyTimeSpent" value="802106000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1157,7 +1154,7 @@
     <entry file="file://$PROJECT_DIR$/routes/Cert.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="529">
-          <caret line="71" column="53" lean-forward="true" selection-start-line="71" selection-start-column="53" selection-end-line="71" selection-end-column="53" />
+          <caret line="71" column="53" selection-start-line="71" selection-start-column="53" selection-end-line="71" selection-end-column="53" />
         </state>
       </provider>
     </entry>
@@ -1168,16 +1165,6 @@
           <folding>
             <element signature="n#style#0;n#h2#0;n#div#1;n#div#1;n#div#0;n#template#0;n#!!top" expanded="true" />
             <element signature="e#1285#1291#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/ChoicePayType.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="94">
-          <caret line="130" column="41" lean-forward="true" selection-start-line="130" selection-start-column="41" selection-end-line="130" selection-end-column="41" />
-          <folding>
-            <element signature="n#style#0;n#h5#0;n#div#1;n#div#0;n#div#0;n#div#1;n#div#0;n#template#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1193,10 +1180,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/ChoicePayType.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="94">
+          <caret line="130" column="41" selection-start-line="130" selection-start-column="41" selection-end-line="130" selection-end-column="41" />
+          <folding>
+            <element signature="n#style#0;n#h5#0;n#div#1;n#div#0;n#div#0;n#div#1;n#div#0;n#template#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/routes/Pay.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="287">
-          <caret line="294" column="51" selection-start-line="294" selection-start-column="51" selection-end-line="294" selection-end-column="51" />
+        <state relative-caret-position="458">
+          <caret line="282" column="46" lean-forward="true" selection-start-line="282" selection-start-column="46" selection-end-line="282" selection-end-column="46" />
         </state>
       </provider>
     </entry>

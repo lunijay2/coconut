@@ -277,11 +277,15 @@ router.post('/TradeA',(req, res, next) => {
             //const DbCommonCert = DbCert.subject.getField('CN').value;
 
             var certString = (rows[0].cert).toString('binary');
-            var obj = forge.asn1.fromDer(certString);
-            var objcert = forge.pki.certificateFromAsn1(obj);
-
             console.log('certString : '+certString);
+
+            var strcert = pki.certificateFromPem(certString);
+            console.log('strcert : '+strcert);
+
+            var obj = forge.asn1.fromDer(certString);
             console.log('obj : '+ obj);
+
+            var objcert = forge.pki.certificateFromAsn1(obj);
             console.log('objcert : '+objcert);
 
             //받아온 인증서가 DB 인증서 테이블에 존재 하는지 확인
