@@ -7,7 +7,7 @@
             <table class="table">
                 <thead>
                 <tr class="table-active">
-                    <th style="width: 350px;">결제 금액</th>
+                    <th style="width: 50%;">결제 금액</th>
                     <th>결제일</th>
                 </tr>
                 </thead>
@@ -23,38 +23,38 @@
             <hr noshade/>
             <table class="table">
                 <thead>
-                <tr class="table-active">
-                    <th>구매자</th>
-                    <th>주문자</th>
-                </tr>
+                    <tr class="table-active">
+                        <th>구매자</th>
+                        <th>주문자</th>
+                    </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td style="width: 350px;">{{user.name}}</td>
-                    <td>{{orderer}}</td>
-                </tr>
+                    <tr>
+                        <td style="width: 50%;">{{user.name}}</td>
+                        <td>{{orderer}}</td>
+                    </tr>
                 </tbody>
                 <thead>
-                <tr class="table-active">
-                    <th>배송 주소</th>
-                    <th>주문자 전화번호</th>
-                </tr>
+                    <tr class="table-active">
+                        <th>배송 주소</th>
+                        <th>주문자 전화번호</th>
+                    </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td style="width: 350px;">{{order.delivery_address}}</td>
-                    <td>{{order.delivery_tel}}</td>
-                </tr>
+                    <tr>
+                        <td style="width: 50%;">{{order.delivery_address}}</td>
+                        <td>{{order.delivery_tel}}</td>
+                    </tr>
                 </tbody>
                 <thead>
-                <tr class="table-active">
-                    <th>주문번호</th>
-                </tr>
+                    <tr class="table-active">
+                        <th>주문번호</th>
+                    </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>{{order.order_no}}</td>
-                </tr>
+                    <tr>
+                        <td>{{order.order_no}}</td>
+                    </tr>
                 </tbody>
             </table>
             <br>
