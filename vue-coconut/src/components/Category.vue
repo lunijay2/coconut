@@ -2,23 +2,28 @@
     <div class="list-group">
         <div v-for="product in Products">
             <a class="list-group-item list-grou+55p-item-action flex-column align-items-start">
-                <div class="d-flex w-100 justify-content-between row">
-                    <div class="col-md-3">
+                <div class="w-100 justify-content-between row">
+                    <div class="col-md-3" style="width: 20%;">
                         <router-link :to="'/DetailProduct/'+product.productcode" style="color: black" >
-                            <img v-bind:src="product.thumbnail" class="widthSet heightSet" />
+                            <img v-bind:src="product.thumbnail" class="widthSet heightSet" style="text-align:center;" />
                         </router-link>
                     </div>
-                    <div class="col-md-4">
-                        <h5><router-link :to="'/DetailProduct/'+product.productcode" class="nav-link" style="color: black">{{product.productname}}</router-link></h5>
-                        <!--<h6>{{product.description}}</h6>-->
-                        <p></p>
-                        <small class="text-muted col-md-1">{{product.category}}</small>
-                    </div>
-                    <div class="col-md-3">
-                        <h5><strong class="text-black">{{(product.price).toLocaleString()}}원</strong></h5>
-                    </div>
-                    <div class="col-md-2">
+                    <div class="col-md-9 row" style="width: 80%;">
+                        <div class="col-md-7">
+                            <br>
+                            <h5>{{product.productname}}</h5>
+                            <small class="text-muted">{{product.category}}</small>
+                            <h5>
+                                <strong class="text-black">{{(product.price).toLocaleString()}}원</strong>
+                            </h5>
+                        </div>
+                        <div class="col-md-5 di">
+                            <br>
+                            <h5><strong class="text-black">판매자</strong></h5>
+                            <h6>{{(product.seller)}}</h6>
+                        </div>
 
+                        <!-- <h6 class="text-muted col-sm-12">{{product.description}}</h6>-->
                     </div>
 
                     <!--
@@ -61,8 +66,8 @@
         data () {
             return {
                 Products : [],
-                //lnk : "http://localhost:3000/img/"
-                lnk : "/img/"
+                lnk : "http://localhost:3000/img/"
+                //lnk : "/img/"
             }
         },
         methods : {
@@ -138,4 +143,20 @@
         border:0px solid #888888;
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     }
+
+
+    @media
+    only screen
+    and (max-width: 768px), (min-device-width: 768px)
+    and (max-device-width: 1024px)  {
+
+        /* Force table to not be like tables anymore */
+        .widthSet {
+            max-width: 80px;
+        }
+
+        .di[disabled]{}
+
+    }
+
 </style>

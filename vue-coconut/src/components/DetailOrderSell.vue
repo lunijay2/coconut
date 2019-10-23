@@ -512,12 +512,12 @@
         }
 
         tr:nth-child(odd) {
-            background: #ccc;
+            background: #ffffff;
         }
 
         td {
             /* Behave  like a "row" */
-            border: none;
+            border: black;
             border-bottom: 1px solid #eee;
             position: relative;
             padding-left: 50%;
