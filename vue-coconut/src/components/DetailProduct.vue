@@ -43,9 +43,9 @@
                         </td>
                     </tr>
                 </table>
-                <button class="btn btn-sm btn-outline-dark col-sm-1" style="width: 12%" @click="decreaseQuantity" type="button">-</button>
-                <input class="col-sm-2" type="text" style="width: 15%" maxlength="2" title="수량" value="1" v-model="quantity">
-                <button class="btn btn-sm btn-outline-dark col-sm-1" style="width: 12%" @click="increaseQuantity" type="button">+</button>
+                <button class="btn btn-sm btn-outline-dark col-sm-1" style="width: 12%; height: 30px;" @click="decreaseQuantity" type="button">-</button>
+                <input class="col-sm-2" type="text" style="width: 15%; height: 31px;" maxlength="2" title="수량" value="1" v-model="quantity">
+                <button class="btn btn-sm btn-outline-dark col-sm-1" style="width: 12%; height: 30px;" @click="increaseQuantity" type="button">+</button>
                 <br><br>
                 <h5>총 상품금액 {{(Product.price*quantity).toLocaleString()}}원</h5>
                 <br>
