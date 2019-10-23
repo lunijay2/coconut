@@ -7,6 +7,7 @@
                 </div>
             </div>
             <div class="col-md-1">
+                <br>
             </div>
             <div class="col-md-5">
                 <br><br>
@@ -19,6 +20,11 @@
                     <tr>
                         <td>
                             <h5 class="float-left text-muted">{{Product.description}}</h5>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <br>
                         </td>
                     </tr>
                     <tr>
@@ -36,37 +42,15 @@
                             <br>
                         </td>
                     </tr>
-                    <tr>
-                        <td>
-                            <br>
-                        </td>
-                    </tr>
                 </table>
-                <table border="0">
-                    <tr>
-                        <td class="row">
-                            <button class="btn btn-sm btn-outline-dark float-left col-md-2" @click="decreaseQuantity" type="button">-</button>
-                            <input class="col-md-3" type="text" maxlength="2" title="수량" value="1" v-model="quantity">
-                            <button class="btn btn-sm btn-outline-dark float-right col-md-2" @click="increaseQuantity" type="button">+</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td colspan="2"></td>
-                    </tr>
-                </table>
-                <h6>총 상품금액 {{(Product.price*quantity).toLocaleString()}}원</h6>
+                <button class="btn btn-sm btn-outline-dark col-sm-1" style="width: 12%" @click="decreaseQuantity" type="button">-</button>
+                <input class="col-sm-2" type="text" style="width: 15%" maxlength="2" title="수량" value="1" v-model="quantity">
+                <button class="btn btn-sm btn-outline-dark col-sm-1" style="width: 12%" @click="increaseQuantity" type="button">+</button>
                 <br><br>
-                <table border="0">
-                    <tr>
-                        <td>
-                            <button @click="addBasketSubmit" type="button" class="btn btn-block btn-lg btn-outline-success">장바구니</button>
-                        </td>
-                        <td>
-                            <button @click="CreateOrderSubmit" type="button" class="btn btn-block btn-lg btn-primary">바로구매</button>
-                        </td>
-                    </tr>
-                </table>
+                <h5>총 상품금액 {{(Product.price*quantity).toLocaleString()}}원</h5>
+                <br>
+                <button @click="addBasketSubmit" type="button" class="btn btn-block btn-lg btn-outline-success">장바구니</button>
+                <button @click="CreateOrderSubmit" type="button" class="btn btn-block btn-lg btn-primary">바로구매</button>
             </div>
         </div>
     </div>
@@ -95,8 +79,8 @@
                     this.Products = response.data.result;
                     this.Product = this.Products[0];
 
-                    //this.imageThumbnail = "http://localhost:3000\\img\\"+this.Product.thumbnail;
-                    this.imageThumbnail = "/img/"+this.Product.thumbnail;
+                    this.imageThumbnail = "http://localhost:3000\\img\\"+this.Product.thumbnail;
+                    //this.imageThumbnail = "/img/"+this.Product.thumbnail;
                 });
         },
         methods : {
@@ -183,10 +167,10 @@
         //transform: translate(-50%, -50%)
     }
     .widthSet {
-        max-width: 498px;
+        max-width: 100%;
     }
     .heightSet {
-        max-height: 498px;
+        max-height: 100%;
     }
     /*
     img.border-shadow{
@@ -198,5 +182,19 @@
         max-height: 500px;
         border:0px solid #888888;
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+
+    @media
+    only screen
+    and (max-width: 768px), (min-device-width: 768px)
+    and (max-device-width: 1024px)  {
+
+        /* Force table to not be like tables anymore */
+        .imageBox{
+            max-width: 100%;
+            border:0px solid #888888;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+
     }
 </style>
