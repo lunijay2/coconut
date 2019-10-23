@@ -173,8 +173,8 @@
                 ordernumber : {
                     orderno : this.$route.params.order
                 },
-                lnk : 'http://localhost:3000/img/',
-                //lnk : "/img/"
+                //lnk : 'http://localhost:3000/img/',
+                lnk : "/img/"
             }
         },
         created() {

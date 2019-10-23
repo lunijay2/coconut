@@ -79,8 +79,8 @@
                     this.Products = response.data.result;
                     this.Product = this.Products[0];
 
-                    this.imageThumbnail = "http://localhost:3000\\img\\"+this.Product.thumbnail;
-                    //this.imageThumbnail = "/img/"+this.Product.thumbnail;
+                    //this.imageThumbnail = "http://localhost:3000\\img\\"+this.Product.thumbnail;
+                    this.imageThumbnail = "/img/"+this.Product.thumbnail;
                 });
         },
         methods : {
