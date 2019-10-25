@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8b5f4b00-2556-4e32-bc20-84d0221e8b34" name="Default Changelist" comment="">
+    <list default="true" id="8b5f4b00-2556-4e32-bc20-84d0221e8b34" name="Default Changelist" comment="191025v1">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vue-coconut/src/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/vue-coconut/src/store.js" afterDir="false" />
     </list>
@@ -24,8 +24,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/vue-coconut/src/store.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="122">
-              <caret line="447" column="46" lean-forward="true" selection-start-line="447" selection-start-column="46" selection-end-line="447" selection-end-column="46" />
+            <state relative-caret-position="331">
+              <caret line="391" column="22" lean-forward="true" selection-start-line="391" selection-start-column="22" selection-end-line="391" selection-end-column="22" />
               <folding>
                 <element signature="e#0#22#0" expanded="true" />
                 <element signature="e#263#289#0" expanded="true" />
@@ -35,39 +35,19 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/AdditionalCert.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="114">
+              <caret line="6" column="28" selection-start-line="6" selection-start-column="28" selection-end-line="6" selection-end-column="28" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/Cert.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="609">
-              <caret line="63" column="35" lean-forward="true" selection-start-line="63" selection-start-column="35" selection-end-line="63" selection-end-column="35" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/Category.vue">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1311">
-              <caret line="69" column="29" selection-start-line="69" selection-start-column="29" selection-end-line="69" selection-end-column="29" />
-              <folding>
-                <element signature="n#style#0;n#div#0;n#div#0;n#a#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#router-link#0;n#div#0;n#div#0;n#a#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#img#0;n#router-link#0;n#div#0;n#div#0;n#a#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#1;n#div#0;n#a#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/DetailProduct.vue">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3762">
-              <caret line="198" column="5" selection-start-line="198" selection-start-column="5" selection-end-line="198" selection-end-column="5" />
-              <folding>
-                <element signature="n#style#0;n#button#0;n#div#2;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#input#0;n#div#2;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#button#1;n#div#2;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-              </folding>
+              <caret line="63" column="35" selection-start-line="63" selection-start-column="35" selection-end-line="63" selection-end-column="35" />
             </state>
           </provider>
         </entry>
@@ -150,7 +130,6 @@
         <option value="$PROJECT_DIR$/vue-coconut/src/components/MyPage.vue" />
         <option value="$PROJECT_DIR$/vue-coconut/src/components/Navbar.vue" />
         <option value="$PROJECT_DIR$/vue-coconut/src/main.js" />
-        <option value="$PROJECT_DIR$/vue-coconut/src/components/CertificationCenter.vue" />
         <option value="$PROJECT_DIR$/vue-coconut/src/components/CertManagement.vue" />
         <option value="$PROJECT_DIR$/vue-coconut/src/components/RegisterIndivisual.vue" />
         <option value="$PROJECT_DIR$/vue-coconut/src/components/RegisterEnterpriseSeller.vue" />
@@ -173,6 +152,7 @@
         <option value="$PROJECT_DIR$/vue-coconut/src/components/DetailOrderSell.vue" />
         <option value="$PROJECT_DIR$/vue-coconut/src/components/Category.vue" />
         <option value="$PROJECT_DIR$/app.js" />
+        <option value="$PROJECT_DIR$/vue-coconut/src/components/CertificationCenter.vue" />
         <option value="$PROJECT_DIR$/vue-coconut/src/store.js" />
       </list>
     </option>
@@ -254,16 +234,16 @@
     <property name="settings.editor.selected.configurable" value="preferences.editor" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\lunij\Documents\Coconut\vue-coconut\src\components" />
+      <recent name="C:\Users\lunij\Documents\Coconut\public" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\lunij\Documents\Coconut\public\img" />
       <recent name="C:\Users\lunij\Documents\Coconut\vue-coconut\public" />
       <recent name="C:\Users\lunij\Documents\Coconut\vue-coconut\src\components" />
       <recent name="C:\Users\lunij\Documents\Coconut" />
       <recent name="C:\Users\lunij\Documents\Coconut\vue-coconut" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\lunij\Documents\Coconut\vue-coconut\src\components" />
-      <recent name="C:\Users\lunij\Documents\Coconut\public" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -396,21 +376,7 @@
       <workItem from="1571403196664" duration="74932000" />
       <workItem from="1571739076594" duration="18817000" />
       <workItem from="1571804642483" duration="9881000" />
-      <workItem from="1571970458985" duration="1180000" />
-    </task>
-    <task id="LOCAL-00148" summary="191017v2">
-      <created>1571318321371</created>
-      <option name="number" value="00148" />
-      <option name="presentableId" value="LOCAL-00148" />
-      <option name="project" value="LOCAL" />
-      <updated>1571318321371</updated>
-    </task>
-    <task id="LOCAL-00149" summary="191017v2">
-      <created>1571319383246</created>
-      <option name="number" value="00149" />
-      <option name="presentableId" value="LOCAL-00149" />
-      <option name="project" value="LOCAL" />
-      <updated>1571319383246</updated>
+      <workItem from="1571970458985" duration="2389000" />
     </task>
     <task id="LOCAL-00150" summary="191017v2">
       <created>1571321474884</created>
@@ -741,11 +707,25 @@
       <option name="project" value="LOCAL" />
       <updated>1571815355697</updated>
     </task>
-    <option name="localTasksCounter" value="197" />
+    <task id="LOCAL-00197" summary="191025v1">
+      <created>1571971803739</created>
+      <option name="number" value="00197" />
+      <option name="presentableId" value="LOCAL-00197" />
+      <option name="project" value="LOCAL" />
+      <updated>1571971803739</updated>
+    </task>
+    <task id="LOCAL-00198" summary="191025v1">
+      <created>1571972692163</created>
+      <option name="number" value="00198" />
+      <option name="presentableId" value="LOCAL-00198" />
+      <option name="project" value="LOCAL" />
+      <updated>1571972692163</updated>
+    </task>
+    <option name="localTasksCounter" value="199" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="825620000" />
+    <option name="totallyTimeSpent" value="826829000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -774,7 +754,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.49834764" weight="0.32792208" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5032051" side_tool="true" weight="0.27410617" />
-      <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.4957039" weight="0.22210184" />
+      <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.4957039" visible="true" weight="0.22210184" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -786,7 +766,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="190531 Heroku v2" />
     <MESSAGE value="190531 Heroku v3" />
     <MESSAGE value="190531 Heroku v4" />
     <MESSAGE value="190604" />
@@ -811,7 +790,8 @@
     <MESSAGE value="191022v1" />
     <MESSAGE value="191022v2" />
     <MESSAGE value="191023v1" />
-    <option name="LAST_COMMIT_MESSAGE" value="191023v1" />
+    <MESSAGE value="191025v1" />
+    <option name="LAST_COMMIT_MESSAGE" value="191025v1" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/bootstrap.min.css">
@@ -1002,13 +982,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/CertificationCenter.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="341">
-          <caret line="107" lean-forward="true" selection-start-line="107" selection-end-line="107" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/Cert.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="679">
@@ -1036,13 +1009,6 @@
             <element signature="n#style#0;n#th#2;n#tr#0;n#thead#0;n#table#0;n#div#0;n#template#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#th#3;n#tr#0;n#thead#0;n#table#0;n#div#0;n#template#0;n#!!top" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/AdditionalCert.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="92" column="57" selection-start-line="92" selection-start-column="57" selection-end-line="92" selection-end-column="57" />
         </state>
       </provider>
     </entry>
@@ -1186,7 +1152,7 @@
     <entry file="file://$PROJECT_DIR$/routes/Cert.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="609">
-          <caret line="63" column="35" lean-forward="true" selection-start-line="63" selection-start-column="35" selection-end-line="63" selection-end-column="35" />
+          <caret line="63" column="35" selection-start-line="63" selection-start-column="35" selection-end-line="63" selection-end-column="35" />
         </state>
       </provider>
     </entry>
@@ -1197,10 +1163,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/CertificationCenter.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="16" column="20" lean-forward="true" selection-start-line="16" selection-start-column="20" selection-end-line="16" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/AdditionalCert.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="6" column="28" selection-start-line="6" selection-start-column="28" selection-end-line="6" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/vue-coconut/src/store.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="122">
-          <caret line="447" column="46" lean-forward="true" selection-start-line="447" selection-start-column="46" selection-end-line="447" selection-end-column="46" />
+        <state relative-caret-position="331">
+          <caret line="391" column="22" lean-forward="true" selection-start-line="391" selection-start-column="22" selection-end-line="391" selection-end-column="22" />
           <folding>
             <element signature="e#0#22#0" expanded="true" />
             <element signature="e#263#289#0" expanded="true" />

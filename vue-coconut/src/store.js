@@ -385,9 +385,9 @@ export default new Vuex.Store({
                     */
 
                     // 발급자 정보
-                    cert.setIssuer(pki.certificateFromPem(master.toString()).subject.attributes);
+                    cert.setIssuer(pki.certificateFromPem(masterCert.toString()).subject.attributes);
 
-                    console.log('cert.setIssuer : '+JSON.stringify(cert.setIssuer(pki.certificateFromPem(master.toString()).subject.attributes)));
+                    console.log('cert.setIssuer : '+JSON.stringify(cert.setIssuer(pki.certificateFromPem(masterCert.toString()).subject.attributes)));
 
                     /*
                     cert.setExtensions([
