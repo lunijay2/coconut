@@ -337,15 +337,13 @@ export default new Vuex.Store({
                     cert.publicKey = publicKey;
                     cert.serialNumber = CertNumber;
                     cert.validity.notBefore = new Date();
+                    cert.validity.notAfter = new Date();
                     cert.validity.notAfter.setFullYear(cert.validity.notBefore.getFullYear() + 5);
 
                     console.log('cert serial : '+cert.serialNumber);
 
                     let userAttrs = [
                         {
-                            name: 'commonName',
-                            value: payload.user.number
-                        }, {
                             name: 'countryName',
                             value: 'kr'
                         }, {
@@ -354,10 +352,14 @@ export default new Vuex.Store({
                         }, {
                             shortName: 'OU',
                             value: payload.cert.deviceID
+                        }, {
+                            name: 'commonName',
+                            value: payload.user.number
                         }
                     ];
                     cert.setSubject(userAttrs);
 
+                    /*
                     let masterAttrs = [
                         {
                             name: 'commonName',
@@ -380,7 +382,12 @@ export default new Vuex.Store({
                         },
                     ];
                     cert.setIssuer(masterAttrs);
+                    */
 
+                    // 발급자 정보
+                    cert.setIssuer(pki.certificateFromPem(master.toString()).subject.attributes);
+
+                    /*
                     cert.setExtensions([
                         {
                             name: 'basicConstraints',
@@ -418,6 +425,29 @@ export default new Vuex.Store({
                             name: 'subjectKeyIdentifier'
                         }
                     ]);
+                     */
+
+                    // 확장정보
+                    cert.setExtensions([{
+                        name: 'basicConstraints',
+                        cA: false
+                    }, {
+                        name: 'nsCertType',
+                        client: true,
+                        server: true,
+                        email: true,
+                        objsign: true
+                    }, {
+                        name: 'subjectKeyIdentifier'
+                        //}, {
+                        //name: 'authorityKeyIdentifier'
+                    }, {
+                        name: 'keyUsage',
+                        digitalSignature: true,
+                        keyEncipherment: true,
+                        dataEncipherment: true
+                    }]);
+
 
                     // 마스터 인증서의 개인키 복호화
                     var encryptedPrivateKeyInfo = pki.encryptedPrivateKeyFromPem(masterPem);
@@ -431,8 +461,18 @@ export default new Vuex.Store({
                     console.log('privateKey : '+JSON.stringify(privateKey));
 
                     // 마스터 인증서 개인키로 추가 인증서 서명
-                    cert.sign(privateKey);
+                    //cert.sign(privateKey);
 
+                    // 서버의 개인키로 인증서 서명하기
+                    cert.sign(privateKey, forge.md.sha256.create());
+
+                    var CertTestPem = pki.certificateToPem(cert);
+                    console.log('CertTestPem : '+CertTestPem);
+                    var CertTest =  pki.certificateFromPem(CertTestPem);
+                    console.log('CertTest : '+JSON.stringify(CertTest));
+
+
+                    // 만들어진 인증서를 pem 형식으로 변환
                     let certinfo = {
                         cert : pki.certificateToPem(cert),
                         deviceID : payload.cert.deviceID,
