@@ -338,7 +338,7 @@ export default new Vuex.Store({
                     cert.serialNumber = CertNumber;
                     cert.validity.notBefore = new Date();
                     cert.validity.notAfter = new Date();
-                    cert.validity.notAfter.setFullYear(cert.validity.notBefore.getFullYear() + 5);
+                    cert.validity.notAfter.setFullYear(cert.validity.notBefore.getFullYear() + 3);
 
                     console.log('cert serial : '+cert.serialNumber);
 
@@ -386,6 +386,8 @@ export default new Vuex.Store({
 
                     // 발급자 정보
                     cert.setIssuer(pki.certificateFromPem(master.toString()).subject.attributes);
+
+                    console.log('cert.setIssuer : '+JSON.stringify(cert.setIssuer(pki.certificateFromPem(master.toString()).subject.attributes)));
 
                     /*
                     cert.setExtensions([
@@ -461,10 +463,10 @@ export default new Vuex.Store({
                     console.log('privateKey : '+JSON.stringify(privateKey));
 
                     // 마스터 인증서 개인키로 추가 인증서 서명
-                    //cert.sign(privateKey);
+                    cert.sign(privateKey);
 
                     // 서버의 개인키로 인증서 서명하기
-                    cert.sign(privateKey, forge.md.sha256.create());
+                    //cert.sign(privateKey, forge.md.sha256.create());
 
                     var CertTestPem = pki.certificateToPem(cert);
                     console.log('CertTestPem : '+CertTestPem);
