@@ -463,15 +463,15 @@ export default new Vuex.Store({
                     console.log('privateKey : '+JSON.stringify(privateKey));
 
                     // 마스터 인증서 개인키로 추가 인증서 서명
-                    //cert.sign(privateKey);
+                    cert.sign(privateKey);
 
-                    // 서버의 개인키로 인증서 서명하기
-                    cert.sign(privateKey, forge.md.sha256.create());
+                    // 마스터 개인키로 인증서 서명하기
+                    //cert.sign(privateKey, forge.md.sha256.create());
 
-                    var CertTestPem = pki.certificateToPem(cert);
-                    console.log('CertTestPem : '+CertTestPem);
-                    var CertTest =  pki.certificateFromPem(CertTestPem);
-                    console.log('CertTest : '+JSON.stringify(CertTest));
+                    //var CertTestPem = pki.certificateToPem(cert);
+                    //console.log('CertTestPem : '+CertTestPem);
+                    //var CertTest =  pki.certificateFromPem(CertTestPem);
+                    //console.log('CertTest : '+JSON.stringify(CertTest));
 
 
                     // 만들어진 인증서를 pem 형식으로 변환
