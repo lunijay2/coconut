@@ -260,7 +260,22 @@ router.post('/TradeA',(req, res, next) => {
     var p4;
     var p5;
 
-    FindACertQuery(deviceID, Request.id)
+    var order_no01 = Request.orderno;
+    console.log('order_number01 : '+order_no01);
+
+    OrderFoundQuery(order_no01)
+        .then( query => {
+            return PoolGetConnection(query);
+        })
+        .then(connectionQuery => {
+            return ExecuteQuery(connectionQuery);
+        })
+        .then( rows => {
+            if (rows[0].paid == 0) {
+                return res.json({success:false});
+            }
+            return FindACertQuery(deviceID, Request.id);
+        })
         .then( query => {
             return PoolGetConnection(query);
         })
@@ -319,7 +334,7 @@ router.post('/TradeA',(req, res, next) => {
                     verify2 = true;
                     console.log('Signature Verify2 : '+verify2);
                 }
-                
+
                 if( verify0==true && verify1==true && verify2==true) {
 
                     p = Request.order.product;

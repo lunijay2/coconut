@@ -7,7 +7,7 @@
             <div class="row" v-if="allow == true">
                 <div class="col-md-2"></div>
                 <div class="col-md-8">
-                    <h2>주문 정보 확인</h2>
+                    <h2>주문 정보 확인 : {{ordernumber}}</h2>
                     <hr noshade/>
                     <table class="table">
                         <thead>
@@ -100,9 +100,7 @@
                 order : {},
                 pcode : '',
                 pquan : [],
-                pnum : {
-                    orderno : Number
-                },
+                pnum : {},
                 seller : '',
                 result : {},
                 ordernumber : '',
@@ -215,37 +213,6 @@
                         console.log(response);
                     })
             },
-            ainterval : function() {
-                this.purchase1 = setInterval(() => {
-                    this.$store.dispatch('SecondGetOrder', this.pnum)
-                        .then( response => {
-                            this.purchase = response.data.order[0].paid;
-                            //console.log('this.purchase : '+JSON.stringify(this.purchase));
-
-                            return this.paid_check(this.purchase);
-                        })
-                }, 2000);
-            },
-            paid_check : function(paid_request) {
-                if (paid_request == 1) {
-                    //console.log('paid 1');
-                    clearInterval(this.purchase1);
-                    this.$router.replace({ path : '/PurchaseSuccess/'+this.pnum.orderno });
-                } else {
-                    //console.log('paid 0');
-                }
-            },
-            handler: function handler(event) {
-                clearInterval(this.purchase1);
-            },
-
-        },
-        beforeDestroy() {
-            console.log('beforeDestory');
-        },
-        destroyed() {
-            clearInterval(this.purchase1);
-            console.log('destroyed');
         },
         watch : {
             ordernumber : function (order) {
@@ -261,6 +228,7 @@
                     .then( response => {
                         //alert('주문내역 성공 : '+JSON.stringify(response.data.order[0]));
                         this.order = response.data.order[0];
+                        this.pnum.orderno = this.order.orderno;
                         //alert('주문내역 : '+JSON.stringify(response.data.order[0]));
 
                         var p = response.data.order[0].product;
@@ -310,16 +278,6 @@
                             this.allprice = this.allprice + this.Products[i].oquantity * this.Products[i].price;
                             this.Products[i].oquantity *= 1; //스트링을 정수로 형변환
                             this.kind[1] = this.kind[1] + this.Products[i].oquantity;
-                        }
-
-                        this.pnum.orderno = this.order.orderno;
-
-                        if ( this.order.paid == 0 ) {
-                            document.addEventListener('beforeunload', this.handler);
-                            this.ainterval();
-                        } else {
-                            alert('잘못된 요청입니다.');
-                            this.$router.replace({ path : '/' });
                         }
                     })
                     .catch( err => {
