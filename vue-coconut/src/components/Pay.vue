@@ -100,6 +100,9 @@
                 order : {},
                 pcode : '',
                 pquan : [],
+                pnum : {
+                    orderno : Number
+                },
                 seller : '',
                 result : {},
                 ordernumber : '',
@@ -214,7 +217,7 @@
             },
             ainterval : function() {
                 this.purchase1 = setInterval(() => {
-                    this.$store.dispatch('SecondGetOrder', this.order)
+                    this.$store.dispatch('SecondGetOrder', this.pnum)
                         .then( response => {
                             this.purchase = response.data.order[0].paid;
                             //console.log('this.purchase : '+JSON.stringify(this.purchase));
@@ -227,7 +230,7 @@
                 if (paid_request == 1) {
                     //console.log('paid 1');
                     clearInterval(this.purchase1);
-                    this.$router.replace({ path : '/PurchaseSuccess/'+this.order.orderno });
+                    this.$router.replace({ path : '/PurchaseSuccess/'+this.pnum.orderno });
                 } else {
                     //console.log('paid 0');
                 }
@@ -308,6 +311,8 @@
                             this.Products[i].oquantity *= 1; //스트링을 정수로 형변환
                             this.kind[1] = this.kind[1] + this.Products[i].oquantity;
                         }
+
+                        this.pnum.orderno = this.order.orderno;
 
                         if ( this.order.paid == 0 ) {
                             document.addEventListener('beforeunload', this.handler);
