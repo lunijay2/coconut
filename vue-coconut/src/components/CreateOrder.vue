@@ -104,10 +104,10 @@
 
                     var a = this.$route.params.product;
 
-                    console.log("이건뭐지"+JSON.stringify(this.$route.params.product));
+                    //console.log("이건뭐지"+JSON.stringify(this.$route.params.product));
 
                     var number = this.$route.params.number;
-                    console.log("number : "+number);
+                    //console.log("number : "+number);
 
                     if ( number == '1') {//바로구매
                         this.aArray = a.split('&');
@@ -121,11 +121,11 @@
 
                     } else if ( number == '0') {//장바구니
                         this.bArray = a.split(',');
-                        console.log("안쪽에1"+JSON.stringify(this.bArray));
+                        //console.log("안쪽에1"+JSON.stringify(this.bArray));
                         this.aArray = this.bArray.toString().split('&');
-                        console.log("안쪽에2"+JSON.stringify(this.aArray));
+                        //console.log("안쪽에2"+JSON.stringify(this.aArray));
                         this.bArray = this.aArray.toString().split(',');
-                        console.log("안쪽에3"+JSON.stringify(this.bArray));
+                        //console.log("안쪽에3"+JSON.stringify(this.bArray));
                         var cArray = [];
 
                         for (var i=0; i<(this.bArray.length); i++) {
@@ -142,7 +142,7 @@
                             product : cArray,
                             id : this.user.id
                         };
-                        console.log('product : '+JSON.stringify(this.Products));
+                        //console.log('product : '+JSON.stringify(this.Products));
                     }
                     return this.$store.dispatch('GetProductOder', this.Products);
                     this.numbers = this.$route.params.number;
@@ -152,23 +152,23 @@
                     this.$router.replace({path : '/Login'});
                 })
                 .then( res => {
-                    console.log('성공');
-                    console.log('가지고 온 상품들 : '+JSON.stringify(res));
+                    //console.log('성공');
+                    //console.log('가지고 온 상품들 : '+JSON.stringify(res));
                     var a = res.data.result;
-                    console.log('number'+ this.$route.params.number);
+                    //console.log('number'+ this.$route.params.number);
                     if ( this.$route.params.number == '1') {
                         a[0].quantity = this.quantitys
 
                     }else{
-                        console.log('data : ' +JSON.stringify(JSON.stringify(res.data)));
+                        //console.log('data : ' +JSON.stringify(JSON.stringify(res.data)));
                     }
                     this.Product = a;
-                    console.log('data : ' +JSON.stringify(JSON.stringify(res.data)));
-                    console.log('result : ' +JSON.stringify(JSON.stringify(res.data.result)));
-                    console.log('Product : ' +JSON.stringify(JSON.stringify(this.Product)));
+                    //console.log('data : ' +JSON.stringify(JSON.stringify(res.data)));
+                    //console.log('result : ' +JSON.stringify(JSON.stringify(res.data.result)));
+                    //console.log('Product : ' +JSON.stringify(JSON.stringify(this.Product)));
                 })
                 .catch( err => {
-                    console.log('검증 실패' + err);
+                    //console.log('검증 실패' + err);
                     this.$store.dispatch('LOGOUT');
                     this.$router.replace({path : '/Login'});
                 });
@@ -188,13 +188,13 @@
                             }
                         );
                     }
-                    console.log(JSON.stringify(" number :"+this.$route.params.number));
-                    console.log(JSON.stringify(" length :"+this.Product.length));
-                    console.log(JSON.stringify(" code :"+this.Product[0].productcode));
-                    console.log(JSON.stringify(" price :"+this.Product[0].price));
-                    console.log(JSON.stringify(" quantity :"+this.Product[0].quantity));
-                    console.log(JSON.stringify(" allproduct :"+allproduct[0].product));
-                    console.log(JSON.stringify(" quantity :"+this.quantitys));
+                    //console.log(JSON.stringify(" number :"+this.$route.params.number));
+                    //console.log(JSON.stringify(" length :"+this.Product.length));
+                    //console.log(JSON.stringify(" code :"+this.Product[0].productcode));
+                    //console.log(JSON.stringify(" price :"+this.Product[0].price));
+                    //console.log(JSON.stringify(" quantity :"+this.Product[0].quantity));
+                    //console.log(JSON.stringify(" allproduct :"+allproduct[0].product));
+                    //console.log(JSON.stringify(" quantity :"+this.quantitys));
 
                     let newOrder = {
                         product : allproduct,
@@ -202,7 +202,7 @@
                         delivery_address: this.addrDetail,
                         delivery_tel: this.orderTel
                     };
-                    console.log("newOrder : "+JSON.stringify(newOrder));
+                    //console.log("newOrder : "+JSON.stringify(newOrder));
 
                     this.$store.dispatch('newOrder', newOrder)
                         .then( response => {

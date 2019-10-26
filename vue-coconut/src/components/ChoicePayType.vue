@@ -141,7 +141,7 @@
                                 order : this.order,
                                 order_no : this.$route.params.order
                             };
-
+                            console.log('certR : '+JSON.stringify(certR));
                             return this.$store.dispatch('TradeRequest', certR);
                         } else {
                             //console.log('CertCheck err : '+JSON.stringify(response));
