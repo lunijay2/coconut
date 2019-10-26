@@ -518,7 +518,11 @@ export default new Vuex.Store({
             if (context.state.CertType === 'm') {
                 var re01 = {
                     data : {
-                        success : true
+                        success : true,
+                        data : [{
+                            allowed : 1,
+                            disable : 0
+                        }]
                     }
                 };
                 return re01;
@@ -534,7 +538,7 @@ export default new Vuex.Store({
 
             } else {
                 var re02 = {
-                    date : {
+                    data : {
                         success : false
                     }
                 };
