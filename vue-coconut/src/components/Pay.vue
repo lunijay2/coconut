@@ -7,7 +7,7 @@
             <div class="row" v-if="allow == true">
                 <div class="col-md-2"></div>
                 <div class="col-md-8">
-                    <h2>주문 정보 확인 : {{ordernumber}}</h2>
+                    <h2>주문 정보 확인</h2>
                     <hr noshade/>
                     <table class="table">
                         <thead>

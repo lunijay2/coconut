@@ -260,10 +260,7 @@ router.post('/TradeA',(req, res, next) => {
     var p4;
     var p5;
 
-    var order_no01 = Request.order_no;
-    console.log('order_number01 : '+order_no01);
-
-    OrderFoundQuery(order_no01)
+    OrderFoundQuery(Request.order.order_no)
         .then( query => {
             return PoolGetConnection(query);
         })
@@ -271,6 +268,7 @@ router.post('/TradeA',(req, res, next) => {
             return ExecuteQuery(connectionQuery);
         })
         .then( rows => {
+            console.log('OrderFound rows : '+JSON.stringify(rows));
             if (rows[0].paid == 0) {
                 return res.json({success:false});
             }
