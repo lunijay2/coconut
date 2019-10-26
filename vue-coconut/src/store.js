@@ -519,10 +519,12 @@ export default new Vuex.Store({
                 var re01 = {
                     data : {
                         success : true,
-                        data : [{
-                            allowed : 1,
-                            disable : 0
-                        }]
+                        data : {
+                            result : [{
+                                allowed : 1,
+                                disable : 0
+                            }]
+                        }
                     }
                 };
                 return re01;
@@ -539,7 +541,13 @@ export default new Vuex.Store({
             } else {
                 var re02 = {
                     data : {
-                        success : false
+                        success : false,
+                        data : {
+                            result : [{
+                                allowed : 0,
+                                disable : 1
+                            }]
+                        }
                     }
                 };
                 return re02;

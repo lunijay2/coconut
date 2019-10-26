@@ -25,7 +25,7 @@
         <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/DetailOrder.vue">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="323">
-              <caret line="73" column="50" lean-forward="true" selection-start-line="73" selection-start-column="50" selection-end-line="73" selection-end-column="50" />
+              <caret line="73" column="50" selection-start-line="73" selection-start-column="50" selection-end-line="73" selection-end-column="50" />
               <folding>
                 <element signature="n#style#0;n#th#0;n#tr#0;n#thead#0;n#table#0;n#div#1;n#div#0;n#template#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#th#1;n#tr#0;n#thead#0;n#table#0;n#div#1;n#div#0;n#template#0;n#!!top" expanded="true" />
@@ -55,11 +55,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/ChoicePayType.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="228">
-              <caret line="138" column="50" lean-forward="true" selection-start-line="138" selection-start-column="50" selection-end-line="138" selection-end-column="50" />
+            <state relative-caret-position="380">
+              <caret line="140" column="46" lean-forward="true" selection-start-line="140" selection-start-column="46" selection-end-line="140" selection-end-column="46" />
               <folding>
                 <element signature="n#style#0;n#h5#0;n#div#1;n#div#0;n#div#0;n#div#1;n#div#0;n#template#0;n#!!top" expanded="true" />
               </folding>
@@ -67,11 +67,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/vue-coconut/src/store.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="212">
-              <caret line="520" column="38" lean-forward="true" selection-start-line="520" selection-start-column="38" selection-end-line="520" selection-end-column="38" />
+            <state relative-caret-position="535">
+              <caret line="546" column="44" lean-forward="true" selection-start-line="546" selection-start-column="44" selection-end-line="546" selection-end-column="44" />
               <folding>
                 <element signature="e#0#22#0" expanded="true" />
                 <element signature="e#263#289#0" expanded="true" />
@@ -402,21 +402,7 @@
       <workItem from="1571970458985" duration="4167000" />
       <workItem from="1572010730665" duration="601000" />
       <workItem from="1572071815966" duration="14048000" />
-      <workItem from="1572099252280" duration="7698000" />
-    </task>
-    <task id="LOCAL-00158" summary="191017v2">
-      <created>1571332564816</created>
-      <option name="number" value="00158" />
-      <option name="presentableId" value="LOCAL-00158" />
-      <option name="project" value="LOCAL" />
-      <updated>1571332564816</updated>
-    </task>
-    <task id="LOCAL-00159" summary="191017v2">
-      <created>1571335866981</created>
-      <option name="number" value="00159" />
-      <option name="presentableId" value="LOCAL-00159" />
-      <option name="project" value="LOCAL" />
-      <updated>1571335866981</updated>
+      <workItem from="1572099252280" duration="8338000" />
     </task>
     <task id="LOCAL-00160" summary="191018v1">
       <created>1571409758152</created>
@@ -747,11 +733,25 @@
       <option name="project" value="LOCAL" />
       <updated>1572109616256</updated>
     </task>
-    <option name="localTasksCounter" value="207" />
+    <task id="LOCAL-00207" summary="191027v1">
+      <created>1572109979000</created>
+      <option name="number" value="00207" />
+      <option name="presentableId" value="LOCAL-00207" />
+      <option name="project" value="LOCAL" />
+      <updated>1572109979000</updated>
+    </task>
+    <task id="LOCAL-00208" summary="191027v1">
+      <created>1572110319064</created>
+      <option name="number" value="00208" />
+      <option name="presentableId" value="LOCAL-00208" />
+      <option name="project" value="LOCAL" />
+      <updated>1572110319064</updated>
+    </task>
+    <option name="localTasksCounter" value="209" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="850954000" />
+    <option name="totallyTimeSpent" value="851594000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1196,7 +1196,7 @@
     <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/DetailOrder.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
-          <caret line="73" column="50" lean-forward="true" selection-start-line="73" selection-start-column="50" selection-end-line="73" selection-end-column="50" />
+          <caret line="73" column="50" selection-start-line="73" selection-start-column="50" selection-end-line="73" selection-end-column="50" />
           <folding>
             <element signature="n#style#0;n#th#0;n#tr#0;n#thead#0;n#table#0;n#div#1;n#div#0;n#template#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#th#1;n#tr#0;n#thead#0;n#table#0;n#div#1;n#div#0;n#template#0;n#!!top" expanded="true" />
@@ -1208,23 +1208,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vue-coconut/src/store.js">
+    <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/ChoicePayType.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="212">
-          <caret line="520" column="38" lean-forward="true" selection-start-line="520" selection-start-column="38" selection-end-line="520" selection-end-column="38" />
+        <state relative-caret-position="380">
+          <caret line="140" column="46" lean-forward="true" selection-start-line="140" selection-start-column="46" selection-end-line="140" selection-end-column="46" />
           <folding>
-            <element signature="e#0#22#0" expanded="true" />
-            <element signature="e#263#289#0" expanded="true" />
+            <element signature="n#style#0;n#h5#0;n#div#1;n#div#0;n#div#0;n#div#1;n#div#0;n#template#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/ChoicePayType.vue">
+    <entry file="file://$PROJECT_DIR$/vue-coconut/src/store.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="138" column="50" lean-forward="true" selection-start-line="138" selection-start-column="50" selection-end-line="138" selection-end-column="50" />
+        <state relative-caret-position="535">
+          <caret line="546" column="44" lean-forward="true" selection-start-line="546" selection-start-column="44" selection-end-line="546" selection-end-column="44" />
           <folding>
-            <element signature="n#style#0;n#h5#0;n#div#1;n#div#0;n#div#0;n#div#1;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="e#0#22#0" expanded="true" />
+            <element signature="e#263#289#0" expanded="true" />
           </folding>
         </state>
       </provider>
