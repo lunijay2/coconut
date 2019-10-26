@@ -214,7 +214,7 @@
             },
             ainterval : function() {
                 this.purchase1 = setInterval(() => {
-                    this.$store.dispatch('SecondGetOrder', this.pnum)
+                    this.$store.dispatch('SecondGetOrder', this.order)
                         .then( response => {
                             this.purchase = response.data.order[0].paid;
                             //console.log('this.purchase : '+JSON.stringify(this.purchase));
@@ -227,7 +227,7 @@
                 if (paid_request == 1) {
                     //console.log('paid 1');
                     clearInterval(this.purchase1);
-                    this.$router.replace({ path : '/PurchaseSuccess/'+this.pnum.orderno });
+                    this.$router.replace({ path : '/PurchaseSuccess/'+this.order.orderno });
                 } else {
                     //console.log('paid 0');
                 }
