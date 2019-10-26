@@ -319,7 +319,7 @@ router.post('/TradeA',(req, res, next) => {
                     verify2 = true;
                     console.log('Signature Verify2 : '+verify2);
                 }
-
+                
                 if( verify0==true && verify1==true && verify2==true) {
 
                     p = Request.order.product;

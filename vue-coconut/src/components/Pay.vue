@@ -211,7 +211,38 @@
                     .then(response => {
                         console.log(response);
                     })
-            }
+            },
+            ainterval : function() {
+                this.purchase1 = setInterval(() => {
+                    this.$store.dispatch('SecondGetOrder', this.pnum)
+                        .then( response => {
+                            this.purchase = response.data.order[0].paid;
+                            //console.log('this.purchase : '+JSON.stringify(this.purchase));
+
+                            return this.paid_check(this.purchase);
+                        })
+                }, 2000);
+            },
+            paid_check : function(paid_request) {
+                if (paid_request == 1) {
+                    //console.log('paid 1');
+                    clearInterval(this.purchase1);
+                    this.$router.replace({ path : '/PurchaseSuccess/'+this.pnum.orderno });
+                } else {
+                    //console.log('paid 0');
+                }
+            },
+            handler: function handler(event) {
+                clearInterval(this.purchase1);
+            },
+
+        },
+        beforeDestroy() {
+            console.log('beforeDestory');
+        },
+        destroyed() {
+            clearInterval(this.purchase1);
+            console.log('destroyed');
         },
         watch : {
             ordernumber : function (order) {
@@ -277,6 +308,14 @@
                             this.Products[i].oquantity *= 1; //스트링을 정수로 형변환
                             this.kind[1] = this.kind[1] + this.Products[i].oquantity;
                         }
+
+                        if ( this.order.paid == 0 ) {
+                            document.addEventListener('beforeunload', this.handler);
+                            this.ainterval();
+                        } else {
+                            alert('잘못된 요청입니다.');
+                            this.$router.replace({ path : '/' });
+                        }
                     })
                     .catch( err => {
                         console.log('주문내역 실패 : ' + err);
@@ -319,12 +358,12 @@
         }
 
         tr:nth-child(odd) {
-            background: #ccc;
+            background: #ffffff;
         }
 
         td {
             /* Behave  like a "row" */
-            border: none;
+            border: black;
             border-bottom: 1px solid #eee;
             position: relative;
             padding-left: 50%;
