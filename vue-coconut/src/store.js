@@ -517,7 +517,7 @@ export default new Vuex.Store({
             console.log('CertType : '+context.state.CertType);
             if (context.state.CertType === 'm') {
                 var re01 = {
-                    date : {
+                    data : {
                         success : true
                     }
                 };
