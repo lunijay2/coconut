@@ -260,7 +260,7 @@ router.post('/TradeA',(req, res, next) => {
     var p4;
     var p5;
 
-    var order_no01 = Request.orderno;
+    var order_no01 = Request.order_no;
     console.log('order_number01 : '+order_no01);
 
     OrderFoundQuery(order_no01)
