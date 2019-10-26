@@ -60,12 +60,22 @@
                         <h6 class="col-md-3">{{order.delivery_tel}}</h6>
                     </div>
                     <hr class="my-4">
-                    <div class="row">
+                    <div class="row" v-if="order.paid == 1">
                         <h6 class="col-md-1"></h6>
                         <h6 class="col-md-2"><strong>결제 시간</strong></h6>
                         <h6 class="col-md-3"></h6>
                         <h6 class="col-md-1"></h6>
                         <h6 class="col-md-4">{{date.getFullYear()}}-{{("0"+(date.getMonth()+1)).slice(-2)}}-{{("0"+(date.getDate()+1)).slice(-2)}} / {{("0"+(date.getHours()+1)).slice(-2)}}:{{("0"+(date.getMinutes()+1)).slice(-2)}}:{{("0"+(date.getSeconds()+1)).slice(-2)}}</h6>
+                        <h6 class="col-md-1"></h6>
+                    </div>
+                    <div class="row" v-if="order.paid == 0">
+                        <h6 class="col-md-1"></h6>
+                        <h6 class="col-md-2" style="color: crimson"><strong>결제 대기</strong></h6>
+                        <h6 class="col-md-3"></h6>
+                        <h6 class="col-md-1"></h6>
+                        <h6 class="col-md-4">
+                            <button @click="GoToTrade" type="button" class="btn btn-lg btn-primary btn-block">결제하기</button>
+                        </h6>
                         <h6 class="col-md-1"></h6>
                     </div>
                 </div>
@@ -210,7 +220,7 @@
                     return this.$store.dispatch('GetProductDetail2', pcode2);
                 })
                 .then(response => {
-                    console.log('product detail : ' + JSON.stringify(response.data));
+                    //console.log('product detail : ' + JSON.stringify(response.data));
                     let pp = response.data.result;
                     for (let i = 0; i < pp.length; i++) {
                         for (let j = 0; j < pp.length; j++) {
@@ -229,7 +239,7 @@
                     this.seller = response.data.result[0].seller;
                     this.imglnk();
                     //this.quantityAppend(response.data.result);
-                    console.log('product detail2 : ' + JSON.stringify(this.Products));
+                    //console.log('product detail2 : ' + JSON.stringify(this.Products));
 
                     if (this.user.number == this.order.orderer) {
                         this.allow = true;
@@ -325,6 +335,9 @@
                 });
         },
         methods : {
+            GoToTrade : function() {
+                this.$router.push({path: '/ChoicePayType/'+this.$route.params.order});
+            },
             Receiptcheck : function() {
                 if (this.receiptchecking == true) {
                     this.receiptchecking = false;

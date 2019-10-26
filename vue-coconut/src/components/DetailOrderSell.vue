@@ -60,12 +60,20 @@
                         <h6 class="col-md-3">{{order.delivery_tel}}</h6>
                     </div>
                     <hr class="my-4">
-                    <div class="row">
+                    <div class="row" v-if="order.paid == 1">
                         <h6 class="col-md-1"></h6>
                         <h6 class="col-md-2"><strong>결제 시간</strong></h6>
                         <h6 class="col-md-3"></h6>
                         <h6 class="col-md-1"></h6>
                         <h6 class="col-md-4">{{date.getFullYear()}}-{{("0"+(date.getMonth()+1)).slice(-2)}}-{{("0"+(date.getDate()+1)).slice(-2)}} / {{("0"+(date.getHours()+1)).slice(-2)}}:{{("0"+(date.getMinutes()+1)).slice(-2)}}:{{("0"+(date.getSeconds()+1)).slice(-2)}}</h6>
+                        <h6 class="col-md-1"></h6>
+                    </div>
+                    <div class="row" v-if="order.paid == 0">
+                        <h6 class="col-md-1"></h6>
+                        <h6 class="col-md-2" style="color: crimson"><strong>결제 대기</strong></h6>
+                        <h6 class="col-md-3"></h6>
+                        <h6 class="col-md-1"></h6>
+                        <h6 class="col-md-4"></h6>
                         <h6 class="col-md-1"></h6>
                     </div>
                 </div>
@@ -244,7 +252,7 @@
                     return this.$store.dispatch('MyGetProduct2', UserNumber);
                 })
                 .then(response => {
-                    console.log('My product : ' + JSON.stringify(response.data));
+                    //console.log('My product : ' + JSON.stringify(response.data));
                     let pp = response.data.Product;
                     console.log('pp : ' + JSON.stringify(pp)); //판매자의 상품들
 

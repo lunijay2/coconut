@@ -75,8 +75,8 @@
             this.$store.dispatch('GetProductDetail', product)
                 .then( response => {
                     //alert('성공 : '+JSON.stringify(response.data.user));
-                    console.log('성공');
-                    console.log('response : '+JSON.stringify(response));
+                    //console.log('성공');
+                    //console.log('response : '+JSON.stringify(response));
                     this.Products = response.data.result;
                     this.Product = this.Products[0];
 

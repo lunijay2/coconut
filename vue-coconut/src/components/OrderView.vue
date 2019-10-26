@@ -126,7 +126,7 @@
                             return this.$store.dispatch('GetProductDetail4', findproducts);
                         })
                         .then( response => {
-                            console.log('response 2 : '+JSON.stringify(response.data.result));
+                            //console.log('response 2 : '+JSON.stringify(response.data.result));
 
                             var p;
                             var p1;
