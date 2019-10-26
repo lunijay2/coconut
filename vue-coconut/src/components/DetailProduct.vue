@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="imageBox">
-                    <img v-bind:src="imageThumbnail" class="widthSet heightSet" />
+                    <img :src="imageBlob" class="widthSet heightSet" />
                 </div>
             </div>
             <div class="col-md-1">
@@ -65,6 +65,7 @@
                 Product : {},
                 imageThumbnail :'',
                 quantity : 1,
+                imageBlob : '',
             }
         },
         created() {
@@ -80,10 +81,62 @@
                     this.Product = this.Products[0];
 
                     //this.imageThumbnail = "http://localhost:3000\\img\\"+this.Product.thumbnail;
-                    this.imageThumbnail = "/img/"+this.Product.thumbnail;
+                    //this.imageThumbnail = "/img/"+this.Product.thumbnail;
+
+                    const contentType = 'image/png';
+                    /*
+
+                    const b64Data = '';
+                    const blob = new Blob(this.Products.image.data, {type: contentType});
+                    const blobUrl = URL.createObjectURL(blob);
+                    window.location = blobUrl;
+
+
+                    var blob = new Blob(this.Product.image, {type: contentType});
+                    // Define the FileReader which is able to read the contents of Blob
+                    var reader = new FileReader();
+
+                    // The magic always begins after the Blob is successfully loaded
+                    reader.onload = function () {
+                        // Since it contains the Data URI, we should remove the prefix and keep only Base64 string
+                        var b64 = reader.result.replace(/^data:.+;base64,/, '');
+                        console.log(b64); //-> "V2VsY29tZSB0byA8Yj5iYXNlNjQuZ3VydTwvYj4h"
+
+                        // Decode the Base64 string and show result just to make sure that everything is OK
+                        var html = atob(b64);
+                        console.log(html); //-> "Welcome to <b>base64.guru</b>!"
+                    };
+
+                    // Since everything is set up, let’s read the Blob and store the result as Data URI
+                    //this.imageBlob = reader.readAsDataURL(blob);
+
+                    var bytes = new Uint8Array(this.Products.image);
+                    var blob = new Blob([bytes], {type:'image/jpg'});
+                    var data01 =  URL.createObjectURL(blob);
+                    this.imageBlob = data01;
+                    */
+
+                    //this.imageBlob = this.Products.data.map(b => String.fromCharCode(b)).join('');
+                    //this.imageBlob = 'data:image/jpeg;base64,' + this.hexToBase64(this.Product.image.data);
+
+                    var bytes = new Uint8Array(this.Product.image.data);
+                    var blob = new Blob([bytes], {type:'image/png'});
+                    this.imageBlob = URL.createObjectURL(blob);
+
                 });
         },
+        computed : {
+            dataUrl(){
+                return 'data:image/jpeg;base64,' + btoa(
+                    new Uint8Array(this.Products.image)
+                        .reduce((data, byte) => data + String.fromCharCode(byte), '')
+                );
+            }
+        },
         methods : {
+            hexToBase64 : function(str) {
+                return btoa(String.fromCharCode.apply(null, str.replace(/\r|\n/g, "").replace(/([\da-fA-F]{2}) ?/g, "0x$1 ").replace(/ +$/, "").split(" ")));
+            },
             decreaseQuantity : function() {
                 if(this.quantity <= 1) {
                     this.quantity = 1;

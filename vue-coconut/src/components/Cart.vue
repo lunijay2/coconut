@@ -17,10 +17,14 @@
                 <tr>
                     <td>
                         <div class="media">
-                            <img v-bind:src='cart.thumbnail' class="align-self-start mr-3 widthSet heightSet" />
+                            <router-link :to="'/DetailProduct/'+cart.productcode" class="nav-link">
+                                <img :src="cart.imageBlob" class="align-self-start mr-3 widthSet heightSet" />
+                            </router-link>
+                            <!--
+                            <img v-bind:src='cart.thumbnail' class="align-self-start mr-3 widthSet heightSet" />-->
                             <div class="media-body">
                                 <h6 class="mt-0">
-                                    <router-link :to="'/DetailProduct/'+cart.productcode" class="nav-link">{{cart.productname}}</router-link>
+                                    <router-link :to="'/DetailProduct/'+cart.productcode" class="nav-link" style="color: black;">{{cart.productname}}</router-link>
                                 </h6>
                             </div>
                         </div>
@@ -99,7 +103,7 @@
                             return this.$store.dispatch('GetCart', UserNumber)
                         })
                         .then( response => {
-                            console.log('가지고 온거 : '+JSON.stringify(response.data.store));
+                            //console.log('가지고 온거 : '+JSON.stringify(response.data.store));
                             this.temp = response.data.store;
 
                             let pp = '';
@@ -121,10 +125,10 @@
                             }
                         })
                         .then( response => {
-                            console.log('res : '+JSON.stringify(response.data.result));
+                            //console.log('res : '+JSON.stringify(response.data.result));
                             this.imglnk(response.data.result);
                             this.carts = this.temp;
-                            console.log('carts : '+JSON.stringify(this.carts));
+                            //console.log('carts : '+JSON.stringify(this.carts));
                         });
                 }
             }
@@ -134,7 +138,10 @@
                 for (let i=0; i<this.temp.length; i++) {
                     for (let j=0; j<res.length; j++) {
                         if(this.temp[i].productname == res[j].productname) {
-                            this.temp[i].thumbnail = this.lnk+res[j].thumbnail;
+                            //this.temp[i].thumbnail = this.lnk+res[j].thumbnail;
+                            var bytes = new Uint8Array(res[j].image.data);
+                            var blob = new Blob([bytes], {type:'image/png'});
+                            this.temp[i].imageBlob = URL.createObjectURL(blob);
                         }
                         console.log(i +'+'+j);
                     }
@@ -179,10 +186,10 @@
 
 <style scoped>
     .widthSet {
-        max-width: 60px;
+        max-width: 40px;
     }
     .heightSet {
-        max-height: 60px;
+        max-height: 40px;
     }
 
     @media

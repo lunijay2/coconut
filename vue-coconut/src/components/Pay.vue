@@ -22,7 +22,9 @@
                         <tr>
                             <td>
                                 <div class="media">
-                                    <img v-bind:src="Pro.thumbnail" class="align-self-start mr-3 widthSet heightSet" />
+                                    <img :src="Pro.imageBlob" class="align-self-start mr-3 widthSet heightSet" />
+                                    <!--
+                                    <img v-bind:src="Pro.thumbnail" class="align-self-start mr-3 widthSet heightSet" />-->
                                     <div class="media-body">
                                         <h5 class="mt-0">{{Pro.productname}}</h5>
                                         <h6 class="text-muted">
@@ -103,7 +105,7 @@
                 ordernumber : '',
                 error : '',
                 //lnk : 'http://localhost:3000/img/',
-                lnk : "/img/"
+                //lnk : "/img/"
             }
         },
         methods: {
@@ -152,7 +154,10 @@
             },
             imglnk : function () {
                 for (var i=0; i<(this.Products.length); i++) {
-                    this.Products[i].thumbnail = this.lnk+this.Products[i].thumbnail;
+                    //this.Products[i].thumbnail = this.lnk+this.Products[i].thumbnail;
+                    var bytes = new Uint8Array(this.Products[i].image.data);
+                    var blob = new Blob([bytes], {type:'image/png'});
+                    this.Products[i].imageBlob = URL.createObjectURL(blob);
                 }
             },
             onResetSubmit : function() {

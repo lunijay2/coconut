@@ -6,7 +6,8 @@
             <a class="list-group-item list-group-item-action flex-column align-items-start" v-for="ppp in order.pp">
                 <div class="media d-flex w-100 justify-content-between">
                     <router-link :to="'/DetailProduct/'+order.procode" style="color: black" >
-                        <img v-bind:src="ppp.pthumbnail" class="align-self-start mr-3 widthSet heightSet" />
+                        <img :src="ppp.imageBlob" class="align-self-start mr-3 widthSet heightSet" />
+                        <!--<img v-bind:src="ppp.pthumbnail" class="align-self-start mr-3 widthSet heightSet" />-->
                     </router-link>
                     <div class="media-body">
                         <h5 class="mt-0"><router-link :to="'/DetailProduct/'+ppp.pcode" style="color: black" >{{ppp.pname}}</router-link>
@@ -59,7 +60,7 @@
                 pquan : [],
                 seller : '',
                 //lnk : 'http://localhost:3000/img/',
-                lnk : "/img/"
+                //lnk : "/img/"
             }
         },
         methods : {
@@ -197,6 +198,11 @@
                                         //console.log('2. this.temp2[' + q + '].productcode : ' + this.temp2[q].productcode);
                                         if (p2[f][0] == this.temp2[q].productcode) {
                                             //console.log("들어옴2");
+
+                                            var bytes = new Uint8Array(this.temp2[q].image.data);
+                                            var blob = new Blob([bytes], {type:'image/png'});
+                                            //this.Products[i].imageBlob = URL.createObjectURL(blob);
+
                                             let proArr = {
                                                 pcode : this.temp2[q].productcode,
                                                 pprice : this.temp2[q].price,
@@ -204,7 +210,8 @@
                                                 pdescription : this.temp2[q].description,
                                                 pcategory : this.temp2[q].category,
                                                 pname : this.temp2[q].productname,
-                                                pthumbnail : this.lnk + this.temp2[q].thumbnail,
+                                                //pthumbnail : this.lnk + this.temp2[q].thumbnail,
+                                                imageBlob : URL.createObjectURL(blob),
                                                 pquantity : p2[f][1]
                                             };
                                             //console.log("proArr : "+JSON.stringify(proArr));

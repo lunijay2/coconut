@@ -6,7 +6,8 @@
             <a class="list-group-item list-group-item-action flex-column align-items-start">
                 <div class="media d-flex w-100 justify-content-between">
                     <router-link :to="'/DetailProduct/'+order.procode" style="color: black" >
-                        <img v-bind:src="order.img" class="align-self-start mr-3 widthSet heightSet" />
+                        <img :src="order.imageBlob" class="align-self-start mr-3 widthSet heightSet" />
+                        <!--<img v-bind:src="order.img" class="align-self-start mr-3 widthSet heightSet" />-->
                     </router-link>
                     <div class="media-body">
                         <h5 class="mt-0"><router-link :to="'/DetailProduct/'+order.procode" style="color: black" >{{order.pro}}</router-link>
@@ -58,8 +59,8 @@
                     orderno : this.$route.params.order
                 },
                 seller : '',
-                //lnk : 'http://localhost:3000/img/',
-                lnk : "/img/"
+                lnk : 'http://localhost:3000/img/',
+                //lnk : "/img/"
             }
         },
         methods : {
@@ -147,21 +148,27 @@
                                 for (var l=0; l<response.data.result.length; l++){
                                         //console.log('2. p2[0][0] : '+p2[0][0]);
                                         //console.log('2. response.data.result['+l+'].productcode : '+response.data.result[l].productcode);
-                                        if (p2[0][0] == response.data.result[l].productcode) {
-                                            var qu = 0;
-                                            for (var m=0; m<p2.length; m++){
-                                                p2[m][1] *= 1;
-                                                qu += p2[m][1];
-                                                //console.log('qu : '+qu);
-                                            }
-                                            this.temp[i].kind = p1.length;
-                                            this.temp[i].qu = qu;
-                                            this.temp[i].pro = response.data.result[l].productname;
-                                            this.temp[i].procode = response.data.result[l].productcode;
-                                            this.temp[i].img = this.lnk+response.data.result[l].thumbnail;
-                                            //console.log('실행됨');
-                                            break;
+                                    if (p2[0][0] == response.data.result[l].productcode) {
+                                        var qu = 0;
+                                        for (var m=0; m<p2.length; m++){
+                                            p2[m][1] *= 1;
+                                            qu += p2[m][1];
+                                            //console.log('qu : '+qu);
                                         }
+                                        this.temp[i].kind = p1.length;
+                                        this.temp[i].qu = qu;
+                                        this.temp[i].pro = response.data.result[l].productname;
+                                        this.temp[i].procode = response.data.result[l].productcode;
+
+                                        //if (response.data.result[l].image != null) {
+                                            var bytes = new Uint8Array(response.data.result[l].image.data);
+                                            var blob = new Blob([bytes], {type:'image/png'});
+                                            this.temp[i].imageBlob = URL.createObjectURL(blob);
+                                        //}
+                                        this.temp[i].img = this.lnk+response.data.result[l].thumbnail;
+                                        //console.log('실행됨');
+                                        break;
+                                    }
                                 }
 
                             }

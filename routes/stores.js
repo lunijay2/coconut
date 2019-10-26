@@ -9,7 +9,42 @@ const bcrypt = require('bcryptjs');
 const forge = require('node-forge');
 const fs = require('fs');
 
+
+function getFilesizeInBytes(filename) {
+    const stats = fs.statSync(filename);
+    const fileSizeInBytes = stats.size;
+    return fileSizeInBytes;
+}
+
+function ExecuteQuery3(ConQue, Params) {     // Connection과 쿼리문을 받아와서 실행하는 Promise 함수
+    return new Promise( function (resolve, reject) {
+        ConQue.connection.query(ConQue.query, Params, function(err, rows, fields) {
+            if (!err) {
+                console.log("query3 실행 결과 : "+ JSON.stringify(rows));
+                resolve(rows);
+            } else {
+                console.log("query3 실행 err : "+err);
+                reject(err);
+            }
+            ConQue.connection.release();
+        });
+    });
+}
+
+function CreateStoreQuery(newStore, values) {     //유저 정보, 해쉬화된 비밀번호를 받아서 쿼리문을 작성하는 Promise 함수
+    return new Promise( function (resolve, reject) {
+        if(newStore) {
+            let statement = "INSERT INTO `product` (`user_number`, `seller`, `productname`, `price`, `allquantity`, `category`, `description`, `thumbnail`, `image`) VALUES ('" + newStore.number + "', '" + newStore.seller + "', '" + newStore.name + "', '" + newStore.price + "', '" + newStore.quantity + "', '" + newStore.category + "', '" + newStore.description + "', '" + newStore.thumbnail + "', " + values.file + ");";
+            resolve(statement);
+        } else {
+            console.log("CreateRegisterQuery err");
+            reject(err);
+        }
+    });
+}
+
 router.post('/newStore', (req, res, next) => {
+
     let newStore = {
         seller: req.body.seller,
         name: req.body.name,
@@ -21,31 +56,53 @@ router.post('/newStore', (req, res, next) => {
         thumbnail : req.body.image
     };
 
+    var values;
+    let statement;
+
     newStore.thumbnail = (newStore.thumbnail).replace(/"/g, "");
 
-    CreateStoreQuery(newStore)        // Salt값 생성 함수 호출
-        .then( function(query) {
-            console.log("query : " + query)// CreateQuery함수에서 쿼리문을 반환
-            return PoolGetConnection(query);    // PoolGetConnection에 쿼리문을 보냄
-                                                // 커넥션을 얻는데 쿼리문은 필요가 없지만 뒤에 사용될 함수가 커넥션을 사용하므로 다음 함수에 쿼리문을 전달하기 위해서 쿼리문을 보냄
-        })
-        .then(function (connectionQuery) { // PoolGetConnection에서 커넥션과 쿼리문을 받음
-            return ExecuteQuery(connectionQuery);   // ExecuteQuery함수에 커넥션과 쿼리문을 보냄
-        })
-        .then(function(rows) {  // ExecuteQuery가 쿼리문을 사용한 결과값을 받음
-            console.log("This Solutions is : " + JSON.stringify(rows));
-            return StoreComplete(res);    // RegComplete에 res를 보냄. res.json을 실행하기 위해서는 res값이 필요하기 때문에 res를 인자값으로 보냄
-        }, function(err) {  // ExecuteQuery가 쿼리문을 실행한 결과로 에러가 온 경우
-            console.log("err 1 : "+err);
-            return Rollback(connection); // 쿼리문 실행 중 에러가 나면 롤백을 실행해야 함
-        })
-        .then( function () {
-            return ReleaseConnection( connectionQuery.connection );   // 결과값이 어떻든 커넥션은 반환되어야 한다
-        })
-        .catch(function (err) { //마지막으로 에러를 캐치
-            console.log(err);
-            res.json({success: false, msg: 'Failed to register user'});
-        })
+    var fsString = './public/img/' + req.body.image;
+    fsString = (fsString).replace(/"/g, "");
+    console.log("fsString : "+fsString);
+
+
+    fs.open(fsString, 'r', function (status, fd) {
+        if (status) {
+            //console.log(status);
+            console.log(status.message);
+            return;
+        }
+        var fileSize = getFilesizeInBytes(fsString);
+        var buffer = new Buffer(fileSize);
+
+        fs.read(fd, buffer, 0, fileSize, 0, function (err, num) {
+
+            values = {
+                file_type: 'img',
+                file_size: buffer.length,
+                file: buffer
+            };
+
+            var statement = "INSERT INTO `product` (`user_number`, `seller`, `productname`, `price`, `allquantity`, `category`, `description`, `thumbnail`, `image`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) ";
+
+            var params = [newStore.number, newStore.seller, newStore.name, newStore.price, newStore.quantity, newStore.category, newStore.description, newStore.thumbnail, values.file];
+
+            PoolGetConnection(statement)
+                .then(function (connectionQuery) {
+                    return ExecuteQuery3(connectionQuery, params);
+                })
+                .then(function(rows) {  // ExecuteQuery가 쿼리문을 사용한 결과값을 받음
+                    console.log("This Solutions is : " + JSON.stringify(rows));
+                    return StoreComplete(res);    // RegComplete에 res를 보냄. res.json을 실행하기 위해서는 res값이 필요하기 때문에 res를 인자값으로 보냄
+                })
+                .catch(function (err) { //마지막으로 에러를 캐치
+                    console.log(err);
+                    res.json({success: false, msg: 'Failed to CreateStore'});
+                });
+
+        });
+    });
+
 });
 
 /*--------상품 보기 & 바로 구매-------*/
@@ -61,7 +118,7 @@ router.post('/GetProductDetail', (req, res, next) => {
             return ExecuteQuery(connectionQuery);
         })
         .then(function(rows) {  // ExecuteQuery가 쿼리문을 사용한 결과값을 받음
-            console.log("This Solutions is : " + JSON.stringify(rows));
+            //console.log("This Solutions is : " + JSON.stringify(rows));
             return Complete(res, rows);    // RegComplete에 res를 보냄. res.json을 실행하기 위해서는 res값이 필요하기 때문에 res를 인자값으로 보냄
         }, function(err) {  // ExecuteQuery가 쿼리문을 실행한 결과로 에러가 온 경우
             console.log("Query Excute err : "+err);
@@ -102,7 +159,7 @@ router.post('/GetProductDetail2', (req, res, next) => {
             return ExecuteQuery(connectionQuery);
         })
         .then(function(rows) {  // ExecuteQuery가 쿼리문을 사용한 결과값을 받음
-            console.log("This Solutions is : " + JSON.stringify(rows));
+            //console.log("This Solutions is : " + JSON.stringify(rows));
             return Complete(res, rows);    // RegComplete에 res를 보냄. res.json을 실행하기 위해서는 res값이 필요하기 때문에 res를 인자값으로 보냄
         }, function(err) {  // ExecuteQuery가 쿼리문을 실행한 결과로 에러가 온 경우
             console.log("Query Excute err : "+err);
@@ -134,7 +191,7 @@ router.post('/GetProductDetail3', (req, res, next) => {
             return ExecuteQuery(connectionQuery);
         })
         .then(function(rows) {  // ExecuteQuery가 쿼리문을 사용한 결과값을 받음
-            console.log("This Solutions is : " + JSON.stringify(rows));
+            //console.log("This Solutions is : " + JSON.stringify(rows));
             return Complete(res, rows);    // RegComplete에 res를 보냄. res.json을 실행하기 위해서는 res값이 필요하기 때문에 res를 인자값으로 보냄
         }, function(err) {  // ExecuteQuery가 쿼리문을 실행한 결과로 에러가 온 경우
             console.log("Query Excute err : "+err);
@@ -165,7 +222,7 @@ router.post('/GetProductDetail4', (req, res, next) => {
             return ExecuteQuery(connectionQuery);
         })
         .then(function(rows) {  // ExecuteQuery가 쿼리문을 사용한 결과값을 받음
-            console.log("This Solutions is : " + JSON.stringify(rows));
+            //console.log("This Solutions is : " + JSON.stringify(rows));
             return Complete(res, rows);    // RegComplete에 res를 보냄. res.json을 실행하기 위해서는 res값이 필요하기 때문에 res를 인자값으로 보냄
         }, function(err) {  // ExecuteQuery가 쿼리문을 실행한 결과로 에러가 온 경우
             console.log("Query Excute err : "+err);
@@ -216,7 +273,7 @@ router.post('/GetProductOder', (req, res, next) => {
             return ExecuteQuery(connectionQuery);
         })
         .then(function(rows) {  // ExecuteQuery가 쿼리문을 사용한 결과값을 받음
-            console.log("This Solutions is : " + JSON.stringify(rows));
+            //console.log("This Solutions is : " + JSON.stringify(rows));
             return Complete(res, rows);    // RegComplete에 res를 보냄. res.json을 실행하기 위해서는 res값이 필요하기 때문에 res를 인자값으로 보냄
         }, function(err) {  // ExecuteQuery가 쿼리문을 실행한 결과로 에러가 온 경우
             console.log("Query Excute err : "+err);
@@ -254,7 +311,7 @@ router.post('/Product', (req, res, next) => {
             return ExecuteQuery(connectionQuery);
         })
         .then(function(rows) {  // ExecuteQuery가 쿼리문을 사용한 결과값을 받음
-            console.log("This Solutions is : " + JSON.stringify(rows));
+            //console.log("This Solutions is : " + JSON.stringify(rows));
             return GetProductComplete(res, rows);    // RegComplete에 res를 보냄. res.json을 실행하기 위해서는 res값이 필요하기 때문에 res를 인자값으로 보냄
         }, function(err) {  // ExecuteQuery가 쿼리문을 실행한 결과로 에러가 온 경우
             console.log("Query Excute err : "+err);
@@ -282,7 +339,7 @@ router.post('/Store', (req, res, next) => {
             return ExecuteQuery(connectionQuery);
         })
         .then(function(rows) {  // ExecuteQuery가 쿼리문을 사용한 결과값을 받음
-            console.log("This Solutions is : " + JSON.stringify(rows));
+            //console.log("This Solutions is : " + JSON.stringify(rows));
             return GetStoreComplete(res, rows);    // RegComplete에 res를 보냄. res.json을 실행하기 위해서는 res값이 필요하기 때문에 res를 인자값으로 보냄
         }, function(err) {  // ExecuteQuery가 쿼리문을 실행한 결과로 에러가 온 경우
             console.log("Query Excute err : "+err);
@@ -312,7 +369,7 @@ router.post('/FoundEnt', (req, res, next) => {
             return ExecuteQuery(connectionQuery);
         })
         .then(function(rows) {  // ExecuteQuery가 쿼리문을 사용한 결과값을 받음
-            console.log("This Solutions is : " + JSON.stringify(rows[0]));
+            //console.log("This Solutions is : " + JSON.stringify(rows[0]));
             return GetStoreComplete(res, rows[0]);    // RegComplete에 res를 보냄. res.json을 실행하기 위해서는 res값이 필요하기 때문에 res를 인자값으로 보냄
         }, function(err) {  // ExecuteQuery가 쿼리문을 실행한 결과로 에러가 온 경우
             console.log("Query Excute err : "+err);
@@ -344,7 +401,7 @@ router.post('/FindProduct', (req, res, next) => {
             return ExecuteQuery(connectionQuery);
         })
         .then(function(rows) {  // ExecuteQuery가 쿼리문을 사용한 결과값을 받음
-            console.log("This Solutions is : " + JSON.stringify(rows));
+            //console.log("This Solutions is : " + JSON.stringify(rows));
             return GetProductComplete(res, rows);    // RegComplete에 res를 보냄. res.json을 실행하기 위해서는 res값이 필요하기 때문에 res를 인자값으로 보냄
         }, function(err) {  // ExecuteQuery가 쿼리문을 실행한 결과로 에러가 온 경우
             console.log("Query Excute err : "+err);
@@ -376,7 +433,7 @@ router.post('/FindCategory', (req, res, next) => {
             return ExecuteQuery(connectionQuery);
         })
         .then(function(rows) {  // ExecuteQuery가 쿼리문을 사용한 결과값을 받음
-            console.log("This Solutions is : " + JSON.stringify(rows));
+            //console.log("This Solutions is : " + JSON.stringify(rows));
             return GetProductComplete(res, rows);    // RegComplete에 res를 보냄. res.json을 실행하기 위해서는 res값이 필요하기 때문에 res를 인자값으로 보냄
         }, function(err) {  // ExecuteQuery가 쿼리문을 실행한 결과로 에러가 온 경우
             return Rollback(connection); // 쿼리문 실행 중 에러가 나면 롤백을 실행해야 함
@@ -408,7 +465,7 @@ router.post('/MyProduct', (req, res, next) => {
             return ExecuteQuery(connectionQuery);
         })
         .then(function(rows) {  // ExecuteQuery가 쿼리문을 사용한 결과값을 받음
-            console.log("This Solutions is : " + JSON.stringify(rows));
+            //console.log("This Solutions is : " + JSON.stringify(rows));
             return GetProductComplete(res, rows);    // RegComplete에 res를 보냄. res.json을 실행하기 위해서는 res값이 필요하기 때문에 res를 인자값으로 보냄
         }, function(err) {  // ExecuteQuery가 쿼리문을 실행한 결과로 에러가 온 경우
             console.log("나누기 1 err : "+err);
@@ -448,7 +505,7 @@ router.post('/MyProduct2', (req, res, next) => {
             return ExecuteQuery(connectionQuery);
         })
         .then(function(rows) {  // ExecuteQuery가 쿼리문을 사용한 결과값을 받음
-            console.log("This Solutions is : " + JSON.stringify(rows));
+            //console.log("This Solutions is : " + JSON.stringify(rows));
             return GetProductComplete(res, rows);    // RegComplete에 res를 보냄. res.json을 실행하기 위해서는 res값이 필요하기 때문에 res를 인자값으로 보냄
         }, function(err) {  // ExecuteQuery가 쿼리문을 실행한 결과로 에러가 온 경우
             console.log("나누기 1 err : "+err);
@@ -487,7 +544,7 @@ router.post('/GetCart', (req, res, next) => {
             return ExecuteQuery(connectionQuery);
         })
         .then(function(rows) {  // ExecuteQuery가 쿼리문을 사용한 결과값을 받음
-            console.log("This Solutions is : " + JSON.stringify(rows));
+            //console.log("This Solutions is : " + JSON.stringify(rows));
             return GetStoreComplete(res, rows);    // RegComplete에 res를 보냄. res.json을 실행하기 위해서는 res값이 필요하기 때문에 res를 인자값으로 보냄
         }, function(err) {  // ExecuteQuery가 쿼리문을 실행한 결과로 에러가 온 경우
             console.log("나누기 1 err : "+err);
@@ -575,18 +632,6 @@ function CreateFindProductQuery(store) {
     });
 }
 
-function CreateStoreQuery(newStore) {     //유저 정보, 해쉬화된 비밀번호를 받아서 쿼리문을 작성하는 Promise 함수
-    return new Promise( function (resolve, reject) {
-        if(newStore) {
-            let statement = "INSERT INTO product (user_number, seller, productname, price, allquantity, category, description, thumbnail) VALUES ('" + newStore.number + "', '" + newStore.seller + "', '" + newStore.name + "', '" + newStore.price + "', '" + newStore.quantity + "', '" + newStore.category + "', '" + newStore.description + "', '" + newStore.thumbnail + "');";
-            resolve(statement);
-        } else {
-            console.log("CreateRegisterQuery err : "+err);
-            reject(err);
-        }
-    });
-}
-
 function PoolGetConnection(query) {     //Pool에서 Connection을 가져오는 Promise 함수
     return new Promise( function (resolve, reject) {
         console.log("PoolGetConnection 1");
@@ -610,7 +655,7 @@ function ExecuteQuery(ConQue) {     // Connection과 쿼리문을 받아와서 �
     return new Promise( function (resolve, reject) {
         ConQue.connection.query(ConQue.query, function(err, rows, fields) {
             if (!err) {
-                console.log("ExecuteQuery : "+ JSON.stringify(rows));
+                //console.log("ExecuteQuery : "+ JSON.stringify(rows));
                 resolve(rows);
             } else {
                 console.log("ExecuteQuery err : "+err);

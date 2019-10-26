@@ -18,7 +18,8 @@
                 <tr v-if="Pro.seller == Store.company">
                     <td>
                         <div class="media">
-                            <img v-bind:src="Pro.thumbnail" class="align-self-start mr-3 widthSet heightSet" />
+                            <img :src="Pro.imageBlob" class="align-self-start mr-3 widthSet heightSet" />
+                            <!--<img v-bind:src="Pro.thumbnail" class="align-self-start mr-3 widthSet heightSet" />-->
                             <div class="media-body">
                                 <h5 class="mt-0">{{Pro.productname}}</h5>
                                 <h6 class="text-muted">
@@ -191,7 +192,7 @@
                 },
                 date : '',
                 //lnk : 'http://localhost:3000/img/',
-                lnk : "/img/"
+                //lnk : "/img/"
             }
         },
         created() {
@@ -268,6 +269,11 @@
                     for (var j=0; j<this.pquan.length; j++){
                         for (var k=0; k<pp.length; k++) {
                             if (this.pquan[j][0] == pp[k].productcode) {
+
+                                var bytes = new Uint8Array(pp[k].image.data);
+                                var blob = new Blob([bytes], {type:'image/png'});
+                                //this.Products[i].imageBlob = URL.createObjectURL(blob);
+
                                 ppp.push({
                                     productcode : pp[k].productcode,
                                     productname : pp[k].productname,
@@ -275,7 +281,8 @@
                                     category : pp[k].category,
                                     price : pp[k].price,
                                     seller : pp[k].seller,
-                                    thumbnail : this.lnk + pp[k].thumbnail,
+                                    //thumbnail : this.lnk + pp[k].thumbnail,
+                                    imageBlob : URL.createObjectURL(blob),
                                     quantity : this.pquan[j][1] *= 1,
                                     receipt : null
                                 })
