@@ -74,7 +74,7 @@
                         <h6 class="col-md-3"></h6>
                         <h6 class="col-md-1"></h6>
                         <h6 class="col-md-4">
-                            <button @click="GoToTrade" type="button" class="btn btn-lg btn-primary btn-block">결제하기</button>
+                            <button @click="GoToTrade" type="button" class="btn btn-primary btn-block">결제하기</button>
                         </h6>
                         <h6 class="col-md-1"></h6>
                     </div>
