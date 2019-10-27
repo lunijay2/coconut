@@ -525,7 +525,7 @@ router.post('/MyProduct2', (req, res, next) => {
 
 function MyCreateProductFoundQuery2(number) {
     return new Promise( function (resolve) {
-        let statement = "SELECT productcode, productname, description, category, user_number, seller, price, thumbnail FROM product where user_number='"+number+"';";
+        let statement = "SELECT productcode, productname, description, category, user_number, seller, price, thumbnail, image FROM product where user_number='"+number+"';";
         console.log("CreateStoreFoundQuery : "+statement);
         resolve(statement);
     });
