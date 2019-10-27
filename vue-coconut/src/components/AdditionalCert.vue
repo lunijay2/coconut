@@ -90,6 +90,14 @@
                     console.log('토큰검증 성공');
                     this.user = response.data.user;
 
+                    this.$store.commit("GET_CERTTYPE", this.user);
+                    //console.log('CertType : '+this.$store.state.CertType);
+                    if (this.$store.state.CertType == 'm') {
+                        console.log('m');
+                        alert('마스터 인증서를 소유한 기기에서 추가 인증서를 발급받을 수 없습니다.');
+                        this.$router.replace({path : '/CertificationCenter'});
+                    }
+
                     return this.$store.dispatch('AddCertAllowCheck', this.user);
                 }, err => {
                     console.log('검증 실패' + err);

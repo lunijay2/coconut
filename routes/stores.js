@@ -388,6 +388,64 @@ router.post('/FoundEnt', (req, res, next) => {
 });
 
 
+router.post('/FoundEntOther', (req, res, next) => {
+
+    const number = req.body.number;
+
+    CreateFoundEntOtherQuery(number)
+        .then( query => {
+            return PoolGetConnection(query);
+        })
+        .then(connectionQuery => {
+            return ExecuteQuery2(connectionQuery);
+        })
+        .then(function(rows) {  // ExecuteQuery가 쿼리문을 사용한 결과값을 받음
+            //console.log("This Solutions is : " + JSON.stringify(rows[0]));
+            return GetStoreComplete(res, rows);    // RegComplete에 res를 보냄. res.json을 실행하기 위해서는 res값이 필요하기 때문에 res를 인자값으로 보냄
+        })
+        .catch( function (err) {    // 전체적으로 에러를 캐치한다
+            console.log("Catch 1 err : "+err);
+            res.json({success: false, msg: 'Failed to FoundEntOther'}); // 에러 캐치시 false반환
+        });
+});
+
+function CreateFoundEntOtherQuery(number) {
+    return new Promise( function (resolve) {
+        let statement = new Array;
+        statement.push("SELECT crn, company FROM ent WHERE number = " + number + ";");
+        statement.push("SELECT name, tel, addr FROM user WHERE number = " + number + ";");
+        console.log("CreateFoundEntOtherQuery : "+statement);
+        resolve(statement);
+    });
+}
+
+function ExecuteQuery2(ConQue) {     // Connection과 쿼리문을 받아와서 실행하는 Promise 함수
+    return new Promise( function (resolve, reject) {
+        let aaa = new Array;
+        console.log("ConQue : "+ConQue.query.length);
+        let bbb = ConQue.query.length - 1;
+        console.log('bbb : '+bbb);
+        for (var i=0; i<(ConQue.query.length); i++) {
+            ConQue.connection.query(ConQue.query[i], function(err, rows, fields) {
+                if (!err) {
+                    //console.log("query 실행 결과 : "+ JSON.stringify(rows));
+                    aaa.push(rows);
+                    console.log("query 실행 중 : " + JSON.stringify(aaa));
+                    console.log('i : '+i);
+                    if (i === aaa.length ) {
+                        console.log("query 실행 끝 : " + JSON.stringify(aaa));
+                        resolve(aaa);
+                        ConQue.connection.release();
+                    }
+                } else {
+                    console.log("query 실행 err : "+err);
+                    reject(err);
+                }
+            });
+        }
+    });
+}
+
 router.post('/FindProduct', (req, res, next) => {
 
     const store = req.body.store;

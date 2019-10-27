@@ -108,11 +108,11 @@
                             <br>
                             <h3 class="align-center">영수증</h3>
                             <br>
-                            <h5>주  소 :  {{user.addr}}</h5>
-                            <h5>대표자 :  {{user.name}}</h5>
-                            <h5>전화번호 : {{user.tel}}</h5>
+                            <h5>주  소 :  {{receiptSeller.addr}}</h5>
+                            <h5>대표자 :  {{receiptSeller.name}}</h5>
+                            <h5>전화번호 : {{receiptSeller.tel}}</h5>
                             <h5>매출일 : {{date.getFullYear()}}-{{("0"+(date.getMonth()+1)).slice(-2)}}-{{("0"+(date.getDate()+1)).slice(-2)}} / {{("0"+(date.getHours()+1)).slice(-2)}}:{{("0"+(date.getMinutes()+1)).slice(-2)}}:{{("0"+(date.getSeconds()+1)).slice(-2)}}</h5>
-                            <h5>번  호 : {{order.order_no}}</h5>
+                            <h5>주문번호 : {{order.order_no}}</h5>
                             <br>
                             <table class="table">
                                 <thead>
@@ -142,8 +142,9 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <h6 class="col-md-3"><strong>영수증 서명값</strong></h6>
-                                        <h6 class="col-md-6">{{reSign}}</h6>
+                                        <h6 class="col-md-5">{{reSign}}</h6>
                                         <h6 class="col-md-3"><button @click="receiptcheckSubmit" type="button" class="btn btn-primary col-md-12">영수증 서명 확인</button></h6>
+                                        <h2 v-if="receiptValidate == true" style="color:green;" class="col-md-1">✔</h2>
                                     </div>
                                 </div>
                             </div>
@@ -184,6 +185,8 @@
                 ordernumber : {
                     orderno : this.$route.params.order
                 },
+                receiptSeller : {},
+                receiptValidate : false,
                 //lnk : 'http://localhost:3000/img/',
                 //lnk : "/img/"
             }
@@ -328,6 +331,18 @@
 
                     console.log('this.receiptSign:'+JSON.stringify(this.receiptSign));
 
+
+                    var othernumber = {
+                        number : this.Products[0].user_number
+                    };
+
+                    this.$store.dispatch('FoundEntOther', othernumber)
+                        .then( response01 => {
+                            console.log('response01 : '+JSON.stringify(response01));
+
+                            this.receiptSeller = response01.data.store[1][0];
+                            console.log('receiptSeller : '+JSON.stringify(this.receiptSeller));
+                        });
                 })
                 .catch(err => {
                     alert('잘못된 요청입니다. : '+err);
@@ -372,7 +387,8 @@
                 this.$store.dispatch('ReceiptValidateRequest', receiptR)
                     .then( response => {
                         console.log('영수증 검증 : '+JSON.stringify(response));
-                        alert('검증 완료 완료');
+                        alert('영수증 검증 완료');
+                        this.receiptValidate = true;
                         console.log('ReceiptValidate Request Success : '+JSON.stringify(response));
                     }).catch( err => {
                     console.log('ReceiptValidate Request Err : '+ err);

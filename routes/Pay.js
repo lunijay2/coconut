@@ -983,6 +983,7 @@ router.post('/ReceiptValidate',(req, res, next) => {
             console.log('rows1');
 
             return ReceiptValidateQuery(rows[0].seller);
+            // 여기서 seller 는 id가 아님. 고쳐야함
         })
         .then( query => {
             return PoolGetConnection(query);

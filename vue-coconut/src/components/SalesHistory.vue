@@ -70,8 +70,8 @@
                 if ( category == 'sales') {
                     this.$store.dispatch('GetProfile')
                         .then( response => {
-                            console.log('토큰검증 성공');
-                            console.log('profile : '+JSON.stringify(response));
+                            //console.log('토큰검증 성공');
+                            //console.log('profile : '+JSON.stringify(response));
                             let UserNumber = {
                                 number : response.data.user.number
                             };
@@ -80,7 +80,7 @@
                             return this.$store.dispatch('MyGetProduct2', UserNumber);
                         })
                         .then( response => {
-                            console.log('response 1 : '+JSON.stringify(response));
+                            //console.log('response 1 : '+JSON.stringify(response));
 
                             let aaa = {
                                 products : []
@@ -90,7 +90,7 @@
                                 aaa.products.push(response.data.Product[i].productcode);
                             }
 
-                            console.log('aaa.products : '+aaa.products);
+                            //console.log('aaa.products : '+aaa.products);
 
                             this.temp2 = response.data.Product;
 
@@ -111,7 +111,7 @@
                             return this.$store.dispatch('GetOrder_4', aaa);
                         })
                         .then( response => {
-                            console.log('response 2 : '+JSON.stringify(response));
+                            //console.log('response 2 : '+JSON.stringify(response));
                             let myProduct = response.data.Product;
 
                             //console.log("all : "+JSON.stringify(response.data.order));
@@ -129,7 +129,7 @@
                                 }
                             }
 
-                            console.log('arr : '+JSON.stringify(arr));
+                            //console.log('arr : '+JSON.stringify(arr));
 
                             var sortingField = "order_no";
 
@@ -170,7 +170,7 @@
                             }
                              */
 
-                            console.log('uniq : '+JSON.stringify(uniq));
+                            //console.log('uniq : '+JSON.stringify(uniq));
                             this.temp = uniq;
 
                             var p;
@@ -178,27 +178,27 @@
                             var p2;
                             var p3;
 
-                            console.log('temp length : '+this.temp.length);
+                            //console.log('temp length : '+this.temp.length);
                             for (let z=0; z<this.temp.length; z++) {
                                 this.temp[z].pp = [];
                                 p = this.temp[z].product;
                                 p1 = new Array;
                                 p2 = new Array;
                                 p1 = p.split(',');
-                                console.log('p : ' + p);
-                                console.log('p1 : ' + p1.length);
+                                //console.log('p : ' + p);
+                                //console.log('p1 : ' + p1.length);
                                 for (let x = 0; x < p1.length; x++) {
                                     p2.push(p1[x].split('/'));
                                 }
-                                console.log('1. p2 : ' + JSON.stringify(p2));
+                                //console.log('1. p2 : ' + JSON.stringify(p2));
 
                                 for (let f=0; f<p2.length; f++) {
-                                    console.log("f 반복문 f : "+f);
+                                    //console.log("f 반복문 f : "+f);
                                     for (let q=0; q<this.temp2.length; q++){
-                                        console.log('2. p2['+f+'][0] : ' + p2[f][0]);
-                                        console.log('2. this.temp2[' + q + '].productcode : ' + this.temp2[q].productcode);
+                                        //console.log('2. p2['+f+'][0] : ' + p2[f][0]);
+                                        //console.log('2. this.temp2[' + q + '].productcode : ' + this.temp2[q].productcode);
                                         if (p2[f][0] == this.temp2[q].productcode) {
-                                            console.log("들어옴2");
+                                            //console.log("들어옴2");
 
                                             var bytes = new Uint8Array(this.temp2[q].image.data);
                                             var blob = new Blob([bytes], {type:'image/png'});
@@ -215,12 +215,12 @@
                                                 imageBlob : URL.createObjectURL(blob),
                                                 pquantity : p2[f][1]
                                             };
-                                            console.log("proArr : "+JSON.stringify(proArr));
+                                            //console.log("proArr : "+JSON.stringify(proArr));
                                             this.temp[z].pp.push(proArr);
-                                            console.log("this.temp : "+JSON.stringify(this.temp));
+                                            //console.log("this.temp : "+JSON.stringify(this.temp));
                                             break;
                                         } else {
-                                            console.log("못들어옴2");
+                                            //console.log("못들어옴2");
                                         }
                                     }
                                 }
