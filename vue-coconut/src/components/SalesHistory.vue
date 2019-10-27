@@ -71,6 +71,7 @@
                     this.$store.dispatch('GetProfile')
                         .then( response => {
                             console.log('토큰검증 성공');
+                            console.log('profile : '+JSON.stringify(response));
                             let UserNumber = {
                                 number : response.data.user.number
                             };
