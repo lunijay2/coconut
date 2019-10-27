@@ -178,27 +178,27 @@
                             var p2;
                             var p3;
 
-                            //console.log('temp length : '+this.temp.length);
+                            console.log('temp length : '+this.temp.length);
                             for (let z=0; z<this.temp.length; z++) {
                                 this.temp[z].pp = [];
                                 p = this.temp[z].product;
                                 p1 = new Array;
                                 p2 = new Array;
                                 p1 = p.split(',');
-                                //console.log('p : ' + p);
-                                //console.log('p1 : ' + p1.length);
+                                console.log('p : ' + p);
+                                console.log('p1 : ' + p1.length);
                                 for (let x = 0; x < p1.length; x++) {
                                     p2.push(p1[x].split('/'));
                                 }
-                                //console.log('1. p2 : ' + JSON.stringify(p2));
+                                console.log('1. p2 : ' + JSON.stringify(p2));
 
                                 for (let f=0; f<p2.length; f++) {
-                                    //console.log("f 반복문 f : "+f);
+                                    console.log("f 반복문 f : "+f);
                                     for (let q=0; q<this.temp2.length; q++){
-                                        //console.log('2. p2['+f+'][0] : ' + p2[f][0]);
-                                        //console.log('2. this.temp2[' + q + '].productcode : ' + this.temp2[q].productcode);
+                                        console.log('2. p2['+f+'][0] : ' + p2[f][0]);
+                                        console.log('2. this.temp2[' + q + '].productcode : ' + this.temp2[q].productcode);
                                         if (p2[f][0] == this.temp2[q].productcode) {
-                                            //console.log("들어옴2");
+                                            console.log("들어옴2");
 
                                             var bytes = new Uint8Array(this.temp2[q].image.data);
                                             var blob = new Blob([bytes], {type:'image/png'});
@@ -220,7 +220,7 @@
                                             console.log("this.temp : "+JSON.stringify(this.temp));
                                             break;
                                         } else {
-                                            //console.log("못들어옴2");
+                                            console.log("못들어옴2");
                                         }
                                     }
                                 }
