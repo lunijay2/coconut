@@ -144,20 +144,20 @@
                                     deviceId : this.deviceId
                                 };
                                 this.$store.dispatch('storeACert', re);
-                                alert('Cert Request Success');
+                                alert('추가 인증서 발급 신청 완료');
                                 console.log('Cert Request Success');
                                 this.$router.replace({path : '/CertificationCenter'});
                             } else {
                                 this.$store.dispatch('deletePem', certVal);
                                 console.log('Cert Request Failure');
-                                alert('Cert Request Failure');
+                                alert('추가 인증서 발급 신청 실패');
                             }
                         }).catch( err => {
                         console.log('Cert Request Err : '+ err);
                     });
                 }
                 else {
-                    alert('인증서 비밀번호를 확인해주세요');
+                    alert('추가 인증서 비밀번호를 확인해주세요');
                 }
             },
             AddCertIssue : function () {

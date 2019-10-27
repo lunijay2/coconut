@@ -79,7 +79,7 @@
                             return this.$store.dispatch('MyGetProduct2', UserNumber);
                         })
                         .then( response => {
-                            //console.log('response 1 : '+JSON.stringify(response));
+                            console.log('response 1 : '+JSON.stringify(response));
 
                             let aaa = {
                                 products : []
@@ -89,7 +89,7 @@
                                 aaa.products.push(response.data.Product[i].productcode);
                             }
 
-                            //console.log('aaa.products : '+aaa.products);
+                            console.log('aaa.products : '+aaa.products);
 
                             this.temp2 = response.data.Product;
 
@@ -110,8 +110,8 @@
                             return this.$store.dispatch('GetOrder_4', aaa);
                         })
                         .then( response => {
-                            //console.log('response 2 : '+JSON.stringify(response));
-                            //let myProduct = response.data.Product;
+                            console.log('response 2 : '+JSON.stringify(response));
+                            let myProduct = response.data.Product;
 
                             //console.log("all : "+JSON.stringify(response.data.order));
                             //console.log("[0] : "+JSON.stringify(response.data.order[0]));
@@ -128,7 +128,7 @@
                                 }
                             }
 
-                            //console.log('arr : '+JSON.stringify(arr));
+                            console.log('arr : '+JSON.stringify(arr));
 
                             var sortingField = "order_no";
 
@@ -169,7 +169,7 @@
                             }
                              */
 
-                            //console.log('uniq : '+JSON.stringify(uniq));
+                            console.log('uniq : '+JSON.stringify(uniq));
                             this.temp = uniq;
 
                             var p;
@@ -214,9 +214,9 @@
                                                 imageBlob : URL.createObjectURL(blob),
                                                 pquantity : p2[f][1]
                                             };
-                                            //console.log("proArr : "+JSON.stringify(proArr));
+                                            console.log("proArr : "+JSON.stringify(proArr));
                                             this.temp[z].pp.push(proArr);
-                                            //console.log("this.temp : "+JSON.stringify(this.temp));
+                                            console.log("this.temp : "+JSON.stringify(this.temp));
                                             break;
                                         } else {
                                             //console.log("못들어옴2");

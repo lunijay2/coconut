@@ -87,13 +87,13 @@
                                     id : this.user.id
                                 };
                                 this.$store.dispatch('storeMCert', re);
-                                alert('Cert Request Success');
+                                alert('마스터 인증서 발급 완료');
                                 console.log('Cert Request Success');
                                 this.$router.replace({path : '/CertificationCenter'});
                             } else {
                                 this.$store.dispatch('deletePem', certR);
                                 console.log('Cert Request Failure');
-                                alert('Cert Request Failure');
+                                alert('마스터 인증서 발급에 실패했습니다');
                             }
                         }).catch( err => {
                         console.log('Cert Request Err : '+ err);

@@ -379,7 +379,7 @@ router.post('/TradeA',(req, res, next) => {
             return ExecuteQuery2(connectionQuery);
         })
         .then( rows => {
-            console.log("rows : "+JSON.stringify(rows));
+            //console.log("rows : "+JSON.stringify(rows));
 
             let statement = new Array;
             for (var i=0; i<p3.length; i++){
@@ -395,7 +395,7 @@ router.post('/TradeA',(req, res, next) => {
         })
         .then( rows => {
             // 2. 판매자한테는 돈 넣고
-            console.log("rows : "+JSON.stringify(rows));
+            //console.log("rows : "+JSON.stringify(rows));
             //console.log("rows user_number 0 : "+JSON.stringify(rows[0][0].user_number));
             //console.log("rows user_number 1 : "+JSON.stringify(rows[1][0].user_number));
 
@@ -419,7 +419,7 @@ router.post('/TradeA',(req, res, next) => {
         })
         .then( rows => {
             // 3. 구매자한테서 돈 빼고
-            console.log('rows : '+JSON.stringify(rows));
+            //console.log('rows : '+JSON.stringify(rows));
 
             let statement = new Array;
             statement.push("UPDATE user SET money=money-"+ Request.order.price +" WHERE id='"+ Request.id +"';");
@@ -432,7 +432,7 @@ router.post('/TradeA',(req, res, next) => {
         })
         .then( rows => {
             // 4. 주문정보 테이블에 결제 정보 업데이트
-            console.log('rows : '+JSON.stringify(rows));
+            //console.log('rows : '+JSON.stringify(rows));
 
             var time = new Date().getTime();
 
@@ -447,7 +447,7 @@ router.post('/TradeA',(req, res, next) => {
             return ExecuteQuery2(connectionQuery);
         })
         .then( rows => {
-            console.log("rows : "+JSON.stringify(rows));
+            //console.log("rows : "+JSON.stringify(rows));
 
             let statement = new Array;
             statement.push("SELECT * FROM user WHERE number='"+ Request.order.orderer +"';");
@@ -460,7 +460,7 @@ router.post('/TradeA',(req, res, next) => {
         })
         .then( rows => {
             // 5. 장바구니에서 삭제
-            console.log("rows : "+JSON.stringify(rows));
+            //console.log("rows : "+JSON.stringify(rows));
 
             let statement = new Array;
             for (var i=0; i<p3.length; i++){
@@ -474,7 +474,7 @@ router.post('/TradeA',(req, res, next) => {
             return ExecuteQuery2(connectionQuery);
         })
         .then( rows => {
-            console.log("rows : "+JSON.stringify(rows));
+            //console.log("rows : "+JSON.stringify(rows));
             console.log("결제 성공");
             return res.json({success:true, order: Request.order_no });
         })
@@ -643,7 +643,7 @@ router.post('/Trade',(req, res, next) => {
             return ExecuteQuery2(connectionQuery);
         })
         .then( rows => {
-            console.log("rows : "+JSON.stringify(rows));
+            //console.log("rows : "+JSON.stringify(rows));
 
             let statement = new Array;
             for (var i=0; i<p3.length; i++){
@@ -659,7 +659,7 @@ router.post('/Trade',(req, res, next) => {
         })
         .then( rows => {
             // 2. 판매자한테는 돈 넣고
-            console.log("rows : "+JSON.stringify(rows));
+            //console.log("rows : "+JSON.stringify(rows));
             //console.log("rows user_number 0 : "+JSON.stringify(rows[0][0].user_number));
             //console.log("rows user_number 1 : "+JSON.stringify(rows[1][0].user_number));
 
@@ -696,7 +696,7 @@ router.post('/Trade',(req, res, next) => {
         })
         .then( rows => {
             // 4. 주문정보 테이블에 결제 정보 업데이트
-            console.log('rows : '+JSON.stringify(rows));
+            //console.log('rows : '+JSON.stringify(rows));
 
             var time = new Date().getTime();
 
@@ -711,7 +711,7 @@ router.post('/Trade',(req, res, next) => {
             return ExecuteQuery2(connectionQuery);
         })
         .then( rows => {
-            console.log("rows : "+JSON.stringify(rows));
+            //console.log("rows : "+JSON.stringify(rows));
 
             let statement = new Array;
             statement.push("SELECT * FROM user WHERE number='"+ Request.order.orderer +"';");
@@ -724,7 +724,7 @@ router.post('/Trade',(req, res, next) => {
         })
         .then( rows => {
             // 5. 장바구니에서 삭제
-            console.log("rows : "+JSON.stringify(rows));
+            //console.log("rows : "+JSON.stringify(rows));
 
             let statement = new Array;
             for (var i=0; i<p3.length; i++){
@@ -738,7 +738,7 @@ router.post('/Trade',(req, res, next) => {
             return ExecuteQuery2(connectionQuery);
         })
         .then( rows => {
-            console.log("rows : "+JSON.stringify(rows));
+            //console.log("rows : "+JSON.stringify(rows));
             console.log("결제 성공");
             return res.json({success:true, order: Request.order_no });
         })
@@ -778,7 +778,7 @@ function ExecuteQuery2(ConQue) {     // Connection과 쿼리문을 받아와서 
         for (var i=0; i<(ConQue.query.length); i++) {
             ConQue.connection.query(ConQue.query[i], function(err, rows, fields) {
                 if (!err) {
-                    console.log("query 실행 결과 : "+ JSON.stringify(rows));
+                    //console.log("query 실행 결과 : "+ JSON.stringify(rows));
                     aaa.push(rows);
                     console.log("query 실행 중 : " + JSON.stringify(aaa));
                     console.log('i : '+i);
@@ -884,7 +884,7 @@ router.post('/Receipt',(req, res, next) => {
                     console.log("서명 검증 완료");
 
                     //여기서 서명값 문자열 만들어서 쿼리 생성 후 실행
-                    console.log('Request : '+JSON.stringify(Request));
+                    //console.log('Request : '+JSON.stringify(Request));
 
                     let sig01 = '';
                     let statement = '';
@@ -926,7 +926,7 @@ router.post('/Receipt',(req, res, next) => {
             return ExecuteQuery3(connectionQuery, statementParams);
         })
         .then( rows => {
-            console.log("rows : "+JSON.stringify(rows));
+            //console.log("rows : "+JSON.stringify(rows));
             console.log("영수증 성공");
             return res.json({success:true, order: Request.order.order_no });
         })
@@ -979,7 +979,8 @@ router.post('/ReceiptValidate',(req, res, next) => {
             return ExecuteQuery(connectionQuery);
         })
         .then( rows => {
-            console.log('rows1 : '+JSON.stringify(rows));
+            //console.log('rows1 : '+JSON.stringify(rows));
+            console.log('rows1');
 
             return ReceiptValidateQuery(rows[0].seller);
         })
@@ -990,8 +991,8 @@ router.post('/ReceiptValidate',(req, res, next) => {
             return ExecuteQuery(connectionQuery);
         })
         .then( rows => {
-            console.log('rows2 : '+JSON.stringify(rows));
-
+            //console.log('rows2 : '+JSON.stringify(rows));
+            console.log('rows2');
             res.json({
                 success: true,
                 Cert : rows
@@ -1121,7 +1122,8 @@ function ExecuteQuery(ConQue) {     // Connection과 쿼리문을 받아와서 �
     return new Promise( function (resolve, reject) {
         ConQue.connection.query(ConQue.query, function(err, rows, fields) {
             if (!err) {
-                console.log("query 실행 결과 : "+ JSON.stringify(rows));
+                //console.log("query 실행 결과 : "+ JSON.stringify(rows));
+                console.log("query 실행 완료");
                 resolve(rows);
             } else {
                 console.log("query 실행 err : "+err);
@@ -1136,7 +1138,8 @@ function ExecuteQuery3(ConQue, Params) {     // Connection과 쿼리문을 받�
     return new Promise( function (resolve, reject) {
         ConQue.connection.query(ConQue.query, Params, function(err, rows, fields) {
             if (!err) {
-                console.log("query3 실행 결과 : "+ JSON.stringify(rows));
+                //console.log("query3 실행 결과 : "+ JSON.stringify(rows));
+                console.log("query3 실행 완료");
                 resolve(rows);
             } else {
                 console.log("query3 실행 err : "+err);
