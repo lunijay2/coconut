@@ -106,7 +106,7 @@
                     number : '',
                     image : ''
                 },
-                instanceFlag : false
+                instanceFlag : true
             }
         },
         props: {
