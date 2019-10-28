@@ -1,12 +1,10 @@
 <template>
     <div>
-        <!--
         <div v-if="LoadCheck == false">
             <h2>로딩 중...</h2>
         </div>
         <div class="list-group" v-if="LoadCheck == true">
-        -->
-        <div class="list-group">
+            <!--<div class="list-group">-->
             <div v-for="product in Products">
                 <a class="list-group-item list-grou+55p-item-action flex-column align-items-start">
                     <div class="w-100 justify-content-between row">
