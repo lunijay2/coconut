@@ -60,7 +60,11 @@
                     };
                     this.$store.dispatch('MoneyCharge', money)
                         .then( response => {
-                            console.log('response : '+JSON.stringify(response));
+                            //console.log('response : '+JSON.stringify(response));
+                            console.log('success');
+                            alert((this.money.toLocaleString()) + '원 충전되었습니다.');
+                            this.money = Number;
+                            this.$router.replace({path: '/'});
                         });
                 }
             },
