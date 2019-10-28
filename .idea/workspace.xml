@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8b5f4b00-2556-4e32-bc20-84d0221e8b34" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/vue-coconut/src/components/MoneyCharge.vue" afterDir="false" />
+    <list default="true" id="8b5f4b00-2556-4e32-bc20-84d0221e8b34" name="Default Changelist" comment="191028v1">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/users.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vue-coconut/src/components/MyPage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue-coconut/src/components/MyPage.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vue-coconut/src/components/Pay.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue-coconut/src/components/Pay.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vue-coconut/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/vue-coconut/src/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vue-coconut/src/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/vue-coconut/src/store.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue-coconut/src/components/MoneyCharge.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue-coconut/src/components/MoneyCharge.vue" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -27,10 +22,28 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/MoneyCharge.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="170">
+              <caret line="36" column="17" selection-start-line="36" selection-start-column="17" selection-end-line="36" selection-end-column="17" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/MyPage.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="95">
+              <caret line="5" column="36" selection-start-line="5" selection-start-column="36" selection-end-line="5" selection-end-column="36" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/Pay.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="322">
-              <caret line="354" selection-start-line="354" selection-end-line="354" />
+            <state relative-caret-position="189">
+              <caret line="160" column="25" selection-start-line="160" selection-start-column="25" selection-end-line="160" selection-end-column="25" />
             </state>
           </provider>
         </entry>
@@ -150,11 +163,11 @@
         <option value="$PROJECT_DIR$/vue-coconut/src/components/Cart.vue" />
         <option value="$PROJECT_DIR$/routes/Pay.js" />
         <option value="$PROJECT_DIR$/vue-coconut/src/components/MyPage.vue" />
-        <option value="$PROJECT_DIR$/vue-coconut/src/components/MoneyCharge.vue" />
         <option value="$PROJECT_DIR$/vue-coconut/src/components/Pay.vue" />
         <option value="$PROJECT_DIR$/routes/users.js" />
         <option value="$PROJECT_DIR$/vue-coconut/src/store.js" />
         <option value="$PROJECT_DIR$/app.js" />
+        <option value="$PROJECT_DIR$/vue-coconut/src/components/MoneyCharge.vue" />
       </list>
     </option>
   </component>
@@ -378,21 +391,7 @@
       <workItem from="1572099252280" duration="16678000" />
       <workItem from="1572172682781" duration="11076000" />
       <workItem from="1572221367335" duration="15388000" />
-      <workItem from="1572241700163" duration="4846000" />
-    </task>
-    <task id="LOCAL-00184" summary="191022v2">
-      <created>1571767065966</created>
-      <option name="number" value="00184" />
-      <option name="presentableId" value="LOCAL-00184" />
-      <option name="project" value="LOCAL" />
-      <updated>1571767065966</updated>
-    </task>
-    <task id="LOCAL-00185" summary="191022v2">
-      <created>1571767389545</created>
-      <option name="number" value="00185" />
-      <option name="presentableId" value="LOCAL-00185" />
-      <option name="project" value="LOCAL" />
-      <updated>1571767389545</updated>
+      <workItem from="1572241700163" duration="7085000" />
     </task>
     <task id="LOCAL-00186" summary="191022v2">
       <created>1571767646946</created>
@@ -723,11 +722,25 @@
       <option name="project" value="LOCAL" />
       <updated>1572235136032</updated>
     </task>
-    <option name="localTasksCounter" value="233" />
+    <task id="LOCAL-00233" summary="191028v1">
+      <created>1572248395338</created>
+      <option name="number" value="00233" />
+      <option name="presentableId" value="LOCAL-00233" />
+      <option name="project" value="LOCAL" />
+      <updated>1572248395338</updated>
+    </task>
+    <task id="LOCAL-00234" summary="191028v1">
+      <created>1572249195511</created>
+      <option name="number" value="00234" />
+      <option name="presentableId" value="LOCAL-00234" />
+      <option name="project" value="LOCAL" />
+      <updated>1572249195511</updated>
+    </task>
+    <option name="localTasksCounter" value="235" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="891244000" />
+    <option name="totallyTimeSpent" value="893483000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -768,7 +781,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="190531 Heroku v4" />
     <MESSAGE value="190604" />
     <MESSAGE value="190604v2" />
     <MESSAGE value="190610 v1" />
@@ -793,7 +805,8 @@
     <MESSAGE value="191023v1" />
     <MESSAGE value="191025v1" />
     <MESSAGE value="191027v1" />
-    <option name="LAST_COMMIT_MESSAGE" value="191027v1" />
+    <MESSAGE value="191028v1" />
+    <option name="LAST_COMMIT_MESSAGE" value="191028v1" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/public/styles.css">
@@ -1130,23 +1143,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/MyPage.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-133">
-          <caret line="5" column="36" lean-forward="true" selection-start-line="5" selection-start-column="36" selection-end-line="5" selection-end-column="36" />
-          <folding>
-            <element signature="e#3529#3567#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/MoneyCharge.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="53" column="41" lean-forward="true" selection-start-line="53" selection-start-column="41" selection-end-line="53" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/routes/Pay.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="155">
@@ -1179,10 +1175,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/MyPage.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="5" column="36" selection-start-line="5" selection-start-column="36" selection-end-line="5" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/Pay.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="354" selection-start-line="354" selection-end-line="354" />
+        <state relative-caret-position="189">
+          <caret line="160" column="25" selection-start-line="160" selection-start-column="25" selection-end-line="160" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vue-coconut/src/components/MoneyCharge.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="36" column="17" selection-start-line="36" selection-start-column="17" selection-end-line="36" selection-end-column="17" />
         </state>
       </provider>
     </entry>
