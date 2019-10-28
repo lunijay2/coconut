@@ -683,7 +683,7 @@ router.post('/Trade',(req, res, next) => {
         })
         .then( rows => {
             // 3. 구매자한테서 돈 빼고
-            console.log('rows : '+JSON.stringify(rows));
+            //console.log('rows : '+JSON.stringify(rows));
 
             let statement = new Array;
             statement.push("UPDATE user SET money=money-"+ Request.order.price +" WHERE id='"+ Request.id +"';");
@@ -780,10 +780,12 @@ function ExecuteQuery2(ConQue) {     // Connection과 쿼리문을 받아와서 
                 if (!err) {
                     //console.log("query 실행 결과 : "+ JSON.stringify(rows));
                     aaa.push(rows);
-                    console.log("query 실행 중 : " + JSON.stringify(aaa));
+                    //console.log("query 실행 중 : " + JSON.stringify(aaa));
+                    console.log("query 실행 중");
                     console.log('i : '+i);
                     if (i === aaa.length ) {
-                        console.log("query 실행 끝 : " + JSON.stringify(aaa));
+                        //console.log("query 실행 끝 : " + JSON.stringify(aaa));
+                        console.log("query 실행 끝");
                         resolve(aaa);
                         ConQue.connection.release();
                     }

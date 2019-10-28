@@ -766,7 +766,7 @@ router.post('/newStore', (req, res, next) => {
 
     CreateStoreQuery(newStore)        // Salt값 생성 함수 호출
         .then( function(query) {
-            console.log("query : " + query)// CreateQuery함수에서 쿼리문을 반환
+            console.log("query : " + query); // CreateQuery함수에서 쿼리문을 반환
             return PoolGetConnection(query);    // PoolGetConnection에 쿼리문을 보냄
                                                 // 커넥션을 얻는데 쿼리문은 필요가 없지만 뒤에 사용될 함수가 커넥션을 사용하므로 다음 함수에 쿼리문을 전달하기 위해서 쿼리문을 보냄
         })

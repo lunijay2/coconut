@@ -20,7 +20,8 @@ function ExecuteQuery3(ConQue, Params) {     // Connection과 쿼리문을 받�
     return new Promise( function (resolve, reject) {
         ConQue.connection.query(ConQue.query, Params, function(err, rows, fields) {
             if (!err) {
-                console.log("query3 실행 결과 : "+ JSON.stringify(rows));
+                //console.log("query3 실행 결과 : "+ JSON.stringify(rows));
+                console.log("query3 실행 결과");
                 resolve(rows);
             } else {
                 console.log("query3 실행 err : "+err);
@@ -92,7 +93,8 @@ router.post('/newStore', (req, res, next) => {
                     return ExecuteQuery3(connectionQuery, params);
                 })
                 .then(function(rows) {  // ExecuteQuery가 쿼리문을 사용한 결과값을 받음
-                    console.log("This Solutions is : " + JSON.stringify(rows));
+                    //console.log("This Solutions is : " + JSON.stringify(rows));
+                    console.log("This Solutions is");
                     return StoreComplete(res);    // RegComplete에 res를 보냄. res.json을 실행하기 위해서는 res값이 필요하기 때문에 res를 인자값으로 보냄
                 })
                 .catch(function (err) { //마지막으로 에러를 캐치
@@ -430,10 +432,12 @@ function ExecuteQuery2(ConQue) {     // Connection과 쿼리문을 받아와서 
                 if (!err) {
                     //console.log("query 실행 결과 : "+ JSON.stringify(rows));
                     aaa.push(rows);
-                    console.log("query 실행 중 : " + JSON.stringify(aaa));
+                    //console.log("query 실행 중 : " + JSON.stringify(aaa));
+                    console.log("query3 실행 중");
                     console.log('i : '+i);
                     if (i === aaa.length ) {
-                        console.log("query 실행 끝 : " + JSON.stringify(aaa));
+                        //console.log("query 실행 끝 : " + JSON.stringify(aaa));
+                        console.log("query3 실행 끝");
                         resolve(aaa);
                         ConQue.connection.release();
                     }
@@ -714,6 +718,7 @@ function ExecuteQuery(ConQue) {     // Connection과 쿼리문을 받아와서 �
         ConQue.connection.query(ConQue.query, function(err, rows, fields) {
             if (!err) {
                 //console.log("ExecuteQuery : "+ JSON.stringify(rows));
+                console.log("ExecuteQuery");
                 resolve(rows);
             } else {
                 console.log("ExecuteQuery err : "+err);

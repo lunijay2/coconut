@@ -259,7 +259,7 @@ router.post('/addBasket', (req, res, next) => {
             return ExecuteQuery(connectionQuery);
         })
         .then(function(rows) {
-            console.log("This Solutions is : " + JSON.stringify(rows));
+            //console.log("This Solutions is : " + JSON.stringify(rows));
             return Complete(res);
         }, function(err) {
             console.log("err 1 : "+err);
