@@ -1,6 +1,9 @@
 <template>
     <div>
-        <div class="row">
+        <div v-if="LoadCheck == false">
+            <h2>로딩 중...</h2>
+        </div>
+        <div class="row" v-if="LoadCheck == true">
             <div class="col-md-6">
                 <div class="imageBox">
                     <img :src="imageBlob" class="widthSet heightSet" />
@@ -66,9 +69,13 @@
                 imageThumbnail :'',
                 quantity : 1,
                 imageBlob : '',
+                LoadCheck : false,
             }
         },
         created() {
+
+            this.LoadCheck = false;
+
             let product = {
                 productcode : this.$route.params.product
             };
@@ -122,6 +129,8 @@
                     var bytes = new Uint8Array(this.Product.image.data);
                     var blob = new Blob([bytes], {type:'image/png'});
                     this.imageBlob = URL.createObjectURL(blob);
+
+                    this.LoadCheck = true;
 
                 });
         },

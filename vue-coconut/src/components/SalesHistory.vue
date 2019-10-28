@@ -1,40 +1,45 @@
 <template>
     <div class="list-group" v-if="choice == 'sales'">
-        <h2>판매내역</h2>
-        <br>
-        <div v-for="order in Orders">
-            <a class="list-group-item list-group-item-action flex-column align-items-start" v-for="ppp in order.pp">
-                <div class="media d-flex w-100 justify-content-between">
-                    <router-link :to="'/DetailProduct/'+order.procode" style="color: black" >
-                        <img :src="ppp.imageBlob" class="align-self-start mr-3 widthSet heightSet" />
-                        <!--<img v-bind:src="ppp.pthumbnail" class="align-self-start mr-3 widthSet heightSet" />-->
-                    </router-link>
-                    <div class="media-body">
-                        <h5 class="mt-0"><router-link :to="'/DetailProduct/'+ppp.pcode" style="color: black" >{{ppp.pname}}</router-link>
-                             {{ppp.pquantity}}개</h5>
-                        <h6 class="text-muted">{{ppp.pdescription}}</h6>
-                        <h6 class="text-muted">{{ppp.pcategory}}</h6>
-                        <!--
-                        <h6>주문자 : {{order.orderer}}</h6>
-                        <h6 v-if="order.paid == 1">결제자 : {{order.buyer}}</h6>
-                        -->
-                    </div>
-                    <strong class="text-black" style="color: #495057">상품 금액 : {{(ppp.pquantity * ppp.pprice).toLocaleString()}}원
-                        <br>
-                        <router-link :to="'/DetailOrderSell/'+order.order_no" style="color: black"><small class="float-right">주문상세보기</small></router-link></strong>
-                </div>
-            </a>
-            <a class="list-group-item list-group-item-action flex-column align-items-start">
-                <div class="d-flex w-100 justify-content-between">
-                    <h6 class="mb-1">
-                        주문번호 :
-                        <router-link :to="'/DetailOrderSell/'+order.order_no" style="color: black" >{{order.order_no}}</router-link>
-                    </h6>
-                    <strong style="color: crimson;" v-if="order.paid == 1">결제 완료</strong>
-                    <strong style="color: black;" v-if="order.paid == 0">결제 대기</strong>
-                </div>
-            </a>
+        <div v-if="LoadCheck == false">
+            <h2>로딩 중...</h2>
+        </div>
+        <div v-if="LoadCheck == true">
+            <h2>판매내역</h2>
             <br>
+            <div v-for="order in Orders">
+                <a class="list-group-item list-group-item-action flex-column align-items-start" v-for="ppp in order.pp">
+                    <div class="media d-flex w-100 justify-content-between">
+                        <router-link :to="'/DetailProduct/'+order.procode" style="color: black" >
+                            <img :src="ppp.imageBlob" class="align-self-start mr-3 widthSet heightSet" />
+                            <!--<img v-bind:src="ppp.pthumbnail" class="align-self-start mr-3 widthSet heightSet" />-->
+                        </router-link>
+                        <div class="media-body">
+                            <h5 class="mt-0"><router-link :to="'/DetailProduct/'+ppp.pcode" style="color: black" >{{ppp.pname}}</router-link>
+                                 {{ppp.pquantity}}개</h5>
+                            <h6 class="text-muted">{{ppp.pdescription}}</h6>
+                            <h6 class="text-muted">{{ppp.pcategory}}</h6>
+                            <!--
+                            <h6>주문자 : {{order.orderer}}</h6>
+                            <h6 v-if="order.paid == 1">결제자 : {{order.buyer}}</h6>
+                            -->
+                        </div>
+                        <strong class="text-black" style="color: #495057">상품 금액 : {{(ppp.pquantity * ppp.pprice).toLocaleString()}}원
+                            <br>
+                            <router-link :to="'/DetailOrderSell/'+order.order_no" style="color: black"><small class="float-right">주문상세보기</small></router-link></strong>
+                    </div>
+                </a>
+                <a class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h6 class="mb-1">
+                            주문번호 :
+                            <router-link :to="'/DetailOrderSell/'+order.order_no" style="color: black" >{{order.order_no}}</router-link>
+                        </h6>
+                        <strong style="color: crimson;" v-if="order.paid == 1">결제 완료</strong>
+                        <strong style="color: black;" v-if="order.paid == 0">결제 대기</strong>
+                    </div>
+                </a>
+                <br>
+            </div>
         </div>
     </div>
 </template>
@@ -59,6 +64,7 @@
                 pcode : '',
                 pquan : [],
                 seller : '',
+                LoadCheck : false,
                 //lnk : 'http://localhost:3000/img/',
                 //lnk : "/img/"
             }
@@ -68,6 +74,9 @@
         watch : {
             choice : function (category) {
                 if ( category == 'sales') {
+
+                    this.LoadCheck = false;
+
                     this.$store.dispatch('GetProfile')
                         .then( response => {
                             //console.log('토큰검증 성공');
@@ -266,6 +275,7 @@
 
                             //console.log('temp : '+JSON.stringify(this.temp));
                             this.Orders = this.temp;
+                            this.LoadCheck = true;
 
                         })
                         .catch( err => {
