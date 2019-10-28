@@ -3,7 +3,7 @@
         <form @submit="PaySubmit">
             <p class="error">{{ error }}</p>
             <!--<p class="decode-result">Last result: <b>{{ result }}</b></p>-->
-            <qrcode-stream v-if="!allow == true" @decode="onDecode" @init="onInit" />
+            <qrcode-stream v-if="(allow != true) && (ordernumber == '')" @decode="onDecode" @init="onInit" />
             <div>
                 <div v-if="(LoadCheck == false) && (ordernumber != '')">
                     <div class="row">
@@ -176,6 +176,7 @@
                 }
             },
             onResetSubmit : function() {
+                this.ordernumber = '';
                 this.allow = false;
                 this.choiceType = null;
             },
