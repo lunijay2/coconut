@@ -2,171 +2,177 @@
     <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-8">
-            <h2>주문번호 : {{ordernumber.orderno}}</h2>
-            <hr noshade/>
-            <table class="table">
-                <thead>
-                <tr class="table-active">
-                    <th scope="col" style="width: 47%">판매 상품정보</th>
-                    <th scope="col" style="width: 15%">금액</th>
-                    <th scope="col" style="width: 8%">수량</th>
-                    <th scope="col" style="width: 17%">판매자</th>
-                    <th scope="col" style="width: 13%">영수증</th>
-                </tr>
-                </thead>
-                <tbody v-for="Pro in Products">
-                <tr v-if="Pro.seller == Store.company">
-                    <td>
-                        <div class="media">
-                            <img :src="Pro.imageBlob" class="align-self-start mr-3 widthSet heightSet" />
-                            <!--<img v-bind:src="Pro.thumbnail" class="align-self-start mr-3 widthSet heightSet" />-->
-                            <div class="media-body">
-                                <h5 class="mt-0">{{Pro.productname}}</h5>
-                                <h6 class="text-muted">
-                                    {{Pro.description}}<br>
-                                    {{Pro.category}}
-                                </h6>
-                            </div>
-                        </div>
-                    </td>
-                    <td><h5>{{(Pro.quantity*Pro.price).toLocaleString()}}원</h5></td>
-                    <td><h5>{{Pro.quantity}}개</h5></td>
-                    <td><h5>{{Pro.seller}}</h5></td>
-                    <td>
-                        <h5 v-if="receipt == false">미발급</h5>
-                        <h5 v-if="receipt == true" >발급 완료</h5>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-            <hr noshade/>
-            <div class="card">
-                <div class="card-body">
-                    <div class="row">
-                        <h6 class="col-md-1"></h6>
-                        <h6 class="col-md-2"><strong>주문자</strong></h6>
-                        <h6 class="col-md-3">{{order.orderer}}</h6>
-                        <h6 class="col-md-1"></h6>
-                        <h6 class="col-md-2"><strong>구매자</strong></h6>
-                        <h6 class="col-md-3">{{order.buyer}}</h6>
-                    </div>
-                    <hr class="my-4">
-                    <div class="row">
-                        <h6 class="col-md-1"></h6>
-                        <h6 class="col-md-2"><strong>배송 주소</strong></h6>
-                        <h6 class="col-md-3">{{order.delivery_address}}</h6>
-                        <h6 class="col-md-1"></h6>
-                        <h6 class="col-md-2"><strong>전화번호</strong></h6>
-                        <h6 class="col-md-3">{{order.delivery_tel}}</h6>
-                    </div>
-                    <hr class="my-4">
-                    <div class="row" v-if="order.paid == 1">
-                        <h6 class="col-md-1"></h6>
-                        <h6 class="col-md-2"><strong>결제 시간</strong></h6>
-                        <h6 class="col-md-3"></h6>
-                        <h6 class="col-md-1"></h6>
-                        <h6 class="col-md-4">{{date.getFullYear()}}-{{("0"+(date.getMonth()+1)).slice(-2)}}-{{("0"+(date.getDate()+1)).slice(-2)}} / {{("0"+(date.getHours()+1)).slice(-2)}}:{{("0"+(date.getMinutes()+1)).slice(-2)}}:{{("0"+(date.getSeconds()+1)).slice(-2)}}</h6>
-                        <h6 class="col-md-1"></h6>
-                    </div>
-                    <div class="row" v-if="order.paid == 0">
-                        <h6 class="col-md-1"></h6>
-                        <h6 class="col-md-2" style="color: crimson"><strong>결제 대기</strong></h6>
-                        <h6 class="col-md-3"></h6>
-                        <h6 class="col-md-1"></h6>
-                        <h6 class="col-md-4"></h6>
-                        <h6 class="col-md-1"></h6>
-                    </div>
-                </div>
+            <div v-if="LoadCheck == false">
+                <h2>로딩 중...</h2>
             </div>
-            <br>
-            <div class="card">
-                <div class="card-body">
-                    <div class="row">
-                        <h6 class="col-md-3"></h6>
-                        <h6 class="col-md-3"><strong>주문 상품수</strong></h6>
-                        <h6 class="col-md-3">{{kind[0]}}종 {{kind[1]}}개</h6>
-                        <h6 class="col-md-3"></h6>
-                    </div>
-                    <hr class="my-4">
-                    <div class="row">
-                        <h6 class="col-md-3"></h6>
-                        <h6 class="col-md-3"><strong>결제 금액</strong></h6>
-                        <h5 style="color: crimson" class="col-md-4">{{allprice.toLocaleString()}}원</h5>
-                        <h6 class="col-md-2"></h6>
-                    </div>
-                </div>
-            </div>
-            <br>
-            <div class="row">
-                <div class="col-md-12">
-                    <div v-if="receipt == false">
-                        <button @click="ReceiptissueButton" type="button" class="btn btn-lg btn-primary col-md-12">영수증 발급</button>
-                        <div v-if="receiptissuing == true">
-                            <br>
-                            <div class="alert alert-warning" role="alert">
-                                <h3 class="page-header">인증서 비밀번호 입력</h3>
-                                <div class="form-group">
-                                    <label>Password</label>
-                                    <input type="password" class="form-control" v-model="Cpass" name="password">
+            <div v-if="LoadCheck == true">
+                <h2>주문번호 : {{ordernumber.orderno}}</h2>
+                <hr noshade/>
+                <table class="table">
+                    <thead>
+                    <tr class="table-active">
+                        <th scope="col" style="width: 47%">판매 상품정보</th>
+                        <th scope="col" style="width: 15%">금액</th>
+                        <th scope="col" style="width: 8%">수량</th>
+                        <th scope="col" style="width: 17%">판매자</th>
+                        <th scope="col" style="width: 13%">영수증</th>
+                    </tr>
+                    </thead>
+                    <tbody v-for="Pro in Products">
+                    <tr v-if="Pro.seller == Store.company">
+                        <td>
+                            <div class="media">
+                                <img :src="Pro.imageBlob" class="align-self-start mr-3 widthSet heightSet" />
+                                <!--<img v-bind:src="Pro.thumbnail" class="align-self-start mr-3 widthSet heightSet" />-->
+                                <div class="media-body">
+                                    <h5 class="mt-0">{{Pro.productname}}</h5>
+                                    <h6 class="text-muted">
+                                        {{Pro.description}}<br>
+                                        {{Pro.category}}
+                                    </h6>
                                 </div>
-                                <button @click="Receiptissue" type="button" class="btn btn-primary align-self-center">영수증 발급</button>
                             </div>
+                        </td>
+                        <td><h5>{{(Pro.quantity*Pro.price).toLocaleString()}}원</h5></td>
+                        <td><h5>{{Pro.quantity}}개</h5></td>
+                        <td><h5>{{Pro.seller}}</h5></td>
+                        <td>
+                            <h5 v-if="receipt == false">미발급</h5>
+                            <h5 v-if="receipt == true" >발급 완료</h5>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <hr noshade/>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <h6 class="col-md-1"></h6>
+                            <h6 class="col-md-2"><strong>주문자</strong></h6>
+                            <h6 class="col-md-3">{{order.orderer}}</h6>
+                            <h6 class="col-md-1"></h6>
+                            <h6 class="col-md-2"><strong>구매자</strong></h6>
+                            <h6 class="col-md-3">{{order.buyer}}</h6>
+                        </div>
+                        <hr class="my-4">
+                        <div class="row">
+                            <h6 class="col-md-1"></h6>
+                            <h6 class="col-md-2"><strong>배송 주소</strong></h6>
+                            <h6 class="col-md-3">{{order.delivery_address}}</h6>
+                            <h6 class="col-md-1"></h6>
+                            <h6 class="col-md-2"><strong>전화번호</strong></h6>
+                            <h6 class="col-md-3">{{order.delivery_tel}}</h6>
+                        </div>
+                        <hr class="my-4">
+                        <div class="row" v-if="order.paid == 1">
+                            <h6 class="col-md-1"></h6>
+                            <h6 class="col-md-2"><strong>결제 시간</strong></h6>
+                            <h6 class="col-md-3"></h6>
+                            <h6 class="col-md-1"></h6>
+                            <h6 class="col-md-4">{{date.getFullYear()}}-{{("0"+(date.getMonth()+1)).slice(-2)}}-{{("0"+(date.getDate()+1)).slice(-2)}} / {{("0"+(date.getHours()+1)).slice(-2)}}:{{("0"+(date.getMinutes()+1)).slice(-2)}}:{{("0"+(date.getSeconds()+1)).slice(-2)}}</h6>
+                            <h6 class="col-md-1"></h6>
+                        </div>
+                        <div class="row" v-if="order.paid == 0">
+                            <h6 class="col-md-1"></h6>
+                            <h6 class="col-md-2" style="color: crimson"><strong>결제 대기</strong></h6>
+                            <h6 class="col-md-3"></h6>
+                            <h6 class="col-md-1"></h6>
+                            <h6 class="col-md-4"></h6>
+                            <h6 class="col-md-1"></h6>
                         </div>
                     </div>
-                    <div v-if="receipt == true">
-                        <button @click="Receiptcheck" type="button" class="btn btn-lg btn-primary col-md-12">영수증 확인</button>
-                        <div v-if="receiptchecking == true">
-                            <hr noshade/>
-                            <br>
-                            <h3 class="align-center">영수증</h3>
-                            <br>
-                            <h5>상  호 :  {{Store.company}}</h5>
-                            <h5>사업자 번호 :  {{Store.crn}}</h5>
-                            <h5>주  소 :  {{user.addr}}</h5>
-                            <h5>대표자 :  {{user.name}}</h5>
-                            <h5>전화번호 : {{user.tel}}</h5>
-                            <h5>매출일 : {{date.getFullYear()}}-{{("0"+(date.getMonth()+1)).slice(-2)}}-{{("0"+(date.getDate()+1)).slice(-2)}} / {{("0"+(date.getHours()+1)).slice(-2)}}:{{("0"+(date.getMinutes()+1)).slice(-2)}}:{{("0"+(date.getSeconds()+1)).slice(-2)}}</h5>
-                            <h5>번  호 : {{order.order_no}}</h5>
-                            <br>
-                            <table class="table">
-                                    <thead>
-                                    <tr class="table-active">
-                                        <th scope="col">상품명</th>
-                                        <th scope="col">단가</th>
-                                        <th scope="col">수량</th>
-                                        <th scope="col">금액</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody v-for="Pro in Products">
-                                    <tr>
-                                        <td>
-                                            <div class="media">
-                                                <div class="media-body">
-                                                    <h5 class="mt-0">{{Pro.productname}}</h5>
+                </div>
+                <br>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <h6 class="col-md-3"></h6>
+                            <h6 class="col-md-3"><strong>주문 상품수</strong></h6>
+                            <h6 class="col-md-3">{{kind[0]}}종 {{kind[1]}}개</h6>
+                            <h6 class="col-md-3"></h6>
+                        </div>
+                        <hr class="my-4">
+                        <div class="row">
+                            <h6 class="col-md-3"></h6>
+                            <h6 class="col-md-3"><strong>결제 금액</strong></h6>
+                            <h5 style="color: crimson" class="col-md-4">{{allprice.toLocaleString()}}원</h5>
+                            <h6 class="col-md-2"></h6>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div v-if="receipt == false">
+                            <button @click="ReceiptissueButton" type="button" class="btn btn-lg btn-primary col-md-12">영수증 발급</button>
+                            <div v-if="receiptissuing == true">
+                                <br>
+                                <div class="alert alert-warning" role="alert">
+                                    <h3 class="page-header">인증서 비밀번호 입력</h3>
+                                    <div class="form-group">
+                                        <label>Password</label>
+                                        <input type="password" class="form-control" v-model="Cpass" name="password">
+                                    </div>
+                                    <button @click="Receiptissue" type="button" class="btn btn-primary align-self-center">영수증 발급</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div v-if="receipt == true">
+                            <button @click="Receiptcheck" type="button" class="btn btn-lg btn-primary col-md-12">영수증 확인</button>
+                            <div v-if="receiptchecking == true">
+                                <hr noshade/>
+                                <br>
+                                <h3 class="align-center">영수증</h3>
+                                <br>
+                                <h5>상  호 :  {{Store.company}}</h5>
+                                <h5>사업자 번호 :  {{Store.crn}}</h5>
+                                <h5>주  소 :  {{user.addr}}</h5>
+                                <h5>대표자 :  {{user.name}}</h5>
+                                <h5>전화번호 : {{user.tel}}</h5>
+                                <h5>매출일 : {{date.getFullYear()}}-{{("0"+(date.getMonth()+1)).slice(-2)}}-{{("0"+(date.getDate()+1)).slice(-2)}} / {{("0"+(date.getHours()+1)).slice(-2)}}:{{("0"+(date.getMinutes()+1)).slice(-2)}}:{{("0"+(date.getSeconds()+1)).slice(-2)}}</h5>
+                                <h5>번  호 : {{order.order_no}}</h5>
+                                <br>
+                                <table class="table">
+                                        <thead>
+                                        <tr class="table-active">
+                                            <th scope="col">상품명</th>
+                                            <th scope="col">단가</th>
+                                            <th scope="col">수량</th>
+                                            <th scope="col">금액</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody v-for="Pro in Products">
+                                        <tr>
+                                            <td>
+                                                <div class="media">
+                                                    <div class="media-body">
+                                                        <h5 class="mt-0">{{Pro.productname}}</h5>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                        <td><h5>{{(Pro.price).toLocaleString()}}</h5></td>
-                                        <td><h5>{{Pro.quantity}}</h5></td>
-                                        <td><h5>{{(Pro.quantity*Pro.price).toLocaleString()}}</h5></td>
-                                    </tr>
-                                    </tbody>
-                            </table>
-                            <div class="card" v-for="reSign in receiptSign">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <h6 class="col-md-3"><strong>영수증 서명값</strong></h6>
-                                        <h6 class="col-md-6">{{reSign}}</h6>
-                                        <h6 class="col-md-3"><button @click="receiptcheckSubmit" type="button" class="btn btn-primary col-md-12">영수증 서명 확인</button></h6>
+                                            </td>
+                                            <td><h5>{{(Pro.price).toLocaleString()}}</h5></td>
+                                            <td><h5>{{Pro.quantity}}</h5></td>
+                                            <td><h5>{{(Pro.quantity*Pro.price).toLocaleString()}}</h5></td>
+                                        </tr>
+                                        </tbody>
+                                </table>
+                                <div class="card" v-for="reSign in receiptSign">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <h6 class="col-md-3"><strong>영수증 서명값</strong></h6>
+                                            <h6 class="col-md-6">{{reSign}}</h6>
+                                            <h6 class="col-md-3"><button @click="receiptcheckSubmit" type="button" class="btn btn-primary col-md-12">영수증 서명 확인</button></h6>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <br><br><br>
                     </div>
-                    <br><br><br>
                 </div>
             </div>
         </div>
+        <div class="col-md-2"></div>
     </div>
 </template>
 
@@ -199,11 +205,15 @@
                     orderno : this.$route.params.order
                 },
                 date : '',
+                LoadCheck : false,
                 //lnk : 'http://localhost:3000/img/',
                 //lnk : "/img/"
             }
         },
         created() {
+
+            this.LoadCheck = false;
+
             this.$store.dispatch('GetProfile')
                 .then(response => {
                     console.log('토큰검증 성공');
@@ -375,6 +385,7 @@
 
                     this.date = new Date((this.order.trade_time *= 1));
 
+                    this.LoadCheck = true;
 
                 })
                 .catch(err => {
@@ -535,7 +546,7 @@
             border: black;
             border-bottom: 1px solid #eee;
             position: relative;
-            padding-left: 50%;
+            padding-left: 30%;
         }
 
         td:before {

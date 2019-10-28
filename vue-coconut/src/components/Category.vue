@@ -1,61 +1,66 @@
 <template>
-    <div class="list-group">
-        <div v-for="product in Products">
-            <a class="list-group-item list-grou+55p-item-action flex-column align-items-start">
-                <div class="w-100 justify-content-between row">
-                    <div class="col-md-3" style="width: 20%;">
-                        <router-link :to="'/DetailProduct/'+product.productcode" style="color: black" >
-                            <img :src="product.imageBlob" class="widthSet heightSet" style="text-align:center;" />
-                            <!--
-                            <img v-bind:src="product.thumbnail" class="widthSet heightSet" style="text-align:center;" />
-                            -->
-                        </router-link>
-                    </div>
-                    <div class="col-md-9 row" style="width: 80%;">
-                        <div class="col-md-7">
+    <div>
+        <div v-if="LoadCheck == false">
+            <h2>로딩 중...</h2>
+        </div>
+        <div class="list-group" v-if="LoadCheck == true">
+            <div v-for="product in Products">
+                <a class="list-group-item list-grou+55p-item-action flex-column align-items-start">
+                    <div class="w-100 justify-content-between row">
+                        <div class="col-md-3" style="width: 20%;">
                             <router-link :to="'/DetailProduct/'+product.productcode" style="color: black" >
-                                <h5>{{product.productname}}</h5>
+                                <img :src="product.imageBlob" class="widthSet heightSet" style="text-align:center;" />
+                                <!--
+                                <img v-bind:src="product.thumbnail" class="widthSet heightSet" style="text-align:center;" />
+                                -->
                             </router-link>
-                            <small class="text-muted">{{product.category}}</small>
-                            <h5>
-                                <strong class="text-black">{{(product.price).toLocaleString()}}원</strong>
-                            </h5>
                         </div>
-                        <div class="col-md-5 di">
-                            <h5><strong class="text-black">판매자</strong></h5>
-                            <h6>{{(product.seller)}}</h6>
+                        <div class="col-md-9 row" style="width: 80%;">
+                            <div class="col-md-7">
+                                <router-link :to="'/DetailProduct/'+product.productcode" style="color: black" >
+                                    <h5>{{product.productname}}</h5>
+                                </router-link>
+                                <small class="text-muted">{{product.category}}</small>
+                                <h5>
+                                    <strong class="text-black">{{(product.price).toLocaleString()}}원</strong>
+                                </h5>
+                            </div>
+                            <div class="col-md-5 di">
+                                <h5><strong class="text-black">판매자</strong></h5>
+                                <h6>{{(product.seller)}}</h6>
+                            </div>
+
+                            <!-- <h6 class="text-muted col-sm-12">{{product.description}}</h6>-->
                         </div>
 
-                        <!-- <h6 class="text-muted col-sm-12">{{product.description}}</h6>-->
-                    </div>
-
-                    <!--
-                    <div class="col-md-3">
-
-                    </div>
-
-                    <div>
-                        <img src="http://item.ssgcdn.com/46/13/29/item/1000034291346_i1_1200.jpg" class="widthSet heightSet" />
-                    </div>
-                    <div class="row">
-                        <div class="col-md-9">
-                            <h5><router-link :to="'/DetailProduct/'+product.productcode" class="nav-link">{{product.name}}</router-link></h5>
-                        </div>
+                        <!--
                         <div class="col-md-3">
-                            <h5><strong class="text-black">{{product.price}}원</strong></h5>
+
                         </div>
-                        <div class="col-md-1"></div>
-                        <div class="col-md-8">
-                            <p>{{product.description}}</p>
+
+                        <div>
+                            <img src="http://item.ssgcdn.com/46/13/29/item/1000034291346_i1_1200.jpg" class="widthSet heightSet" />
                         </div>
-                        <div class="col-md-3">
-                            <small class="text-muted">{{product.category}}</small>
+                        <div class="row">
+                            <div class="col-md-9">
+                                <h5><router-link :to="'/DetailProduct/'+product.productcode" class="nav-link">{{product.name}}</router-link></h5>
+                            </div>
+                            <div class="col-md-3">
+                                <h5><strong class="text-black">{{product.price}}원</strong></h5>
+                            </div>
+                            <div class="col-md-1"></div>
+                            <div class="col-md-8">
+                                <p>{{product.description}}</p>
+                            </div>
+                            <div class="col-md-3">
+                                <small class="text-muted">{{product.category}}</small>
+                            </div>
                         </div>
+                        -->
                     </div>
-                    -->
-                </div>
-            </a>
-            <br>
+                </a>
+                <br>
+            </div>
         </div>
     </div>
 </template>
@@ -69,9 +74,10 @@
         data () {
             return {
                 Products : [],
+                LoadCheck : false,
                 //imageBlob : [],
                 //lnk : "http://localhost:3000/img/"
-                lnk : "/img/"
+                //lnk : "/img/"
             }
         },
         methods : {
@@ -90,6 +96,9 @@
         watch : {
             choice : function (category) {
                 if ( category == 'all') {
+
+                    this.LoadCheck = false;
+
                     this.$store.dispatch('GetProduct')
                         .then( response => {
                             //alert('카테고리 결과 2 : '+JSON.stringify(response));
@@ -97,12 +106,16 @@
                             this.imglnk();
                             //console.log('카테고리 성공 1 : '+JSON.stringify(this.Products));
                             console.log('카테고리 성공 1');
+                            this.LoadCheck = true;
                         })
                         .catch( err => {
                             console.log('카테고리 실패 1 : ' + err);
                             //alert(err);
-                        })
+                        });
                 } else {
+
+                    this.LoadCheck = false;
+
                     let selectCategory = {
                         category : category
                     };
@@ -113,13 +126,13 @@
                             this.imglnk();
                             console.log('카테고리 성공 3');
                             //console.log('카테고리 성공 3 : '+JSON.stringify(this.Products));
+                            this.LoadCheck = true;
                         })
                         .catch( err => {
                             console.log('카테고리 실패 3 : ' + err);
                             //alert(err);
-                        })
+                        });
                 }
-
             }
         }
     }

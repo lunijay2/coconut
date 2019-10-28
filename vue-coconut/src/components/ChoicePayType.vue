@@ -1,84 +1,96 @@
 <template>
-    <div class="row" v-if="(allow == true) && (order.paid != 1)">
-        <div class="col-md-2"></div>
-        <div class="col-md-8">
-            <h2>결제</h2>
-            <hr noshade/>
-            <table class="table">
-                <thead>
-                <tr class="table-active">
-                    <th scope="col">상품정보</th>
-                    <th scope="col">금액</th>
-                    <th scope="col">수량</th>
-                    <th scope="col">판매자</th>
-                </tr>
-                </thead>
-                <tbody v-for="Pro in Products">
-                <tr>
-                    <td>
-                        <div class="media">
-                            <img :src="Pro.imageBlob" class="align-self-start mr-3 widthSet heightSet" />
-                            <!--
-                            <img v-bind:src="Pro.thumbnail" class="align-self-start mr-3 widthSet heightSet" />-->
-                            <div class="media-body">
-                                <h5 class="mt-0">{{Pro.productname}}</h5>
-                                <h6 class="text-muted">
-                                    {{Pro.description}}<br>
-                                    {{Pro.category}}
-                                </h6>
-                            </div>
-                        </div>
-                    </td>
-                    <td><h5>{{(Pro.oquantity*Pro.price).toLocaleString()}}원</h5></td>
-                    <td><h5>{{Pro.oquantity}}개</h5></td>
-                    <td><h5>{{Pro.seller}}</h5></td>
-                </tr>
-                </tbody>
-            </table>
-            <hr noshade/>
-            <div class="card">
-                <div class="card-body">
-                    <div class="row">
-                        <h6 class="col-md-3"></h6>
-                        <h6 class="col-md-3">총 주문 상품수</h6>
-                        <h6 class="col-md-3">{{kind[0]}}종 {{kind[1]}}개</h6>
-                        <h6 class="col-md-3"></h6>
-                    </div>
-                    <hr class="my-4">
-                    <div class="row">
-                        <h6 class="col-md-3"></h6>
-                        <h6 class="col-md-3">총 결제 예상 금액</h6>
-                        <h5 style="color: crimson" class="col-md-4">{{allprice.toLocaleString()}}원</h5>
-                        <h6 class="col-md-2"></h6>
-                    </div>
-                </div>
+    <div>
+        <div v-if="LoadCheck == false" class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <h2>로딩 중...</h2>
             </div>
-            <br>
-            <div class="row">
-                <div class="col-md-6">
-                    <button @click="nomalChoice" type="button" class="btn btn-lg btn-primary col-md-12">바로 결제</button>
-                    <div v-if="choiceType==true">
+            <div class="col-md-2"></div>
+        </div>
+        <div v-if="LoadCheck == true">
+            <div class="row" v-if="(allow == true) && (order.paid != 1)">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                        <h2>결제</h2>
                         <hr noshade/>
-                        <div class="alert alert-warning" role="alert">
-                            <h3 class="page-header">인증서 비밀번호 입력</h3>
-                            <div class="form-group">
-                                <label>Password</label>
-                                <input type="password" class="form-control" v-model="Cpass" name="password">
+                        <table class="table">
+                            <thead>
+                            <tr class="table-active">
+                                <th scope="col">상품정보</th>
+                                <th scope="col">금액</th>
+                                <th scope="col">수량</th>
+                                <th scope="col">판매자</th>
+                            </tr>
+                            </thead>
+                            <tbody v-for="Pro in Products">
+                            <tr>
+                                <td>
+                                    <div class="media">
+                                        <img :src="Pro.imageBlob" class="align-self-start mr-3 widthSet heightSet" />
+                                        <!--
+                                        <img v-bind:src="Pro.thumbnail" class="align-self-start mr-3 widthSet heightSet" />-->
+                                        <div class="media-body">
+                                            <h5 class="mt-0">{{Pro.productname}}</h5>
+                                            <h6 class="text-muted">
+                                                {{Pro.description}}<br>
+                                                {{Pro.category}}
+                                            </h6>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><h5>{{(Pro.oquantity*Pro.price).toLocaleString()}}원</h5></td>
+                                <td><h5>{{Pro.oquantity}}개</h5></td>
+                                <td><h5>{{Pro.seller}}</h5></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <hr noshade/>
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <h6 class="col-md-3"></h6>
+                                    <h6 class="col-md-3">총 주문 상품수</h6>
+                                    <h6 class="col-md-3">{{kind[0]}}종 {{kind[1]}}개</h6>
+                                    <h6 class="col-md-3"></h6>
+                                </div>
+                                <hr class="my-4">
+                                <div class="row">
+                                    <h6 class="col-md-3"></h6>
+                                    <h6 class="col-md-3">총 결제 예상 금액</h6>
+                                    <h5 style="color: crimson" class="col-md-4">{{allprice.toLocaleString()}}원</h5>
+                                    <h6 class="col-md-2"></h6>
+                                </div>
                             </div>
-                            <button @click="Trade" type="button" class="btn btn-primary align-self-center">결제</button>
                         </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <button @click="nomalChoice" type="button" class="btn btn-lg btn-primary col-md-12">바로 결제</button>
+                                <div v-if="choiceType==true">
+                                    <hr noshade/>
+                                    <div class="alert alert-warning" role="alert">
+                                        <h3 class="page-header">인증서 비밀번호 입력</h3>
+                                        <div class="form-group">
+                                            <label>Password</label>
+                                            <input type="password" class="form-control" v-model="Cpass" name="password">
+                                        </div>
+                                        <button @click="Trade" type="button" class="btn btn-primary align-self-center">결제</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="col-md-6">
+                                <button @click="qrChoice" type="button" class="btn btn-lg btn-success col-md-12">QR코드 결제</button>
+                                <div v-if="choiceType==false">
+                                    <hr noshade/>
+                                    <div class="alert alert-warning" role="alert">
+                                        <qrcode-vue :value="value" :size="size" level="H"></qrcode-vue>
+                                    </div>
+                                </div>
+                            </div>
                     </div>
                 </div>
-                <br>
-                <div class="col-md-6">
-                    <button @click="qrChoice" type="button" class="btn btn-lg btn-success col-md-12">QR코드 결제</button>
-                    <div v-if="choiceType==false">
-                        <hr noshade/>
-                        <div class="alert alert-warning" role="alert">
-                            <qrcode-vue :value="value" :size="size" level="H"></qrcode-vue>
-                        </div>
-                    </div>
-                </div>
+                <div class="col-md-2"></div>
             </div>
         </div>
     </div>
@@ -109,6 +121,7 @@
                     orderno : this.$route.params.order
                 },
                 Products : [],
+                LoadCheck : false,
                 //lnk : 'http://localhost:3000/img/',
                 //lnk : "/img/"
             }
@@ -234,6 +247,9 @@
             }
         },
         created() {
+
+            this.LoadCheck = false;
+
             this.$store.dispatch('GetProfile')
                 .then( response => {
                     //console.log('토큰검증 성공');
@@ -299,6 +315,8 @@
                         this.Products[i].oquantity *= 1; //스트링을 정수로 형변환
                         this.kind[1] = this.kind[1] + this.Products[i].oquantity;
                     }
+
+                    this.LoadCheck = true;
 
                     if ( this.order.paid == 0 ) {
                         document.addEventListener('beforeunload', this.handler);

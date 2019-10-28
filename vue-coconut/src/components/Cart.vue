@@ -1,74 +1,79 @@
 <template>
     <from>
         <div class="list-group" v-if="choice == 'cart'">
-            <h2>장바구니</h2>
-            <br>
-            <table class="table">
-                <thead>
-                <tr class="table-active">
-                    <th scope="col">상품정보</th>
-                    <th scope="col">금액</th>
-                    <th scope="col">수량</th>
-                    <th scope="col">판매자</th>
-                    <th scope="col">선택</th>
-                </tr>
-                </thead>
-                <tbody v-for="cart in carts">
-                <tr>
-                    <td>
-                        <div class="media">
-                            <router-link :to="'/DetailProduct/'+cart.productcode" class="nav-link">
-                                <img :src="cart.imageBlob" class="align-self-start mr-3 widthSet heightSet" />
-                            </router-link>
-                            <!--
-                            <img v-bind:src='cart.thumbnail' class="align-self-start mr-3 widthSet heightSet" />-->
-                            <div class="media-body">
-                                <h6 class="mt-0">
-                                    <router-link :to="'/DetailProduct/'+cart.productcode" class="nav-link" style="color: black;">{{cart.productname}}</router-link>
-                                </h6>
-                            </div>
-                        </div>
-                    </td>
-                    <td>{{(cart.price*cart.quantity).toLocaleString()}}원</td>
-                    <td>{{cart.quantity}}개</td>
-                    <td>{{cart.seller}}</td>
-                    <td>
-                        <div class="custom-control custom-checkbox">
-                            <input class="form-check-input" v-model="cart.check" type="checkbox" value="1">
-                        </div>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-            <div>
-                <button @click="CreateOrderSubmit" type="button" class="btn btn-block btn-lg btn-primary">바로구매</button>
+            <div v-if="LoadCheck == false">
+                <h2>로딩 중...</h2>
             </div>
-            <!--
-                        <div v-for="cart in carts">
-                            <div class="custom-control custom-checkbox">
-                                <input class="form-check-input" v-model="cart.check" type="checkbox" value="1" checked="">
-                            </div>
-                            <a class="list-group-item list-group-item-action flex-column align-items-start">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <h5 class="mb-1">
-                                        <router-link :to="'/DetailProduct/'+cart.productcode" class="nav-link">
-                                            {{cart.productname}}
-                                        </router-link>
-                                    </h5>
-                                    <small class="text-muted">{{cart.quantity}}개</small>
+            <div v-if="LoadCheck == true">
+                <h2>장바구니</h2>
+                <br>
+                <table class="table">
+                    <thead>
+                    <tr class="table-active">
+                        <th scope="col" style="width: 46%">상품정보</th>
+                        <th scope="col" style="width: 16%">금액</th>
+                        <th scope="col" style="width: 10%">수량</th>
+                        <th scope="col" style="width: 18%">판매자</th>
+                        <th scope="col" style="width: 10%">선택</th>
+                    </tr>
+                    </thead>
+                    <tbody v-for="cart in carts">
+                    <tr>
+                        <td>
+                            <div class="media">
+                                <router-link :to="'/DetailProduct/'+cart.productcode" class="nav-link">
+                                    <img :src="cart.imageBlob" class="align-self-start mr-3 widthSet heightSet" />
+                                </router-link>
+                                <!--
+                                <img v-bind:src='cart.thumbnail' class="align-self-start mr-3 widthSet heightSet" />-->
+                                <div class="media-body">
+                                    <h6 class="mt-0">
+                                        <router-link :to="'/DetailProduct/'+cart.productcode" class="nav-link" style="color: black;">{{cart.productname}}</router-link>
+                                    </h6>
                                 </div>
-                                <p class="mb-1">{{cart.seller}}</p>
-
-                                <small class="text-muted">그냥{{cart.price}}원 합계 {{cart.quantity*cart.price}}</small>
-                            </a>
-                            <br>
-                            <p>{{cart.number}}</p>
-                            <div>
-                                <td width="200px">
-                                    <button @click="CreateOrderSubmit" type="button" class="btn btn-block btn-lg btn-primary">바로구매</button>
-                                </td>
                             </div>
-                        </div>-->
+                        </td>
+                        <td>{{(cart.price*cart.quantity).toLocaleString()}}원</td>
+                        <td>{{cart.quantity}}개</td>
+                        <td>{{cart.seller}}</td>
+                        <td>
+                            <div class="custom-control custom-checkbox">
+                                <input class="form-check-input" v-model="cart.check" type="checkbox" value="1">
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div>
+                    <button @click="CreateOrderSubmit" type="button" class="btn btn-block btn-lg btn-primary">바로구매</button>
+                </div>
+                <!--
+                            <div v-for="cart in carts">
+                                <div class="custom-control custom-checkbox">
+                                    <input class="form-check-input" v-model="cart.check" type="checkbox" value="1" checked="">
+                                </div>
+                                <a class="list-group-item list-group-item-action flex-column align-items-start">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h5 class="mb-1">
+                                            <router-link :to="'/DetailProduct/'+cart.productcode" class="nav-link">
+                                                {{cart.productname}}
+                                            </router-link>
+                                        </h5>
+                                        <small class="text-muted">{{cart.quantity}}개</small>
+                                    </div>
+                                    <p class="mb-1">{{cart.seller}}</p>
+
+                                    <small class="text-muted">그냥{{cart.price}}원 합계 {{cart.quantity*cart.price}}</small>
+                                </a>
+                                <br>
+                                <p>{{cart.number}}</p>
+                                <div>
+                                    <td width="200px">
+                                        <button @click="CreateOrderSubmit" type="button" class="btn btn-block btn-lg btn-primary">바로구매</button>
+                                    </td>
+                                </div>
+                            </div>-->
+            </div>
         </div>
     </from>
 </template>
@@ -81,8 +86,9 @@
                 user : {},
                 carts : {},
                 temp : {},
+                LoadCheck : false,
                 //lnk : 'http://localhost:3000/img/',
-                lnk : "/img/"
+                //lnk : "/img/"
             }
         },
         props: {
@@ -91,6 +97,9 @@
         watch : {
             choice : function (category) {
                 if ( category == 'cart') {
+
+                    this.LoadCheck = false;
+
                     this.$store.dispatch('GetProfile')
                         .then( response => {
                             console.log('토큰검증 성공');
@@ -129,6 +138,9 @@
                             this.imglnk(response.data.result);
                             this.carts = this.temp;
                             //console.log('carts : '+JSON.stringify(this.carts));
+
+                            this.LoadCheck = true;
+
                         });
                 }
             }
@@ -214,15 +226,16 @@
         }
 
         tr:nth-child(odd) {
-            background: #ccc;
+            background: #ffffff;
         }
 
         td {
             /* Behave  like a "row" */
-            border: none;
+            border: black;
+            border-top: 1px solid #eee;
             border-bottom: 1px solid #eee;
             position: relative;
-            padding-left: 50%;
+            padding-left: 30%;
         }
 
         td:before {
