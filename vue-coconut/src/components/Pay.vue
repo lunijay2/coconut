@@ -4,8 +4,8 @@
             <p class="error">{{ error }}</p>
             <!--<p class="decode-result">Last result: <b>{{ result }}</b></p>-->
             <qrcode-stream v-if="!allow == true" @decode="onDecode" @init="onInit" />
-            <div v-if="ordernumber != ''">
-                <div v-if="LoadCheck == false">
+            <div>
+                <div v-if="(LoadCheck == false) && (ordernumber != '')">
                     <div class="row">
                         <div class="col-md-2"></div>
                         <div class="col-md-8">
