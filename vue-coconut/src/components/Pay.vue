@@ -350,7 +350,7 @@
             border: black;
             border-bottom: 1px solid #eee;
             position: relative;
-            padding-left: 50%;
+            padding-left: 30%;
         }
 
         td:before {

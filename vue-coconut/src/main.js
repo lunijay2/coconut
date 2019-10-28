@@ -45,6 +45,7 @@ import DetailOrderSell from "./components/DetailOrderSell";
 import SalesHistory from "./components/SalesHistory";
 import CertificationCenter from "./components/CertificationCenter";
 import CertManagement from "./components/CertManagement";
+import MoneyCharge from "./components/MoneyCharge";
 //import jusoPopup from "../popup/jusoPopup.jsp";
 
 const router = new VueRouter({
@@ -81,7 +82,8 @@ const router = new VueRouter({
     {path:'/SalesHistory', component : SalesHistory },
     {path:'*', component: NotFound },
     {path:'/CertificationCenter', component : CertificationCenter },
-    {path:'/CertManagement', component : CertManagement }
+    {path:'/CertManagement', component : CertManagement },
+    {path:'/MoneyCharge', component : MoneyCharge },
     //{path: 'jusoPopup', component : jusoPopup }
   ]
 });

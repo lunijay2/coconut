@@ -82,6 +82,31 @@ export default new Vuex.Store({
                     }
                 });
         },
+        MoneyCharge : function (context, payload) {
+
+            let currTime = new Date().getTime();
+            let pt = localStorage.getItem('pToken');
+            let st = localStorage.getItem('sToken');
+
+            var md = forge.md.sha256.create();
+            md.update(currTime + st);
+            let auth = md.digest().toHex();
+
+            return axios.get(
+                resourceHost+'/users/MoneyCharge',
+                //'/users/profile',
+                { headers: {
+                        "Authorization" : pt,
+                        "Ctime" : currTime,
+                        "Auth" : auth,
+                        "Content-Type" : 'application/json',
+                        id : payload.id,
+                        money : payload.money,
+                    }
+                });
+
+            //return axios.post(resourceHost+'/users/MoneyCharge', payload);
+        },
         PAY : function (context, payload) {
             return axios.post( resourceHost+'/Pay/procpay', payload);
             //return axios.post( '/Pay/procpay', payload);

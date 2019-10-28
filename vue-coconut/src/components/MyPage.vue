@@ -1,7 +1,7 @@
 <template>
         <div v-if="user">
             <h1>{{user.name}}님의 마이 페이지</h1>
-            <p>잔액 : {{user.money.toLocaleString()}}원</p>
+            <p v-bind="user.money">잔액 : {{user.money.toLocaleString()}}원</p>
             <hr noshade/>
             <div class="AllProduct">
                 <div class="row">
@@ -47,6 +47,11 @@
                                     판매 내역
                                 </th>
                             </tr>
+                            <tr class="table-success" >
+                                <th scope="row" v-if="storeTF == false" v-on:click="onCategory('charge')">
+                                    잔액 충전
+                                </th>
+                            </tr>
                             </tbody>
                         </table>
                     </div>
@@ -58,6 +63,7 @@
                         <Cart v-bind:choice="choiceCategory"></Cart>
                         <OrderView v-bind:choice="choiceCategory"></OrderView>
                         <SalesHistory v-bind:choice="choiceCategory"></SalesHistory>
+                        <MoneyCharge v-bind:choice="choiceCategory"></MoneyCharge>
                     </div>
                 </div>
             </div>
@@ -71,10 +77,12 @@
     import OrderView from "./OrderView";
     import SalesHistory from "./SalesHistory";
     import Cart from "./Cart";
+    import MoneyCharge from "./MoneyCharge";
 
     export default {
         name: "MyPage",
         components : {
+            MoneyCharge,
             SalesHistory,
             OrderView,
             MyCategory,

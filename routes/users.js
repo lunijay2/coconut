@@ -271,6 +271,108 @@ router.post('/addBasket', (req, res, next) => {
         })
 });
 
+router.get('/MoneyCharge', passport.authenticate("jwt", {session: false}), function(req, res) {
+
+    const ptoken = req.headers.authorization;
+    const currT = req.headers.ctime;
+    const auth = req.headers.auth;
+    delete req.user.password;
+
+    const stoken = 'JWT '+jwt.sign({data: ptoken}, config.secret, {
+        noTimestamp: true
+    });
+
+    var md = forge.md.sha256.create();
+    md.update(currT+stoken);
+    const auth2 = md.digest().toHex();
+    const serverTime = new Date().getTime();
+    const diff = serverTime - currT;
+    console.log('수신한 일회용 인증 : '+auth);
+    console.log('계산한 일회용 인증 : '+auth2);
+    console.log('시간 차이 : '+diff);
+    if(auth == auth2 && diff<100000){
+        //res.json({user: req.user});
+
+        if (req.headers.id == req.user.number) {
+
+            if (this.money <= 0) {
+                console.log('0원보다 큰 금액만 충전 가능합니다.');
+                res.json({success: false});
+            } else if (this.money > 1000000) {
+                console.log('최대 100만원까지 충전 가능합니다.');
+                res.json({success: false});
+            } else {
+                let uid = req.headers.id;
+                let money = req.headers.money;
+
+                let statement = "UPDATE user SET money=money+? WHERE number=?;";
+                let params = [money, uid];
+
+                console.log('params : '+params);
+
+                PoolGetConnection(statement)
+                    .then(function (connectionQuery) {
+                        return ExecuteQuery3(connectionQuery, params);
+                    })
+                    .then(function(rows) {
+                        console.log("This Solutions is : " + JSON.stringify(rows));
+                        return NomalComplete(res);
+                    })
+                    .catch(function (err) {
+                        console.log(err);
+                        res.json({success: false, msg : err });
+                    })
+            }
+
+        }
+
+    }
+});
+
+router.post('/MoneyCharge', (req, res, next) => {
+
+    let uid = req.body.id;
+    let money = req.body.money;
+
+    let statement = "UPDATE user SET money=? WHERE number=?;";
+    let params = [money, uid];
+
+    console.log('params : '+params);
+
+    PoolGetConnection(statement)
+        .then(function (connectionQuery) {
+            return ExecuteQuery3(connectionQuery, params);
+        })
+        .then(function(rows) {
+            console.log("This Solutions is : " + JSON.stringify(rows));
+            return Complete(res, rows);
+        }, function(err) {
+            console.log("err 1 : "+err);
+            res.json({success: false, msg : err });
+        })
+        .catch(function (err) {
+            console.log(err);
+            res.json({success: false, msg : err });
+        })
+
+});
+
+function ExecuteQuery3(ConQue, Params) {     // Connection과 쿼리문을 받아와서 실행하는 Promise 함수
+    return new Promise( function (resolve, reject) {
+        ConQue.connection.query(ConQue.query, Params, function(err, rows, fields) {
+            if (!err) {
+                //console.log("query3 실행 결과 : "+ JSON.stringify(rows));
+                console.log("query3 실행 완료");
+                resolve(rows);
+            } else {
+                console.log("query3 실행 err : "+err);
+                reject(err);
+            }
+            ConQue.connection.release();
+        });
+    });
+}
+
 
 router.post('/FindUsername', (req, res, next) => {
     number = req.body.number;
@@ -503,6 +605,12 @@ function RegComplete(res) {     // 프론트 엔드에 Success : true값을 반�
 function Complete(res, rows) {     // 프론트 엔드에 Success : true값을 반환하는 Promise 함수
     return new Promise( function () {
         res.json({ success: true, result : rows });
+    });
+}
+
+function NomalComplete(res) {     // 프론트 엔드에 Success : true값을 반환하는 Promise 함수
+    return new Promise( function () {
+        res.json({ success: true });
     });
 }
 
